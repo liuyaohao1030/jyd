@@ -41,6 +41,30 @@
 //lsu
   `define KLDJ_DATAADDR 31:0
 
+// csr
+    `define KLDJ_CSR_MSTATUS   12'h300
+    `define KLDJ_CSR_MTVEC     12'h305
+    `define KLDJ_CSR_MSCRATCH  12'h340
+    `define KLDJ_CSR_MEPC      12'h341
+    `define KLDJ_CSR_MCAUSE    12'h342
+
+    `define KLDJ_CSR_OP_NONE   3'd0
+    `define KLDJ_CSR_OP_CSRRW  3'd1
+    `define KLDJ_CSR_OP_CSRRS  3'd2
+    `define KLDJ_CSR_OP_CSRRC  3'd3
+    `define KLDJ_CSR_OP_CSRRWI 3'd4
+    `define KLDJ_CSR_OP_CSRRSI 3'd5
+    `define KLDJ_CSR_OP_CSRRCI 3'd6
+
+    `define KLDJ_EXU_OP_CSRRW  18'h025
+    `define KLDJ_EXU_OP_CSRRS  18'h026
+    `define KLDJ_EXU_OP_CSRRC  18'h027
+    `define KLDJ_EXU_OP_CSRRWI 18'h028
+    `define KLDJ_EXU_OP_CSRRSI 18'h029
+    `define KLDJ_EXU_OP_CSRRCI 18'h02a
+    `define KLDJ_EXU_OP_ECALL  18'h02b
+    `define KLDJ_EXU_OP_MRET   18'h02c
+
 //inst
     `define EBREAK_TRAP        32'b00000000000100000000000001110011
     `define INST_ADDI          8'b00000001

@@ -28,6 +28,9 @@ module KLDJ_idu(
     ,output    wire [`KLDJ_DATA]      data3
     ,output    wire [`KLDJ_DATA]    data4
         ,output    wire [3:0]           id_ls_ctl
+    ,output    wire [11:0]           csr_addr
+    ,output    wire [2:0]            csr_op
+    ,output    wire [`KLDJ_DATA]     csr_zimm
 );
 
 //----------------------------------decode---------------------------//
@@ -71,6 +74,7 @@ wire type_r = (opcode[6:2] == `KLDJ_OP)    ;
 wire type_branch = (opcode[6:2] == `KLDJ_BRANCH)    ;
 wire type_load = (opcode[6:2] == `KLDJ_LOAD) & (opcode[1:0] == 2'b11)     ;
 wire type_store = (opcode[6:2] == `KLDJ_STORE)     ;
+wire type_system = (opcode[6:2] == `KLDJ_SYSTEM) & (opcode[1:0] == 2'b11) ;
 
 wire inst_lui   = (opcode[6:2] == `KLDJ_LUI)    ;
 wire inst_auipc = (opcode[6:2] == `KLDJ_AUIPC)  ;
@@ -116,8 +120,20 @@ wire inst_slli  = type_i & ~funct3[2] & ~funct3[1] &  funct3[0]   ;
 wire inst_srli  = type_i &  funct3[2] & ~funct3[1] &  funct3[0] & ~i_imm[10]   ;
 wire inst_srai  = type_i &  funct3[2] & ~funct3[1] &  funct3[0] &  i_imm[10]   ;
 
+wire inst_csrrw  = type_system & (funct3 == 3'b001);
+wire inst_csrrs  = type_system & (funct3 == 3'b010);
+wire inst_csrrc  = type_system & (funct3 == 3'b011);
+wire inst_csrrwi = type_system & (funct3 == 3'b101);
+wire inst_csrrsi = type_system & (funct3 == 3'b110);
+wire inst_csrrci = type_system & (funct3 == 3'b111);
+wire inst_csr    = inst_csrrw | inst_csrrs | inst_csrrc |
+                   inst_csrrwi | inst_csrrsi | inst_csrrci;
+wire inst_csr_reg = inst_csrrw | inst_csrrs | inst_csrrc;
+wire inst_ecall = (inst == 32'h00000073);
+wire inst_mret  = (inst == 32'h30200073);
+
 wire jump = inst_jal | inst_jalr;
-wire rd_wen = type_load | type_r | type_i | inst_lui | inst_auipc | jump;
+wire rd_wen = type_load | type_r | type_i | inst_lui | inst_auipc | jump | inst_csr;
 
 //decode IMM
 wire i_imm_en = type_load | inst_jalr | type_i;
@@ -143,9 +159,12 @@ reg [`KLDJ_DATA]            data2_r;
 reg [`KLDJ_DATA]            data3_r;
 reg [`KLDJ_DATA]            data4_r;
 reg [3:0]                   id_ls_ctl_r;
+reg [11:0]                  csr_addr_r;
+reg [2:0]                   csr_op_r;
+reg [`KLDJ_DATA]            csr_zimm_r;
 
 always @(*) begin
-    rs1_ren_r  = type_store | type_load | type_branch | type_i | type_r | inst_jalr;
+    rs1_ren_r  = type_store | type_load | type_branch | type_i | type_r | inst_jalr | inst_csr_reg;
     rs2_ren_r  = type_branch | type_store | type_r;
     rs1_addr_r = rs1_ren_r ? rs1 : 5'd0;
     rs2_addr_r = rs2_ren_r ? rs2 : 5'd0;
@@ -159,6 +178,9 @@ always @(*) begin
     data3_r    = `KLDJ_ZERO32;
     data4_r    = `KLDJ_ZERO32;
     id_ls_ctl_r = 4'd0;
+    csr_addr_r = inst[31:20];
+    csr_op_r   = `KLDJ_CSR_OP_NONE;
+    csr_zimm_r = {27'd0, rs1};
 
     if (inst_addi) begin
         exu_op_r   = 18'h0;
@@ -369,6 +391,34 @@ always @(*) begin
         data2_r    = imm;
         data3_r    = rs2_data;
         id_ls_ctl_r = 4'b0010;
+    end else if (inst_csrrw) begin
+        exu_op_r   = `KLDJ_EXU_OP_CSRRW;
+        data1_r    = rs1_data;
+        csr_op_r   = `KLDJ_CSR_OP_CSRRW;
+    end else if (inst_csrrs) begin
+        exu_op_r   = `KLDJ_EXU_OP_CSRRS;
+        data1_r    = rs1_data;
+        csr_op_r   = `KLDJ_CSR_OP_CSRRS;
+    end else if (inst_csrrc) begin
+        exu_op_r   = `KLDJ_EXU_OP_CSRRC;
+        data1_r    = rs1_data;
+        csr_op_r   = `KLDJ_CSR_OP_CSRRC;
+    end else if (inst_csrrwi) begin
+        exu_op_r   = `KLDJ_EXU_OP_CSRRWI;
+        data1_r    = csr_zimm_r;
+        csr_op_r   = `KLDJ_CSR_OP_CSRRWI;
+    end else if (inst_csrrsi) begin
+        exu_op_r   = `KLDJ_EXU_OP_CSRRSI;
+        data1_r    = csr_zimm_r;
+        csr_op_r   = `KLDJ_CSR_OP_CSRRSI;
+    end else if (inst_csrrci) begin
+        exu_op_r   = `KLDJ_EXU_OP_CSRRCI;
+        data1_r    = csr_zimm_r;
+        csr_op_r   = `KLDJ_CSR_OP_CSRRCI;
+    end else if (inst_ecall) begin
+        exu_op_r   = `KLDJ_EXU_OP_ECALL;
+    end else if (inst_mret) begin
+        exu_op_r   = `KLDJ_EXU_OP_MRET;
     end
 end
 
@@ -385,4 +435,7 @@ assign data2    = data2_r;
 assign data3    = data3_r;
 assign data4    = data4_r;
 assign id_ls_ctl = id_ls_ctl_r;
+assign csr_addr = csr_addr_r;
+assign csr_op   = csr_op_r;
+assign csr_zimm = csr_zimm_r;
 endmodule

@@ -54,6 +54,9 @@ module KLDJ_top(
     wire [`KLDJ_DATA]            id_data2;
     wire [`KLDJ_DATA]            id_data3;
     wire [`KLDJ_DATA]            id_data4;
+    wire [11:0]                  id_csr_addr;
+    wire [2:0]                   id_csr_op;
+    wire [`KLDJ_DATA]            id_csr_zimm;
 
     // ID/EX pipeline register
     reg                          id_ex_valid;
@@ -74,6 +77,9 @@ module KLDJ_top(
     reg [`KLDJ_DATA]             id_ex_data4;
     reg [`KLDJ_DATA]             id_ex_rs1_data;
     reg [`KLDJ_DATA]             id_ex_rs2_data;
+    reg [11:0]                   id_ex_csr_addr;
+    reg [2:0]                    id_ex_csr_op;
+    reg [`KLDJ_DATA]             id_ex_csr_zimm;
 
     // EX stage
     wire [`KLDJ_DATA]            ex_rs1_data;
@@ -88,7 +94,23 @@ module KLDJ_top(
     wire                         exu_jump_raw;
     wire [`KLDJ_PC]              exu_jump_pc_raw;
     wire [`KLDJ_DATA]            exu_data;
+    wire                         ex_csr_op;
+    wire                         ex_csr_wen;
+    wire [`KLDJ_DATA]            ex_csr_src;
+    wire [`KLDJ_DATA]            ex_csr_wdata;
+    wire [`KLDJ_DATA]            ex_stage_res;
+    wire                         ex_ecall;
+    wire                         ex_mret;
+    wire [`KLDJ_PC]              ex_redirect_pc;
     wire                         ex_redirect;
+
+    // CSR file
+    wire [`KLDJ_DATA]            csr_rdata;
+    wire [`KLDJ_DATA]            csr_mstatus;
+    wire [`KLDJ_DATA]            csr_mtvec;
+    wire [`KLDJ_DATA]            csr_mscratch;
+    wire [`KLDJ_DATA]            csr_mepc;
+    wire [`KLDJ_DATA]            csr_mcause;
 
     // EX/MEM pipeline register
     reg                          ex_mem_valid;
@@ -154,7 +176,7 @@ module KLDJ_top(
         ,.rst     (core_rst          )
         ,.hold    (load_use_stall    )
         ,.jump    (ex_redirect       )
-        ,.jump_pc (exu_jump_pc_raw   )
+        ,.jump_pc (ex_redirect_pc    )
         ,.inst_i  (tb_if_inst        )
         ,.inst_o  (if_inst           )
         ,.pc_o    (if_pc             )
@@ -180,6 +202,9 @@ module KLDJ_top(
         ,.data3       (id_data3                         )
         ,.data4       (id_data4                         )
         ,.id_ls_ctl   (id_ls_ctl                        )
+        ,.csr_addr    (id_csr_addr                      )
+        ,.csr_op      (id_csr_op                        )
+        ,.csr_zimm    (id_csr_zimm                      )
     );
 
     assign ex_mem_forward_valid = ex_mem_valid && ex_mem_wb_ctl && !ex_mem_load_op &&
@@ -212,6 +237,29 @@ module KLDJ_top(
     assign ex_data4 = id_ex_data4;
     assign ex_store_wdata = id_ex_store_op ? ex_rs2_data : id_ex_data3;
 
+    assign ex_csr_op = id_ex_valid && (id_ex_csr_op != `KLDJ_CSR_OP_NONE);
+    assign ex_csr_src = (id_ex_csr_op >= `KLDJ_CSR_OP_CSRRWI) ? id_ex_csr_zimm : ex_rs1_data;
+    assign ex_csr_wen =
+        ex_csr_op &&
+        ((id_ex_csr_op == `KLDJ_CSR_OP_CSRRW)  ||
+         (id_ex_csr_op == `KLDJ_CSR_OP_CSRRWI) ||
+         (id_ex_csr_op == `KLDJ_CSR_OP_CSRRS  && id_ex_rs1_addr != 5'd0) ||
+         (id_ex_csr_op == `KLDJ_CSR_OP_CSRRC  && id_ex_rs1_addr != 5'd0) ||
+         (id_ex_csr_op == `KLDJ_CSR_OP_CSRRSI && id_ex_csr_zimm != `KLDJ_ZERO32) ||
+         (id_ex_csr_op == `KLDJ_CSR_OP_CSRRCI && id_ex_csr_zimm != `KLDJ_ZERO32));
+
+    assign ex_csr_wdata =
+        (id_ex_csr_op == `KLDJ_CSR_OP_CSRRW  ||
+         id_ex_csr_op == `KLDJ_CSR_OP_CSRRWI) ? ex_csr_src :
+        (id_ex_csr_op == `KLDJ_CSR_OP_CSRRS  ||
+         id_ex_csr_op == `KLDJ_CSR_OP_CSRRSI) ? (csr_rdata | ex_csr_src) :
+        (id_ex_csr_op == `KLDJ_CSR_OP_CSRRC  ||
+         id_ex_csr_op == `KLDJ_CSR_OP_CSRRCI) ? (csr_rdata & ~ex_csr_src) :
+        csr_rdata;
+
+    assign ex_ecall = id_ex_valid && (id_ex_exu_op == `KLDJ_EXU_OP_ECALL);
+    assign ex_mret  = id_ex_valid && (id_ex_exu_op == `KLDJ_EXU_OP_MRET);
+
     KLDJ_exu exu2(
          .data1       (ex_data1              )
         ,.data2       (ex_data2              )
@@ -224,7 +272,31 @@ module KLDJ_top(
         ,.exu_res     (exu_data              )
     );
 
-    assign ex_redirect = id_ex_valid && exu_jump_raw;
+    assign ex_stage_res = ex_csr_op ? csr_rdata : exu_data;
+
+    KLDJ_csr csr0(
+         .clk       (core_clk      )
+        ,.rst       (core_rst      )
+        ,.raddr     (id_ex_csr_addr)
+        ,.rdata     (csr_rdata     )
+        ,.wen       (ex_csr_wen    )
+        ,.waddr     (id_ex_csr_addr)
+        ,.wdata     (ex_csr_wdata  )
+        ,.trap_enter(ex_ecall      )
+        ,.trap_pc   (id_ex_pc      )
+        ,.trap_cause(32'd11        )
+        ,.mret_enter(ex_mret       )
+        ,.mstatus_o (csr_mstatus   )
+        ,.mtvec_o   (csr_mtvec     )
+        ,.mscratch_o(csr_mscratch  )
+        ,.mepc_o    (csr_mepc      )
+        ,.mcause_o  (csr_mcause    )
+    );
+
+    assign ex_redirect = id_ex_valid && (exu_jump_raw || ex_ecall || ex_mret);
+    assign ex_redirect_pc = ex_ecall ? (csr_mtvec & 32'hffff_fffc) :
+                            ex_mret  ? csr_mepc :
+                            exu_jump_pc_raw;
 
     KLDJ_lsu lsu3(
          .exu_op      (ex_mem_exu_op         )
@@ -308,6 +380,9 @@ module KLDJ_top(
             id_ex_data4    <= `KLDJ_ZERO32;
             id_ex_rs1_data <= `KLDJ_ZERO32;
             id_ex_rs2_data <= `KLDJ_ZERO32;
+            id_ex_csr_addr <= 12'd0;
+            id_ex_csr_op   <= `KLDJ_CSR_OP_NONE;
+            id_ex_csr_zimm <= `KLDJ_ZERO32;
         end else if(ex_redirect || load_use_stall) begin
             id_ex_valid    <= 1'b0;
             id_ex_pc       <= `KLDJ_ZERO32;
@@ -327,6 +402,9 @@ module KLDJ_top(
             id_ex_data4    <= `KLDJ_ZERO32;
             id_ex_rs1_data <= `KLDJ_ZERO32;
             id_ex_rs2_data <= `KLDJ_ZERO32;
+            id_ex_csr_addr <= 12'd0;
+            id_ex_csr_op   <= `KLDJ_CSR_OP_NONE;
+            id_ex_csr_zimm <= `KLDJ_ZERO32;
         end else begin
             id_ex_valid    <= if_id_valid;
             id_ex_pc       <= if_id_pc;
@@ -346,6 +424,9 @@ module KLDJ_top(
             id_ex_data4    <= id_data4;
             id_ex_rs1_data <= reg_id_rs1_data;
             id_ex_rs2_data <= reg_id_rs2_data;
+            id_ex_csr_addr <= id_csr_addr;
+            id_ex_csr_op   <= if_id_valid ? id_csr_op : `KLDJ_CSR_OP_NONE;
+            id_ex_csr_zimm <= id_csr_zimm;
         end
     end
 
@@ -367,8 +448,8 @@ module KLDJ_top(
             ex_mem_wb_ctl      <= id_ex_valid && id_ex_wb_ctl;
             ex_mem_exu_op      <= id_ex_exu_op;
             ex_mem_ls_ctl      <= id_ex_ls_ctl;
-            ex_mem_exu_res     <= exu_data;
-            ex_mem_mem_addr    <= exu_data;
+            ex_mem_exu_res     <= ex_stage_res;
+            ex_mem_mem_addr    <= ex_stage_res;
             ex_mem_store_wdata <= ex_store_wdata;
         end
     end
@@ -406,7 +487,7 @@ module KLDJ_top(
     end
 
     assign tb_ex_jump = ex_redirect;
-    assign tb_ex_jump_pc = ex_redirect ? exu_jump_pc_raw : `KLDJ_ZERO32;
+    assign tb_ex_jump_pc = ex_redirect ? ex_redirect_pc : `KLDJ_ZERO32;
     assign tb_ex_res = wb_commit_valid ? wb_commit_wb_data : `KLDJ_ZERO32;
     assign tb_if_pc = if_pc;
 
