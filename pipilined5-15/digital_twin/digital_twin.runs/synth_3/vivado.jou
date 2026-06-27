@@ -1,0 +1,14 @@
+#-----------------------------------------------------------
+# Vivado v2023.2 (64-bit)
+# SW Build 4029153 on Fri Oct 13 20:14:34 MDT 2023
+# IP Build 4028589 on Sat Oct 14 00:45:43 MDT 2023
+# SharedData Build 4025554 on Tue Oct 10 17:18:54 MDT 2023
+# Start of session at: Wed Apr 29 16:01:27 2026
+# Process ID: 24508
+# Current directory: D:/DESKTOP/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.runs/synth_3
+# Command line: vivado.exe -log top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source top.tcl
+# Log file: D:/DESKTOP/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.runs/synth_3/top.vds
+# Journal file: D:/DESKTOP/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.runs/synth_3\vivado.jou
+# Running On: DESKTOP-MO7L2KR, OS: Windows, CPU Frequency: 3793 MHz, CPU Physical cores: 16, Host memory: 33618 MB
+#-----------------------------------------------------------
+source top.tcl -notrace

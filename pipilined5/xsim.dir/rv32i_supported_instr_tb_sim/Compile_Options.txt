@@ -1,0 +1,1 @@
+-debug "typical" "rv32i_supported_instr_tb" -s "rv32i_supported_instr_tb_sim" 

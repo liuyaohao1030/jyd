@@ -1,0 +1,35 @@
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/System/desktop/kldj_sourceset/pipilined5/kldj.srcs2/sources_1/imports/rtl/define.v" into library work
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/System/desktop/kldj_sourceset/pipilined5/kldj.srcs2/sources_1/imports/rtl/MuxKeyInternal.v" into library work
+INFO: [VRFC 10-311] analyzing module MuxKeyInternal
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/System/desktop/kldj_sourceset/pipilined5/kldj.srcs2/sources_1/imports/rtl/MuxKeyWithDefault.v" into library work
+INFO: [VRFC 10-311] analyzing module MuxKeyWithDefault
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/System/desktop/kldj_sourceset/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu_add.v" into library work
+INFO: [VRFC 10-311] analyzing module alu_add
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/System/desktop/kldj_sourceset/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu_and.v" into library work
+INFO: [VRFC 10-311] analyzing module alu_and
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/System/desktop/kldj_sourceset/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu_or.v" into library work
+INFO: [VRFC 10-311] analyzing module alu_or
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/System/desktop/kldj_sourceset/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu_shifter.v" into library work
+INFO: [VRFC 10-311] analyzing module alu_shifter
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/System/desktop/kldj_sourceset/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu_slt.v" into library work
+INFO: [VRFC 10-311] analyzing module alu_slt
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/System/desktop/kldj_sourceset/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu_xor.v" into library work
+INFO: [VRFC 10-311] analyzing module alu_xor
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/System/desktop/kldj_sourceset/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_alu.v" into library work
+INFO: [VRFC 10-311] analyzing module KLDJ_alu
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/System/desktop/kldj_sourceset/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_ifu.v" into library work
+INFO: [VRFC 10-311] analyzing module KLDJ_ifu
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/System/desktop/kldj_sourceset/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_idu.v" into library work
+INFO: [VRFC 10-311] analyzing module KLDJ_idu
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/System/desktop/kldj_sourceset/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_exu.v" into library work
+INFO: [VRFC 10-311] analyzing module KLDJ_exu
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/System/desktop/kldj_sourceset/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_lsu.v" into library work
+INFO: [VRFC 10-311] analyzing module KLDJ_lsu
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/System/desktop/kldj_sourceset/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_wbu.v" into library work
+INFO: [VRFC 10-311] analyzing module KLDJ_wbu
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/System/desktop/kldj_sourceset/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_regfile.v" into library work
+INFO: [VRFC 10-311] analyzing module KLDJ_regfile
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/System/desktop/kldj_sourceset/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_top.v" into library work
+INFO: [VRFC 10-311] analyzing module KLDJ_top
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/System/desktop/kldj_sourceset/pipilined5/kldj.srcs2/sim_1/imports/sim/rv32i_supported_instr_tb.sv" into library work
+INFO: [VRFC 10-311] analyzing module rv32i_supported_instr_tb

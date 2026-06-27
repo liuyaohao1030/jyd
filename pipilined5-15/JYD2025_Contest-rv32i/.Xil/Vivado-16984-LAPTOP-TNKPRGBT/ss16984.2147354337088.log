@@ -1,0 +1,55 @@
+srcscan starts
+=============== Using precompiled files for SV std libs ===========
+INFO: The Verilog library search path for library "std" is now "D:/Vivado/2023.2/data/precomp_hsv/sv/std" (VERI-1509)
+INFO: The Verilog library search path for library "uvm" is now "D:/Vivado/2023.2/data/precomp_hsv/sv/uvm" (VERI-1509)
+INFO: analyzing module MuxKey (VERI-9002)
+INFO: analyzing module MuxKeyInternal (VERI-9002)
+C:/Users/KTD/Desktop/JYD2025_Contest/digital_twin.srcs/sources_1/imports/new/ACTL.sv(21): INFO: Compiling verilog file "C:/Users/KTD/Desktop/JYD2025_Contest/digital_twin.srcs/sources_1/imports/new/defines.sv" included at line 21. (VERI-9003)
+C:/Users/KTD/Desktop/JYD2025_Contest/digital_twin.srcs/sources_1/imports/new/ACTL.sv(21): INFO: back to file 'C:/Users/KTD/Desktop/JYD2025_Contest/digital_twin.srcs/sources_1/imports/new/ACTL.sv' (VERI-2320)
+INFO: analyzing module ACTL (VERI-9002)
+INFO: analyzing module ALU (VERI-9002)
+INFO: analyzing module CCTL (VERI-9002)
+INFO: analyzing module CSR (VERI-9002)
+C:/Users/KTD/Desktop/JYD2025_Contest/digital_twin.srcs/sources_1/imports/new/Control.sv(21): INFO: Compiling verilog file "C:/Users/KTD/Desktop/JYD2025_Contest/digital_twin.srcs/sources_1/imports/new/defines.sv" included at line 21. (VERI-9003)
+C:/Users/KTD/Desktop/JYD2025_Contest/digital_twin.srcs/sources_1/imports/new/Control.sv(21): INFO: back to file 'C:/Users/KTD/Desktop/JYD2025_Contest/digital_twin.srcs/sources_1/imports/new/Control.sv' (VERI-2320)
+INFO: analyzing module Control (VERI-9002)
+C:/Users/KTD/Desktop/JYD2025_Contest/digital_twin.srcs/sources_1/imports/new/IMMGEN.sv(21): INFO: Compiling verilog file "C:/Users/KTD/Desktop/JYD2025_Contest/digital_twin.srcs/sources_1/imports/new/defines.sv" included at line 21. (VERI-9003)
+C:/Users/KTD/Desktop/JYD2025_Contest/digital_twin.srcs/sources_1/imports/new/IMMGEN.sv(21): INFO: back to file 'C:/Users/KTD/Desktop/JYD2025_Contest/digital_twin.srcs/sources_1/imports/new/IMMGEN.sv' (VERI-2320)
+INFO: analyzing module IMMGEN (VERI-9002)
+INFO: analyzing module Mask (VERI-9002)
+INFO: analyzing module NPC (VERI-9002)
+INFO: analyzing module PC (VERI-9002)
+INFO: analyzing module RF (VERI-9002)
+INFO: analyzing module counter (VERI-9002)
+INFO: analyzing module display_seg (VERI-9002)
+INFO: analyzing module dram_driver (VERI-9002)
+INFO: analyzing module myCPU (VERI-9002)
+INFO: analyzing module perip_bridge (VERI-9002)
+INFO: analyzing module seg7 (VERI-9002)
+INFO: analyzing module student_top (VERI-9002)
+INFO: analyzing module tb_myCPU (VERI-9002)
+INFO: analyzing module tb_top (VERI-9002)
+INFO: analyzing module tb_uart (VERI-9002)
+INFO: analyzing module top (VERI-9002)
+INFO: analyzing module twin_controller (VERI-9002)
+INFO: analyzing module uart (VERI-9002)
+Listing tops:
+VeriTop library:xil_defaultlib mod:tb_myCPU
+VeriTop library:xil_defaultlib mod:tb_top
+VeriTop library:xil_defaultlib mod:tb_uart
+END of tops
+C:/Users/KTD/Desktop/JYD2025_Contest/digital_twin.srcs/sim_1/new/tb_myCPU.sv(23): INFO: compiling module 'tb_myCPU_default' (VERI-1018)
+C:/Users/KTD/Desktop/JYD2025_Contest/digital_twin.srcs/sources_1/new/top.sv(45): WARNING: Module <pll> not found while processing module instance <pll_inst> (VERI-1063)
+C:/Users/KTD/Desktop/JYD2025_Contest/digital_twin.srcs/sources_1/new/student_top.sv(67): WARNING: Module <IROM> not found while processing module instance <Mem_IROM> (VERI-1063)
+C:/Users/KTD/Desktop/JYD2025_Contest/digital_twin.srcs/sources_1/new/dram_driver.sv(40): WARNING: Module <DRAM> not found while processing module instance <Mem_DRAM> (VERI-1063)
+C:/Users/KTD/Desktop/JYD2025_Contest/digital_twin.srcs/sim_1/new/tb_top.sv(22): INFO: compiling module 'tb_top_default' (VERI-1018)
+C:/Users/KTD/Desktop/JYD2025_Contest/digital_twin.srcs/sim_1/new/tb_uart.sv(25): INFO: compiling module 'tb_uart_default' (VERI-1018)
+C:/Users/KTD/Desktop/JYD2025_Contest/digital_twin.srcs/sources_1/new/top.sv(84): ERROR: cannot find port 'cpu_clk' on this module (VERI-1010)
+C:/Users/KTD/Desktop/JYD2025_Contest/digital_twin.srcs/sources_1/new/student_top.sv(23): INFO: 'student_top' is declared here (VERI-9035)
+ModName: MuxKey(NR_KEY=5,KEY_LEN=3,DATA_LEN=32)
+ModName: MuxKeyInternal(NR_KEY=5,KEY_LEN=3,DATA_LEN=32)
+ModName: uart(BAUD_RATE=9600)
+BaseName MuxKey has 1 entries
+BaseName MuxKeyInternal has 1 entries
+BaseName uart has 1 entries
+srcscan exits with return value 0

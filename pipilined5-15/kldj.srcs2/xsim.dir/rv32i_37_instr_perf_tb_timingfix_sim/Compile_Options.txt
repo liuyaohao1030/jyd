@@ -1,0 +1,1 @@
+-nolog -L "work_timingfix" "work_timingfix.rv32i_37_instr_perf_tb" -s "rv32i_37_instr_perf_tb_timingfix_sim" 

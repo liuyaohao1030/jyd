@@ -1,0 +1,25 @@
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: D:/Xilinx_Vivado/Vivado/2018.3/bin/unwrapped/win64.o/xelab.exe -debug typical rv32i_supported_instr_tb -s rv32i_supported_instr_tb_sim 
+Multi-threading is on. Using 14 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module work.KLDJ_ifu
+Compiling module work.KLDJ_idu
+Compiling module work.alu_add
+Compiling module work.alu_and
+Compiling module work.alu_or
+Compiling module work.alu_shifter
+Compiling module work.alu_slt
+Compiling module work.alu_xor
+Compiling module work.KLDJ_alu
+Compiling module work.KLDJ_exu
+Compiling module work.KLDJ_lsu
+Compiling module work.KLDJ_wbu
+Compiling module work.KLDJ_regfile
+Compiling module work.KLDJ_top
+Compiling module work.rv32i_supported_instr_tb
+Built simulation snapshot rv32i_supported_instr_tb_sim
