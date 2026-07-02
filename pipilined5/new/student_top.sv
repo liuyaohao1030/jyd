@@ -60,7 +60,7 @@ module student_top#(
     .mem_addr       (perip_addr),
     .mem_wdata      (perip_wdata),
     .mem_we         (perip_wen),
-    .mem_be         (cpu_mem_be), // 暂时接出来转换
+    .mem_be         (cpu_mem_be), 
     .mem_rdata      (perip_rdata),
     
     .tb_ex_jump     (),

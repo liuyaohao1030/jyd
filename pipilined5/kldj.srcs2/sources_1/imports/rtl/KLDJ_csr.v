@@ -11,10 +11,10 @@ module KLDJ_csr(
     ,input  wire [11:0]           waddr
     ,input  wire [`KLDJ_DATA]     wdata
 
-    ,input  wire                  trap_enter
-    ,input  wire [`KLDJ_PC]       trap_pc
-    ,input  wire [`KLDJ_DATA]     trap_cause
-    ,input  wire                  mret_enter
+    ,input  wire                  trap_enter    //表示当前 EX 阶段正在执行 ecall
+    ,input  wire [`KLDJ_PC]       trap_pc       //表示当前 ecall 指令自己的 PC
+    ,input  wire [`KLDJ_DATA]     trap_cause    //异常原因
+    ,input  wire                  mret_enter    //表示当前 EX 阶段正在执行 mret
 
     ,output wire [`KLDJ_DATA]     mstatus_o
     ,output wire [`KLDJ_DATA]     mtvec_o
