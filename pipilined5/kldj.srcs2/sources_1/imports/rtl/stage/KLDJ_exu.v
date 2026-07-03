@@ -1,4 +1,4 @@
-`include "define.v"
+`include "../define.v"
 
 module KLDJ_exu(
      input  wire [`KLDJ_DATA]   data1
