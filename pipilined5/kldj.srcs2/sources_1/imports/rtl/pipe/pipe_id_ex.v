@@ -22,10 +22,6 @@ module pipe_id_ex(
     ,input wire [`KLDJ_DATA]     id_data4
     ,input wire [`KLDJ_DATA]     reg_id_rs1_data
     ,input wire [`KLDJ_DATA]     reg_id_rs2_data
-    // CSR signals from ID
-    ,input wire [11:0]           id_csr_addr
-    ,input wire                  id_csr_op
-    ,input wire [4:0]            id_csr_zimm
     // control
     ,input wire                  ex_redirect
     ,input wire                  load_use_stall
@@ -48,10 +44,6 @@ module pipe_id_ex(
     ,output reg [`KLDJ_DATA]     id_ex_data4
     ,output reg [`KLDJ_DATA]     id_ex_rs1_data
     ,output reg [`KLDJ_DATA]     id_ex_rs2_data
-    // CSR signals to EX
-    ,output reg [11:0]           id_ex_csr_addr
-    ,output reg                  id_ex_csr_op
-    ,output reg [4:0]            id_ex_csr_zimm
     // combinational derived outputs
     ,output wire                 id_ex_load_op
 );
@@ -78,9 +70,6 @@ module pipe_id_ex(
             id_ex_data4    <= `KLDJ_ZERO32;
             id_ex_rs1_data <= `KLDJ_ZERO32;
             id_ex_rs2_data <= `KLDJ_ZERO32;
-            id_ex_csr_addr <= 12'b0;
-            id_ex_csr_op   <= 1'b0;
-            id_ex_csr_zimm <= 5'b0;
         end else if(ex_redirect || load_use_stall) begin
             id_ex_valid    <= 1'b0;
             id_ex_pc       <= `KLDJ_ZERO32;
@@ -100,9 +89,6 @@ module pipe_id_ex(
             id_ex_data4    <= `KLDJ_ZERO32;
             id_ex_rs1_data <= `KLDJ_ZERO32;
             id_ex_rs2_data <= `KLDJ_ZERO32;
-            id_ex_csr_addr <= 12'b0;
-            id_ex_csr_op   <= 1'b0;
-            id_ex_csr_zimm <= 5'b0;
         end else begin
             id_ex_valid    <= if_id_valid;
             id_ex_pc       <= if_id_pc;
@@ -122,9 +108,6 @@ module pipe_id_ex(
             id_ex_data4    <= id_data4;
             id_ex_rs1_data <= reg_id_rs1_data;
             id_ex_rs2_data <= reg_id_rs2_data;
-            id_ex_csr_addr <= id_csr_addr;
-            id_ex_csr_op   <= if_id_valid && id_csr_op;
-            id_ex_csr_zimm <= id_csr_zimm;
         end
     end
 
