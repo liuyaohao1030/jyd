@@ -133,3 +133,4 @@
     `define CSR_MTVEC    12'h305
     `define CSR_MEPC     12'h341
     `define CSR_MCAUSE   12'h342
+    `define CSR_MSCRATCH 12'h340

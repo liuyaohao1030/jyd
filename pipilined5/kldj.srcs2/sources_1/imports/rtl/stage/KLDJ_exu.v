@@ -57,14 +57,13 @@ module KLDJ_exu(
     wire is_csrrwi = (exu_op == `KLDJ_EXU_CSRRWI);
     wire is_csrrsi = (exu_op == `KLDJ_EXU_CSRRSI);
     wire is_csrrci = (exu_op == `KLDJ_EXU_CSRRCI);
-    wire is_csr = is_csrrw | is_csrrs | is_csrrc | is_csrrwi | is_csrrsi | is_csrrci;
 
     // ecall/mret detection
     assign is_ecall = (exu_op == `KLDJ_EXU_ECALL);
     assign is_mret  = (exu_op == `KLDJ_EXU_MRET);
 
     // CSR write enable and data
-    assign csr_we = is_csr;
+    assign csr_we = csr_op;
     assign csr_wdata = is_csrrw  ? data1 :                     // CSRRW: write rs1/zimm
                        is_csrrs  ? (csr_rdata | data1) :       // CSRRS: set bits
                        is_csrrc  ? (csr_rdata & ~data1) :      // CSRRC: clear bits
@@ -77,7 +76,7 @@ module KLDJ_exu(
     // 对于 JAL/JALR，输出 data3 (即 snpc)
     // 对于 CSR 指令，输出旧 CSR 值 (写入 rd)
     assign exu_res = (exu_op == 18'h9 | exu_op == 18'h1c) ? data3 :
-                     is_csr ? csr_rdata :
+                     csr_op ? csr_rdata :
                      alu_res;
 
     // mret also triggers a jump
