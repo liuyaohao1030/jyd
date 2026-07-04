@@ -21,7 +21,6 @@
   `define KLDJ_INST                 31:0
   `define KLDJ_DATA                 31:0
   `define KLDJ_IMM                 31:0
-  `define KLDJ_SYSTEM                5'b11100
   `define KLDJ_OPIMM                5'b00100
   `define KLDJ_OP                    5'b01100
   `define KLDJ_OPIMM32                 5'b00110
@@ -42,7 +41,6 @@
   `define KLDJ_DATAADDR 31:0
 
 //inst
-    `define EBREAK_TRAP        32'b00000000000100000000000001110011
     `define INST_ADDI          8'b00000001
     `define INST_SLTI          8'b00000010
     `define INST_SLTIU         8'b00000100
@@ -108,12 +106,3 @@
 
     `define INST_REM           8'b01000011
     `define INST_REMU          8'b10000110
-
-    `define INST_ECALL         8'b00101010
-    `define INST_MRET          8'b01010100
-    `define INST_CSRRW         8'b10101000
-    `define INST_CSRRS         8'b00100101
-    `define INST_CSRRC         8'b01001010
-    `define INST_CSRRWI        8'b10010100
-    `define INST_CSRRSI        8'b11001000
-    `define INST_CSRRCI        8'b10100100

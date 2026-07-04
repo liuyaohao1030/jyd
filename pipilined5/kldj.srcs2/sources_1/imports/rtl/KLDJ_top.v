@@ -84,8 +84,13 @@ module KLDJ_top(
     wire                         exu_jump_raw;
     wire [`KLDJ_PC]              exu_jump_pc_raw;
     wire [`KLDJ_DATA]            exu_data;
+    wire [`KLDJ_DATA]            ex_mem_addr_pre;
     wire                         ex_redirect;
     wire                         load_use_stall;
+    wire                         div_stall;
+    wire                         mul_stall;
+    wire                         ex_stall;
+    wire                         frontend_stall;
 
     // EX/MEM pipeline register outputs
     wire                         ex_mem_valid;
@@ -135,7 +140,7 @@ module KLDJ_top(
     KLDJ_ifu ifu0(
          .clk     (core_clk          )
         ,.rst     (core_rst          )
-        ,.hold    (load_use_stall    )
+        ,.hold    (frontend_stall     )
         ,.jump    (ex_redirect       )
         ,.jump_pc (exu_jump_pc_raw   )
         ,.inst_i  (tb_if_inst        )
@@ -152,7 +157,7 @@ module KLDJ_top(
         ,.if_pc           (if_pc             )
         ,.if_snpc         (if_snpc           )
         ,.ex_redirect     (ex_redirect       )
-        ,.load_use_stall  (load_use_stall    )
+        ,.load_use_stall  (frontend_stall     )
         ,.if_id_valid     (if_id_valid       )
         ,.if_id_inst      (if_id_inst        )
         ,.if_id_pc        (if_id_pc          )
@@ -205,6 +210,7 @@ module KLDJ_top(
         ,.reg_id_rs2_data (reg_id_rs2_data   )
         ,.ex_redirect     (ex_redirect       )
         ,.load_use_stall  (load_use_stall    )
+        ,.ex_stall        (ex_stall           )
         ,.id_ex_valid     (id_ex_valid       )
         ,.id_ex_pc        (id_ex_pc          )
         ,.id_ex_snpc      (id_ex_snpc        )
@@ -262,7 +268,10 @@ module KLDJ_top(
 
     // EX stage
     KLDJ_exu exu2(
-         .data1       (ex_data1              )
+         .clk         (core_clk              )
+        ,.rst         (core_rst              )
+        ,.valid       (id_ex_valid           )
+        ,.data1       (ex_data1              )
         ,.data2       (ex_data2              )
         ,.data3       (ex_data3              )
         ,.data4       (ex_data4              )
@@ -271,9 +280,14 @@ module KLDJ_top(
         ,.exu_jump    (exu_jump_raw          )
         ,.exu_jump_pc (exu_jump_pc_raw       )
         ,.exu_res     (exu_data              )
+        ,.ex_mem_addr (ex_mem_addr_pre      )
+        ,.div_stall   (div_stall             )
+        ,.mul_stall   (mul_stall             )
     );
 
     assign ex_redirect = id_ex_valid && exu_jump_raw;
+    assign ex_stall = div_stall || mul_stall;
+    assign frontend_stall = load_use_stall || ex_stall;
 
     // EX/MEM pipeline register
     pipe_ex_mem u_pipe_ex_mem(
@@ -286,7 +300,9 @@ module KLDJ_top(
         ,.id_ex_exu_op      (id_ex_exu_op        )
         ,.id_ex_ls_ctl      (id_ex_ls_ctl        )
         ,.exu_data          (exu_data            )
+        ,.ex_mem_addr_i     (ex_mem_addr_pre    )
         ,.ex_store_wdata    (ex_store_wdata      )
+        ,.ex_stall          (ex_stall            )
         ,.ex_mem_valid      (ex_mem_valid        )
         ,.ex_mem_pc         (ex_mem_pc           )
         ,.ex_mem_rd_addr    (ex_mem_rd_addr      )

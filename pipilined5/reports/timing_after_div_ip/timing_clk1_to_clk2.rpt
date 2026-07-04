@@ -1,0 +1,618 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2023.2 (win64) Build 4029153 Fri Oct 13 20:14:34 MDT 2023
+| Date         : Sat Jul  4 11:25:37 2026
+| Host         : DESKTOP-CGVJL45 running 64-bit major release  (build 9200)
+| Command      : report_timing -from [get_clocks clk_out1_pll] -to [get_clocks clk_out2_pll] -delay_type max -max_paths 10 -sort_by slack -path_type full -input_pins -file D:/System/desktop/jyd-feature/pipilined5/reports/timing_after_div_ip/timing_clk1_to_clk2.rpt
+| Design       : top
+| Device       : 7k325t-ffg900
+| Speed File   : -2  PRODUCTION 1.12 2017-02-17
+| Design State : Routed
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+Slack (VIOLATED) :        -0.358ns  (required time - arrival time)
+  Source:                 student_top_inst/bridge_inst/counter_inst/cnt_ms_reg[17]/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_pll  {rise@0.000ns fall@10.000ns period=20.000ns})
+  Destination:            student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[17]/D
+                            (rising edge-triggered cell FDRE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Path Group:             clk_out2_pll
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk_out2_pll rise@24.000ns - clk_out1_pll rise@20.000ns)
+  Data Path Delay:        3.867ns  (logic 0.352ns (9.104%)  route 3.515ns (90.896%))
+  Logic Levels:           3  (LUT4=1 LUT5=2)
+  Clock Path Skew:        -0.332ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    -2.295ns = ( 21.705 - 24.000 ) 
+    Source Clock Delay      (SCD):    -2.560ns = ( 17.440 - 20.000 ) 
+    Clock Pessimism Removal (CPR):    -0.598ns
+  Clock Uncertainty:      0.194ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.129ns
+    Phase Error              (PE):    0.120ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_pll rise edge)
+                                                     20.000    20.000 r  
+                         clock source latency        -6.054    13.946    
+                         propagated clock network latency
+                                                      3.494    17.440    
+    SLICE_X49Y183        FDRE                         0.000    17.440 r  student_top_inst/bridge_inst/counter_inst/cnt_ms_reg[17]/C
+    SLICE_X49Y183        FDRE (Prop_fdre_C_Q)         0.223    17.663 r  student_top_inst/bridge_inst/counter_inst/cnt_ms_reg[17]/Q
+                         net (fo=2, routed)           1.397    19.060    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/cnt_rdata[17]
+    SLICE_X45Y258                                                     r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[17]_i_4/I3
+    SLICE_X45Y258        LUT4 (Prop_lut4_I3_O)        0.043    19.103 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[17]_i_4/O
+                         net (fo=1, routed)           1.774    20.876    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[17]_i_4_n_0
+    SLICE_X57Y173                                                     r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[17]_i_2/I4
+    SLICE_X57Y173        LUT5 (Prop_lut5_I4_O)        0.043    20.919 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[17]_i_2/O
+                         net (fo=2, routed)           0.344    21.263    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/perip_rdata[17]
+    SLICE_X55Y175                                                     r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[17]_i_1/I2
+    SLICE_X55Y175        LUT5 (Prop_lut5_I2_O)        0.043    21.306 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[17]_i_1/O
+                         net (fo=1, routed)           0.000    21.306    student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[31]_1[17]
+    SLICE_X55Y175        FDRE                                         r  student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[17]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out2_pll rise edge)
+                                                     24.000    24.000 r  
+                         clock source latency        -5.457    18.543    
+                         propagated clock network latency
+                                                      3.162    21.705    
+                         clock pessimism             -0.598    21.108    
+                         clock uncertainty           -0.194    20.914    
+    SLICE_X55Y175        FDRE (Setup_fdre_C_D)        0.034    20.948    student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[17]
+  -------------------------------------------------------------------
+                         required time                         20.948    
+                         arrival time                         -21.306    
+  -------------------------------------------------------------------
+                         slack                                 -0.358    
+
+Slack (VIOLATED) :        -0.355ns  (required time - arrival time)
+  Source:                 student_top_inst/bridge_inst/counter_inst/cnt_ms_reg[17]/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_pll  {rise@0.000ns fall@10.000ns period=20.000ns})
+  Destination:            student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[1]/D
+                            (rising edge-triggered cell FDRE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Path Group:             clk_out2_pll
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk_out2_pll rise@24.000ns - clk_out1_pll rise@20.000ns)
+  Data Path Delay:        3.864ns  (logic 0.352ns (9.110%)  route 3.512ns (90.890%))
+  Logic Levels:           3  (LUT4=1 LUT5=2)
+  Clock Path Skew:        -0.330ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    -2.293ns = ( 21.707 - 24.000 ) 
+    Source Clock Delay      (SCD):    -2.560ns = ( 17.440 - 20.000 ) 
+    Clock Pessimism Removal (CPR):    -0.598ns
+  Clock Uncertainty:      0.194ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.129ns
+    Phase Error              (PE):    0.120ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_pll rise edge)
+                                                     20.000    20.000 r  
+                         clock source latency        -6.054    13.946    
+                         propagated clock network latency
+                                                      3.494    17.440    
+    SLICE_X49Y183        FDRE                         0.000    17.440 r  student_top_inst/bridge_inst/counter_inst/cnt_ms_reg[17]/C
+    SLICE_X49Y183        FDRE (Prop_fdre_C_Q)         0.223    17.663 r  student_top_inst/bridge_inst/counter_inst/cnt_ms_reg[17]/Q
+                         net (fo=2, routed)           1.397    19.060    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/cnt_rdata[17]
+    SLICE_X45Y258                                                     r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[17]_i_4/I3
+    SLICE_X45Y258        LUT4 (Prop_lut4_I3_O)        0.043    19.103 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[17]_i_4/O
+                         net (fo=1, routed)           1.774    20.876    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[17]_i_4_n_0
+    SLICE_X57Y173                                                     r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[17]_i_2/I4
+    SLICE_X57Y173        LUT5 (Prop_lut5_I4_O)        0.043    20.919 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[17]_i_2/O
+                         net (fo=2, routed)           0.341    21.260    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/perip_rdata[17]
+    SLICE_X59Y172                                                     r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[1]_i_1_comp/I3
+    SLICE_X59Y172        LUT5 (Prop_lut5_I3_O)        0.043    21.303 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[1]_i_1_comp/O
+                         net (fo=1, routed)           0.000    21.303    student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[31]_1[1]
+    SLICE_X59Y172        FDRE                                         r  student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[1]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out2_pll rise edge)
+                                                     24.000    24.000 r  
+                         clock source latency        -5.457    18.543    
+                         propagated clock network latency
+                                                      3.164    21.707    
+                         clock pessimism             -0.598    21.110    
+                         clock uncertainty           -0.194    20.916    
+    SLICE_X59Y172        FDRE (Setup_fdre_C_D)        0.033    20.949    student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[1]
+  -------------------------------------------------------------------
+                         required time                         20.949    
+                         arrival time                         -21.303    
+  -------------------------------------------------------------------
+                         slack                                 -0.355    
+
+Slack (MET) :             0.229ns  (required time - arrival time)
+  Source:                 twin_controller_inst/sw_reg[39]/C
+                            (rising edge-triggered cell FDCE clocked by clk_out1_pll  {rise@0.000ns fall@10.000ns period=20.000ns})
+  Destination:            student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[16]/D
+                            (rising edge-triggered cell FDRE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Path Group:             clk_out2_pll
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk_out2_pll rise@24.000ns - clk_out1_pll rise@20.000ns)
+  Data Path Delay:        3.251ns  (logic 0.481ns (14.796%)  route 2.770ns (85.204%))
+  Logic Levels:           6  (LUT4=1 LUT5=2 LUT6=3)
+  Clock Path Skew:        -0.339ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    -2.293ns = ( 21.707 - 24.000 ) 
+    Source Clock Delay      (SCD):    -2.551ns = ( 17.449 - 20.000 ) 
+    Clock Pessimism Removal (CPR):    -0.598ns
+  Clock Uncertainty:      0.194ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.129ns
+    Phase Error              (PE):    0.120ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_pll rise edge)
+                                                     20.000    20.000 r  
+                         clock source latency        -6.054    13.946    
+                         propagated clock network latency
+                                                      3.503    17.449    
+    SLICE_X21Y177        FDCE                         0.000    17.449 r  twin_controller_inst/sw_reg[39]/C
+    SLICE_X21Y177        FDCE (Prop_fdce_C_Q)         0.223    17.672 r  twin_controller_inst/sw_reg[39]/Q
+                         net (fo=3, routed)           0.336    18.007    twin_controller_inst/virtual_sw[39]
+    SLICE_X21Y177                                                     r  twin_controller_inst/mem_wb_wb_data[7]_i_6/I0
+    SLICE_X21Y177        LUT6 (Prop_lut6_I0_O)        0.043    18.050 f  twin_controller_inst/mem_wb_wb_data[7]_i_6/O
+                         net (fo=1, routed)           0.472    18.523    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[7]_i_3_1
+    SLICE_X40Y177                                                     f  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[7]_i_5/I3
+    SLICE_X40Y177        LUT5 (Prop_lut5_I3_O)        0.043    18.566 f  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[7]_i_5/O
+                         net (fo=1, routed)           0.620    19.186    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[7]_i_5_n_0
+    SLICE_X60Y177                                                     f  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[7]_i_3/I3
+    SLICE_X60Y177        LUT4 (Prop_lut4_I3_O)        0.043    19.229 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[7]_i_3/O
+                         net (fo=3, routed)           0.355    19.584    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/perip_rdata[7]
+    SLICE_X61Y177                                                     r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[23]_i_2_comp/I4
+    SLICE_X61Y177        LUT5 (Prop_lut5_I4_O)        0.043    19.627 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[23]_i_2_comp/O
+                         net (fo=1, routed)           0.416    20.042    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/perip_rdata[23]_repN
+    SLICE_X61Y174                                                     r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[31]_i_2_comp_1/I5
+    SLICE_X61Y174        LUT6 (Prop_lut6_I5_O)        0.043    20.085 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[31]_i_2_comp_1/O
+                         net (fo=16, routed)          0.462    20.547    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[31]_i_2_n_0
+    SLICE_X63Y171                                                     r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[16]_i_1_comp/I3
+    SLICE_X63Y171        LUT6 (Prop_lut6_I3_O)        0.043    20.590 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[16]_i_1_comp/O
+                         net (fo=1, routed)           0.109    20.700    student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[31]_1[16]
+    SLICE_X62Y171        FDRE                                         r  student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[16]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out2_pll rise edge)
+                                                     24.000    24.000 r  
+                         clock source latency        -5.457    18.543    
+                         propagated clock network latency
+                                                      3.164    21.707    
+                         clock pessimism             -0.598    21.110    
+                         clock uncertainty           -0.194    20.916    
+    SLICE_X62Y171        FDRE (Setup_fdre_C_D)        0.013    20.929    student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[16]
+  -------------------------------------------------------------------
+                         required time                         20.929    
+                         arrival time                         -20.700    
+  -------------------------------------------------------------------
+                         slack                                  0.229    
+
+Slack (MET) :             0.245ns  (required time - arrival time)
+  Source:                 twin_controller_inst/sw_reg[2]/C
+                            (rising edge-triggered cell FDCE clocked by clk_out1_pll  {rise@0.000ns fall@10.000ns period=20.000ns})
+  Destination:            student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[2]/D
+                            (rising edge-triggered cell FDRE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Path Group:             clk_out2_pll
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk_out2_pll rise@24.000ns - clk_out1_pll rise@20.000ns)
+  Data Path Delay:        3.251ns  (logic 0.395ns (12.149%)  route 2.856ns (87.851%))
+  Logic Levels:           4  (LUT6=4)
+  Clock Path Skew:        -0.343ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    -2.295ns = ( 21.705 - 24.000 ) 
+    Source Clock Delay      (SCD):    -2.549ns = ( 17.451 - 20.000 ) 
+    Clock Pessimism Removal (CPR):    -0.598ns
+  Clock Uncertainty:      0.194ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.129ns
+    Phase Error              (PE):    0.120ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_pll rise edge)
+                                                     20.000    20.000 r  
+                         clock source latency        -6.054    13.946    
+                         propagated clock network latency
+                                                      3.505    17.451    
+    SLICE_X11Y177        FDCE                         0.000    17.451 r  twin_controller_inst/sw_reg[2]/C
+    SLICE_X11Y177        FDCE (Prop_fdce_C_Q)         0.223    17.674 r  twin_controller_inst/sw_reg[2]/Q
+                         net (fo=3, routed)           0.430    18.104    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/virtual_sw[1]
+    SLICE_X9Y177                                                      r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[2]_i_5/I1
+    SLICE_X9Y177         LUT6 (Prop_lut6_I1_O)        0.043    18.147 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[2]_i_5/O
+                         net (fo=1, routed)           1.362    19.509    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[2]_i_5_n_0
+    SLICE_X64Y197                                                     r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[2]_i_4/I5
+    SLICE_X64Y197        LUT6 (Prop_lut6_I5_O)        0.043    19.552 f  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[2]_i_4/O
+                         net (fo=1, routed)           0.239    19.791    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[2]_i_4_n_0
+    SLICE_X64Y197                                                     f  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[2]_i_3/I0
+    SLICE_X64Y197        LUT6 (Prop_lut6_I0_O)        0.043    19.834 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[2]_i_3/O
+                         net (fo=1, routed)           0.825    20.659    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/perip_rdata[2]
+    SLICE_X65Y173                                                     r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[2]_i_1_comp_1/I2
+    SLICE_X65Y173        LUT6 (Prop_lut6_I2_O)        0.043    20.702 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[2]_i_1_comp_1/O
+                         net (fo=1, routed)           0.000    20.702    student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[31]_1[2]
+    SLICE_X65Y173        FDRE                                         r  student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[2]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out2_pll rise edge)
+                                                     24.000    24.000 r  
+                         clock source latency        -5.457    18.543    
+                         propagated clock network latency
+                                                      3.162    21.705    
+                         clock pessimism             -0.598    21.108    
+                         clock uncertainty           -0.194    20.914    
+    SLICE_X65Y173        FDRE (Setup_fdre_C_D)        0.033    20.947    student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[2]
+  -------------------------------------------------------------------
+                         required time                         20.947    
+                         arrival time                         -20.702    
+  -------------------------------------------------------------------
+                         slack                                  0.245    
+
+Slack (MET) :             0.257ns  (required time - arrival time)
+  Source:                 twin_controller_inst/sw_reg[39]/C
+                            (rising edge-triggered cell FDCE clocked by clk_out1_pll  {rise@0.000ns fall@10.000ns period=20.000ns})
+  Destination:            student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[21]/D
+                            (rising edge-triggered cell FDRE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Path Group:             clk_out2_pll
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk_out2_pll rise@24.000ns - clk_out1_pll rise@20.000ns)
+  Data Path Delay:        3.242ns  (logic 0.481ns (14.837%)  route 2.761ns (85.163%))
+  Logic Levels:           6  (LUT4=1 LUT5=2 LUT6=3)
+  Clock Path Skew:        -0.341ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    -2.295ns = ( 21.705 - 24.000 ) 
+    Source Clock Delay      (SCD):    -2.551ns = ( 17.449 - 20.000 ) 
+    Clock Pessimism Removal (CPR):    -0.598ns
+  Clock Uncertainty:      0.194ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.129ns
+    Phase Error              (PE):    0.120ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_pll rise edge)
+                                                     20.000    20.000 r  
+                         clock source latency        -6.054    13.946    
+                         propagated clock network latency
+                                                      3.503    17.449    
+    SLICE_X21Y177        FDCE                         0.000    17.449 r  twin_controller_inst/sw_reg[39]/C
+    SLICE_X21Y177        FDCE (Prop_fdce_C_Q)         0.223    17.672 r  twin_controller_inst/sw_reg[39]/Q
+                         net (fo=3, routed)           0.336    18.007    twin_controller_inst/virtual_sw[39]
+    SLICE_X21Y177                                                     r  twin_controller_inst/mem_wb_wb_data[7]_i_6/I0
+    SLICE_X21Y177        LUT6 (Prop_lut6_I0_O)        0.043    18.050 f  twin_controller_inst/mem_wb_wb_data[7]_i_6/O
+                         net (fo=1, routed)           0.472    18.523    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[7]_i_3_1
+    SLICE_X40Y177                                                     f  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[7]_i_5/I3
+    SLICE_X40Y177        LUT5 (Prop_lut5_I3_O)        0.043    18.566 f  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[7]_i_5/O
+                         net (fo=1, routed)           0.620    19.186    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[7]_i_5_n_0
+    SLICE_X60Y177                                                     f  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[7]_i_3/I3
+    SLICE_X60Y177        LUT4 (Prop_lut4_I3_O)        0.043    19.229 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[7]_i_3/O
+                         net (fo=3, routed)           0.355    19.584    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/perip_rdata[7]
+    SLICE_X61Y177                                                     r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[23]_i_2_comp/I4
+    SLICE_X61Y177        LUT5 (Prop_lut5_I4_O)        0.043    19.627 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[23]_i_2_comp/O
+                         net (fo=1, routed)           0.416    20.042    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/perip_rdata[23]_repN
+    SLICE_X61Y174                                                     r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[31]_i_2_comp_1/I5
+    SLICE_X61Y174        LUT6 (Prop_lut6_I5_O)        0.043    20.085 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[31]_i_2_comp_1/O
+                         net (fo=16, routed)          0.562    20.648    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[31]_i_2_n_0
+    SLICE_X67Y172                                                     r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[21]_i_1_comp/I3
+    SLICE_X67Y172        LUT6 (Prop_lut6_I3_O)        0.043    20.691 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[21]_i_1_comp/O
+                         net (fo=1, routed)           0.000    20.691    student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[31]_1[21]
+    SLICE_X67Y172        FDRE                                         r  student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[21]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out2_pll rise edge)
+                                                     24.000    24.000 r  
+                         clock source latency        -5.457    18.543    
+                         propagated clock network latency
+                                                      3.162    21.705    
+                         clock pessimism             -0.598    21.108    
+                         clock uncertainty           -0.194    20.914    
+    SLICE_X67Y172        FDRE (Setup_fdre_C_D)        0.034    20.948    student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[21]
+  -------------------------------------------------------------------
+                         required time                         20.948    
+                         arrival time                         -20.691    
+  -------------------------------------------------------------------
+                         slack                                  0.257    
+
+Slack (MET) :             0.280ns  (required time - arrival time)
+  Source:                 twin_controller_inst/sw_reg[39]/C
+                            (rising edge-triggered cell FDCE clocked by clk_out1_pll  {rise@0.000ns fall@10.000ns period=20.000ns})
+  Destination:            student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[22]/D
+                            (rising edge-triggered cell FDRE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Path Group:             clk_out2_pll
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk_out2_pll rise@24.000ns - clk_out1_pll rise@20.000ns)
+  Data Path Delay:        3.218ns  (logic 0.481ns (14.949%)  route 2.737ns (85.051%))
+  Logic Levels:           6  (LUT4=1 LUT5=2 LUT6=3)
+  Clock Path Skew:        -0.343ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    -2.297ns = ( 21.703 - 24.000 ) 
+    Source Clock Delay      (SCD):    -2.551ns = ( 17.449 - 20.000 ) 
+    Clock Pessimism Removal (CPR):    -0.598ns
+  Clock Uncertainty:      0.194ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.129ns
+    Phase Error              (PE):    0.120ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_pll rise edge)
+                                                     20.000    20.000 r  
+                         clock source latency        -6.054    13.946    
+                         propagated clock network latency
+                                                      3.503    17.449    
+    SLICE_X21Y177        FDCE                         0.000    17.449 r  twin_controller_inst/sw_reg[39]/C
+    SLICE_X21Y177        FDCE (Prop_fdce_C_Q)         0.223    17.672 r  twin_controller_inst/sw_reg[39]/Q
+                         net (fo=3, routed)           0.336    18.007    twin_controller_inst/virtual_sw[39]
+    SLICE_X21Y177                                                     r  twin_controller_inst/mem_wb_wb_data[7]_i_6/I0
+    SLICE_X21Y177        LUT6 (Prop_lut6_I0_O)        0.043    18.050 f  twin_controller_inst/mem_wb_wb_data[7]_i_6/O
+                         net (fo=1, routed)           0.472    18.523    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[7]_i_3_1
+    SLICE_X40Y177                                                     f  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[7]_i_5/I3
+    SLICE_X40Y177        LUT5 (Prop_lut5_I3_O)        0.043    18.566 f  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[7]_i_5/O
+                         net (fo=1, routed)           0.620    19.186    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[7]_i_5_n_0
+    SLICE_X60Y177                                                     f  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[7]_i_3/I3
+    SLICE_X60Y177        LUT4 (Prop_lut4_I3_O)        0.043    19.229 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[7]_i_3/O
+                         net (fo=3, routed)           0.355    19.584    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/perip_rdata[7]
+    SLICE_X61Y177                                                     r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[23]_i_2_comp/I4
+    SLICE_X61Y177        LUT5 (Prop_lut5_I4_O)        0.043    19.627 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[23]_i_2_comp/O
+                         net (fo=1, routed)           0.416    20.042    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/perip_rdata[23]_repN
+    SLICE_X61Y174                                                     r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[31]_i_2_comp_1/I5
+    SLICE_X61Y174        LUT6 (Prop_lut6_I5_O)        0.043    20.085 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[31]_i_2_comp_1/O
+                         net (fo=16, routed)          0.538    20.623    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[31]_i_2_n_0
+    SLICE_X68Y174                                                     r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[22]_i_1_comp_1/I3
+    SLICE_X68Y174        LUT6 (Prop_lut6_I3_O)        0.043    20.666 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[22]_i_1_comp_1/O
+                         net (fo=1, routed)           0.000    20.666    student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[31]_1[22]
+    SLICE_X68Y174        FDRE                                         r  student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[22]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out2_pll rise edge)
+                                                     24.000    24.000 r  
+                         clock source latency        -5.457    18.543    
+                         propagated clock network latency
+                                                      3.160    21.703    
+                         clock pessimism             -0.598    21.106    
+                         clock uncertainty           -0.194    20.912    
+    SLICE_X68Y174        FDRE (Setup_fdre_C_D)        0.034    20.946    student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[22]
+  -------------------------------------------------------------------
+                         required time                         20.946    
+                         arrival time                         -20.666    
+  -------------------------------------------------------------------
+                         slack                                  0.280    
+
+Slack (MET) :             0.280ns  (required time - arrival time)
+  Source:                 twin_controller_inst/sw_reg[36]/C
+                            (rising edge-triggered cell FDCE clocked by clk_out1_pll  {rise@0.000ns fall@10.000ns period=20.000ns})
+  Destination:            student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[4]/D
+                            (rising edge-triggered cell FDRE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Path Group:             clk_out2_pll
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk_out2_pll rise@24.000ns - clk_out1_pll rise@20.000ns)
+  Data Path Delay:        3.219ns  (logic 0.438ns (13.607%)  route 2.781ns (86.393%))
+  Logic Levels:           5  (LUT5=1 LUT6=4)
+  Clock Path Skew:        -0.341ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    -2.292ns = ( 21.708 - 24.000 ) 
+    Source Clock Delay      (SCD):    -2.548ns = ( 17.452 - 20.000 ) 
+    Clock Pessimism Removal (CPR):    -0.598ns
+  Clock Uncertainty:      0.194ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.129ns
+    Phase Error              (PE):    0.120ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_pll rise edge)
+                                                     20.000    20.000 r  
+                         clock source latency        -6.054    13.946    
+                         propagated clock network latency
+                                                      3.506    17.452    
+    SLICE_X11Y178        FDCE                         0.000    17.452 r  twin_controller_inst/sw_reg[36]/C
+    SLICE_X11Y178        FDCE (Prop_fdce_C_Q)         0.223    17.675 r  twin_controller_inst/sw_reg[36]/Q
+                         net (fo=3, routed)           0.725    18.399    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/virtual_sw[31]
+    SLICE_X23Y175                                                     r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[4]_i_6/I3
+    SLICE_X23Y175        LUT6 (Prop_lut6_I3_O)        0.043    18.442 f  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[4]_i_6/O
+                         net (fo=1, routed)           0.099    18.541    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[4]_i_6_n_0
+    SLICE_X23Y175                                                     f  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[4]_i_4/I1
+    SLICE_X23Y175        LUT6 (Prop_lut6_I1_O)        0.043    18.584 f  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[4]_i_4/O
+                         net (fo=1, routed)           0.863    19.447    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[4]_i_4_n_0
+    SLICE_X69Y174                                                     f  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[4]_i_3/I0
+    SLICE_X69Y174        LUT6 (Prop_lut6_I0_O)        0.043    19.490 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[4]_i_3/O
+                         net (fo=2, routed)           0.641    20.132    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/perip_rdata[4]
+    SLICE_X67Y178                                                     r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[4]_i_2/I2
+    SLICE_X67Y178        LUT6 (Prop_lut6_I2_O)        0.043    20.175 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[4]_i_2/O
+                         net (fo=1, routed)           0.453    20.628    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[4]_i_2_n_0
+    SLICE_X69Y170                                                     r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[4]_i_1/I1
+    SLICE_X69Y170        LUT5 (Prop_lut5_I1_O)        0.043    20.671 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[4]_i_1/O
+                         net (fo=1, routed)           0.000    20.671    student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[31]_1[4]
+    SLICE_X69Y170        FDRE                                         r  student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[4]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out2_pll rise edge)
+                                                     24.000    24.000 r  
+                         clock source latency        -5.457    18.543    
+                         propagated clock network latency
+                                                      3.165    21.708    
+                         clock pessimism             -0.598    21.111    
+                         clock uncertainty           -0.194    20.917    
+    SLICE_X69Y170        FDRE (Setup_fdre_C_D)        0.034    20.951    student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[4]
+  -------------------------------------------------------------------
+                         required time                         20.951    
+                         arrival time                         -20.671    
+  -------------------------------------------------------------------
+                         slack                                  0.280    
+
+Slack (MET) :             0.328ns  (required time - arrival time)
+  Source:                 twin_controller_inst/sw_reg[57]/C
+                            (rising edge-triggered cell FDCE clocked by clk_out1_pll  {rise@0.000ns fall@10.000ns period=20.000ns})
+  Destination:            student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[9]/D
+                            (rising edge-triggered cell FDRE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Path Group:             clk_out2_pll
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk_out2_pll rise@24.000ns - clk_out1_pll rise@20.000ns)
+  Data Path Delay:        3.111ns  (logic 0.438ns (14.079%)  route 2.673ns (85.921%))
+  Logic Levels:           5  (LUT3=2 LUT4=1 LUT6=2)
+  Clock Path Skew:        -0.400ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    -2.294ns = ( 21.706 - 24.000 ) 
+    Source Clock Delay      (SCD):    -2.491ns = ( 17.509 - 20.000 ) 
+    Clock Pessimism Removal (CPR):    -0.598ns
+  Clock Uncertainty:      0.194ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.129ns
+    Phase Error              (PE):    0.120ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_pll rise edge)
+                                                     20.000    20.000 r  
+                         clock source latency        -6.054    13.946    
+                         propagated clock network latency
+                                                      3.563    17.509    
+    SLICE_X7Y170         FDCE                         0.000    17.509 r  twin_controller_inst/sw_reg[57]/C
+    SLICE_X7Y170         FDCE (Prop_fdce_C_Q)         0.223    17.732 r  twin_controller_inst/sw_reg[57]/Q
+                         net (fo=3, routed)           0.390    18.122    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/virtual_sw[51]
+    SLICE_X9Y170                                                      r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[25]_i_3/I1
+    SLICE_X9Y170         LUT6 (Prop_lut6_I1_O)        0.043    18.165 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[25]_i_3/O
+                         net (fo=1, routed)           1.110    19.275    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[25]_i_3_n_0
+    SLICE_X48Y180                                                     r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[25]_i_2/I1
+    SLICE_X48Y180        LUT4 (Prop_lut4_I1_O)        0.043    19.318 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[25]_i_2/O
+                         net (fo=2, routed)           0.472    19.790    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/perip_rdata[25]
+    SLICE_X45Y173                                                     r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[9]_i_4/I0
+    SLICE_X45Y173        LUT3 (Prop_lut3_I0_O)        0.043    19.833 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[9]_i_4/O
+                         net (fo=2, routed)           0.203    20.035    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[9]_i_4_n_0
+    SLICE_X49Y173                                                     r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[9]_i_2/I2
+    SLICE_X49Y173        LUT3 (Prop_lut3_I2_O)        0.043    20.078 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[9]_i_2/O
+                         net (fo=1, routed)           0.498    20.577    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[9]_i_2_n_0
+    SLICE_X61Y173                                                     r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[9]_i_1/I1
+    SLICE_X61Y173        LUT6 (Prop_lut6_I1_O)        0.043    20.620 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[9]_i_1/O
+                         net (fo=1, routed)           0.000    20.620    student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[31]_1[9]
+    SLICE_X61Y173        FDRE                                         r  student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[9]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out2_pll rise edge)
+                                                     24.000    24.000 r  
+                         clock source latency        -5.457    18.543    
+                         propagated clock network latency
+                                                      3.163    21.706    
+                         clock pessimism             -0.598    21.109    
+                         clock uncertainty           -0.194    20.915    
+    SLICE_X61Y173        FDRE (Setup_fdre_C_D)        0.033    20.948    student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[9]
+  -------------------------------------------------------------------
+                         required time                         20.948    
+                         arrival time                         -20.620    
+  -------------------------------------------------------------------
+                         slack                                  0.328    
+
+Slack (MET) :             0.346ns  (required time - arrival time)
+  Source:                 twin_controller_inst/sw_reg[43]/C
+                            (rising edge-triggered cell FDCE clocked by clk_out1_pll  {rise@0.000ns fall@10.000ns period=20.000ns})
+  Destination:            student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[3]/D
+                            (rising edge-triggered cell FDRE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Path Group:             clk_out2_pll
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk_out2_pll rise@24.000ns - clk_out1_pll rise@20.000ns)
+  Data Path Delay:        3.150ns  (logic 0.438ns (13.906%)  route 2.712ns (86.094%))
+  Logic Levels:           5  (LUT3=1 LUT5=1 LUT6=3)
+  Clock Path Skew:        -0.344ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    -2.296ns = ( 21.704 - 24.000 ) 
+    Source Clock Delay      (SCD):    -2.549ns = ( 17.451 - 20.000 ) 
+    Clock Pessimism Removal (CPR):    -0.598ns
+  Clock Uncertainty:      0.194ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.129ns
+    Phase Error              (PE):    0.120ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_pll rise edge)
+                                                     20.000    20.000 r  
+                         clock source latency        -6.054    13.946    
+                         propagated clock network latency
+                                                      3.505    17.451    
+    SLICE_X17Y178        FDCE                         0.000    17.451 r  twin_controller_inst/sw_reg[43]/C
+    SLICE_X17Y178        FDCE (Prop_fdce_C_Q)         0.223    17.674 r  twin_controller_inst/sw_reg[43]/Q
+                         net (fo=3, routed)           0.362    18.035    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/virtual_sw[37]
+    SLICE_X17Y178                                                     r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[11]_i_5/I0
+    SLICE_X17Y178        LUT6 (Prop_lut6_I0_O)        0.043    18.078 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[11]_i_5/O
+                         net (fo=1, routed)           0.972    19.050    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[11]_i_5_n_0
+    SLICE_X48Y177                                                     r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[11]_i_3/I1
+    SLICE_X48Y177        LUT6 (Prop_lut6_I1_O)        0.043    19.093 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[11]_i_3/O
+                         net (fo=2, routed)           0.573    19.666    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/perip_rdata[11]
+    SLICE_X55Y174                                                     r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[11]_i_4/I2
+    SLICE_X55Y174        LUT3 (Prop_lut3_I2_O)        0.043    19.709 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[11]_i_4/O
+                         net (fo=2, routed)           0.456    20.165    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[11]_i_4_n_0
+    SLICE_X68Y173                                                     r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[3]_i_2_comp_1/I5
+    SLICE_X68Y173        LUT6 (Prop_lut6_I5_O)        0.043    20.208 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[3]_i_2_comp_1/O
+                         net (fo=1, routed)           0.349    20.557    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[3]_i_2_n_0
+    SLICE_X69Y173                                                     r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[3]_i_1_comp/I2
+    SLICE_X69Y173        LUT5 (Prop_lut5_I2_O)        0.043    20.600 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[3]_i_1_comp/O
+                         net (fo=1, routed)           0.000    20.600    student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[31]_1[3]
+    SLICE_X69Y173        FDRE                                         r  student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[3]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out2_pll rise edge)
+                                                     24.000    24.000 r  
+                         clock source latency        -5.457    18.543    
+                         propagated clock network latency
+                                                      3.161    21.704    
+                         clock pessimism             -0.598    21.107    
+                         clock uncertainty           -0.194    20.913    
+    SLICE_X69Y173        FDRE (Setup_fdre_C_D)        0.033    20.946    student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[3]
+  -------------------------------------------------------------------
+                         required time                         20.946    
+                         arrival time                         -20.600    
+  -------------------------------------------------------------------
+                         slack                                  0.346    
+
+Slack (MET) :             0.349ns  (required time - arrival time)
+  Source:                 twin_controller_inst/sw_reg[32]/C
+                            (rising edge-triggered cell FDCE clocked by clk_out1_pll  {rise@0.000ns fall@10.000ns period=20.000ns})
+  Destination:            student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[0]/D
+                            (rising edge-triggered cell FDRE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Path Group:             clk_out2_pll
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            4.000ns  (clk_out2_pll rise@24.000ns - clk_out1_pll rise@20.000ns)
+  Data Path Delay:        3.101ns  (logic 0.395ns (12.737%)  route 2.706ns (87.263%))
+  Logic Levels:           4  (LUT4=1 LUT6=3)
+  Clock Path Skew:        -0.390ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    -2.284ns = ( 21.716 - 24.000 ) 
+    Source Clock Delay      (SCD):    -2.491ns = ( 17.509 - 20.000 ) 
+    Clock Pessimism Removal (CPR):    -0.598ns
+  Clock Uncertainty:      0.194ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.129ns
+    Phase Error              (PE):    0.120ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_pll rise edge)
+                                                     20.000    20.000 r  
+                         clock source latency        -6.054    13.946    
+                         propagated clock network latency
+                                                      3.563    17.509    
+    SLICE_X5Y170         FDCE                         0.000    17.509 r  twin_controller_inst/sw_reg[32]/C
+    SLICE_X5Y170         FDCE (Prop_fdce_C_Q)         0.223    17.732 r  twin_controller_inst/sw_reg[32]/Q
+                         net (fo=3, routed)           0.510    18.242    twin_controller_inst/virtual_sw[32]
+    SLICE_X4Y170                                                      r  twin_controller_inst/mem_wb_wb_data[0]_i_6/I3
+    SLICE_X4Y170         LUT6 (Prop_lut6_I3_O)        0.043    18.285 r  twin_controller_inst/mem_wb_wb_data[0]_i_6/O
+                         net (fo=1, routed)           0.866    19.150    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[0]_i_3_0
+    SLICE_X23Y173                                                     r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[0]_i_5/I1
+    SLICE_X23Y173        LUT6 (Prop_lut6_I1_O)        0.043    19.193 f  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[0]_i_5/O
+                         net (fo=1, routed)           0.696    19.890    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[0]_i_5_n_0
+    SLICE_X44Y173                                                     f  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[0]_i_3/I3
+    SLICE_X44Y173        LUT4 (Prop_lut4_I3_O)        0.043    19.933 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[0]_i_3/O
+                         net (fo=1, routed)           0.634    20.567    student_top_inst/u_KLDJ_top/u_pipe_ex_mem/perip_rdata[0]
+    SLICE_X51Y162                                                     r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[0]_i_1_comp_1/I2
+    SLICE_X51Y162        LUT6 (Prop_lut6_I2_O)        0.043    20.610 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[0]_i_1_comp_1/O
+                         net (fo=1, routed)           0.000    20.610    student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[31]_1[0]
+    SLICE_X51Y162        FDRE                                         r  student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[0]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out2_pll rise edge)
+                                                     24.000    24.000 r  
+                         clock source latency        -5.457    18.543    
+                         propagated clock network latency
+                                                      3.173    21.716    
+                         clock pessimism             -0.598    21.119    
+                         clock uncertainty           -0.194    20.925    
+    SLICE_X51Y162        FDRE (Setup_fdre_C_D)        0.034    20.959    student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[0]
+  -------------------------------------------------------------------
+                         required time                         20.959    
+                         arrival time                         -20.610    
+  -------------------------------------------------------------------
+                         slack                                  0.349    
+
+
+
+

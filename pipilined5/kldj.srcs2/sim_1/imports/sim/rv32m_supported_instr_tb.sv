@@ -7,6 +7,8 @@ localparam [6:0] OPCODE_LUI   = 7'b0110111;
 localparam [6:0] OPCODE_JAL   = 7'b1101111;
 localparam [6:0] OPCODE_OPIMM = 7'b0010011;
 localparam [6:0] OPCODE_OP    = 7'b0110011;
+localparam [6:0] OPCODE_LOAD  = 7'b0000011;
+localparam [6:0] OPCODE_STORE = 7'b0100011;
 
 localparam [2:0] F3_ADD_SUB = 3'b000;
 localparam [2:0] F3_MUL     = 3'b000;
@@ -17,6 +19,8 @@ localparam [2:0] F3_DIV     = 3'b100;
 localparam [2:0] F3_DIVU    = 3'b101;
 localparam [2:0] F3_REM     = 3'b110;
 localparam [2:0] F3_REMU    = 3'b111;
+localparam [2:0] F3_LW      = 3'b010;
+localparam [2:0] F3_SW      = 3'b010;
 
 localparam [6:0] FUNCT7_MULDIV = 7'b0000001;
 localparam [31:0] START_PC = `KLDJ_STARTPC;
@@ -40,6 +44,7 @@ wire        core_clk;
 
 reg [31:0] imem [0:IMEM_WORDS-1];
 reg [31:0] dut_dmem [0:1023];
+reg [31:0] model_dmem [0:1023];
 reg [31:0] model_regs [0:31];
 reg [31:0] expected_regs [0:IMEM_WORDS-1][0:31];
 reg [31:0] expected_next_pc [0:IMEM_WORDS-1];
@@ -53,12 +58,15 @@ integer step_count;
 integer fail_count;
 integer done_idx;
 integer total_cases;
+integer mem_write_count;
+integer expected_store_count;
 reg done;
 
 assign mem_rdata = (^mem_addr === 1'bx) ? 32'h00000000 : dut_dmem[mem_addr[11:2]];
 
 always @(posedge core_clk) begin
     if (mem_we) begin
+        mem_write_count <= mem_write_count + 1;
         if (mem_be[0]) dut_dmem[mem_addr[11:2]][7:0]   <= mem_wdata[7:0];
         if (mem_be[1]) dut_dmem[mem_addr[11:2]][15:8]  <= mem_wdata[15:8];
         if (mem_be[2]) dut_dmem[mem_addr[11:2]][23:16] <= mem_wdata[23:16];
@@ -141,6 +149,17 @@ function automatic [31:0] rv32_j;
     end
 endfunction
 
+
+function automatic [31:0] rv32_s;
+    input [11:0] imm12;
+    input [4:0]  rs2;
+    input [4:0]  rs1;
+    input [2:0]  funct3;
+    input [6:0]  opcode;
+    begin
+        rv32_s = {imm12[11:5], rs2, rs1, funct3, imm12[4:0], opcode};
+    end
+endfunction
 function automatic [31:0] signed_div_res;
     input [31:0] a;
     input [31:0] b;
@@ -334,6 +353,31 @@ task automatic exec_m;
     end
 endtask
 
+
+task automatic exec_sw;
+    input [4:0] rs1;
+    input [4:0] rs2;
+    input integer imm;
+    reg [31:0] addr;
+    begin
+        addr = model_regs[rs1] + $signed(imm);
+        model_dmem[addr[11:2]] = model_regs[rs2];
+        expected_store_count = expected_store_count + 1;
+        record_step(rv32_s(imm[11:0], rs2, rs1, F3_SW, OPCODE_STORE), curr_pc() + 32'd4);
+    end
+endtask
+
+task automatic exec_lw;
+    input [4:0] rd;
+    input [4:0] rs1;
+    input integer imm;
+    reg [31:0] addr;
+    begin
+        addr = model_regs[rs1] + $signed(imm);
+        model_write(rd, model_dmem[addr[11:2]]);
+        record_step(rv32_i(imm[11:0], rs1, F3_LW, rd, OPCODE_LOAD), curr_pc() + 32'd4);
+    end
+endtask
 task automatic case_m;
     input [12*8-1:0] name;
     input [2:0] funct3;
@@ -364,6 +408,102 @@ task automatic case_forward;
     end
 endtask
 
+
+task automatic case_consecutive_divrem;
+    begin
+        total_cases = total_cases + 1;
+        build_li(5'd1, 32'hfffffff9);
+        build_li(5'd2, 32'h00000003);
+        exec_m(F3_DIV, 5'd3, 5'd1, 5'd2, signed_div_res(model_regs[5'd1], model_regs[5'd2]));
+        exec_m(F3_REM, 5'd4, 5'd1, 5'd2, signed_rem_res(model_regs[5'd1], model_regs[5'd2]));
+        exec_m(F3_DIVU, 5'd5, 5'd1, 5'd2, unsigned_div_res(model_regs[5'd1], model_regs[5'd2]));
+        exec_m(F3_REMU, 5'd6, 5'd1, 5'd2, unsigned_rem_res(model_regs[5'd1], model_regs[5'd2]));
+        $display("[CASE] consecutive DIV/REM/DIVU/REMU");
+    end
+endtask
+
+task automatic case_div_dependent;
+    begin
+        total_cases = total_cases + 1;
+        build_li(5'd1, 32'd7);
+        build_li(5'd2, 32'd3);
+        exec_m(F3_DIV, 5'd3, 5'd1, 5'd2, signed_div_res(model_regs[5'd1], model_regs[5'd2]));
+        exec_addi(5'd4, 5'd3, 5);
+        exec_m(F3_REM, 5'd5, 5'd4, 5'd2, signed_rem_res(model_regs[5'd4], model_regs[5'd2]));
+        $display("[CASE] DIV result consumed by dependent ADDI/REM");
+    end
+endtask
+
+task automatic case_div_store_no_repeat;
+    begin
+        total_cases = total_cases + 1;
+        build_li(5'd10, 32'd128);
+        build_li(5'd11, 32'h11112222);
+        exec_sw(5'd10, 5'd11, 0);
+        build_li(5'd1, 32'd7);
+        build_li(5'd2, 32'd3);
+        exec_m(F3_DIV, 5'd12, 5'd1, 5'd2, signed_div_res(model_regs[5'd1], model_regs[5'd2]));
+        build_li(5'd11, 32'h33334444);
+        exec_sw(5'd10, 5'd11, 4);
+        exec_lw(5'd13, 5'd10, 0);
+        exec_lw(5'd14, 5'd10, 4);
+        $display("[CASE] store before/after DIV, mem_we must not repeat");
+    end
+endtask
+
+task automatic case_consecutive_mul;
+    begin
+        total_cases = total_cases + 1;
+        build_li(5'd1, 32'd3);
+        build_li(5'd2, 32'd4);
+        exec_m(F3_MUL, 5'd3, 5'd1, 5'd2, mul_res(model_regs[5'd1], model_regs[5'd2]));
+        exec_m(F3_MULH, 5'd4, 5'd3, 5'd2, mulh_res(model_regs[5'd3], model_regs[5'd2]));
+        exec_m(F3_MULHU, 5'd5, 5'd3, 5'd4, mulhu_res(model_regs[5'd3], model_regs[5'd4]));
+        $display("[CASE] consecutive MUL/MULH/MULHU");
+    end
+endtask
+
+task automatic case_mul_dependent;
+    begin
+        total_cases = total_cases + 1;
+        build_li(5'd1, 32'd3);
+        build_li(5'd2, 32'd4);
+        exec_m(F3_MUL, 5'd3, 5'd1, 5'd2, mul_res(model_regs[5'd1], model_regs[5'd2]));
+        exec_addi(5'd4, 5'd3, 5);
+        exec_m(F3_MUL, 5'd5, 5'd4, 5'd2, mul_res(model_regs[5'd4], model_regs[5'd2]));
+        $display("[CASE] MUL result consumed by dependent ADDI/MUL");
+    end
+endtask
+
+task automatic case_mul_div_mix;
+    begin
+        total_cases = total_cases + 1;
+        build_li(5'd1, 32'hfffffff9);
+        build_li(5'd2, 32'd3);
+        exec_m(F3_MUL, 5'd3, 5'd1, 5'd2, mul_res(model_regs[5'd1], model_regs[5'd2]));
+        exec_m(F3_DIV, 5'd4, 5'd3, 5'd2, signed_div_res(model_regs[5'd3], model_regs[5'd2]));
+        exec_m(F3_REM, 5'd5, 5'd3, 5'd2, signed_rem_res(model_regs[5'd3], model_regs[5'd2]));
+        exec_m(F3_MULHSU, 5'd6, 5'd4, 5'd2, mulhsu_res(model_regs[5'd4], model_regs[5'd2]));
+        $display("[CASE] MUL before/after DIV/REM");
+    end
+endtask
+
+task automatic case_mul_store_no_repeat;
+    begin
+        total_cases = total_cases + 1;
+        build_li(5'd10, 32'd160);
+        build_li(5'd11, 32'h55556666);
+        exec_sw(5'd10, 5'd11, 0);
+        build_li(5'd1, 32'd3);
+        build_li(5'd2, 32'd4);
+        exec_m(F3_MUL, 5'd12, 5'd1, 5'd2, mul_res(model_regs[5'd1], model_regs[5'd2]));
+        build_li(5'd11, 32'h77778888);
+        exec_sw(5'd10, 5'd11, 4);
+        exec_lw(5'd13, 5'd10, 0);
+        exec_lw(5'd14, 5'd10, 4);
+        $display("[CASE] store before/after MUL, mem_we must not repeat");
+    end
+endtask
 task automatic finish_program;
     reg [31:0] final_pc;
     begin
@@ -401,6 +541,8 @@ initial begin
     fail_count = 0;
     done_idx = 0;
     total_cases = 0;
+    mem_write_count = 0;
+    expected_store_count = 0;
     done = 1'b0;
 
     for (i = 0; i < IMEM_WORDS; i = i + 1) begin
@@ -415,14 +557,32 @@ initial begin
     for (i = 0; i < 32; i = i + 1)
         model_regs[i] = 32'b0;
 
-    for (i = 0; i < 1024; i = i + 1)
+    for (i = 0; i < 1024; i = i + 1) begin
         dut_dmem[i] = 32'b0;
+        model_dmem[i] = 32'b0;
+    end
 
+    case_m("MUL_3_4", F3_MUL, 32'h00000003, 32'h00000004, mul_res(32'h00000003, 32'h00000004));
+    case_m("MUL_N3_4", F3_MUL, 32'hfffffffd, 32'h00000004, mul_res(32'hfffffffd, 32'h00000004));
+    case_m("MUL_FF_FF", F3_MUL, 32'hffffffff, 32'hffffffff, mul_res(32'hffffffff, 32'hffffffff));
+    case_m("MULH_N1_N1", F3_MULH, 32'hffffffff, 32'hffffffff, mulh_res(32'hffffffff, 32'hffffffff));
+    case_m("MULH_MIN_2", F3_MULH, 32'h80000000, 32'h00000002, mulh_res(32'h80000000, 32'h00000002));
+    case_m("MULHSU_N1_2", F3_MULHSU, 32'hffffffff, 32'h00000002, mulhsu_res(32'hffffffff, 32'h00000002));
+    case_m("MULHSU_MIN_2", F3_MULHSU, 32'h80000000, 32'h00000002, mulhsu_res(32'h80000000, 32'h00000002));
+    case_m("MULHU_FF_FF", F3_MULHU, 32'hffffffff, 32'hffffffff, mulhu_res(32'hffffffff, 32'hffffffff));
     case_m("MUL",    F3_MUL,    32'hffffffff, 32'h00000002, mul_res(32'hffffffff, 32'h00000002));
     case_m("MULH",   F3_MULH,   32'h80000000, 32'h00000002, mulh_res(32'h80000000, 32'h00000002));
     case_m("MULHSU", F3_MULHSU, 32'hfffffffe, 32'h00000003, mulhsu_res(32'hfffffffe, 32'h00000003));
     case_m("MULHU",  F3_MULHU,  32'hffffffff, 32'hffffffff, mulhu_res(32'hffffffff, 32'hffffffff));
 
+    case_m("DIV_7_3", F3_DIV, 32'h00000007, 32'h00000003, signed_div_res(32'h00000007, 32'h00000003));
+    case_m("REM_7_3", F3_REM, 32'h00000007, 32'h00000003, signed_rem_res(32'h00000007, 32'h00000003));
+    case_m("DIV_N7_3", F3_DIV, 32'hfffffff9, 32'h00000003, signed_div_res(32'hfffffff9, 32'h00000003));
+    case_m("REM_N7_3", F3_REM, 32'hfffffff9, 32'h00000003, signed_rem_res(32'hfffffff9, 32'h00000003));
+    case_m("DIV_7_N3", F3_DIV, 32'h00000007, 32'hfffffffd, signed_div_res(32'h00000007, 32'hfffffffd));
+    case_m("REM_7_N3", F3_REM, 32'h00000007, 32'hfffffffd, signed_rem_res(32'h00000007, 32'hfffffffd));
+    case_m("DIV_N7_N3", F3_DIV, 32'hfffffff9, 32'hfffffffd, signed_div_res(32'hfffffff9, 32'hfffffffd));
+    case_m("REM_N7_N3", F3_REM, 32'hfffffff9, 32'hfffffffd, signed_rem_res(32'hfffffff9, 32'hfffffffd));
     case_m("DIV",    F3_DIV,    32'h00000007, 32'hfffffffe, signed_div_res(32'h00000007, 32'hfffffffe));
     case_m("DIV_NEG",F3_DIV,    32'hfffffff9, 32'h00000002, signed_div_res(32'hfffffff9, 32'h00000002));
     case_m("DIV_ZERO",F3_DIV,   32'h12345678, 32'h00000000, signed_div_res(32'h12345678, 32'h00000000));
@@ -438,6 +598,13 @@ initial begin
     case_m("REMU_ZERO",F3_REMU, 32'h12345678, 32'h00000000, unsigned_rem_res(32'h12345678, 32'h00000000));
 
     case_forward();
+    case_consecutive_mul();
+    case_mul_dependent();
+    case_mul_div_mix();
+    case_mul_store_no_repeat();
+    case_consecutive_divrem();
+    case_div_dependent();
+    case_div_store_no_repeat();
     finish_program();
 
     repeat (5) @(posedge clk);
@@ -477,6 +644,10 @@ initial begin
             check_step(retire_idx);
 
             if (retire_idx == done_idx) begin
+                if (mem_write_count != expected_store_count) begin
+                    fail_count = fail_count + 1;
+                    $display("[FAIL] mem_write_count expected=%0d got=%0d", expected_store_count, mem_write_count);
+                end
                 if (fail_count == 0) begin
                     $display("[SUMMARY] rv32m supported pipeline test passed.");
                     $display("[INFO] total_cases=%0d retired_steps=%0d program_words=%0d cycles=%0d",

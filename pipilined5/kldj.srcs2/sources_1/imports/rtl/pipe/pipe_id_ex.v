@@ -25,6 +25,7 @@ module pipe_id_ex(
     // control
     ,input wire                  ex_redirect
     ,input wire                  load_use_stall
+    ,input wire                  ex_stall
     // pipeline register outputs
     ,output reg                  id_ex_valid
     ,output reg [`KLDJ_PC]       id_ex_pc
@@ -70,7 +71,45 @@ module pipe_id_ex(
             id_ex_data4    <= `KLDJ_ZERO32;
             id_ex_rs1_data <= `KLDJ_ZERO32;
             id_ex_rs2_data <= `KLDJ_ZERO32;
-        end else if(ex_redirect || load_use_stall) begin
+        end else if(ex_redirect) begin
+            id_ex_valid    <= 1'b0;
+            id_ex_pc       <= `KLDJ_ZERO32;
+            id_ex_snpc     <= `KLDJ_ZERO32;
+            id_ex_rs1_addr <= 5'd0;
+            id_ex_rs2_addr <= 5'd0;
+            id_ex_rd_addr  <= 5'd0;
+            id_ex_rs1_ren  <= 1'b0;
+            id_ex_rs2_ren  <= 1'b0;
+            id_ex_wb_ctl   <= 1'b0;
+            id_ex_exu_op   <= 18'd0;
+            id_ex_alu_ctrl <= 10'd0;
+            id_ex_ls_ctl   <= 4'd0;
+            id_ex_data1    <= `KLDJ_ZERO32;
+            id_ex_data2    <= `KLDJ_ZERO32;
+            id_ex_data3    <= `KLDJ_ZERO32;
+            id_ex_data4    <= `KLDJ_ZERO32;
+            id_ex_rs1_data <= `KLDJ_ZERO32;
+            id_ex_rs2_data <= `KLDJ_ZERO32;
+        end else if(ex_stall) begin
+            id_ex_valid    <= id_ex_valid;
+            id_ex_pc       <= id_ex_pc;
+            id_ex_snpc     <= id_ex_snpc;
+            id_ex_rs1_addr <= id_ex_rs1_addr;
+            id_ex_rs2_addr <= id_ex_rs2_addr;
+            id_ex_rd_addr  <= id_ex_rd_addr;
+            id_ex_rs1_ren  <= id_ex_rs1_ren;
+            id_ex_rs2_ren  <= id_ex_rs2_ren;
+            id_ex_wb_ctl   <= id_ex_wb_ctl;
+            id_ex_exu_op   <= id_ex_exu_op;
+            id_ex_alu_ctrl <= id_ex_alu_ctrl;
+            id_ex_ls_ctl   <= id_ex_ls_ctl;
+            id_ex_data1    <= id_ex_data1;
+            id_ex_data2    <= id_ex_data2;
+            id_ex_data3    <= id_ex_data3;
+            id_ex_data4    <= id_ex_data4;
+            id_ex_rs1_data <= id_ex_rs1_data;
+            id_ex_rs2_data <= id_ex_rs2_data;
+        end else if(load_use_stall) begin
             id_ex_valid    <= 1'b0;
             id_ex_pc       <= `KLDJ_ZERO32;
             id_ex_snpc     <= `KLDJ_ZERO32;

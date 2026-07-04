@@ -1,0 +1,917 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2023.2 (win64) Build 4029153 Fri Oct 13 20:14:34 MDT 2023
+| Date         : Sat Jul  4 11:16:36 2026
+| Host         : DESKTOP-CGVJL45 running 64-bit major release  (build 9200)
+| Command      : report_timing -delay_type min -max_paths 20 -sort_by slack -path_type full -input_pins -routable_nets -file D:/System/desktop/jyd-feature/pipilined5/reports/timing_after_div_ip/timing_full_min_after_div_ip.rpt
+| Design       : top
+| Device       : 7k325t-ffg900
+| Speed File   : -2  PRODUCTION 1.12 2017-02-17
+| Design State : Routed
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+Slack (MET) :             0.045ns  (arrival time - required time)
+  Source:                 student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[29].divisor_gen.divisor_dc1.del_divisor_msbs/opt_has_pipe.first_q_reg[5]/C
+                            (rising edge-triggered cell FDRE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Destination:            student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[30].divisor_gen.divisor_dc1.del_divisor_msbs/opt_has_pipe.first_q_reg[5]/D
+                            (rising edge-triggered cell FDRE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Path Group:             clk_out2_pll
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_out2_pll rise@0.000ns - clk_out2_pll rise@0.000ns)
+  Data Path Delay:        0.198ns  (logic 0.091ns (45.926%)  route 0.107ns (54.074%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.140ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    -0.651ns
+    Source Clock Delay      (SCD):    -0.389ns
+    Clock Pessimism Removal (CPR):    -0.403ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out2_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.017    -2.017    
+                         propagated clock network latency
+                                                      1.628    -0.389    
+    SLICE_X15Y149        FDRE                         0.000    -0.389 r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[29].divisor_gen.divisor_dc1.del_divisor_msbs/opt_has_pipe.first_q_reg[5]/C
+    SLICE_X15Y149        FDRE (Prop_fdre_C_Q)         0.091    -0.298 r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[29].divisor_gen.divisor_dc1.del_divisor_msbs/opt_has_pipe.first_q_reg[5]/Q
+                         net (fo=2, routed)           0.107    -0.190    student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[30].divisor_gen.divisor_dc1.del_divisor_msbs/opt_has_pipe.first_q_reg[31]_0[5]
+    SLICE_X15Y150        FDRE                                         r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[30].divisor_gen.divisor_dc1.del_divisor_msbs/opt_has_pipe.first_q_reg[5]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out2_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.500    -2.500    
+                         propagated clock network latency
+                                                      1.849    -0.651    
+                         clock pessimism              0.403    -0.249    
+    SLICE_X15Y150        FDRE (Hold_fdre_C_D)         0.013    -0.236    student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[30].divisor_gen.divisor_dc1.del_divisor_msbs/opt_has_pipe.first_q_reg[5]
+  -------------------------------------------------------------------
+                         required time                          0.236    
+                         arrival time                          -0.190    
+  -------------------------------------------------------------------
+                         slack                                  0.045    
+
+Slack (MET) :             0.058ns  (arrival time - required time)
+  Source:                 student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[26].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/opt_has_pipe.first_q_reg[24]/C
+                            (rising edge-triggered cell FDSE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Destination:            student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[27].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/opt_has_pipe.first_q_reg[25]/D
+                            (rising edge-triggered cell FDSE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Path Group:             clk_out2_pll
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_out2_pll rise@0.000ns - clk_out2_pll rise@0.000ns)
+  Data Path Delay:        0.394ns  (logic 0.195ns (49.533%)  route 0.199ns (50.467%))
+  Logic Levels:           2  (CARRY4=1 LUT3=1)
+  Clock Path Skew:        0.265ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    -0.579ns
+    Source Clock Delay      (SCD):    -0.442ns
+    Clock Pessimism Removal (CPR):    -0.403ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out2_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.017    -2.017    
+                         propagated clock network latency
+                                                      1.575    -0.442    
+    SLICE_X12Y155        FDSE                         0.000    -0.442 r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[26].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/opt_has_pipe.first_q_reg[24]/C
+    SLICE_X12Y155        FDSE (Prop_fdse_C_Q)         0.118    -0.324 r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[26].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/opt_has_pipe.first_q_reg[24]/Q
+                         net (fo=2, routed)           0.199    -0.125    student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[27].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_simple_model.carrymux0_1[24]
+    SLICE_X13Y147                                                     r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[27].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_simple_model.i_gt_1.carrychaingen[25].carrymux_i_1/I2
+    SLICE_X13Y147        LUT3 (Prop_lut3_I2_O)        0.028    -0.097 r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[27].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_simple_model.i_gt_1.carrychaingen[25].carrymux_i_1/O
+                         net (fo=1, routed)           0.000    -0.097    student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[27].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_simple_model.halfsum[25]
+    SLICE_X13Y147                                                     r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[27].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_simple_model.i_gt_1.carrychaingen[24].carrymux_CARRY4/S[1]
+    SLICE_X13Y147        CARRY4 (Prop_carry4_S[1]_O[1])
+                                                      0.049    -0.048 r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[27].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_simple_model.i_gt_1.carrychaingen[24].carrymux_CARRY4/O[1]
+                         net (fo=1, routed)           0.000    -0.048    student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[27].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/D[25]
+    SLICE_X13Y147        FDSE                                         r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[27].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/opt_has_pipe.first_q_reg[25]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out2_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.500    -2.500    
+                         propagated clock network latency
+                                                      1.921    -0.579    
+                         clock pessimism              0.403    -0.177    
+    SLICE_X13Y147        FDSE (Hold_fdse_C_D)         0.071    -0.106    student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[27].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/opt_has_pipe.first_q_reg[25]
+  -------------------------------------------------------------------
+                         required time                          0.106    
+                         arrival time                          -0.048    
+  -------------------------------------------------------------------
+                         slack                                  0.058    
+
+Slack (MET) :             0.058ns  (arrival time - required time)
+  Source:                 student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[25].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/opt_has_pipe.first_q_reg[2]/C
+                            (rising edge-triggered cell FDSE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Destination:            student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[26].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/opt_has_pipe.first_q_reg[3]/D
+                            (rising edge-triggered cell FDSE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Path Group:             clk_out2_pll
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_out2_pll rise@0.000ns - clk_out2_pll rise@0.000ns)
+  Data Path Delay:        0.414ns  (logic 0.174ns (42.046%)  route 0.240ns (57.954%))
+  Logic Levels:           2  (CARRY4=1 LUT3=1)
+  Clock Path Skew:        0.264ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    -0.579ns
+    Source Clock Delay      (SCD):    -0.441ns
+    Clock Pessimism Removal (CPR):    -0.403ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out2_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.017    -2.017    
+                         propagated clock network latency
+                                                      1.576    -0.441    
+    SLICE_X11Y150        FDSE                         0.000    -0.441 r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[25].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/opt_has_pipe.first_q_reg[2]/C
+    SLICE_X11Y150        FDSE (Prop_fdse_C_Q)         0.100    -0.341 r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[25].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/opt_has_pipe.first_q_reg[2]/Q
+                         net (fo=2, routed)           0.240    -0.101    student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[26].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_simple_model.carrymux0_1[2]
+    SLICE_X12Y149                                                     r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[26].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_simple_model.i_gt_1.carrychaingen[3].carrymux_i_1/I2
+    SLICE_X12Y149        LUT3 (Prop_lut3_I2_O)        0.028    -0.073 r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[26].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_simple_model.i_gt_1.carrychaingen[3].carrymux_i_1/O
+                         net (fo=1, routed)           0.000    -0.073    student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[26].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_simple_model.halfsum[3]
+    SLICE_X12Y149                                                     r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[26].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_simple_model.carrymux0_CARRY4/S[3]
+    SLICE_X12Y149        CARRY4 (Prop_carry4_S[3]_O[3])
+                                                      0.046    -0.027 r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[26].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_simple_model.carrymux0_CARRY4/O[3]
+                         net (fo=1, routed)           0.000    -0.027    student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[26].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/D[3]
+    SLICE_X12Y149        FDSE                                         r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[26].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/opt_has_pipe.first_q_reg[3]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out2_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.500    -2.500    
+                         propagated clock network latency
+                                                      1.921    -0.579    
+                         clock pessimism              0.403    -0.177    
+    SLICE_X12Y149        FDSE (Hold_fdse_C_D)         0.092    -0.085    student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[26].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/opt_has_pipe.first_q_reg[3]
+  -------------------------------------------------------------------
+                         required time                          0.085    
+                         arrival time                          -0.027    
+  -------------------------------------------------------------------
+                         slack                                  0.058    
+
+Slack (MET) :             0.060ns  (arrival time - required time)
+  Source:                 student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[20].num_stages.numerator_gen.del_numer/opt_has_pipe.first_q_reg[7]/C
+                            (rising edge-triggered cell FDRE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Destination:            student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[21].num_stages.numerator_gen.del_numer/opt_has_pipe.first_q_reg[7]/D
+                            (rising edge-triggered cell FDRE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Path Group:             clk_out2_pll
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_out2_pll rise@0.000ns - clk_out2_pll rise@0.000ns)
+  Data Path Delay:        0.245ns  (logic 0.100ns (40.799%)  route 0.145ns (59.201%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.141ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    -0.651ns
+    Source Clock Delay      (SCD):    -0.390ns
+    Clock Pessimism Removal (CPR):    -0.403ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out2_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.017    -2.017    
+                         propagated clock network latency
+                                                      1.627    -0.390    
+    SLICE_X17Y149        FDRE                         0.000    -0.390 r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[20].num_stages.numerator_gen.del_numer/opt_has_pipe.first_q_reg[7]/C
+    SLICE_X17Y149        FDRE (Prop_fdre_C_Q)         0.100    -0.290 r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[20].num_stages.numerator_gen.del_numer/opt_has_pipe.first_q_reg[7]/Q
+                         net (fo=1, routed)           0.145    -0.144    student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[21].num_stages.numerator_gen.del_numer/D[7]
+    SLICE_X17Y150        FDRE                                         r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[21].num_stages.numerator_gen.del_numer/opt_has_pipe.first_q_reg[7]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out2_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.500    -2.500    
+                         propagated clock network latency
+                                                      1.849    -0.651    
+                         clock pessimism              0.403    -0.249    
+    SLICE_X17Y150        FDRE (Hold_fdre_C_D)         0.044    -0.205    student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[21].num_stages.numerator_gen.del_numer/opt_has_pipe.first_q_reg[7]
+  -------------------------------------------------------------------
+                         required time                          0.205    
+                         arrival time                          -0.144    
+  -------------------------------------------------------------------
+                         slack                                  0.060    
+
+Slack (MET) :             0.067ns  (arrival time - required time)
+  Source:                 student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[21].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/opt_has_pipe.first_q_reg[26]/C
+                            (rising edge-triggered cell FDSE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Destination:            student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[22].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/opt_has_pipe.first_q_reg[27]/D
+                            (rising edge-triggered cell FDSE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Path Group:             clk_out2_pll
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_out2_pll rise@0.000ns - clk_out2_pll rise@0.000ns)
+  Data Path Delay:        0.393ns  (logic 0.192ns (48.907%)  route 0.201ns (51.093%))
+  Logic Levels:           2  (CARRY4=1 LUT3=1)
+  Clock Path Skew:        0.234ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    -0.578ns
+    Source Clock Delay      (SCD):    -0.410ns
+    Clock Pessimism Removal (CPR):    -0.403ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out2_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.017    -2.017    
+                         propagated clock network latency
+                                                      1.607    -0.410    
+    SLICE_X6Y150         FDSE                         0.000    -0.410 r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[21].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/opt_has_pipe.first_q_reg[26]/C
+    SLICE_X6Y150         FDSE (Prop_fdse_C_Q)         0.118    -0.292 r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[21].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/opt_has_pipe.first_q_reg[26]/Q
+                         net (fo=2, routed)           0.201    -0.091    student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[22].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_simple_model.carrymux0_1[26]
+    SLICE_X8Y149                                                      r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[22].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_simple_model.i_gt_1.carrychaingen[27].carrymux_i_1/I2
+    SLICE_X8Y149         LUT3 (Prop_lut3_I2_O)        0.028    -0.063 r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[22].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_simple_model.i_gt_1.carrychaingen[27].carrymux_i_1/O
+                         net (fo=1, routed)           0.000    -0.063    student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[22].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_simple_model.halfsum[27]
+    SLICE_X8Y149                                                      r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[22].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_simple_model.i_gt_1.carrychaingen[24].carrymux_CARRY4/S[3]
+    SLICE_X8Y149         CARRY4 (Prop_carry4_S[3]_O[3])
+                                                      0.046    -0.017 r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[22].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_simple_model.i_gt_1.carrychaingen[24].carrymux_CARRY4/O[3]
+                         net (fo=1, routed)           0.000    -0.017    student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[22].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/D[27]
+    SLICE_X8Y149         FDSE                                         r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[22].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/opt_has_pipe.first_q_reg[27]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out2_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.500    -2.500    
+                         propagated clock network latency
+                                                      1.922    -0.578    
+                         clock pessimism              0.403    -0.176    
+    SLICE_X8Y149         FDSE (Hold_fdse_C_D)         0.092    -0.084    student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[22].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/opt_has_pipe.first_q_reg[27]
+  -------------------------------------------------------------------
+                         required time                          0.084    
+                         arrival time                          -0.017    
+  -------------------------------------------------------------------
+                         slack                                  0.067    
+
+Slack (MET) :             0.069ns  (arrival time - required time)
+  Source:                 student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[31].divisor_gen.divisor_dc1.del_divisor_msbs/opt_has_pipe.first_q_reg[23]/C
+                            (rising edge-triggered cell FDRE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Destination:            student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[31].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/opt_has_pipe.first_q_reg[23]/D
+                            (rising edge-triggered cell FDSE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Path Group:             clk_out2_pll
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_out2_pll rise@0.000ns - clk_out2_pll rise@0.000ns)
+  Data Path Delay:        0.405ns  (logic 0.177ns (43.675%)  route 0.228ns (56.325%))
+  Logic Levels:           2  (CARRY4=1 LUT3=1)
+  Clock Path Skew:        0.265ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    -0.581ns
+    Source Clock Delay      (SCD):    -0.444ns
+    Clock Pessimism Removal (CPR):    -0.403ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out2_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.017    -2.017    
+                         propagated clock network latency
+                                                      1.573    -0.444    
+    SLICE_X21Y154        FDRE                         0.000    -0.444 r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[31].divisor_gen.divisor_dc1.del_divisor_msbs/opt_has_pipe.first_q_reg[23]/C
+    SLICE_X21Y154        FDRE (Prop_fdre_C_Q)         0.100    -0.344 r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[31].divisor_gen.divisor_dc1.del_divisor_msbs/opt_has_pipe.first_q_reg[23]/Q
+                         net (fo=2, routed)           0.228    -0.115    student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[31].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/D[23]
+    SLICE_X23Y149                                                     r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[31].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_simple_model.i_gt_1.carrychaingen[23].carrymux_i_1/I0
+    SLICE_X23Y149        LUT3 (Prop_lut3_I0_O)        0.028    -0.087 r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[31].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_simple_model.i_gt_1.carrychaingen[23].carrymux_i_1/O
+                         net (fo=1, routed)           0.000    -0.087    student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[31].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_simple_model.halfsum[23]
+    SLICE_X23Y149                                                     r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[31].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_simple_model.i_gt_1.carrychaingen[20].carrymux_CARRY4/S[3]
+    SLICE_X23Y149        CARRY4 (Prop_carry4_S[3]_O[3])
+                                                      0.049    -0.038 r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[31].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_simple_model.i_gt_1.carrychaingen[20].carrymux_CARRY4/O[3]
+                         net (fo=1, routed)           0.000    -0.038    student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[31].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/D[23]
+    SLICE_X23Y149        FDSE                                         r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[31].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/opt_has_pipe.first_q_reg[23]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out2_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.500    -2.500    
+                         propagated clock network latency
+                                                      1.919    -0.581    
+                         clock pessimism              0.403    -0.179    
+    SLICE_X23Y149        FDSE (Hold_fdse_C_D)         0.071    -0.108    student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[31].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/opt_has_pipe.first_q_reg[23]
+  -------------------------------------------------------------------
+                         required time                          0.108    
+                         arrival time                          -0.038    
+  -------------------------------------------------------------------
+                         slack                                  0.069    
+
+Slack (MET) :             0.071ns  (arrival time - required time)
+  Source:                 student_top_inst/bridge_inst/seg_wdata_reg[21]/C
+                            (rising edge-triggered cell FDRE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Destination:            twin_controller_inst/status_buffer_reg[2][6]/D
+                            (rising edge-triggered cell FDCE clocked by clk_out1_pll  {rise@0.000ns fall@10.000ns period=20.000ns})
+  Path Group:             clk_out1_pll
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_out1_pll rise@0.000ns - clk_out2_pll rise@0.000ns)
+  Data Path Delay:        0.630ns  (logic 0.128ns (20.325%)  route 0.502ns (79.675%))
+  Logic Levels:           1  (LUT6=1)
+  Clock Path Skew:        0.304ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    -0.634ns
+    Source Clock Delay      (SCD):    -0.455ns
+    Clock Pessimism Removal (CPR):    -0.484ns
+  Clock Uncertainty:      0.194ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.129ns
+    Phase Error              (PE):    0.120ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out2_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.017    -2.017    
+                         propagated clock network latency
+                                                      1.562    -0.455    
+    SLICE_X9Y175         FDRE                         0.000    -0.455 r  student_top_inst/bridge_inst/seg_wdata_reg[21]/C
+    SLICE_X9Y175         FDRE (Prop_fdre_C_Q)         0.100    -0.355 f  student_top_inst/bridge_inst/seg_wdata_reg[21]/Q
+                         net (fo=8, routed)           0.502     0.147    student_top_inst/bridge_inst/seg_driver/status_buffer_reg[4][4][13]
+    SLICE_X1Y173                                                      f  student_top_inst/bridge_inst/seg_driver/virtual_seg_OBUF[22]_inst_i_1/I5
+    SLICE_X1Y173         LUT6 (Prop_lut6_I5_O)        0.028     0.175 r  student_top_inst/bridge_inst/seg_driver/virtual_seg_OBUF[22]_inst_i_1/O
+                         net (fo=2, routed)           0.000     0.175    twin_controller_inst/virtual_seg_OBUF[18]
+    SLICE_X1Y173         FDCE                                         r  twin_controller_inst/status_buffer_reg[2][6]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out1_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.500    -2.500    
+                         propagated clock network latency
+                                                      1.866    -0.634    
+                         clock pessimism              0.484    -0.151    
+                         clock uncertainty            0.194     0.043    
+    SLICE_X1Y173         FDCE (Hold_fdce_C_D)         0.061     0.104    twin_controller_inst/status_buffer_reg[2][6]
+  -------------------------------------------------------------------
+                         required time                         -0.104    
+                         arrival time                           0.175    
+  -------------------------------------------------------------------
+                         slack                                  0.071    
+
+Slack (MET) :             0.077ns  (arrival time - required time)
+  Source:                 student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[22].divisor_gen.divisor_dc1.del_divisor_msbs/opt_has_pipe.first_q_reg[19]/C
+                            (rising edge-triggered cell FDRE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Destination:            student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[22].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/opt_has_pipe.first_q_reg[19]/D
+                            (rising edge-triggered cell FDSE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Path Group:             clk_out2_pll
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_out2_pll rise@0.000ns - clk_out2_pll rise@0.000ns)
+  Data Path Delay:        0.434ns  (logic 0.217ns (50.035%)  route 0.217ns (49.965%))
+  Logic Levels:           2  (CARRY4=1 LUT3=1)
+  Clock Path Skew:        0.265ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    -0.578ns
+    Source Clock Delay      (SCD):    -0.441ns
+    Clock Pessimism Removal (CPR):    -0.403ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out2_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.017    -2.017    
+                         propagated clock network latency
+                                                      1.576    -0.441    
+    SLICE_X8Y151         FDRE                         0.000    -0.441 r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[22].divisor_gen.divisor_dc1.del_divisor_msbs/opt_has_pipe.first_q_reg[19]/C
+    SLICE_X8Y151         FDRE (Prop_fdre_C_Q)         0.107    -0.334 r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[22].divisor_gen.divisor_dc1.del_divisor_msbs/opt_has_pipe.first_q_reg[19]/Q
+                         net (fo=2, routed)           0.217    -0.117    student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[22].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/D[19]
+    SLICE_X8Y147                                                      r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[22].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_simple_model.i_gt_1.carrychaingen[19].carrymux_i_1/I0
+    SLICE_X8Y147         LUT3 (Prop_lut3_I0_O)        0.064    -0.053 r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[22].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_simple_model.i_gt_1.carrychaingen[19].carrymux_i_1/O
+                         net (fo=1, routed)           0.000    -0.053    student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[22].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_simple_model.halfsum[19]
+    SLICE_X8Y147                                                      r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[22].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_simple_model.i_gt_1.carrychaingen[16].carrymux_CARRY4/S[3]
+    SLICE_X8Y147         CARRY4 (Prop_carry4_S[3]_O[3])
+                                                      0.046    -0.007 r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[22].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_simple_model.i_gt_1.carrychaingen[16].carrymux_CARRY4/O[3]
+                         net (fo=1, routed)           0.000    -0.007    student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[22].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/D[19]
+    SLICE_X8Y147         FDSE                                         r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[22].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/opt_has_pipe.first_q_reg[19]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out2_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.500    -2.500    
+                         propagated clock network latency
+                                                      1.922    -0.578    
+                         clock pessimism              0.403    -0.176    
+    SLICE_X8Y147         FDSE (Hold_fdse_C_D)         0.092    -0.084    student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[22].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/opt_has_pipe.first_q_reg[19]
+  -------------------------------------------------------------------
+                         required time                          0.084    
+                         arrival time                          -0.007    
+  -------------------------------------------------------------------
+                         slack                                  0.077    
+
+Slack (MET) :             0.078ns  (arrival time - required time)
+  Source:                 student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[26].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/opt_has_pipe.first_q_reg[7]/C
+                            (rising edge-triggered cell FDSE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Destination:            student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[27].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/opt_has_pipe.first_q_reg[8]/D
+                            (rising edge-triggered cell FDSE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Path Group:             clk_out2_pll
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_out2_pll rise@0.000ns - clk_out2_pll rise@0.000ns)
+  Data Path Delay:        0.412ns  (logic 0.201ns (48.732%)  route 0.211ns (51.268%))
+  Logic Levels:           2  (CARRY4=1 LUT3=1)
+  Clock Path Skew:        0.263ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    -0.580ns
+    Source Clock Delay      (SCD):    -0.441ns
+    Clock Pessimism Removal (CPR):    -0.403ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out2_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.017    -2.017    
+                         propagated clock network latency
+                                                      1.576    -0.441    
+    SLICE_X12Y150        FDSE                         0.000    -0.441 r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[26].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/opt_has_pipe.first_q_reg[7]/C
+    SLICE_X12Y150        FDSE (Prop_fdse_C_Q)         0.118    -0.323 r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[26].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/opt_has_pipe.first_q_reg[7]/Q
+                         net (fo=2, routed)           0.211    -0.111    student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[27].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_simple_model.carrymux0_1[7]
+    SLICE_X13Y143                                                     r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[27].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_simple_model.i_gt_1.carrychaingen[8].carrymux_i_1/I2
+    SLICE_X13Y143        LUT3 (Prop_lut3_I2_O)        0.028    -0.083 r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[27].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_simple_model.i_gt_1.carrychaingen[8].carrymux_i_1/O
+                         net (fo=1, routed)           0.000    -0.083    student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[27].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_simple_model.halfsum[8]
+    SLICE_X13Y143                                                     r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[27].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_simple_model.i_gt_1.carrychaingen[8].carrymux_CARRY4/S[0]
+    SLICE_X13Y143        CARRY4 (Prop_carry4_S[0]_O[0])
+                                                      0.055    -0.028 r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[27].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_simple_model.i_gt_1.carrychaingen[8].carrymux_CARRY4/O[0]
+                         net (fo=1, routed)           0.000    -0.028    student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[27].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/D[8]
+    SLICE_X13Y143        FDSE                                         r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[27].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/opt_has_pipe.first_q_reg[8]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out2_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.500    -2.500    
+                         propagated clock network latency
+                                                      1.920    -0.580    
+                         clock pessimism              0.403    -0.178    
+    SLICE_X13Y143        FDSE (Hold_fdse_C_D)         0.071    -0.107    student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[27].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/opt_has_pipe.first_q_reg[8]
+  -------------------------------------------------------------------
+                         required time                          0.107    
+                         arrival time                          -0.028    
+  -------------------------------------------------------------------
+                         slack                                  0.078    
+
+Slack (MET) :             0.079ns  (arrival time - required time)
+  Source:                 student_top_inst/bridge_inst/seg_wdata_reg[21]/C
+                            (rising edge-triggered cell FDRE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Destination:            twin_controller_inst/status_buffer_reg[3][0]/D
+                            (rising edge-triggered cell FDCE clocked by clk_out1_pll  {rise@0.000ns fall@10.000ns period=20.000ns})
+  Path Group:             clk_out1_pll
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_out1_pll rise@0.000ns - clk_out2_pll rise@0.000ns)
+  Data Path Delay:        0.641ns  (logic 0.128ns (19.971%)  route 0.513ns (80.029%))
+  Logic Levels:           1  (LUT6=1)
+  Clock Path Skew:        0.308ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    -0.630ns
+    Source Clock Delay      (SCD):    -0.455ns
+    Clock Pessimism Removal (CPR):    -0.484ns
+  Clock Uncertainty:      0.194ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.129ns
+    Phase Error              (PE):    0.120ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out2_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.017    -2.017    
+                         propagated clock network latency
+                                                      1.562    -0.455    
+    SLICE_X9Y175         FDRE                         0.000    -0.455 r  student_top_inst/bridge_inst/seg_wdata_reg[21]/C
+    SLICE_X9Y175         FDRE (Prop_fdre_C_Q)         0.100    -0.355 r  student_top_inst/bridge_inst/seg_wdata_reg[21]/Q
+                         net (fo=8, routed)           0.513     0.158    student_top_inst/bridge_inst/seg_driver/status_buffer_reg[4][4][13]
+    SLICE_X1Y170                                                      r  student_top_inst/bridge_inst/seg_driver/virtual_seg_OBUF[24]_inst_i_1/I2
+    SLICE_X1Y170         LUT6 (Prop_lut6_I2_O)        0.028     0.186 r  student_top_inst/bridge_inst/seg_driver/virtual_seg_OBUF[24]_inst_i_1/O
+                         net (fo=2, routed)           0.000     0.186    twin_controller_inst/virtual_seg_OBUF[20]
+    SLICE_X1Y170         FDCE                                         r  twin_controller_inst/status_buffer_reg[3][0]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out1_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.500    -2.500    
+                         propagated clock network latency
+                                                      1.870    -0.630    
+                         clock pessimism              0.484    -0.147    
+                         clock uncertainty            0.194     0.047    
+    SLICE_X1Y170         FDCE (Hold_fdce_C_D)         0.060     0.107    twin_controller_inst/status_buffer_reg[3][0]
+  -------------------------------------------------------------------
+                         required time                         -0.107    
+                         arrival time                           0.186    
+  -------------------------------------------------------------------
+                         slack                                  0.079    
+
+Slack (MET) :             0.079ns  (arrival time - required time)
+  Source:                 student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[19].divisor_gen.divisor_dc1.del_divisor_msbs/opt_has_pipe.first_q_reg[9]/C
+                            (rising edge-triggered cell FDRE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Destination:            student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[20].divisor_gen.divisor_dc1.del_divisor_msbs/opt_has_pipe.first_q_reg[9]/D
+                            (rising edge-triggered cell FDRE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Path Group:             clk_out2_pll
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_out2_pll rise@0.000ns - clk_out2_pll rise@0.000ns)
+  Data Path Delay:        0.352ns  (logic 0.107ns (30.355%)  route 0.245ns (69.645%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.265ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    -0.547ns
+    Source Clock Delay      (SCD):    -0.410ns
+    Clock Pessimism Removal (CPR):    -0.403ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out2_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.017    -2.017    
+                         propagated clock network latency
+                                                      1.607    -0.410    
+    SLICE_X6Y150         FDRE                         0.000    -0.410 r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[19].divisor_gen.divisor_dc1.del_divisor_msbs/opt_has_pipe.first_q_reg[9]/C
+    SLICE_X6Y150         FDRE (Prop_fdre_C_Q)         0.107    -0.303 r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[19].divisor_gen.divisor_dc1.del_divisor_msbs/opt_has_pipe.first_q_reg[9]/Q
+                         net (fo=2, routed)           0.245    -0.057    student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[20].divisor_gen.divisor_dc1.del_divisor_msbs/opt_has_pipe.first_q_reg[31]_0[9]
+    SLICE_X7Y149         FDRE                                         r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[20].divisor_gen.divisor_dc1.del_divisor_msbs/opt_has_pipe.first_q_reg[9]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out2_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.500    -2.500    
+                         propagated clock network latency
+                                                      1.953    -0.547    
+                         clock pessimism              0.403    -0.145    
+    SLICE_X7Y149         FDRE (Hold_fdre_C_D)         0.008    -0.137    student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[20].divisor_gen.divisor_dc1.del_divisor_msbs/opt_has_pipe.first_q_reg[9]
+  -------------------------------------------------------------------
+                         required time                          0.137    
+                         arrival time                          -0.057    
+  -------------------------------------------------------------------
+                         slack                                  0.079    
+
+Slack (MET) :             0.081ns  (arrival time - required time)
+  Source:                 student_top_inst/u_KLDJ_top/u_pipe_ex_mem/ex_mem_mem_addr_reg[9]/C
+                            (rising edge-triggered cell FDRE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Destination:            student_top_inst/bridge_inst/dram_driver_inst/Mem_DRAM/U0/synth_options.dist_mem_inst/gen_sp_ram.spram_inst/ram_reg_61440_61695_13_13/RAMS64E_A/WADR7
+                            (rising edge-triggered cell RAMS64E clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Path Group:             clk_out2_pll
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_out2_pll rise@0.000ns - clk_out2_pll rise@0.000ns)
+  Data Path Delay:        0.400ns  (logic 0.091ns (22.767%)  route 0.309ns (77.233%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.190ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    -0.710ns
+    Source Clock Delay      (SCD):    -0.490ns
+    Clock Pessimism Removal (CPR):    -0.411ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out2_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.017    -2.017    
+                         propagated clock network latency
+                                                      1.527    -0.490    
+    SLICE_X63Y199        FDRE                         0.000    -0.490 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/ex_mem_mem_addr_reg[9]/C
+    SLICE_X63Y199        FDRE (Prop_fdre_C_Q)         0.091    -0.399 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/ex_mem_mem_addr_reg[9]/Q
+                         net (fo=40965, routed)       0.309    -0.090    student_top_inst/bridge_inst/dram_driver_inst/Mem_DRAM/U0/synth_options.dist_mem_inst/gen_sp_ram.spram_inst/ram_reg_61440_61695_13_13/A7
+    SLICE_X62Y202        RAMS64E                                      r  student_top_inst/bridge_inst/dram_driver_inst/Mem_DRAM/U0/synth_options.dist_mem_inst/gen_sp_ram.spram_inst/ram_reg_61440_61695_13_13/RAMS64E_A/WADR7
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out2_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.500    -2.500    
+                         propagated clock network latency
+                                                      1.790    -0.710    
+                         clock pessimism              0.411    -0.300    
+    SLICE_X62Y202        RAMS64E (Hold_rams64e_CLK_WADR7)
+                                                      0.129    -0.171    student_top_inst/bridge_inst/dram_driver_inst/Mem_DRAM/U0/synth_options.dist_mem_inst/gen_sp_ram.spram_inst/ram_reg_61440_61695_13_13/RAMS64E_A
+  -------------------------------------------------------------------
+                         required time                          0.171    
+                         arrival time                          -0.090    
+  -------------------------------------------------------------------
+                         slack                                  0.081    
+
+Slack (MET) :             0.081ns  (arrival time - required time)
+  Source:                 student_top_inst/u_KLDJ_top/u_pipe_ex_mem/ex_mem_mem_addr_reg[9]/C
+                            (rising edge-triggered cell FDRE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Destination:            student_top_inst/bridge_inst/dram_driver_inst/Mem_DRAM/U0/synth_options.dist_mem_inst/gen_sp_ram.spram_inst/ram_reg_61440_61695_13_13/RAMS64E_B/WADR7
+                            (rising edge-triggered cell RAMS64E clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Path Group:             clk_out2_pll
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_out2_pll rise@0.000ns - clk_out2_pll rise@0.000ns)
+  Data Path Delay:        0.400ns  (logic 0.091ns (22.767%)  route 0.309ns (77.233%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.190ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    -0.710ns
+    Source Clock Delay      (SCD):    -0.490ns
+    Clock Pessimism Removal (CPR):    -0.411ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out2_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.017    -2.017    
+                         propagated clock network latency
+                                                      1.527    -0.490    
+    SLICE_X63Y199        FDRE                         0.000    -0.490 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/ex_mem_mem_addr_reg[9]/C
+    SLICE_X63Y199        FDRE (Prop_fdre_C_Q)         0.091    -0.399 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/ex_mem_mem_addr_reg[9]/Q
+                         net (fo=40965, routed)       0.309    -0.090    student_top_inst/bridge_inst/dram_driver_inst/Mem_DRAM/U0/synth_options.dist_mem_inst/gen_sp_ram.spram_inst/ram_reg_61440_61695_13_13/A7
+    SLICE_X62Y202        RAMS64E                                      r  student_top_inst/bridge_inst/dram_driver_inst/Mem_DRAM/U0/synth_options.dist_mem_inst/gen_sp_ram.spram_inst/ram_reg_61440_61695_13_13/RAMS64E_B/WADR7
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out2_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.500    -2.500    
+                         propagated clock network latency
+                                                      1.790    -0.710    
+                         clock pessimism              0.411    -0.300    
+    SLICE_X62Y202        RAMS64E (Hold_rams64e_CLK_WADR7)
+                                                      0.129    -0.171    student_top_inst/bridge_inst/dram_driver_inst/Mem_DRAM/U0/synth_options.dist_mem_inst/gen_sp_ram.spram_inst/ram_reg_61440_61695_13_13/RAMS64E_B
+  -------------------------------------------------------------------
+                         required time                          0.171    
+                         arrival time                          -0.090    
+  -------------------------------------------------------------------
+                         slack                                  0.081    
+
+Slack (MET) :             0.081ns  (arrival time - required time)
+  Source:                 student_top_inst/u_KLDJ_top/u_pipe_ex_mem/ex_mem_mem_addr_reg[9]/C
+                            (rising edge-triggered cell FDRE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Destination:            student_top_inst/bridge_inst/dram_driver_inst/Mem_DRAM/U0/synth_options.dist_mem_inst/gen_sp_ram.spram_inst/ram_reg_61440_61695_13_13/RAMS64E_C/WADR7
+                            (rising edge-triggered cell RAMS64E clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Path Group:             clk_out2_pll
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_out2_pll rise@0.000ns - clk_out2_pll rise@0.000ns)
+  Data Path Delay:        0.400ns  (logic 0.091ns (22.767%)  route 0.309ns (77.233%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.190ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    -0.710ns
+    Source Clock Delay      (SCD):    -0.490ns
+    Clock Pessimism Removal (CPR):    -0.411ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out2_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.017    -2.017    
+                         propagated clock network latency
+                                                      1.527    -0.490    
+    SLICE_X63Y199        FDRE                         0.000    -0.490 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/ex_mem_mem_addr_reg[9]/C
+    SLICE_X63Y199        FDRE (Prop_fdre_C_Q)         0.091    -0.399 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/ex_mem_mem_addr_reg[9]/Q
+                         net (fo=40965, routed)       0.309    -0.090    student_top_inst/bridge_inst/dram_driver_inst/Mem_DRAM/U0/synth_options.dist_mem_inst/gen_sp_ram.spram_inst/ram_reg_61440_61695_13_13/A7
+    SLICE_X62Y202        RAMS64E                                      r  student_top_inst/bridge_inst/dram_driver_inst/Mem_DRAM/U0/synth_options.dist_mem_inst/gen_sp_ram.spram_inst/ram_reg_61440_61695_13_13/RAMS64E_C/WADR7
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out2_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.500    -2.500    
+                         propagated clock network latency
+                                                      1.790    -0.710    
+                         clock pessimism              0.411    -0.300    
+    SLICE_X62Y202        RAMS64E (Hold_rams64e_CLK_WADR7)
+                                                      0.129    -0.171    student_top_inst/bridge_inst/dram_driver_inst/Mem_DRAM/U0/synth_options.dist_mem_inst/gen_sp_ram.spram_inst/ram_reg_61440_61695_13_13/RAMS64E_C
+  -------------------------------------------------------------------
+                         required time                          0.171    
+                         arrival time                          -0.090    
+  -------------------------------------------------------------------
+                         slack                                  0.081    
+
+Slack (MET) :             0.081ns  (arrival time - required time)
+  Source:                 student_top_inst/u_KLDJ_top/u_pipe_ex_mem/ex_mem_mem_addr_reg[9]/C
+                            (rising edge-triggered cell FDRE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Destination:            student_top_inst/bridge_inst/dram_driver_inst/Mem_DRAM/U0/synth_options.dist_mem_inst/gen_sp_ram.spram_inst/ram_reg_61440_61695_13_13/RAMS64E_D/WADR7
+                            (rising edge-triggered cell RAMS64E clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Path Group:             clk_out2_pll
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_out2_pll rise@0.000ns - clk_out2_pll rise@0.000ns)
+  Data Path Delay:        0.400ns  (logic 0.091ns (22.767%)  route 0.309ns (77.233%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.190ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    -0.710ns
+    Source Clock Delay      (SCD):    -0.490ns
+    Clock Pessimism Removal (CPR):    -0.411ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out2_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.017    -2.017    
+                         propagated clock network latency
+                                                      1.527    -0.490    
+    SLICE_X63Y199        FDRE                         0.000    -0.490 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/ex_mem_mem_addr_reg[9]/C
+    SLICE_X63Y199        FDRE (Prop_fdre_C_Q)         0.091    -0.399 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/ex_mem_mem_addr_reg[9]/Q
+                         net (fo=40965, routed)       0.309    -0.090    student_top_inst/bridge_inst/dram_driver_inst/Mem_DRAM/U0/synth_options.dist_mem_inst/gen_sp_ram.spram_inst/ram_reg_61440_61695_13_13/A7
+    SLICE_X62Y202        RAMS64E                                      r  student_top_inst/bridge_inst/dram_driver_inst/Mem_DRAM/U0/synth_options.dist_mem_inst/gen_sp_ram.spram_inst/ram_reg_61440_61695_13_13/RAMS64E_D/WADR7
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out2_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.500    -2.500    
+                         propagated clock network latency
+                                                      1.790    -0.710    
+                         clock pessimism              0.411    -0.300    
+    SLICE_X62Y202        RAMS64E (Hold_rams64e_CLK_WADR7)
+                                                      0.129    -0.171    student_top_inst/bridge_inst/dram_driver_inst/Mem_DRAM/U0/synth_options.dist_mem_inst/gen_sp_ram.spram_inst/ram_reg_61440_61695_13_13/RAMS64E_D
+  -------------------------------------------------------------------
+                         required time                          0.171    
+                         arrival time                          -0.090    
+  -------------------------------------------------------------------
+                         slack                                  0.081    
+
+Slack (MET) :             0.087ns  (arrival time - required time)
+  Source:                 student_top_inst/bridge_inst/seg_wdata_reg[17]/C
+                            (rising edge-triggered cell FDRE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Destination:            twin_controller_inst/status_buffer_reg[2][7]/D
+                            (rising edge-triggered cell FDCE clocked by clk_out1_pll  {rise@0.000ns fall@10.000ns period=20.000ns})
+  Path Group:             clk_out1_pll
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_out1_pll rise@0.000ns - clk_out2_pll rise@0.000ns)
+  Data Path Delay:        0.645ns  (logic 0.128ns (19.836%)  route 0.517ns (80.164%))
+  Logic Levels:           1  (LUT6=1)
+  Clock Path Skew:        0.304ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    -0.634ns
+    Source Clock Delay      (SCD):    -0.455ns
+    Clock Pessimism Removal (CPR):    -0.484ns
+  Clock Uncertainty:      0.194ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.129ns
+    Phase Error              (PE):    0.120ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out2_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.017    -2.017    
+                         propagated clock network latency
+                                                      1.562    -0.455    
+    SLICE_X9Y175         FDRE                         0.000    -0.455 r  student_top_inst/bridge_inst/seg_wdata_reg[17]/C
+    SLICE_X9Y175         FDRE (Prop_fdre_C_Q)         0.100    -0.355 r  student_top_inst/bridge_inst/seg_wdata_reg[17]/Q
+                         net (fo=8, routed)           0.517     0.163    student_top_inst/bridge_inst/seg_driver/status_buffer_reg[4][4][9]
+    SLICE_X1Y173                                                      r  student_top_inst/bridge_inst/seg_driver/virtual_seg_OBUF[23]_inst_i_1/I2
+    SLICE_X1Y173         LUT6 (Prop_lut6_I2_O)        0.028     0.191 r  student_top_inst/bridge_inst/seg_driver/virtual_seg_OBUF[23]_inst_i_1/O
+                         net (fo=2, routed)           0.000     0.191    twin_controller_inst/virtual_seg_OBUF[19]
+    SLICE_X1Y173         FDCE                                         r  twin_controller_inst/status_buffer_reg[2][7]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out1_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.500    -2.500    
+                         propagated clock network latency
+                                                      1.866    -0.634    
+                         clock pessimism              0.484    -0.151    
+                         clock uncertainty            0.194     0.043    
+    SLICE_X1Y173         FDCE (Hold_fdce_C_D)         0.061     0.104    twin_controller_inst/status_buffer_reg[2][7]
+  -------------------------------------------------------------------
+                         required time                         -0.104    
+                         arrival time                           0.191    
+  -------------------------------------------------------------------
+                         slack                                  0.087    
+
+Slack (MET) :             0.089ns  (arrival time - required time)
+  Source:                 student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[21].divisor_gen.divisor_dc1.del_divisor_msbs/opt_has_pipe.first_q_reg[18]/C
+                            (rising edge-triggered cell FDRE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Destination:            student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[21].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/opt_has_pipe.first_q_reg[18]/D
+                            (rising edge-triggered cell FDSE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Path Group:             clk_out2_pll
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_out2_pll rise@0.000ns - clk_out2_pll rise@0.000ns)
+  Data Path Delay:        0.446ns  (logic 0.202ns (45.336%)  route 0.244ns (54.664%))
+  Logic Levels:           2  (CARRY4=1 LUT3=1)
+  Clock Path Skew:        0.265ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    -0.547ns
+    Source Clock Delay      (SCD):    -0.410ns
+    Clock Pessimism Removal (CPR):    -0.403ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out2_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.017    -2.017    
+                         propagated clock network latency
+                                                      1.607    -0.410    
+    SLICE_X7Y150         FDRE                         0.000    -0.410 r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[21].divisor_gen.divisor_dc1.del_divisor_msbs/opt_has_pipe.first_q_reg[18]/C
+    SLICE_X7Y150         FDRE (Prop_fdre_C_Q)         0.091    -0.319 r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[21].divisor_gen.divisor_dc1.del_divisor_msbs/opt_has_pipe.first_q_reg[18]/Q
+                         net (fo=2, routed)           0.244    -0.075    student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[21].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/D[18]
+    SLICE_X6Y148                                                      r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[21].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_simple_model.i_gt_1.carrychaingen[18].carrymux_i_1/I0
+    SLICE_X6Y148         LUT3 (Prop_lut3_I0_O)        0.064    -0.011 r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[21].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_simple_model.i_gt_1.carrychaingen[18].carrymux_i_1/O
+                         net (fo=1, routed)           0.000    -0.011    student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[21].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_simple_model.halfsum[18]
+    SLICE_X6Y148                                                      r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[21].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_simple_model.i_gt_1.carrychaingen[16].carrymux_CARRY4/S[2]
+    SLICE_X6Y148         CARRY4 (Prop_carry4_S[2]_O[2])
+                                                      0.047     0.036 r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[21].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_simple_model.i_gt_1.carrychaingen[16].carrymux_CARRY4/O[2]
+                         net (fo=1, routed)           0.000     0.036    student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[21].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/D[18]
+    SLICE_X6Y148         FDSE                                         r  student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[21].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/opt_has_pipe.first_q_reg[18]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out2_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.500    -2.500    
+                         propagated clock network latency
+                                                      1.953    -0.547    
+                         clock pessimism              0.403    -0.145    
+    SLICE_X6Y148         FDSE (Hold_fdse_C_D)         0.092    -0.053    student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_nonzero_fract.i_synth/i_algo_r2_or_lutmult.i_nonzero_fract.i_sdivider/i_sdivider.divider_blk/div_loop[21].adder_gen.reg_req.adsu_mod/add1/no_pipelining.the_addsub/i_q_simple.qreg/opt_has_pipe.first_q_reg[18]
+  -------------------------------------------------------------------
+                         required time                          0.053    
+                         arrival time                           0.036    
+  -------------------------------------------------------------------
+                         slack                                  0.089    
+
+Slack (MET) :             0.091ns  (arrival time - required time)
+  Source:                 student_top_inst/u_KLDJ_top/u_pipe_ex_mem/ex_mem_mem_addr_reg[9]/C
+                            (rising edge-triggered cell FDRE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Destination:            student_top_inst/bridge_inst/dram_driver_inst/Mem_DRAM/U0/synth_options.dist_mem_inst/gen_sp_ram.spram_inst/ram_reg_64256_64511_13_13/RAMS64E_A/WADR7
+                            (rising edge-triggered cell RAMS64E clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Path Group:             clk_out2_pll
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_out2_pll rise@0.000ns - clk_out2_pll rise@0.000ns)
+  Data Path Delay:        0.409ns  (logic 0.091ns (22.260%)  route 0.318ns (77.740%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.189ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    -0.711ns
+    Source Clock Delay      (SCD):    -0.490ns
+    Clock Pessimism Removal (CPR):    -0.411ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out2_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.017    -2.017    
+                         propagated clock network latency
+                                                      1.527    -0.490    
+    SLICE_X63Y199        FDRE                         0.000    -0.490 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/ex_mem_mem_addr_reg[9]/C
+    SLICE_X63Y199        FDRE (Prop_fdre_C_Q)         0.091    -0.399 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/ex_mem_mem_addr_reg[9]/Q
+                         net (fo=40965, routed)       0.318    -0.081    student_top_inst/bridge_inst/dram_driver_inst/Mem_DRAM/U0/synth_options.dist_mem_inst/gen_sp_ram.spram_inst/ram_reg_64256_64511_13_13/A7
+    SLICE_X62Y204        RAMS64E                                      r  student_top_inst/bridge_inst/dram_driver_inst/Mem_DRAM/U0/synth_options.dist_mem_inst/gen_sp_ram.spram_inst/ram_reg_64256_64511_13_13/RAMS64E_A/WADR7
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out2_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.500    -2.500    
+                         propagated clock network latency
+                                                      1.789    -0.711    
+                         clock pessimism              0.411    -0.301    
+    SLICE_X62Y204        RAMS64E (Hold_rams64e_CLK_WADR7)
+                                                      0.129    -0.172    student_top_inst/bridge_inst/dram_driver_inst/Mem_DRAM/U0/synth_options.dist_mem_inst/gen_sp_ram.spram_inst/ram_reg_64256_64511_13_13/RAMS64E_A
+  -------------------------------------------------------------------
+                         required time                          0.172    
+                         arrival time                          -0.081    
+  -------------------------------------------------------------------
+                         slack                                  0.091    
+
+Slack (MET) :             0.091ns  (arrival time - required time)
+  Source:                 student_top_inst/u_KLDJ_top/u_pipe_ex_mem/ex_mem_mem_addr_reg[9]/C
+                            (rising edge-triggered cell FDRE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Destination:            student_top_inst/bridge_inst/dram_driver_inst/Mem_DRAM/U0/synth_options.dist_mem_inst/gen_sp_ram.spram_inst/ram_reg_64256_64511_13_13/RAMS64E_B/WADR7
+                            (rising edge-triggered cell RAMS64E clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Path Group:             clk_out2_pll
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_out2_pll rise@0.000ns - clk_out2_pll rise@0.000ns)
+  Data Path Delay:        0.409ns  (logic 0.091ns (22.260%)  route 0.318ns (77.740%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.189ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    -0.711ns
+    Source Clock Delay      (SCD):    -0.490ns
+    Clock Pessimism Removal (CPR):    -0.411ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out2_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.017    -2.017    
+                         propagated clock network latency
+                                                      1.527    -0.490    
+    SLICE_X63Y199        FDRE                         0.000    -0.490 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/ex_mem_mem_addr_reg[9]/C
+    SLICE_X63Y199        FDRE (Prop_fdre_C_Q)         0.091    -0.399 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/ex_mem_mem_addr_reg[9]/Q
+                         net (fo=40965, routed)       0.318    -0.081    student_top_inst/bridge_inst/dram_driver_inst/Mem_DRAM/U0/synth_options.dist_mem_inst/gen_sp_ram.spram_inst/ram_reg_64256_64511_13_13/A7
+    SLICE_X62Y204        RAMS64E                                      r  student_top_inst/bridge_inst/dram_driver_inst/Mem_DRAM/U0/synth_options.dist_mem_inst/gen_sp_ram.spram_inst/ram_reg_64256_64511_13_13/RAMS64E_B/WADR7
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out2_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.500    -2.500    
+                         propagated clock network latency
+                                                      1.789    -0.711    
+                         clock pessimism              0.411    -0.301    
+    SLICE_X62Y204        RAMS64E (Hold_rams64e_CLK_WADR7)
+                                                      0.129    -0.172    student_top_inst/bridge_inst/dram_driver_inst/Mem_DRAM/U0/synth_options.dist_mem_inst/gen_sp_ram.spram_inst/ram_reg_64256_64511_13_13/RAMS64E_B
+  -------------------------------------------------------------------
+                         required time                          0.172    
+                         arrival time                          -0.081    
+  -------------------------------------------------------------------
+                         slack                                  0.091    
+
+Slack (MET) :             0.091ns  (arrival time - required time)
+  Source:                 student_top_inst/u_KLDJ_top/u_pipe_ex_mem/ex_mem_mem_addr_reg[9]/C
+                            (rising edge-triggered cell FDRE clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Destination:            student_top_inst/bridge_inst/dram_driver_inst/Mem_DRAM/U0/synth_options.dist_mem_inst/gen_sp_ram.spram_inst/ram_reg_64256_64511_13_13/RAMS64E_C/WADR7
+                            (rising edge-triggered cell RAMS64E clocked by clk_out2_pll  {rise@0.000ns fall@4.000ns period=8.000ns})
+  Path Group:             clk_out2_pll
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_out2_pll rise@0.000ns - clk_out2_pll rise@0.000ns)
+  Data Path Delay:        0.409ns  (logic 0.091ns (22.260%)  route 0.318ns (77.740%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.189ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    -0.711ns
+    Source Clock Delay      (SCD):    -0.490ns
+    Clock Pessimism Removal (CPR):    -0.411ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out2_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.017    -2.017    
+                         propagated clock network latency
+                                                      1.527    -0.490    
+    SLICE_X63Y199        FDRE                         0.000    -0.490 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/ex_mem_mem_addr_reg[9]/C
+    SLICE_X63Y199        FDRE (Prop_fdre_C_Q)         0.091    -0.399 r  student_top_inst/u_KLDJ_top/u_pipe_ex_mem/ex_mem_mem_addr_reg[9]/Q
+                         net (fo=40965, routed)       0.318    -0.081    student_top_inst/bridge_inst/dram_driver_inst/Mem_DRAM/U0/synth_options.dist_mem_inst/gen_sp_ram.spram_inst/ram_reg_64256_64511_13_13/A7
+    SLICE_X62Y204        RAMS64E                                      r  student_top_inst/bridge_inst/dram_driver_inst/Mem_DRAM/U0/synth_options.dist_mem_inst/gen_sp_ram.spram_inst/ram_reg_64256_64511_13_13/RAMS64E_C/WADR7
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out2_pll rise edge)
+                                                      0.000     0.000 r  
+                         clock source latency        -2.500    -2.500    
+                         propagated clock network latency
+                                                      1.789    -0.711    
+                         clock pessimism              0.411    -0.301    
+    SLICE_X62Y204        RAMS64E (Hold_rams64e_CLK_WADR7)
+                                                      0.129    -0.172    student_top_inst/bridge_inst/dram_driver_inst/Mem_DRAM/U0/synth_options.dist_mem_inst/gen_sp_ram.spram_inst/ram_reg_64256_64511_13_13/RAMS64E_C
+  -------------------------------------------------------------------
+                         required time                          0.172    
+                         arrival time                          -0.081    
+  -------------------------------------------------------------------
+                         slack                                  0.091    
+
+
+
+

@@ -1,0 +1,31 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2023.2 (win64) Build 4029153 Fri Oct 13 20:14:34 MDT 2023
+| Date         : Sat Jul  4 11:16:38 2026
+| Host         : DESKTOP-CGVJL45 running 64-bit major release  (build 9200)
+| Command      : report_high_fanout_nets -fanout_greater_than 50 -file D:/System/desktop/jyd-feature/pipilined5/reports/timing_after_div_ip/high_fanout_after_div_ip.rpt
+| Design       : top
+| Device       : xc7k325t
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+High Fan-out Nets Information
+
+1. Summary
+----------
+
++-------------------------------------------------------------------+--------+-------------+
+| Net Name                                                          | Fanout | Driver Type |
++-------------------------------------------------------------------+--------+-------------+
+| student_top_inst/u_KLDJ_top/u_pipe_ex_mem/ex_mem_mem_addr[7]      |  40965 | FDRE        |
+| student_top_inst/u_KLDJ_top/u_pipe_ex_mem/ex_mem_mem_addr[1]      |  32777 | FDRE        |
+| student_top_inst/u_KLDJ_top/u_pipe_ex_mem/ex_mem_mem_addr[0]      |  30774 | FDRE        |
+| student_top_inst/u_KLDJ_top/u_pipe_ex_mem/ex_mem_mem_addr[2]      |  30774 | FDRE        |
+| student_top_inst/u_KLDJ_top/u_pipe_ex_mem/ex_mem_mem_addr[3]      |  30774 | FDRE        |
+| student_top_inst/u_KLDJ_top/u_pipe_ex_mem/ex_mem_mem_addr[4]      |  30736 | FDRE        |
+| student_top_inst/u_KLDJ_top/u_pipe_ex_mem/ex_mem_mem_addr[5]      |  30734 | FDRE        |
+| student_top_inst/u_KLDJ_top/u_pipe_ex_mem/ex_mem_mem_addr[6]      |  29186 | FDRE        |
+| student_top_inst/u_KLDJ_top/u_pipe_ex_mem/ex_mem_mem_addr[6]_repN |   5550 | FDRE        |
+| student_top_inst/u_KLDJ_top/u_pipe_ex_mem/ex_mem_mem_addr[8]      |   4508 | FDRE        |
++-------------------------------------------------------------------+--------+-------------+
+
+
