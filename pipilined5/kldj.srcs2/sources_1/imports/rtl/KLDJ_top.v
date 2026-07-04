@@ -53,6 +53,10 @@ module KLDJ_top(
     wire [`KLDJ_DATA]            id_data2;
     wire [`KLDJ_DATA]            id_data3;
     wire [`KLDJ_DATA]            id_data4;
+    // CSR signals from ID
+    wire [11:0]                  id_csr_addr;
+    wire                         id_csr_op;
+    wire [4:0]                   id_csr_zimm;
 
     // ID/EX pipeline register outputs
     wire                         id_ex_valid;
@@ -74,6 +78,10 @@ module KLDJ_top(
     wire [`KLDJ_DATA]            id_ex_rs1_data;
     wire [`KLDJ_DATA]            id_ex_rs2_data;
     wire                         id_ex_load_op;
+    // CSR signals from ID/EX
+    wire [11:0]                  id_ex_csr_addr;
+    wire                         id_ex_csr_op;
+    wire [4:0]                   id_ex_csr_zimm;
 
     // EX stage wires
     wire [`KLDJ_DATA]            ex_data1;
@@ -86,6 +94,15 @@ module KLDJ_top(
     wire [`KLDJ_DATA]            exu_data;
     wire                         ex_redirect;
     wire                         load_use_stall;
+
+    // CSR module wires
+    wire [31:0]                  csr_rdata;
+    wire                         csr_we;
+    wire [31:0]                  csr_wdata;
+    wire                         is_ecall;
+    wire                         is_mret;
+    wire [31:0]                  mret_pc;
+    wire [31:0]                  mtvec_val;
 
     // EX/MEM pipeline register outputs
     wire                         ex_mem_valid;
@@ -131,13 +148,16 @@ module KLDJ_top(
     // Module instantiations
     // ========================================================
 
+    // Select jump target: ecall jumps to mtvec, otherwise use EXU result
+    wire [31:0] redirect_pc = is_ecall ? mtvec_val : exu_jump_pc_raw;
+
     // IF stage
     KLDJ_ifu ifu0(
          .clk     (core_clk          )
         ,.rst     (core_rst          )
         ,.hold    (load_use_stall    )
         ,.jump    (ex_redirect       )
-        ,.jump_pc (exu_jump_pc_raw   )
+        ,.jump_pc (redirect_pc       )
         ,.inst_i  (tb_if_inst        )
         ,.inst_o  (if_inst           )
         ,.pc_o    (if_pc             )
@@ -179,6 +199,9 @@ module KLDJ_top(
         ,.data3       (id_data3                         )
         ,.data4       (id_data4                         )
         ,.id_ls_ctl   (id_ls_ctl                        )
+        ,.csr_addr    (id_csr_addr                      )
+        ,.csr_op      (id_csr_op                        )
+        ,.csr_zimm    (id_csr_zimm                      )
     );
 
     // ID/EX pipeline register
@@ -203,6 +226,9 @@ module KLDJ_top(
         ,.id_data4        (id_data4          )
         ,.reg_id_rs1_data (reg_id_rs1_data   )
         ,.reg_id_rs2_data (reg_id_rs2_data   )
+        ,.id_csr_addr     (id_csr_addr       )
+        ,.id_csr_op       (id_csr_op         )
+        ,.id_csr_zimm     (id_csr_zimm       )
         ,.ex_redirect     (ex_redirect       )
         ,.load_use_stall  (load_use_stall    )
         ,.id_ex_valid     (id_ex_valid       )
@@ -224,6 +250,9 @@ module KLDJ_top(
         ,.id_ex_rs1_data  (id_ex_rs1_data    )
         ,.id_ex_rs2_data  (id_ex_rs2_data    )
         ,.id_ex_load_op   (id_ex_load_op     )
+        ,.id_ex_csr_addr  (id_ex_csr_addr    )
+        ,.id_ex_csr_op    (id_ex_csr_op      )
+        ,.id_ex_csr_zimm  (id_ex_csr_zimm    )
     );
 
     // EX forwarding and MUX
@@ -268,12 +297,41 @@ module KLDJ_top(
         ,.data4       (ex_data4              )
         ,.exu_op      (id_ex_exu_op          )
         ,.alu_ctrl    (id_ex_alu_ctrl        )
+        // CSR interface
+        ,.csr_addr    (id_ex_csr_addr        )
+        ,.csr_op      (id_ex_csr_op          )
+        ,.csr_zimm    (id_ex_csr_zimm        )
+        ,.csr_rdata   (csr_rdata             )
+        ,.csr_we      (csr_we                )
+        ,.csr_wdata   (csr_wdata             )
+        // ecall/mret interface
+        ,.is_ecall    (is_ecall              )
+        ,.is_mret     (is_mret               )
+        ,.mret_pc     (mret_pc               )
+        // original outputs
         ,.exu_jump    (exu_jump_raw          )
         ,.exu_jump_pc (exu_jump_pc_raw       )
         ,.exu_res     (exu_data              )
     );
 
-    assign ex_redirect = id_ex_valid && exu_jump_raw;
+    // ecall also triggers redirect (jump to mtvec)
+    assign ex_redirect = id_ex_valid && (exu_jump_raw || is_ecall);
+
+    // CSR module instantiation
+    KLDJ_csr u_csr(
+         .clk       (core_clk              )
+        ,.rst       (core_rst              )
+        ,.csr_raddr (id_ex_csr_addr        )
+        ,.csr_rdata (csr_rdata             )
+        ,.csr_we    (csr_we && id_ex_valid  )
+        ,.csr_waddr (id_ex_csr_addr        )
+        ,.csr_wdata (csr_wdata             )
+        ,.ecall_en  (is_ecall && id_ex_valid)
+        ,.ecall_pc  (id_ex_pc              )
+        ,.mret_en   (is_mret && id_ex_valid )
+        ,.mret_pc   (mret_pc               )
+        ,.mtvec_val (mtvec_val             )
+    );
 
     // EX/MEM pipeline register
     pipe_ex_mem u_pipe_ex_mem(
@@ -376,7 +434,7 @@ module KLDJ_top(
 
     // Top-level outputs
     assign tb_ex_jump   = ex_redirect;
-    assign tb_ex_jump_pc = ex_redirect ? exu_jump_pc_raw : `KLDJ_ZERO32;
+    assign tb_ex_jump_pc = ex_redirect ? redirect_pc : `KLDJ_ZERO32;
     assign tb_ex_res    = wb_commit_valid ? wb_commit_wb_data : `KLDJ_ZERO32;
     assign tb_if_pc     = if_pc;
 

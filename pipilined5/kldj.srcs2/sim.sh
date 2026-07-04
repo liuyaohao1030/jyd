@@ -7,7 +7,7 @@ TB_DIR="$SCRIPT_DIR/sim_1/imports/sim"
 BUILD_DIR="$SCRIPT_DIR/build"
 SIM_OUT="$BUILD_DIR/sim.vvp"
 
-TOP="rv32i_supported_instr_tb"
+TOP="KLDJ_top_tb"
 MAX_CYCLES="${1:-60}"
 
 mkdir -p "$BUILD_DIR"
@@ -15,6 +15,10 @@ mkdir -p "$BUILD_DIR"
 echo "=== Compile ==="
 iverilog -g2012 \
     -I "$RTL_DIR" \
+    -I "$RTL_DIR/alu" \
+    -I "$RTL_DIR/pipe" \
+    -I "$RTL_DIR/stage" \
+    -I "$RTL_DIR/util" \
     -o "$SIM_OUT" \
     "$RTL_DIR"/*.v \
     "$RTL_DIR"/alu/*.v \
@@ -28,10 +32,10 @@ timeout "$MAX_CYCLES" vvp "$SIM_OUT" 2>&1 | tee "$BUILD_DIR/sim.log"
 
 echo ""
 echo "=== Result ==="
-if grep -q "SUMMARY.*passed" "$BUILD_DIR/sim.log"; then
+if grep -q "ALL TESTS PASSED" "$BUILD_DIR/sim.log"; then
     echo "PASS"
     exit 0
-elif grep -q "FAIL\|fatal\|timeout" "$BUILD_DIR/sim.log"; then
+elif grep -q "SOME TESTS FAILED\|fatal\|timeout" "$BUILD_DIR/sim.log"; then
     echo "FAIL"
     exit 1
 else
