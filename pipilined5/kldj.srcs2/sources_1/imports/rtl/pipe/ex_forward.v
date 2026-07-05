@@ -73,7 +73,8 @@ module ex_forward(
                          mem_wb_rs2_forward_hit ? mem_wb_wb_data :
                          id_ex_rs2_data;
 
-    assign id_ex_rs2_to_data2 = ((id_ex_exu_op >= 18'ha) && (id_ex_exu_op <= 18'h19));
+    assign id_ex_rs2_to_data2 = ((id_ex_exu_op >= 18'ha) && (id_ex_exu_op <= 18'h19)) | 
+                                ((id_ex_exu_op >= 18'h25) && (id_ex_exu_op <= 18'h2c));
     assign id_ex_store_op = ((id_ex_exu_op >= 18'h22) && (id_ex_exu_op <= 18'h24));
 
     assign ex_data1 = id_ex_rs1_ren ? ex_rs1_data : id_ex_data1;

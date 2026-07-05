@@ -138,6 +138,15 @@ wire inst_sra   = type_r &  funct3[2] & ~funct3[1] &  funct3[0] &  funct7[5] & ~
 wire inst_or    = type_r &  funct3[2] &  funct3[1] & ~funct3[0] & ~funct7[0] ;
 wire inst_and   = type_r &  funct3[2] &  funct3[1] &  funct3[0] & ~funct7[0]  ;
 
+wire inst_mul    = type_r & ~funct3[2] & ~funct3[1] & ~funct3[0] & (funct7 == 7'b0000001);
+wire inst_mulh   = type_r & ~funct3[2] & ~funct3[1] &  funct3[0] & (funct7 == 7'b0000001);
+wire inst_mulhsu = type_r & ~funct3[2] &  funct3[1] & ~funct3[0] & (funct7 == 7'b0000001);
+wire inst_mulhu  = type_r & ~funct3[2] &  funct3[1] &  funct3[0] & (funct7 == 7'b0000001);
+wire inst_div    = type_r &  funct3[2] & ~funct3[1] & ~funct3[0] & (funct7 == 7'b0000001);
+wire inst_divu   = type_r &  funct3[2] & ~funct3[1] &  funct3[0] & (funct7 == 7'b0000001);
+wire inst_rem    = type_r &  funct3[2] &  funct3[1] & ~funct3[0] & (funct7 == 7'b0000001);
+wire inst_remu   = type_r &  funct3[2] &  funct3[1] &  funct3[0] & (funct7 == 7'b0000001);
+
 wire inst_addi  = type_i & ~funct3[2] & ~funct3[1] & ~funct3[0]   ;
 wire inst_slti  = type_i & ~funct3[2] &  funct3[1] & ~funct3[0]   ;
 wire inst_sltiu = type_i & ~funct3[2] &  funct3[1] &  funct3[0]   ;
@@ -294,6 +303,46 @@ always @(*) begin
         alu_ctrl_r = 10'h040;
         data1_r    = rs1_data;
         data2_r    = rs2_data;
+    end else if (inst_mul) begin
+        exu_op_r   = 18'h25;
+        alu_ctrl_r = 10'h001;
+        data1_r    = rs1_data;
+        data2_r    = rs2_data;
+    end else if (inst_mulh) begin
+        exu_op_r   = 18'h26;
+        alu_ctrl_r = 10'h002;
+        data1_r    = rs1_data;
+        data2_r    = rs2_data;
+    end else if (inst_mulhsu) begin
+        exu_op_r   = 18'h27;
+        alu_ctrl_r = 10'h003;
+        data1_r    = rs1_data;
+        data2_r    = rs2_data;
+    end else if (inst_mulhu) begin
+        exu_op_r   = 18'h28;
+        alu_ctrl_r = 10'h010;
+        data1_r    = rs1_data;
+        data2_r    = rs2_data;
+    end else if (inst_div) begin
+        exu_op_r   = 18'h29;
+        alu_ctrl_r = 10'h011;
+        data1_r    = rs1_data;
+        data2_r    = rs2_data;
+    end else if (inst_divu) begin
+        exu_op_r   = 18'h2a;
+        alu_ctrl_r = 10'h012;
+        data1_r    = rs1_data;
+        data2_r    = rs2_data;
+    end else if (inst_rem) begin
+        exu_op_r   = 18'h2b;
+        alu_ctrl_r = 10'h013;
+        data1_r    = rs1_data;
+        data2_r    = rs2_data;
+    end else if (inst_remu) begin
+        exu_op_r   = 18'h2c;
+        alu_ctrl_r = 10'h020;
+        data1_r    = rs1_data;
+        data2_r    = rs2_data;    
     end else if (inst_beq) begin
         exu_op_r   = 18'h14;
         alu_ctrl_r = 10'h028;

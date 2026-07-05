@@ -119,14 +119,14 @@
     `define INST_CSRRCI        8'b10100100
 
 // CSR/System exu_op encodings (must not overlap with loads 0x1d-0x21 or stores 0x22-0x24)
-    `define KLDJ_EXU_CSRRW    18'h00025
-    `define KLDJ_EXU_CSRRS    18'h00026
-    `define KLDJ_EXU_CSRRC    18'h00027
-    `define KLDJ_EXU_CSRRWI   18'h00028
-    `define KLDJ_EXU_CSRRSI   18'h00029
-    `define KLDJ_EXU_CSRRCI   18'h0002a
-    `define KLDJ_EXU_ECALL    18'h0002b
-    `define KLDJ_EXU_MRET     18'h0002c
+    `define KLDJ_EXU_CSRRW    18'h0002d
+    `define KLDJ_EXU_CSRRS    18'h0002e
+    `define KLDJ_EXU_CSRRC    18'h00030
+    `define KLDJ_EXU_CSRRWI   18'h00031
+    `define KLDJ_EXU_CSRRSI   18'h00032
+    `define KLDJ_EXU_CSRRCI   18'h00033
+    `define KLDJ_EXU_ECALL    18'h00034
+    `define KLDJ_EXU_MRET     18'h00035
 
 // CSR addresses
     `define CSR_MSTATUS  12'h300
