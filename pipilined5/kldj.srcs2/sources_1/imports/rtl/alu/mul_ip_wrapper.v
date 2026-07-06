@@ -64,7 +64,9 @@ module mul_ip_wrapper #(
                         op_q  <= op;
                         rs1_q <= rs1;
                         rs2_q <= rs2;
-                        wait_count <= MUL_LATENCY;
+                        // P is updated by the pipelined IP on the latency
+                        // clock edge, so capture it one cycle later.
+                        wait_count <= MUL_LATENCY + 1;
                         state      <= ST_WAIT;
                     end
                 end
