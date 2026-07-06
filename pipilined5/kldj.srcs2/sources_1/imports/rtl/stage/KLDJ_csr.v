@@ -14,7 +14,7 @@ module KLDJ_csr(
     ,output wire [31:0] mret_pc
     ,output wire [31:0] mtvec_val
 );
-
+//git test
     reg [31:0] mstatus;  // 0x300
     reg [31:0] mepc;     // 0x341
     reg [31:0] mtvec;    // 0x305
@@ -22,8 +22,8 @@ module KLDJ_csr(
     reg [31:0] mscratch; // 0x340
 
     assign mret_pc = mepc;
-    assign mtvec_val = mtvec;
-
+    assign mtvec_val = mtvec; 
+ 
     // Per-register write-enable and next-value signals for priority handling
     wire [31:0] mstatus_next;
     wire        mstatus_we;
