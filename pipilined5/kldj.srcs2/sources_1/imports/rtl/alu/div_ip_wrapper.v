@@ -69,12 +69,10 @@ module div_ip_wrapper(
                          (divisor_sent_q  || divisor_fire);
 
     // Radix-2 / NonBlocking div_gen_u32 has no TREADY ports in this configuration.
-    // Vivado Divider Generator standard AXI remainder mode packs quotient in
-    // the low 32 bits and remainder in the high 32 bits. Confirm this against
-    // div_gen_u32.veo after generating the IP; if the template differs, swap
-    // these two slices only.
-    wire [31:0] quotient_abs  = m_axis_dout_tdata[31:0];
-    wire [31:0] remainder_abs = m_axis_dout_tdata[63:32];
+    // Vivado Divider Generator remainder mode packs remainder in the low
+    // 32 bits and quotient in the high 32 bits for this generated IP.
+    wire [31:0] quotient_abs  = m_axis_dout_tdata[63:32];
+    wire [31:0] remainder_abs = m_axis_dout_tdata[31:0];
     wire [31:0] quotient_res  = quotient_neg_q  ? (~quotient_abs  + 32'd1) : quotient_abs;
     wire [31:0] remainder_res = remainder_neg_q ? (~remainder_abs + 32'd1) : remainder_abs;
     wire [31:0] ip_result     = ((op_q == OP_DIV) || (op_q == OP_DIVU)) ? quotient_res : remainder_res;
@@ -168,8 +166,8 @@ module div_ip_wrapper(
             if (launch_done && (state == ST_LAUNCH)) begin
                 sim_count_q <= 4'd8;
                 sim_valid_q <= 1'b0;
-                sim_data_q  <= {dividend_abs_q % divisor_abs_q,
-                                dividend_abs_q / divisor_abs_q};
+                sim_data_q  <= {dividend_abs_q / divisor_abs_q,
+                                dividend_abs_q % divisor_abs_q};
             end else if (sim_count_q != 4'd0) begin
                 sim_count_q <= sim_count_q - 4'd1;
                 if (sim_count_q == 4'd1) begin
