@@ -14,7 +14,6 @@ module KLDJ_csr(
     ,output wire [31:0] mret_pc
     ,output wire [31:0] mtvec_val
 );
-//git test
     reg [31:0] mstatus;  // 0x300
     reg [31:0] mepc;     // 0x341
     reg [31:0] mtvec;    // 0x305
