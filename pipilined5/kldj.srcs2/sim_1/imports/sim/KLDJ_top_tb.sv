@@ -13,6 +13,7 @@
 //   Group 2 (R-type ALU):      x13–x22
 //   Group 3 (U-type):          x23–x24
 //   Group 4 (Load/Store):      x25 (base), x26–x31 (loaded results)
+//   Group 12 (RV32M):          x7, x8 (source), x27, x28 (results — unchecked regs)
 //   Group 5 (Branch):          uses x1–x4 from Group 1 (intentional overwrite)
 //   Group 6 (JAL):             x12 (overwrites Group 1)
 //   Group 6b (JALR):           x5 (target reg), x13 (overwrites Group 2)
@@ -197,6 +198,96 @@ module KLDJ_top_tb;
     localparam [2:0] F3_CSRRW = 3'b001, F3_CSRRS = 3'b010, F3_CSRRC = 3'b011;
 
     localparam [6:0] F7_NORMAL = 7'b0000000, F7_SUB = 7'b0100000, F7_SRA = 7'b0100000;
+    localparam [6:0] F7_MULDIV = 7'b0000001;
+
+    // RV32M funct3
+    localparam [2:0] F3_MUL = 3'b000, F3_MULH = 3'b001, F3_MULHSU = 3'b010, F3_MULHU = 3'b011;
+    localparam [2:0] F3_DIV = 3'b100, F3_DIVU = 3'b101, F3_REM = 3'b110, F3_REMU = 3'b111;
+
+    // ------------------------------------------------
+    // RV32M golden-model helpers
+    // ------------------------------------------------
+    function [31:0] gm_mul;
+        input [31:0] a, b;
+        reg signed [31:0] sa, sb;
+        reg signed [63:0] prod;
+        begin sa = a; sb = b; prod = sa * sb; gm_mul = prod[31:0]; end
+    endfunction
+
+    function [31:0] gm_mulh;
+        input [31:0] a, b;
+        reg signed [31:0] sa, sb;
+        reg signed [63:0] prod;
+        begin sa = a; sb = b; prod = sa * sb; gm_mulh = prod[63:32]; end
+    endfunction
+
+    function [31:0] gm_mulhsu;
+        input [31:0] a, b;
+        reg signed [63:0] sa;
+        reg [63:0] ub;
+        reg signed [63:0] prod;
+        begin
+            sa = {{32{a[31]}}, a};
+            ub = {32'b0, b};
+            prod = sa * $signed(ub);
+            gm_mulhsu = prod[63:32];
+        end
+    endfunction
+
+    function [31:0] gm_mulhu;
+        input [31:0] a, b;
+        reg [63:0] ua, ub, prod;
+        begin ua = {32'b0, a}; ub = {32'b0, b}; prod = ua * ub; gm_mulhu = prod[63:32]; end
+    endfunction
+
+    function [31:0] gm_div;
+        input [31:0] a, b;
+        reg signed [31:0] sa, sb;
+        begin
+            sa = a; sb = b;
+            if (b == 0) gm_div = 32'hffffffff;
+            else if (a == 32'h80000000 && b == 32'hffffffff) gm_div = 32'h80000000;
+            else gm_div = sa / sb;
+        end
+    endfunction
+
+    function [31:0] gm_divu;
+        input [31:0] a, b;
+        begin
+            if (b == 0) gm_divu = 32'hffffffff;
+            else gm_divu = a / b;
+        end
+    endfunction
+
+    function [31:0] gm_rem;
+        input [31:0] a, b;
+        reg signed [31:0] sa, sb;
+        begin
+            sa = a; sb = b;
+            if (b == 0) gm_rem = a;
+            else if (a == 32'h80000000 && b == 32'hffffffff) gm_rem = 0;
+            else gm_rem = sa % sb;
+        end
+    endfunction
+
+    function [31:0] gm_remu;
+        input [31:0] a, b;
+        begin
+            if (b == 0) gm_remu = a;
+            else gm_remu = a % b;
+        end
+    endfunction
+
+    // ------------------------------------------------
+    // Emit R-type M-extension instruction
+    // ------------------------------------------------
+    task emit_m;
+        input [2:0] funct3;
+        input [4:0] rd, rs1, rs2;
+        begin
+            emit(rv_rtype(F7_MULDIV, rs2, rs1, funct3, rd, OP_RTYPE));
+        end
+    endtask
 
     // ------------------------------------------------
     // Program builder
@@ -421,6 +512,58 @@ module KLDJ_top_tb;
             emit(rv_itype(12'h340, 5'd0,  F3_CSRRS, 5'd29, OP_SYSTEM)); // x29=mscratch (should survive)
         end
 
+        // ==========================================
+        // GROUP 12: RV32M Multiply/Divide  (uses unchecked regs x7, x8, x27, x28)
+        // Verifies all 8 M-extension instructions. Exhaustive tests in rv32m_supported_instr_tb.
+        // ==========================================
+        // --- MUL: lower 32 bits of signed*signed ---
+        // x7=3, x8=4, x27=MUL(3,4)=12
+        emit(rv_itype(12'h003, 5'd0, F3_ADD_SUB, 5'd7, OP_ITYPE));
+        emit(rv_itype(12'h004, 5'd0, F3_ADD_SUB, 5'd8, OP_ITYPE));
+        emit(rv_rtype(F7_MULDIV, 5'd8, 5'd7, F3_MUL, 5'd27, OP_RTYPE));
+
+        // --- MULH: high 32 bits of signed*signed ---
+        // x7=0x80000000, x8=2, x28=MULH(-2^31, 2)=0xFFFFFFFF
+        emit(rv_utype(20'h80000, 5'd7, OP_LUI));
+        emit(rv_itype(12'h002, 5'd0, F3_ADD_SUB, 5'd8, OP_ITYPE));
+        emit(rv_rtype(F7_MULDIV, 5'd8, 5'd7, F3_MULH, 5'd28, OP_RTYPE));
+
+        // --- MULHSU: high 32 bits of signed*unsigned ---
+        // x7=-1, x8=2, x27=MULHSU(-1,2)=0xFFFFFFFE (overwrites MUL result)
+        emit(rv_itype(12'hFFF, 5'd0, F3_ADD_SUB, 5'd7, OP_ITYPE));
+        emit(rv_itype(12'h002, 5'd0, F3_ADD_SUB, 5'd8, OP_ITYPE));
+        emit(rv_rtype(F7_MULDIV, 5'd8, 5'd7, F3_MULHSU, 5'd27, OP_RTYPE));
+
+        // --- MULHU: high 32 bits of unsigned*unsigned ---
+        // x7=0xFFFFFFFF, x8=2, x28=MULHU(0xFFFFFFFF,2)=1 (overwrites MULH result)
+        emit(rv_itype(12'hFFF, 5'd0, F3_ADD_SUB, 5'd7, OP_ITYPE));
+        emit(rv_itype(12'h002, 5'd0, F3_ADD_SUB, 5'd8, OP_ITYPE));
+        emit(rv_rtype(F7_MULDIV, 5'd8, 5'd7, F3_MULHU, 5'd28, OP_RTYPE));
+
+        // --- DIV: signed division ---
+        // x7=-7, x8=3, x27=DIV(-7,3)=-2 (overwrites MULHSU result)
+        emit(rv_itype(12'hFF9, 5'd0, F3_ADD_SUB, 5'd7, OP_ITYPE));
+        emit(rv_itype(12'h003, 5'd0, F3_ADD_SUB, 5'd8, OP_ITYPE));
+        emit(rv_rtype(F7_MULDIV, 5'd8, 5'd7, F3_DIV, 5'd27, OP_RTYPE));
+
+        // --- DIVU: unsigned division ---
+        // x7=7, x8=3, x28=DIVU(7,3)=2 (overwrites MULHU result)
+        emit(rv_itype(12'h007, 5'd0, F3_ADD_SUB, 5'd7, OP_ITYPE));
+        emit(rv_itype(12'h003, 5'd0, F3_ADD_SUB, 5'd8, OP_ITYPE));
+        emit(rv_rtype(F7_MULDIV, 5'd8, 5'd7, F3_DIVU, 5'd28, OP_RTYPE));
+
+        // --- REM: signed remainder ---
+        // x7=-7, x8=3, x27=REM(-7,3)=-1 (overwrites DIV result)
+        emit(rv_itype(12'hFF9, 5'd0, F3_ADD_SUB, 5'd7, OP_ITYPE));
+        emit(rv_itype(12'h003, 5'd0, F3_ADD_SUB, 5'd8, OP_ITYPE));
+        emit(rv_rtype(F7_MULDIV, 5'd8, 5'd7, F3_REM, 5'd27, OP_RTYPE));
+
+        // --- REMU: unsigned remainder ---
+        // x7=7, x8=3, x28=REMU(7,3)=1 (overwrites DIVU result)
+        emit(rv_itype(12'h007, 5'd0, F3_ADD_SUB, 5'd7, OP_ITYPE));
+        emit(rv_itype(12'h003, 5'd0, F3_ADD_SUB, 5'd8, OP_ITYPE));
+        emit(rv_rtype(F7_MULDIV, 5'd8, 5'd7, F3_REMU, 5'd28, OP_RTYPE));
+
         // EBREAK
         emit({12'h001, 5'd0, 3'b000, 5'd0, OP_SYSTEM});
 
@@ -429,10 +572,10 @@ module KLDJ_top_tb;
 
         // ---- Program dump ----
         $display("");
-        $display("--- Program (first 95 instructions) ---");
+        $display("--- Program (first 150 instructions) ---");
         begin : dump
             integer i;
-            for (i = 0; i < 95; i = i + 1)
+            for (i = 0; i < 150; i = i + 1)
                 $display("  [%3d] 0x%08x: %08x", i, 32'h80000000 + i*4, inst_mem[i]);
         end
         $display("---");
@@ -446,7 +589,7 @@ module KLDJ_top_tb;
         // ---- Run ----
         $display("");
         $display("Running...");
-        wait_cycles(600);
+        wait_cycles(1200);
 
         // ---- Debug: dump all 32 registers ----
         $display("");
@@ -547,6 +690,16 @@ module KLDJ_top_tb;
         check_reg(31, 32'hCAFEBABE, "CSRRS x31=mscratch_fwd");
         check_reg(29, 32'hCAFEBABE, "mscratch survives ecall/mret");
 
+        // Group 12: RV32M (x27, x28 — last writes from Group 12)
+        $display("--- Group 12: RV32M MUL/DIV ---");
+        begin : rv32m_chk
+            reg [31:0] rem_exp, remu_exp;
+            rem_exp  = gm_rem(32'hfffffff9, 32'd3);   // REM(-7, 3) = -1
+            remu_exp = gm_remu(32'd7, 32'd3);          // REMU(7, 3) = 1
+            check_reg(27, rem_exp,  "REM  x27=REM(-7,3)=-1");
+            check_reg(28, remu_exp, "REMU x28=REMU(7,3)=1");
+        end
+
         // ---- Summary ----
         $display("");
         $display("==============================================");
@@ -562,7 +715,7 @@ module KLDJ_top_tb;
 
     // Timeout
     initial begin
-        #200000;
+        #400000;
         $display("[TIMEOUT]");
         $finish;
     end
