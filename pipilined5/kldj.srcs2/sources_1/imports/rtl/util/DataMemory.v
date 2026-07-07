@@ -1,4 +1,4 @@
-`include "define.v"
+`include "../define.v"
 
 module DataMemory(
     input wire                  clk,

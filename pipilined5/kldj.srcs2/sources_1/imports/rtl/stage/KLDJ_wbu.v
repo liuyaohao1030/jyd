@@ -1,4 +1,4 @@
-`include "define.v"
+`include "../define.v"
 
 module KLDJ_wbu(
       input     wire                      wb_ctl

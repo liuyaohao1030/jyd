@@ -1,4 +1,4 @@
-`include "define.v"
+`include "../define.v"
 
 module KLDJ_idu(
     //system input
@@ -28,6 +28,11 @@ module KLDJ_idu(
     ,output    wire [`KLDJ_DATA]      data3
     ,output    wire [`KLDJ_DATA]    data4
         ,output    wire [3:0]           id_ls_ctl
+
+    // CSR signals
+    ,output    wire [11:0]          csr_addr
+    ,output    wire                 csr_op
+    ,output    wire [4:0]          csr_zimm
 );
 
 //----------------------------------decode---------------------------//
@@ -77,6 +82,33 @@ wire inst_auipc = (opcode[6:2] == `KLDJ_AUIPC)  ;
 wire inst_jal   = (opcode[6:2] == `KLDJ_JAL)    ;
 wire inst_jalr  = (opcode[6:2] == `KLDJ_JALR)   ;
 
+// SYSTEM type detection
+wire type_system = (opcode[6:2] == `KLDJ_SYSTEM) && (opcode[1:0] == 2'b11);
+
+// CSR instruction detection (funct3 != 000)
+wire inst_csrrw  = type_system && (funct3 == 3'b001);
+wire inst_csrrs  = type_system && (funct3 == 3'b010);
+wire inst_csrrc  = type_system && (funct3 == 3'b011);
+wire inst_csrrwi = type_system && (funct3 == 3'b101);
+wire inst_csrrsi = type_system && (funct3 == 3'b110);
+wire inst_csrrci = type_system && (funct3 == 3'b111);
+
+// ecall: SYSTEM + funct3=000 + all zeros in csr/rs1/rd fields
+wire inst_ecall = type_system && (funct3 == 3'b000) &&
+                 (inst[31:20] == 12'h000) && (inst[19:15] == 5'b0) && (inst[11:7] == 5'b0);
+
+// mret: SYSTEM + funct3=000 + inst[31:20]=001100000010
+wire inst_mret = type_system && (funct3 == 3'b000) && (inst[31:20] == 12'h302);
+
+// CSR operation flag
+wire csr_op_w = inst_csrrw | inst_csrrs | inst_csrrc |
+                inst_csrrwi | inst_csrrsi | inst_csrrci;
+
+// CSR address and zimm
+assign csr_addr = inst[31:20];
+assign csr_zimm = inst[19:15];
+assign csr_op   = csr_op_w;
+
 wire inst_sb    = type_store &  ~funct3[2] & ~funct3[1] & ~funct3[0]   ;
 wire inst_sh    = type_store &  ~funct3[2] & ~funct3[1] &  funct3[0]   ;
 wire inst_sw    = type_store &  ~funct3[2] &  funct3[1] & ~funct3[0]   ;
@@ -106,6 +138,15 @@ wire inst_sra   = type_r &  funct3[2] & ~funct3[1] &  funct3[0] &  funct7[5] & ~
 wire inst_or    = type_r &  funct3[2] &  funct3[1] & ~funct3[0] & ~funct7[0] ;
 wire inst_and   = type_r &  funct3[2] &  funct3[1] &  funct3[0] & ~funct7[0]  ;
 
+wire inst_mul    = type_r & ~funct3[2] & ~funct3[1] & ~funct3[0] & (funct7 == 7'b0000001);
+wire inst_mulh   = type_r & ~funct3[2] & ~funct3[1] &  funct3[0] & (funct7 == 7'b0000001);
+wire inst_mulhsu = type_r & ~funct3[2] &  funct3[1] & ~funct3[0] & (funct7 == 7'b0000001);
+wire inst_mulhu  = type_r & ~funct3[2] &  funct3[1] &  funct3[0] & (funct7 == 7'b0000001);
+wire inst_div    = type_r &  funct3[2] & ~funct3[1] & ~funct3[0] & (funct7 == 7'b0000001);
+wire inst_divu   = type_r &  funct3[2] & ~funct3[1] &  funct3[0] & (funct7 == 7'b0000001);
+wire inst_rem    = type_r &  funct3[2] &  funct3[1] & ~funct3[0] & (funct7 == 7'b0000001);
+wire inst_remu   = type_r &  funct3[2] &  funct3[1] &  funct3[0] & (funct7 == 7'b0000001);
+
 wire inst_addi  = type_i & ~funct3[2] & ~funct3[1] & ~funct3[0]   ;
 wire inst_slti  = type_i & ~funct3[2] &  funct3[1] & ~funct3[0]   ;
 wire inst_sltiu = type_i & ~funct3[2] &  funct3[1] &  funct3[0]   ;
@@ -117,7 +158,7 @@ wire inst_srli  = type_i &  funct3[2] & ~funct3[1] &  funct3[0] & ~i_imm[10]   ;
 wire inst_srai  = type_i &  funct3[2] & ~funct3[1] &  funct3[0] &  i_imm[10]   ;
 
 wire jump = inst_jal | inst_jalr;
-wire rd_wen = type_load | type_r | type_i | inst_lui | inst_auipc | jump;
+wire rd_wen = type_load | type_r | type_i | inst_lui | inst_auipc | jump | csr_op_w;
 
 //decode IMM
 wire i_imm_en = type_load | inst_jalr | type_i;
@@ -145,7 +186,8 @@ reg [`KLDJ_DATA]            data4_r;
 reg [3:0]                   id_ls_ctl_r;
 
 always @(*) begin
-    rs1_ren_r  = type_store | type_load | type_branch | type_i | type_r | inst_jalr;
+    rs1_ren_r  = type_store | type_load | type_branch | type_i | type_r | inst_jalr |
+                 inst_csrrw | inst_csrrs | inst_csrrc;
     rs2_ren_r  = type_branch | type_store | type_r;
     rs1_addr_r = rs1_ren_r ? rs1 : 5'd0;
     rs2_addr_r = rs2_ren_r ? rs2 : 5'd0;
@@ -261,6 +303,46 @@ always @(*) begin
         alu_ctrl_r = 10'h040;
         data1_r    = rs1_data;
         data2_r    = rs2_data;
+    end else if (inst_mul) begin
+        exu_op_r   = 18'h25;
+        alu_ctrl_r = 10'h001;
+        data1_r    = rs1_data;
+        data2_r    = rs2_data;
+    end else if (inst_mulh) begin
+        exu_op_r   = 18'h26;
+        alu_ctrl_r = 10'h002;
+        data1_r    = rs1_data;
+        data2_r    = rs2_data;
+    end else if (inst_mulhsu) begin
+        exu_op_r   = 18'h27;
+        alu_ctrl_r = 10'h003;
+        data1_r    = rs1_data;
+        data2_r    = rs2_data;
+    end else if (inst_mulhu) begin
+        exu_op_r   = 18'h28;
+        alu_ctrl_r = 10'h010;
+        data1_r    = rs1_data;
+        data2_r    = rs2_data;
+    end else if (inst_div) begin
+        exu_op_r   = 18'h29;
+        alu_ctrl_r = 10'h011;
+        data1_r    = rs1_data;
+        data2_r    = rs2_data;
+    end else if (inst_divu) begin
+        exu_op_r   = 18'h2a;
+        alu_ctrl_r = 10'h012;
+        data1_r    = rs1_data;
+        data2_r    = rs2_data;
+    end else if (inst_rem) begin
+        exu_op_r   = 18'h2b;
+        alu_ctrl_r = 10'h013;
+        data1_r    = rs1_data;
+        data2_r    = rs2_data;
+    end else if (inst_remu) begin
+        exu_op_r   = 18'h2c;
+        alu_ctrl_r = 10'h020;
+        data1_r    = rs1_data;
+        data2_r    = rs2_data;    
     end else if (inst_beq) begin
         exu_op_r   = 18'h14;
         alu_ctrl_r = 10'h028;
@@ -369,6 +451,28 @@ always @(*) begin
         data2_r    = imm;
         data3_r    = rs2_data;
         id_ls_ctl_r = 4'b0010;
+    end else if (inst_csrrw) begin
+        exu_op_r   = `KLDJ_EXU_CSRRW;
+        data1_r    = rs1_data;     // rs1 value to write to CSR
+    end else if (inst_csrrs) begin
+        exu_op_r   = `KLDJ_EXU_CSRRS;
+        data1_r    = rs1_data;     // rs1 value for set bits
+    end else if (inst_csrrc) begin
+        exu_op_r   = `KLDJ_EXU_CSRRC;
+        data1_r    = rs1_data;     // rs1 value for clear bits
+    end else if (inst_csrrwi) begin
+        exu_op_r   = `KLDJ_EXU_CSRRWI;
+        data1_r    = {27'b0, inst[19:15]};  // zimm zero-extended
+    end else if (inst_csrrsi) begin
+        exu_op_r   = `KLDJ_EXU_CSRRSI;
+        data1_r    = {27'b0, inst[19:15]};  // zimm zero-extended
+    end else if (inst_csrrci) begin
+        exu_op_r   = `KLDJ_EXU_CSRRCI;
+        data1_r    = {27'b0, inst[19:15]};  // zimm zero-extended
+    end else if (inst_ecall) begin
+        exu_op_r   = `KLDJ_EXU_ECALL;
+    end else if (inst_mret) begin
+        exu_op_r   = `KLDJ_EXU_MRET;
     end
 end
 
