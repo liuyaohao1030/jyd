@@ -125,6 +125,18 @@ module KLDJ_top(
     // MEM stage wires
     wire [`KLDJ_DATA]            mem_stage_wb_data;
     wire                         mem_stage_wb_ctl;
+    wire [`KLDJ_DATA]            mem_addr_memstage_unused;
+    wire [`KLDJ_DATA]            mem_wdata_memstage_unused;
+    wire                         mem_we_memstage_unused;
+    wire [3:0]                   mem_be_memstage_unused;
+
+    // EX-stage memory request wires
+    wire                         ex_req_load;
+    wire                         ex_req_store;
+    wire                         ex_req_mem;
+    wire [1:0]                   ex_req_size;
+    wire [3:0]                   ex_req_be;
+    wire [`KLDJ_DATA]            ex_req_wdata;
 
     // MEM/WB pipeline register outputs
     wire                         mem_wb_valid;
@@ -330,6 +342,17 @@ module KLDJ_top(
     assign ex_redirect = id_ex_valid && (exu_jump_raw || is_ecall);
     assign ex_stall = div_stall || mul_stall;
     assign frontend_stall = load_use_stall || ex_stall;
+
+    assign ex_req_load  = (id_ex_exu_op >= 18'h1d) && (id_ex_exu_op <= 18'h21);
+    assign ex_req_store = (id_ex_exu_op >= 18'h22) && (id_ex_exu_op <= 18'h24);
+    assign ex_req_mem   = id_ex_valid && !ex_stall && (ex_req_load || ex_req_store);
+    assign ex_req_size  = id_ex_ls_ctl[1:0];
+    assign ex_req_be    = (ex_req_size == 2'b00) ? (4'b0001 << ex_mem_addr_pre[1:0]) :
+                          (ex_req_size == 2'b01) ? (4'b0011 << {ex_mem_addr_pre[1], 1'b0}) :
+                          (ex_req_size == 2'b10) ? 4'b1111 : 4'b0000;
+    assign ex_req_wdata = (ex_req_size == 2'b00) ? {4{ex_store_wdata[7:0]}} :
+                          (ex_req_size == 2'b01) ? {2{ex_store_wdata[15:0]}} :
+                          ex_store_wdata;
     
     // CSR module instantiation
     KLDJ_csr u_csr(
@@ -384,10 +407,10 @@ module KLDJ_top(
         ,.ex_mem_store_wdata (ex_mem_store_wdata  )
         ,.ex_mem_wb_ctl      (ex_mem_wb_ctl       )
         ,.mem_rdata          (mem_rdata           )
-        ,.mem_addr           (mem_addr            )
-        ,.mem_wdata          (mem_wdata           )
-        ,.mem_we             (mem_we              )
-        ,.mem_be             (mem_be              )
+        ,.mem_addr           (mem_addr_memstage_unused )
+        ,.mem_wdata          (mem_wdata_memstage_unused)
+        ,.mem_we             (mem_we_memstage_unused   )
+        ,.mem_be             (mem_be_memstage_unused   )
         ,.mem_stage_wb_data  (mem_stage_wb_data   )
         ,.mem_stage_wb_ctl   (mem_stage_wb_ctl    )
     );
@@ -453,5 +476,9 @@ module KLDJ_top(
     assign tb_ex_jump_pc = ex_redirect ? redirect_pc : `KLDJ_ZERO32;
     assign tb_ex_res    = wb_commit_valid ? wb_commit_wb_data : `KLDJ_ZERO32;
     assign tb_if_pc     = if_pc;
+    assign mem_addr     = ex_req_mem ? ex_mem_addr_pre : `KLDJ_ZERO32;
+    assign mem_wdata    = (id_ex_valid && !ex_stall && ex_req_store) ? ex_req_wdata : `KLDJ_ZERO32;
+    assign mem_we       = id_ex_valid && !ex_stall && ex_req_store;
+    assign mem_be       = ex_req_mem ? ex_req_be : 4'b0000;
 
 endmodule

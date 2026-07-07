@@ -49,7 +49,7 @@ module KLDJ_top_tb;
     assign inst_rdata = inst_mem[inst_word_addr];
 
     // ------------------------------------------------
-    // Data Memory (async read, sync write)
+    // Data Memory (sync read, sync write)
     // ------------------------------------------------
     reg [31:0] data_mem [0:4095];
     initial begin : init_data_mem
@@ -72,10 +72,7 @@ module KLDJ_top_tb;
             if (mem_be[2]) data_mem[data_word_addr][23:16] <= mem_wdata[23:16];
             if (mem_be[3]) data_mem[data_word_addr][31:24] <= mem_wdata[31:24];
         end
-    end
-
-    always @(*) begin
-        mem_rdata = data_mem[data_word_addr];
+        mem_rdata <= data_mem[data_word_addr];
     end
 
     // ------------------------------------------------

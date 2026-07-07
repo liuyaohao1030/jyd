@@ -1,0 +1,55 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2023.2 (win64) Build 4029153 Fri Oct 13 20:14:34 MDT 2023
+| Date         : Tue Jul  7 06:45:43 2026
+| Host         : DESKTOP-CGVJL45 running 64-bit major release  (build 9200)
+| Command      : report_high_fanout_nets -fanout_greater_than 100 -max_nets 50 -file D:/System/desktop/jyd-feature/pipilined5/reports/bram_after_impl/high_fanout_bram.rpt
+| Design       : top
+| Device       : xc7k325t
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+High Fan-out Nets Information
+
+1. Summary
+----------
+
++----------------------------------------------------------------------------------------------------------------------------------------------------+--------+-------------+
+| Net Name                                                                                                                                           | Fanout | Driver Type |
++----------------------------------------------------------------------------------------------------------------------------------------------------+--------+-------------+
+| student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32/U0/i_synth/i_has_aresetn.i_reg_reset/opt_has_pipe.first_q                          |   3234 | FDRE        |
+| student_top_inst/u_KLDJ_top/reg5/bbstub_locked                                                                                                     |   1864 | LUT1        |
+| student_top_inst/u_KLDJ_top/ifu0/Q[4]                                                                                                              |    984 | FDRE        |
+| student_top_inst/u_KLDJ_top/ifu0/Q[5]                                                                                                              |    984 | FDRE        |
+| student_top_inst/u_KLDJ_top/ifu0/Q[6]                                                                                                              |    984 | FDRE        |
+| student_top_inst/u_KLDJ_top/ifu0/Q[3]                                                                                                              |    981 | FDRE        |
+| student_top_inst/u_KLDJ_top/ifu0/Q[1]                                                                                                              |    980 | FDRE        |
+| student_top_inst/u_KLDJ_top/ifu0/Q[2]                                                                                                              |    980 | FDRE        |
+| student_top_inst/u_KLDJ_top/ifu0/Q[7]                                                                                                              |    451 | FDRE        |
+| student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/E[0]                                                                                             |    255 | LUT6        |
+| student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_valid_i_1_n_0                                                                                       |    255 | LUT3        |
+| student_top_inst/u_KLDJ_top/u_pipe_if_id/if_id_valid                                                                                               |    217 | FDRE        |
+| student_top_inst/u_KLDJ_top/ifu0/Q[8]                                                                                                              |    182 | FDRE        |
+| student_top_inst/u_KLDJ_top/ifu0/Q[9]                                                                                                              |    153 | FDRE        |
+| student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_valid_reg_10                                                                                        |    134 | LUT4        |
+| uart_inst/E[0]                                                                                                                                     |    134 | LUT5        |
+| student_top_inst/u_KLDJ_top/u_pipe_if_id/id_reg_rs1_addr[0]                                                                                        |    131 | LUT3        |
+| student_top_inst/u_KLDJ_top/u_pipe_if_id/id_reg_rs1_addr[1]                                                                                        |    131 | LUT3        |
+| student_top_inst/u_KLDJ_top/u_pipe_if_id/id_reg_rs1_addr[2]                                                                                        |    131 | LUT3        |
+| student_top_inst/u_KLDJ_top/u_pipe_if_id/id_reg_rs2_addr[0]                                                                                        |    131 | LUT6        |
+| student_top_inst/u_KLDJ_top/u_pipe_if_id/id_reg_rs2_addr[1]                                                                                        |    131 | LUT6        |
+| student_top_inst/u_KLDJ_top/u_pipe_if_id/id_reg_rs2_addr[2]                                                                                        |    131 | LUT6        |
+| student_top_inst/bridge_inst/dram_driver_inst/Mem_DRAM/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/has_mux_a.A/sel_pipe[1] |    128 | FDRE        |
+| student_top_inst/bridge_inst/dram_driver_inst/Mem_DRAM/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/has_mux_a.A/sel_pipe[2] |    128 | FDRE        |
+| student_top_inst/u_KLDJ_top/u_pipe_if_id/if_id_inst_reg[15]_0                                                                                      |    128 | LUT3        |
+| student_top_inst/u_KLDJ_top/u_pipe_if_id/if_id_inst_reg[16]_0                                                                                      |    128 | LUT3        |
+| student_top_inst/u_KLDJ_top/u_pipe_if_id/if_id_inst_reg[6]_1                                                                                       |    128 | LUT6        |
+| student_top_inst/u_KLDJ_top/u_pipe_if_id/if_id_inst_reg[6]_2                                                                                       |    128 | LUT6        |
+| student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_valid_reg_0                                                                                         |    124 | LUT5        |
+| student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_data2[2]                                                                                               |    119 | LUT5        |
+| student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_data2[1]                                                                                               |    114 | LUT5        |
+| student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_data2[4]                                                                                               |    112 | LUT5        |
+| student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_data2[3]                                                                                               |    110 | LUT5        |
+| student_top_inst/u_KLDJ_top/u_pipe_id_ex/addra[1]                                                                                                  |    105 | LUT5        |
++----------------------------------------------------------------------------------------------------------------------------------------------------+--------+-------------+
+
+
