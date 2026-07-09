@@ -46,7 +46,6 @@ module dram_driver(
     DRAM_TDP u_dram_tdp (
         // Port A: Write (registered inputs)
         .clka   (clk            ),
-        .ena    (1'b1           ),
         .wea    (bram_we_r      ),  // 4-bit byte write enable (registered)
         .addra  (bram_addr_r    ),  // 16-bit address (registered)
         .dina   (bram_din_r     ),  // 32-bit data (registered)
@@ -54,7 +53,6 @@ module dram_driver(
 
         // Port B: Read (combinational address)
         .clkb   (clk            ),
-        .enb    (1'b1           ),
         .web    (4'b0000        ),  // Port B read-only
         .addrb  (bram_addr_rd   ),  // 16-bit address (combinational)
         .dinb   (32'b0          ),  // Unused

@@ -14,24 +14,22 @@
 
 module tb_dram_tdp;
 
-    // Clocks
+    // Clocks - same frequency (real hardware uses single clock)
     reg clka, clkb;
 
     initial clka = 0;
     always #5 clka = ~clka;
 
     initial clkb = 0;
-    always #7 clkb = ~clkb;  // Different frequency for Port B
+    always #5 clkb = ~clkb;  // Same clock (real hardware)
 
     // Port A signals
-    reg         ena;
     reg  [3:0]  wea;
     reg  [15:0] addra;
     reg  [31:0] dina;
     wire [31:0] douta;
 
     // Port B signals
-    reg         enb;
     reg  [3:0]  web;
     reg  [15:0] addrb;
     reg  [31:0] dinb;
@@ -39,9 +37,9 @@ module tb_dram_tdp;
 
     // DUT
     DRAM_TDP u_dut (
-        .clka  (clka  ), .ena   (ena   ),
+        .clka  (clka  ),
         .wea   (wea   ), .addra (addra ), .dina  (dina  ), .douta (douta),
-        .clkb  (clkb  ), .enb   (enb   ),
+        .clkb  (clkb  ),
         .web   (web   ), .addrb (addrb ), .dinb  (dinb  ), .doutb (doutb)
     );
 
@@ -65,12 +63,10 @@ module tb_dram_tdp;
         input [3:0]  be;
         begin
             @(posedge clka);
-            ena  = 1'b1;
             wea  = be;
             addra = addr;
             dina = data;
             @(posedge clka);
-            ena  = 1'b0;
             wea  = 4'b0;
         end
     endtask
@@ -80,12 +76,10 @@ module tb_dram_tdp;
         input [15:0] addr;
         begin
             @(posedge clkb);
-            enb  = 1'b1;
             web  = 4'b0;
             addrb = addr;
             dinb = 32'h0;
             @(posedge clkb);
-            enb  = 1'b0;
         end
     endtask
 
@@ -98,8 +92,8 @@ module tb_dram_tdp;
         $display("==============================================");
 
         // Init
-        ena = 0; wea = 0; addra = 0; dina = 0;
-        enb = 0; web = 0; addrb = 0; dinb = 0;
+        wea = 0; addra = 0; dina = 0;
+        web = 0; addrb = 0; dinb = 0;
 
         // ---- Test 1: Basic Write (Port A) + Read (Port B) ----
         $display("");
@@ -153,18 +147,17 @@ module tb_dram_tdp;
         // ---- Test 4: Simultaneous read (B) and write (A) to different addresses ----
         $display("");
         $display("--- Test 4: Simultaneous R/W different addresses ---");
-        port_a_write(16'h0020, 32'h12345678, 4'b1111);
-        @(posedge clka);
-        @(posedge clka);
+        // Write 0x12345678 to 0x0020 via Port A
+        @(posedge clka); wea = 4'hF; addra = 16'h0020; dina = 32'h12345678;
+        @(posedge clka); wea = 4'h0;
+        @(posedge clka); // write takes effect
+        @(posedge clka); // extra wait
         // Now read 0x0020 via B while writing 0x0021 via A
         @(posedge clka);
-        ena  = 1'b1; wea = 4'b1111; addra = 16'h0021; dina = 32'hFFFFFFFF;
-        enb  = 1'b1; web = 4'b0;    addrb = 16'h0020; dinb = 32'h0;
-        @(posedge clka);
-        ena = 1'b0; wea = 4'b0;
-        enb = 1'b0;
-        @(posedge clkb);
-        @(posedge clkb);
+        wea = 4'hF; addra = 16'h0021; dina = 32'hFFFFFFFF;
+        web = 4'h0; addrb = 16'h0020; dinb = 32'h0;
+        @(posedge clka); wea = 4'h0;
+        @(posedge clkb); @(posedge clkb);
         check(doutb, 32'h12345678, "Read 0x0020 while writing 0x0021");
 
         // ---- Test 5: Write then read same address on Port A (Write First) ----
@@ -175,9 +168,9 @@ module tb_dram_tdp;
         @(posedge clka);
         // Write new value and read in same cycle
         @(posedge clka);
-        ena = 1'b1; wea = 4'b1111; addra = 16'h0030; dina = 32'h22222222;
+        wea = 4'b1111; addra = 16'h0030; dina = 32'h22222222;
         @(posedge clka);
-        ena = 1'b0; wea = 4'b0;
+        wea = 4'b0;
         // douta should be 0x22222222 (Write First)
         @(posedge clka);
         check(douta, 32'h22222222, "Port A Write First output");

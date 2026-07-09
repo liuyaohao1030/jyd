@@ -7,7 +7,7 @@
 //   - Interface compatible with Xilinx dist_mem_gen IROM IP
 //////////////////////////////////////////////////////////////////////////////
 
-module IROM_BHV (
+module IROM (
     input  wire [11:0]  a,
     output wire [31:0]  spo
 );
