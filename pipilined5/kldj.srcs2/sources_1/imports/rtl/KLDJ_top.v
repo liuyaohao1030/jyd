@@ -491,6 +491,7 @@ module KLDJ_top(
     assign mem_we       = id_ex_valid && !ex_stall && ex_req_store;
     assign mem_be       = ex_req_mem ? ex_req_be : 4'b0000;
 
+/*
     // ========================================================
     // Performance counters
     // ========================================================
@@ -524,5 +525,5 @@ module KLDJ_top(
         ,.perf_load_count          (perf_load_count           )
         ,.perf_store_count         (perf_store_count          )
     );
-
+*/
 endmodule
