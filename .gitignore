@@ -6,3 +6,6 @@ build/
 xsim.dir/
 *.pb
 *.vcd
+*.jou
+*.log
+*.pb
