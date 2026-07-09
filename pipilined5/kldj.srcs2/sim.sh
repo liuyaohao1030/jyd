@@ -22,8 +22,14 @@ case "$TEST" in
         TB_FILE="$TB_DIR/rv32m_supported_instr_tb.sv"
         PASS_PATTERN="rv32m supported pipeline test passed"
         ;;
+    irom-v2|iromv2|perf)
+        TEST="irom-v2"
+        TOP="KLDJ_irom_v2_tb"
+        TB_FILE="$TB_DIR/KLDJ_irom_v2_tb.sv"
+        PASS_PATTERN="Done."
+        ;;
     -h|--help|help)
-        echo "Usage: $0 [rv32i|rv32m] [timeout_seconds]"
+        echo "Usage: $0 [rv32i|rv32m|irom-v2] [timeout_seconds]"
         echo "Examples:"
         echo "  $0 rv32i"
         echo "  $0 rv32m 120"

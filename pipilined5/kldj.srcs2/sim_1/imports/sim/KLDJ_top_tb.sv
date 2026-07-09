@@ -83,6 +83,17 @@ module KLDJ_top_tb;
     wire [31:0] tb_ex_res;
     wire        core_clk_o;
 
+    // Performance counter outputs
+    wire [31:0] perf_cycle_count;
+    wire [31:0] perf_instret_count;
+    wire [31:0] perf_frontend_stall_count;
+    wire [31:0] perf_load_use_stall_count;
+    wire [31:0] perf_mul_stall_count;
+    wire [31:0] perf_div_stall_count;
+    wire [31:0] perf_redirect_count;
+    wire [31:0] perf_load_count;
+    wire [31:0] perf_store_count;
+
     KLDJ_top u_dut (
          .clk          (clk           )
         ,.rst          (rst           )
@@ -97,6 +108,15 @@ module KLDJ_top_tb;
         ,.mem_be       (mem_be        )
         ,.mem_rdata    (mem_rdata     )
         ,.core_clk_o   (core_clk_o    )
+        ,.perf_cycle_count         (perf_cycle_count          )
+        ,.perf_instret_count       (perf_instret_count        )
+        ,.perf_frontend_stall_count(perf_frontend_stall_count )
+        ,.perf_load_use_stall_count(perf_load_use_stall_count )
+        ,.perf_mul_stall_count     (perf_mul_stall_count      )
+        ,.perf_div_stall_count     (perf_div_stall_count      )
+        ,.perf_redirect_count      (perf_redirect_count       )
+        ,.perf_load_count          (perf_load_count           )
+        ,.perf_store_count         (perf_store_count          )
     );
 
     // ------------------------------------------------

@@ -14,6 +14,16 @@ module KLDJ_top(
     ,output wire [3:0]           mem_be
     ,input  wire [`KLDJ_DATA]    mem_rdata
     ,output wire                 core_clk_o
+    // Performance counter outputs
+    ,output wire [31:0]          perf_cycle_count
+    ,output wire [31:0]          perf_instret_count
+    ,output wire [31:0]          perf_frontend_stall_count
+    ,output wire [31:0]          perf_load_use_stall_count
+    ,output wire [31:0]          perf_mul_stall_count
+    ,output wire [31:0]          perf_div_stall_count
+    ,output wire [31:0]          perf_redirect_count
+    ,output wire [31:0]          perf_load_count
+    ,output wire [31:0]          perf_store_count
 );
 
     localparam [`KLDJ_INST] KLDJ_NOP = 32'h00000013;
@@ -480,5 +490,39 @@ module KLDJ_top(
     assign mem_wdata    = (id_ex_valid && !ex_stall && ex_req_store) ? ex_req_wdata : `KLDJ_ZERO32;
     assign mem_we       = id_ex_valid && !ex_stall && ex_req_store;
     assign mem_be       = ex_req_mem ? ex_req_be : 4'b0000;
+
+    // ========================================================
+    // Performance counters
+    // ========================================================
+    wire perf_event_instret        = mem_wb_valid;
+    wire perf_event_frontend_stall = frontend_stall;
+    wire perf_event_load_use_stall = load_use_stall;
+    wire perf_event_mul_stall      = mul_stall;
+    wire perf_event_div_stall      = div_stall;
+    wire perf_event_redirect       = ex_redirect;
+    wire perf_event_load           = id_ex_valid && !ex_stall && ex_req_load;
+    wire perf_event_store          = id_ex_valid && !ex_stall && ex_req_store;
+
+    KLDJ_perf_counters u_perf_counters(
+         .clk                      (core_clk                  )
+        ,.rst                      (core_rst                  )
+        ,.event_instret            (perf_event_instret        )
+        ,.event_frontend_stall     (perf_event_frontend_stall )
+        ,.event_load_use_stall     (perf_event_load_use_stall )
+        ,.event_mul_stall          (perf_event_mul_stall      )
+        ,.event_div_stall          (perf_event_div_stall      )
+        ,.event_redirect           (perf_event_redirect       )
+        ,.event_load               (perf_event_load           )
+        ,.event_store              (perf_event_store          )
+        ,.perf_cycle_count         (perf_cycle_count          )
+        ,.perf_instret_count       (perf_instret_count        )
+        ,.perf_frontend_stall_count(perf_frontend_stall_count )
+        ,.perf_load_use_stall_count(perf_load_use_stall_count )
+        ,.perf_mul_stall_count     (perf_mul_stall_count      )
+        ,.perf_div_stall_count     (perf_div_stall_count      )
+        ,.perf_redirect_count      (perf_redirect_count       )
+        ,.perf_load_count          (perf_load_count           )
+        ,.perf_store_count         (perf_store_count          )
+    );
 
 endmodule
