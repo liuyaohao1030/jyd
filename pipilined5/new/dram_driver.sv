@@ -1,14 +1,19 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
 // Module Name: dram_driver
-// Description: DRAM driver with True Dual Port BRAM
+// Description: DRAM driver with True Dual Port BRAM + Store Buffer
 //
 //   Port A: Write path - registered (WEA/addr/data), breaks critical path
 //   Port B: Read path  - combinational address, no extra read latency
 //
-//   Write latency: 1 cycle (register) + 0 cycles (BRAM) = 1 cycle total
+//   Write latency: 1 cycle (register) + 1 cycle (BRAM) = 2 cycles total
 //   Read latency:  0 cycles (address) + 1 cycle (BRAM registered) = 1 cycle
-//   Read and write ports are independent, no mutual interference.
+//
+//   Store buffer: 1-entry, holds pending write for 2 cycles.
+//   When a load address matches the pending store, data is forwarded
+//   from the buffer instead of reading stale BRAM output.
+//   Byte-level forwarding: only the bytes actually written by the store
+//   are forwarded; other bytes come from BRAM.
 //////////////////////////////////////////////////////////////////////////////////
 
 module dram_driver(
@@ -35,28 +40,73 @@ module dram_driver(
     end
 
     // ================================================================
+    // Store buffer: track pending write validity for 2 cycles
+    //   Cycle N:   store arrives (dram_wen)
+    //   Posedge N+1: captured into bram_addr_r/bram_we_r/bram_din_r
+    //   Posedge N+2: BRAM writes the data
+    //   Posedge N+3: buffer cleared (forwarding no longer needed)
+    //
+    //   buf_valid_sr = 2'b11 → 2'b01 → 2'b00
+    // ================================================================
+    logic buf_valid;
+    logic [1:0] buf_valid_sr;
+
+    always @(posedge clk) begin
+        if (dram_wen)
+            buf_valid_sr <= 2'b11;
+        else
+            buf_valid_sr <= {1'b0, buf_valid_sr[1]};
+    end
+    assign buf_valid = buf_valid_sr[0];
+
+    // ================================================================
     // Read address: combinational, no extra read latency
     // ================================================================
     logic [15:0] bram_addr_rd;
     assign bram_addr_rd = perip_addr[17:2];
 
     // ================================================================
+    // BRAM write enable: only assert when buffer holds valid pending data
+    // ================================================================
+    logic [3:0] bram_we_actual;
+    assign bram_we_actual = buf_valid ? bram_we_r : 4'b0000;
+
+    // ================================================================
     // True Dual Port BRAM instantiation
     // ================================================================
+    logic [31:0] bram_dout;
+
     DRAM_TDP u_dram_tdp (
         // Port A: Write (registered inputs)
         .clka   (clk            ),
-        .wea    (bram_we_r      ),  // 4-bit byte write enable (registered)
-        .addra  (bram_addr_r    ),  // 16-bit address (registered)
-        .dina   (bram_din_r     ),  // 32-bit data (registered)
-        .douta  (               ),  // Port A output unused
+        .wea    (bram_we_actual ),  // gated by buf_valid
+        .addra  (bram_addr_r    ),
+        .dina   (bram_din_r     ),
+        .douta  (               ),
 
         // Port B: Read (combinational address)
         .clkb   (clk            ),
-        .web    (4'b0000        ),  // Port B read-only
-        .addrb  (bram_addr_rd   ),  // 16-bit address (combinational)
-        .dinb   (32'b0          ),  // Unused
-        .doutb  (perip_rdata    )   // 32-bit read data
+        .web    (4'b0000        ),
+        .addrb  (bram_addr_rd   ),
+        .dinb   (32'b0          ),
+        .doutb  (bram_dout      )
     );
+
+    // ================================================================
+    // Store-to-load forwarding
+    //   When a load address matches the pending store address and the
+    //   buffer is valid, forward the stored data instead of the stale
+    //   BRAM output. Byte-level granularity: only bytes that were
+    //   actually written (bram_we_r) are forwarded; others come from BRAM.
+    // ================================================================
+    wire fwd = buf_valid && (bram_addr_rd == bram_addr_r);
+
+    logic [31:0] fwd_data;
+    assign fwd_data[ 7: 0] = bram_we_r[0] ? bram_din_r[ 7: 0] : bram_dout[ 7: 0];
+    assign fwd_data[15: 8] = bram_we_r[1] ? bram_din_r[15: 8] : bram_dout[15: 8];
+    assign fwd_data[23:16] = bram_we_r[2] ? bram_din_r[23:16] : bram_dout[23:16];
+    assign fwd_data[31:24] = bram_we_r[3] ? bram_din_r[31:24] : bram_dout[31:24];
+
+    assign perip_rdata = fwd ? fwd_data : bram_dout;
 
 endmodule
