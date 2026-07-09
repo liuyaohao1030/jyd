@@ -36,14 +36,12 @@ module perip_bridge(
     output logic [39:0]  virtual_seg_output ,
     output logic [31:0]  virtual_led_output
 );
-    localparam DRAM_ADDR_START = 32'h8010_0000;
-    localparam DRAM_ADDR_END   = 32'h8014_0000;
-    localparam SW0_ADDR  = 32'h8020_0000;  // sw[31:0]
-    localparam SW1_ADDR  = 32'h8020_0004;  // sw[63:32]
-    localparam KEY_ADDR  = 32'h8020_0010;  // key[7:0]
-    localparam SEG_ADDR  = 32'h8020_0020;  // seg
-    localparam LED_ADDR  = 32'h8020_0040;  // led[31:0]
-    localparam CNT_ADDR  = 32'h8020_0050;  // counter
+    localparam SW0_OFF  = 8'h00;  // sw[31:0]
+    localparam SW1_OFF  = 8'h04;  // sw[63:32]
+    localparam KEY_OFF  = 8'h10;  // key[7:0]
+    localparam SEG_OFF  = 8'h20;  // seg
+    localparam LED_OFF  = 8'h40;  // led[31:0]
+    localparam CNT_OFF  = 8'h50;  // counter
     localparam CNT_START_CMD = 32'h8000_0000;
     localparam CNT_STOP_CMD  = 32'hFFFF_FFFF;
 
@@ -52,13 +50,16 @@ module perip_bridge(
     logic [39:0] seg_output;
     logic cnt_enable_cfg;
 
-    wire is_dram_addr = (perip_addr >= DRAM_ADDR_START) && (perip_addr < DRAM_ADDR_END);
-    wire is_sw0_addr  = (perip_addr == SW0_ADDR);
-    wire is_sw1_addr  = (perip_addr == SW1_ADDR);
-    wire is_key_addr  = (perip_addr == KEY_ADDR);
-    wire is_seg_addr  = (perip_addr == SEG_ADDR);
-    wire is_led_addr  = (perip_addr == LED_ADDR);
-    wire is_cnt_addr  = (perip_addr == CNT_ADDR);
+    wire is_dram_addr = (perip_addr[31:18] == 14'h2004);
+    wire is_mmio_base = (perip_addr[31:8] == 24'h802000);
+    wire [7:0] mmio_off = perip_addr[7:0];
+
+    wire is_sw0_addr = is_mmio_base && (mmio_off == SW0_OFF);
+    wire is_sw1_addr = is_mmio_base && (mmio_off == SW1_OFF);
+    wire is_key_addr = is_mmio_base && (mmio_off == KEY_OFF);
+    wire is_seg_addr = is_mmio_base && (mmio_off == SEG_OFF);
+    wire is_led_addr = is_mmio_base && (mmio_off == LED_OFF);
+    wire is_cnt_addr = is_mmio_base && (mmio_off == CNT_OFF);
 
     logic rd_is_dram_q;
     logic rd_is_sw0_q;
@@ -107,13 +108,17 @@ module perip_bridge(
             rd_is_cnt_q  <= (~perip_wen) && is_cnt_addr;
             cnt_rdata_q  <= cnt_rdata;
 
-            case (perip_addr)
-                SW0_ADDR:  mmio_rdata_q <= virtual_sw_input[31:0];
-                SW1_ADDR:  mmio_rdata_q <= virtual_sw_input[63:32];
-                KEY_ADDR:  mmio_rdata_q <= {24'd0, virtual_key_input};
-                SEG_ADDR:  mmio_rdata_q <= seg_wdata;
-                default:   mmio_rdata_q <= 32'hDEAD_BEEF;
-            endcase
+            if (is_mmio_base) begin
+                case (mmio_off)
+                    SW0_OFF:  mmio_rdata_q <= virtual_sw_input[31:0];
+                    SW1_OFF:  mmio_rdata_q <= virtual_sw_input[63:32];
+                    KEY_OFF:  mmio_rdata_q <= {24'd0, virtual_key_input};
+                    SEG_OFF:  mmio_rdata_q <= seg_wdata;
+                    default:  mmio_rdata_q <= 32'hDEAD_BEEF;
+                endcase
+            end else begin
+                mmio_rdata_q <= 32'hDEAD_BEEF;
+            end
         end
     end
 
