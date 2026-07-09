@@ -1,0 +1,4 @@
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/ccy/Documents/jydb/2/jyd2026/jyd/pipilined5/new/DRAM_TDP.sv" into library work
+INFO: [VRFC 10-311] analyzing module DRAM_TDP
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/ccy/Documents/jydb/2/jyd2026/jyd/pipilined5/new/tb_dram_tdp.sv" into library work
+INFO: [VRFC 10-311] analyzing module tb_dram_tdp

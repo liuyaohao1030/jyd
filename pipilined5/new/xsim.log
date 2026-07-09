@@ -1,0 +1,45 @@
+#-----------------------------------------------------------
+# xsim v2018.3 (64-bit)
+# SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+# IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+# Start of session at: Thu Jul  9 20:21:20 2026
+# Process ID: 193385
+# Current directory: /home/ccy/Documents/jydb/2/jyd2026/jyd/pipilined5/new
+# Command line: xsim -mode tcl -source {xsim.dir/sim_unit/xsim_script.tcl}
+# Log file: /home/ccy/Documents/jydb/2/jyd2026/jyd/pipilined5/new/xsim.log
+# Journal file: /home/ccy/Documents/jydb/2/jyd2026/jyd/pipilined5/new/xsim.jou
+#-----------------------------------------------------------
+source xsim.dir/sim_unit/xsim_script.tcl
+# xsim {sim_unit} -autoloadwcfg -runall
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+run -all
+==============================================
+  DRAM_TDP Unit Testbench
+==============================================
+
+--- Test 1: Basic Write (A) + Read (B) ---
+[PASS] Read back from Port B: got 0xdeadbeef
+
+--- Test 2: Byte-enable partial write ---
+[PASS] Byte-enable partial write: got 0x11bb33dd
+
+--- Test 3: Multiple addresses ---
+[PASS] Addr 0x0010: got 0xaaaa0000
+[PASS] Addr 0x0011: got 0xbbbb0000
+[PASS] Addr 0x0012: got 0xcccc0000
+
+--- Test 4: Simultaneous R/W different addresses ---
+[PASS] Read 0x0020 while writing 0x0021: got 0x12345678
+
+--- Test 5: Write First on Port A ---
+[PASS] Port A Write First output: got 0x22222222
+
+==============================================
+  Results: 7 PASSED, 0 FAILED
+==============================================
+  ALL TESTS PASSED!
+==============================================
+$finish called at time : 605 ns : File "/home/ccy/Documents/jydb/2/jyd2026/jyd/pipilined5/new/tb_dram_tdp.sv" Line 195
+exit
+INFO: [Common 17-206] Exiting xsim at Thu Jul  9 20:21:26 2026...

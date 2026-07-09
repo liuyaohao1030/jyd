@@ -1,0 +1,13 @@
+#-----------------------------------------------------------
+# xsim v2018.3 (64-bit)
+# SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+# IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+# Start of session at: Thu Jul  9 20:22:22 2026
+# Process ID: 194262
+# Current directory: /home/ccy/Documents/jydb/2/jyd2026/jyd/pipilined5/kldj.srcs2/sim_1/imports/sim
+# Command line: xsim -mode tcl -source {xsim.dir/sim_irom_v2/xsim_script.tcl}
+# Log file: /home/ccy/Documents/jydb/2/jyd2026/jyd/pipilined5/kldj.srcs2/sim_1/imports/sim/xsim.log
+# Journal file: /home/ccy/Documents/jydb/2/jyd2026/jyd/pipilined5/kldj.srcs2/sim_1/imports/sim/xsim.jou
+#-----------------------------------------------------------
+source xsim.dir/sim_irom_v2/xsim_script.tcl
+run -all

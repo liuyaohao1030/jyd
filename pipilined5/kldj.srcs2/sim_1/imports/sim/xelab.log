@@ -1,0 +1,42 @@
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /home/ccy/Documents/Vivado/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -debug all -L work tb_irom_v2_tdp -s sim_tdp_full 
+Multi-threading is on. Using 22 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module work.KLDJ_ifu
+Compiling module work.pipe_if_id
+Compiling module work.KLDJ_idu
+Compiling module work.pipe_id_ex
+Compiling module work.ex_forward
+Compiling module work.alu_add
+Compiling module work.alu_and
+Compiling module work.alu_or
+Compiling module work.alu_shifter
+Compiling module work.alu_slt
+Compiling module work.alu_xor
+Compiling module work.KLDJ_alu
+Compiling module work.mul_ip_wrapper
+Compiling module work.div_ip_wrapper
+Compiling module work.KLDJ_exu
+Compiling module work.KLDJ_csr
+Compiling module work.pipe_ex_mem
+Compiling module work.KLDJ_lsu
+Compiling module work.mem_stage_top
+Compiling module work.pipe_mem_wb
+Compiling module work.KLDJ_wbu
+Compiling module work.KLDJ_regfile
+Compiling module work.pipe_wb_commit
+Compiling module work.KLDJ_perf_counters
+Compiling module work.KLDJ_top
+Compiling module work.seg7
+Compiling module work.display_seg
+Compiling module work.DRAM_TDP
+Compiling module work.dram_driver
+Compiling module work.counter
+Compiling module work.perip_bridge
+Compiling module work.tb_irom_v2_tdp
+Built simulation snapshot sim_tdp_full
