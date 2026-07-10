@@ -15,50 +15,28 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 module dram_driver(
-    input  logic         clk            ,
-    input  logic [17:0]  perip_addr     ,
-    input  logic [31:0]  perip_wdata    ,
-    input  logic [3:0]   perip_be       ,
-    input  logic         dram_wen       ,
-    output logic [31:0]  perip_rdata
+    input  logic         clk				,
+
+    input  logic [17:0]  perip_addr			,
+    input  logic [31:0]  perip_wdata		,
+	input  logic [3:0]	 perip_be			,
+    input  logic         dram_wen           ,
+    output logic [31:0]  perip_rdata		
 );
-
-    // ================================================================
-    // Address and control signals - direct connection for write
-    // ================================================================
-    logic [15:0] bram_addr;
+    logic [15:0] dram_addr;
     logic [ 3:0] bram_we;
-
-    assign bram_addr = perip_addr[17:2];
-    assign bram_we   = dram_wen ? perip_be : 4'b0000;
-
-    // ================================================================
-    // True Dual Port BRAM instantiation
-    //   Port A: Write (direct connection, maintains 1-cycle write latency)
-    //   Port B: Read  (separate port, breaks read critical path)
-    //
-    //   The dual-port architecture physically separates read and write
-    //   paths in the BRAM fabric, allowing better timing optimization
-    //   without compromising write latency.
-    // ================================================================
     logic [31:0] bram_dout;
 
-    DRAM_TDP u_dram_tdp (
-        // Port A: Write (direct, no extra registers)
-        .clka   (clk          ),
-        .wea    (bram_we      ),  // Direct write enable
-        .addra  (bram_addr    ),  // Direct address
-        .dina   (perip_wdata  ),  // Direct data
-        .douta  (             ),  // Unused (write-only port)
-
-        // Port B: Read (separate port for read optimization)
-        .clkb   (clk          ),
-        .web    (4'b0000      ),  // Read-only port
-        .addrb  (bram_addr    ),  // Same address logic
-        .dinb   (32'b0        ),
-        .doutb  (bram_dout    )   // Read data output
-    );
-
+    assign dram_addr = perip_addr[17:2];
+    assign bram_we = dram_wen ? perip_be : 4'b0000;
     assign perip_rdata = bram_dout;
 
+    DRAM_BRAM Mem_DRAM (
+        .clka       (clk),
+        .ena        (1'b1),
+        .wea        (bram_we),
+        .addra      (dram_addr),
+        .dina       (perip_wdata),
+        .douta      (bram_dout)
+    );
 endmodule
