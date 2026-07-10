@@ -66,10 +66,11 @@ module dram_driver(
     assign bram_addr_rd = perip_addr[17:2];
 
     // ================================================================
-    // BRAM write enable: only assert when buffer holds valid pending data
+    // BRAM write enable: only assert for ONE cycle when store is registered
+    // Write should happen only at cycle N+1 (first cycle after registration)
     // ================================================================
     logic [3:0] bram_we_actual;
-    assign bram_we_actual = buf_valid ? bram_we_r : 4'b0000;
+    assign bram_we_actual = buf_valid_sr[1] ? bram_we_r : 4'b0000;
 
     // ================================================================
     // True Dual Port BRAM instantiation
