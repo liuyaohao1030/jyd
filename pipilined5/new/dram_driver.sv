@@ -43,10 +43,11 @@ module dram_driver(
     // Store buffer: track pending write validity for 2 cycles
     //   Cycle N:   store arrives (dram_wen)
     //   Posedge N+1: captured into bram_addr_r/bram_we_r/bram_din_r
-    //   Posedge N+2: BRAM writes the data
+    //   Posedge N+2: BRAM writes the data, bram_dout available for forwarding
     //   Posedge N+3: buffer cleared (forwarding no longer needed)
     //
     //   buf_valid_sr = 2'b11 → 2'b01 → 2'b00
+    //   buf_valid is high on cycle N+2 only (when bram_dout is valid)
     // ================================================================
     logic buf_valid;
     logic [1:0] buf_valid_sr = 2'b00;  // Initialize to prevent spurious writes
@@ -57,13 +58,20 @@ module dram_driver(
         else
             buf_valid_sr <= {1'b0, buf_valid_sr[1]};
     end
-    assign buf_valid = buf_valid_sr[0];
+    // Only enable forwarding when buf_valid_sr = 2'b01 (cycle N+2)
+    // At this point, bram_dout contains the correct address data
+    assign buf_valid = buf_valid_sr[0] && !buf_valid_sr[1];
 
     // ================================================================
-    // Read address: combinational, no extra read latency
+    // Read address: combinational for BRAM, registered for forwarding
     // ================================================================
     logic [15:0] bram_addr_rd;
+    logic [15:0] bram_addr_rd_r;  // Registered read address for forwarding comparison
     assign bram_addr_rd = perip_addr[17:2];
+
+    always @(posedge clk) begin
+        bram_addr_rd_r <= bram_addr_rd;
+    end
 
     // ================================================================
     // BRAM write enable: only assert for ONE cycle when store is registered
@@ -101,10 +109,11 @@ module dram_driver(
     //   BRAM output. Byte-level granularity: only bytes that were
     //   actually written (bram_we_r) are forwarded; others come from BRAM.
     //
-    //   Note: bram_dout contains the OLD value of the store address because
-    //   Port B was reading that address during the store cycle.
+    //   CRITICAL: Use registered read address (bram_addr_rd_r) for comparison
+    //   to ensure bram_dout contains the correct address's data when forwarding.
+    //   bram_dout has 1-cycle delay, so we compare with the registered address.
     // ================================================================
-    wire fwd = buf_valid && (bram_addr_rd == bram_addr_r);
+    wire fwd = buf_valid && (bram_addr_rd_r == bram_addr_r);
 
     logic [31:0] fwd_data;
     assign fwd_data[ 7: 0] = bram_we_r[0] ? bram_din_r[ 7: 0] : bram_dout[ 7: 0];
