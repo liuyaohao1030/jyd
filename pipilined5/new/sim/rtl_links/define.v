@@ -1,0 +1,1 @@
+/home/ccy/Documents/jydb/2/jyd2026/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/define.v

@@ -4,16 +4,24 @@
 // Description: DRAM driver with True Dual Port BRAM + Store Buffer
 //
 //   Port A: Write path - registered (WEA/addr/data), breaks critical path
-//   Port B: Read path  - combinational address, no extra read latency
+//   Port B: Read path  - combinational address, 1-cycle registered output
 //
 //   Write latency: 1 cycle (register) + 1 cycle (BRAM) = 2 cycles total
-//   Read latency:  0 cycles (address) + 1 cycle (BRAM registered) = 1 cycle
+//   Read latency:  1 cycle (BRAM registered output)
 //
 //   Store buffer: 1-entry, holds pending write for 2 cycles.
 //   When a load address matches the pending store, data is forwarded
 //   from the buffer instead of reading stale BRAM output.
-//   Byte-level forwarding: only the bytes actually written by the store
-//   are forwarded; other bytes come from BRAM.
+//
+//   The forwarding decision (fwd_r) is REGISTERED to align with the
+//   BRAM's registered output. At the output stage, the registered
+//   forwarding decision selects between:
+//   - bram_din_r (store buffer) for bytes that were stored
+//   - bram_dout (BRAM output) for bytes that were NOT stored
+//
+//   Since bram_dout at the output stage has already read the correct
+//   address (the load address matched the store address), the byte-level
+//   mixing produces correct results.
 //////////////////////////////////////////////////////////////////////////////////
 
 module dram_driver(
@@ -27,30 +35,30 @@ module dram_driver(
 
     // ================================================================
     // Write register bank: register write signals for 1 cycle
-    // to break the critical path from EX stage to BRAM WEA
+    // to break the critical path from EX stage to BRAM WEA.
+    // Registers HOLD their values when dram_wen=0 so the store buffer
+    // can use them for forwarding.
     // ================================================================
     logic [15:0] bram_addr_r;
     logic [ 3:0] bram_we_r;
     logic [31:0] bram_din_r;
 
     always @(posedge clk) begin
-        bram_addr_r <= perip_addr[17:2];
-        bram_we_r   <= dram_wen ? perip_be : 4'b0000;
-        bram_din_r  <= perip_wdata;
+        if (dram_wen) begin
+            bram_addr_r <= perip_addr[17:2];
+            bram_we_r   <= perip_be;
+            bram_din_r  <= perip_wdata;
+        end
+        // When dram_wen=0, registers HOLD their values so the
+        // store-to-load forwarding can use them while buf_valid_sr != 0.
     end
 
     // ================================================================
-    // Store buffer: track pending write validity for 2 cycles
-    //   Cycle N:   store arrives (dram_wen)
-    //   Posedge N+1: captured into bram_addr_r/bram_we_r/bram_din_r
-    //   Posedge N+2: BRAM writes the data
-    //   Posedge N+3: buffer cleared (forwarding no longer needed)
-    //
+    // Store buffer: track pending write validity
     //   buf_valid_sr = 2'b11 → 2'b01 → 2'b00
-    //   buf_valid is high on cycles N+1 and N+2 (forwarding window)
     // ================================================================
     logic buf_valid;
-    logic [1:0] buf_valid_sr = 2'b00;  // Initialize to prevent spurious writes
+    logic [1:0] buf_valid_sr = 2'b00;
 
     always @(posedge clk) begin
         if (dram_wen)
@@ -61,20 +69,13 @@ module dram_driver(
     assign buf_valid = buf_valid_sr[0];
 
     // ================================================================
-    // Read address: combinational for BRAM, registered for forwarding
+    // Read address: combinational, no extra read latency
     // ================================================================
     logic [15:0] bram_addr_rd;
-    logic [15:0] bram_addr_rd_r;  // Registered read address for forwarding comparison
     assign bram_addr_rd = perip_addr[17:2];
 
-    always @(posedge clk) begin
-        bram_addr_rd_r <= bram_addr_rd;
-    end
-
     // ================================================================
-    // BRAM write enable: only assert for ONE cycle when store is registered
-    // Write should happen only at cycle N+1 (first cycle after registration)
-    // Use buf_valid_sr[1] to ensure single-cycle write pulse
+    // BRAM write enable: single-cycle pulse via buf_valid_sr[1]
     // ================================================================
     logic [3:0] bram_we_actual;
     assign bram_we_actual = buf_valid_sr[1] ? bram_we_r : 4'b0000;
@@ -85,14 +86,12 @@ module dram_driver(
     logic [31:0] bram_dout;
 
     DRAM_TDP u_dram_tdp (
-        // Port A: Write (registered inputs)
         .clka   (clk            ),
-        .wea    (bram_we_actual ),  // gated by buf_valid
+        .wea    (bram_we_actual ),
         .addra  (bram_addr_r    ),
         .dina   (bram_din_r     ),
         .douta  (               ),
 
-        // Port B: Read (combinational address)
         .clkb   (clk            ),
         .web    (4'b0000        ),
         .addrb  (bram_addr_rd   ),
@@ -101,37 +100,31 @@ module dram_driver(
     );
 
     // ================================================================
-    // Store-to-load forwarding
-    //   When a load address matches the pending store address and the
-    //   buffer is valid, forward the stored data instead of the stale
-    //   BRAM output. Byte-level granularity: only bytes that were
-    //   actually written (bram_we_r) are forwarded; others come from BRAM.
+    // Store-to-load forwarding (REGISTERED decision, CURRENT bram_dout)
     //
-    //   Two-stage forwarding:
-    //   1. Cycle N+1 (buf_valid_sr=2'b11): For full-word writes only
-    //      - Safe because we don't need bram_dout (all bytes from bram_din_r)
-    //   2. Cycle N+2 (buf_valid_sr=2'b01): For all writes (full or partial)
-    //      - Safe because bram_dout now contains the correct address data
+    //   The forwarding decision is computed combinationally and then
+    //   REGISTERED (fwd_r). At the output stage (1 cycle later):
+    //   - fwd_r indicates whether forwarding should be applied
+    //   - bram_we_r indicates which bytes were stored
+    //   - bram_din_r has the stored data
+    //   - bram_dout has the BRAM's output from reading the load address
+    //     (which matches the store address when fwd_r=1)
     //
-    //   Use registered read address for comparison to match BRAM timing.
+    //   The output MUX selects bram_din_r for stored bytes and
+    //   bram_dout for non-stored bytes, producing correct results
+    //   for both full-word and partial (byte/halfword) stores.
     // ================================================================
-    wire is_full_word_write = (bram_we_r == 4'b1111);
+    wire fwd_comb = buf_valid && (bram_addr_rd == bram_addr_r);
 
-    // Forwarding conditions:
-    // - Early forward (N+1): only for full-word writes, use current address
-    wire fwd_early = buf_valid && buf_valid_sr[1] && is_full_word_write && (bram_addr_rd == bram_addr_r);
+    logic fwd_r;
+    always @(posedge clk) begin
+        fwd_r <= fwd_comb;
+    end
 
-    // - Normal forward (N+2): all writes, use registered address
-    wire fwd_normal = buf_valid && !buf_valid_sr[1] && (bram_addr_rd_r == bram_addr_r);
-
-    wire fwd = fwd_early || fwd_normal;
-
-    logic [31:0] fwd_data;
-    assign fwd_data[ 7: 0] = bram_we_r[0] ? bram_din_r[ 7: 0] : bram_dout[ 7: 0];
-    assign fwd_data[15: 8] = bram_we_r[1] ? bram_din_r[15: 8] : bram_dout[15: 8];
-    assign fwd_data[23:16] = bram_we_r[2] ? bram_din_r[23:16] : bram_dout[23:16];
-    assign fwd_data[31:24] = bram_we_r[3] ? bram_din_r[31:24] : bram_dout[31:24];
-
-    assign perip_rdata = fwd ? fwd_data : bram_dout;
+    // Output MUX: byte-level forwarding using registered decision
+    assign perip_rdata[ 7: 0] = (fwd_r && bram_we_r[0]) ? bram_din_r[ 7: 0] : bram_dout[ 7: 0];
+    assign perip_rdata[15: 8] = (fwd_r && bram_we_r[1]) ? bram_din_r[15: 8] : bram_dout[15: 8];
+    assign perip_rdata[23:16] = (fwd_r && bram_we_r[2]) ? bram_din_r[23:16] : bram_dout[23:16];
+    assign perip_rdata[31:24] = (fwd_r && bram_we_r[3]) ? bram_din_r[31:24] : bram_dout[31:24];
 
 endmodule
