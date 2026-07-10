@@ -68,6 +68,7 @@ module dram_driver(
     // ================================================================
     // BRAM write enable: only assert for ONE cycle when store is registered
     // Write should happen only at cycle N+1 (first cycle after registration)
+    // Use buf_valid_sr[1] to ensure single-cycle write pulse
     // ================================================================
     logic [3:0] bram_we_actual;
     assign bram_we_actual = buf_valid_sr[1] ? bram_we_r : 4'b0000;
@@ -97,17 +98,15 @@ module dram_driver(
     // Store-to-load forwarding
     //   When a load address matches the pending store address and the
     //   buffer is valid, forward the stored data instead of the stale
-    //   BRAM output. Byte-level granularity: only bytes that were
-    //   actually written (bram_we_r) are forwarded; others come from BRAM.
+    //   BRAM output. Only forward on full-word writes (be=4'b1111).
+    //
+    //   Partial-byte forwarding would require reading the old value
+    //   during the store cycle, which adds complexity. For partial
+    //   writes followed by immediate loads, the pipeline will stall
+    //   or read stale data (fixed by waiting for BRAM write completion).
     // ================================================================
-    wire fwd = buf_valid && (bram_addr_rd == bram_addr_r);
+    wire fwd = buf_valid && (bram_addr_rd == bram_addr_r) && (bram_we_r == 4'b1111);
 
-    logic [31:0] fwd_data;
-    assign fwd_data[ 7: 0] = bram_we_r[0] ? bram_din_r[ 7: 0] : bram_dout[ 7: 0];
-    assign fwd_data[15: 8] = bram_we_r[1] ? bram_din_r[15: 8] : bram_dout[15: 8];
-    assign fwd_data[23:16] = bram_we_r[2] ? bram_din_r[23:16] : bram_dout[23:16];
-    assign fwd_data[31:24] = bram_we_r[3] ? bram_din_r[31:24] : bram_dout[31:24];
-
-    assign perip_rdata = fwd ? fwd_data : bram_dout;
+    assign perip_rdata = fwd ? bram_din_r : bram_dout;
 
 endmodule
