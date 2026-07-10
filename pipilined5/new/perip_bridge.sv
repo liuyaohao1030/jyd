@@ -142,6 +142,7 @@ module perip_bridge(
     // dram rw
     dram_driver dram_driver_inst (
         .clk                (clk),
+        .rst                (rst),
         .perip_addr         (perip_addr[17:0]),
         .perip_wdata        (perip_wdata),
         .perip_be           (perip_be),

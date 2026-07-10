@@ -18,6 +18,7 @@
 
 module dram_driver(
     input  logic         clk            ,
+    input  logic         rst            ,
     input  logic [17:0]  perip_addr     ,
     input  logic [31:0]  perip_wdata    ,
     input  logic [3:0]   perip_be       ,
@@ -52,7 +53,9 @@ module dram_driver(
     logic [1:0] buf_valid_sr;
 
     always @(posedge clk) begin
-        if (dram_wen)
+        if (rst)
+            buf_valid_sr <= 2'b00;
+        else if (dram_wen)
             buf_valid_sr <= 2'b11;
         else
             buf_valid_sr <= {1'b0, buf_valid_sr[1]};
