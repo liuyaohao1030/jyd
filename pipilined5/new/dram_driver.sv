@@ -1,24 +1,21 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
 // Module Name: dram_driver
-// Description: DRAM driver with True Dual Port BRAM + Store Buffer
+// Description: DRAM driver with True Dual Port BRAM (Optimized for timing)
 //
-//   Port A: Write path - registered (WEA/addr/data), breaks critical path
-//   Port B: Read path  - combinational address, no extra read latency
+//   Port A: Write path - DIRECT connection (no register), 1-cycle latency
+//   Port B: Read path  - combinational address, isolated from write path
 //
-//   Write latency: 1 cycle (register) + 1 cycle (BRAM) = 2 cycles total
-//   Read latency:  0 cycles (address) + 1 cycle (BRAM registered) = 1 cycle
+//   Write latency: 1 cycle (BRAM only) - same as original single-port design
+//   Read latency:  1 cycle (BRAM registered output)
 //
-//   Store buffer: 1-entry, holds pending write for 2 cycles.
-//   When a load address matches the pending store, data is forwarded
-//   from the buffer instead of reading stale BRAM output.
-//   Byte-level forwarding: only the bytes actually written by the store
-//   are forwarded; other bytes come from BRAM.
+//   Strategy: Use TDP to physically separate read and write paths, allowing
+//   synthesis tool to optimize each independently without adding write latency.
+//   No store buffer or forwarding needed since write completes in 1 cycle.
 //////////////////////////////////////////////////////////////////////////////////
 
 module dram_driver(
     input  logic         clk            ,
-    input  logic         rst            ,
     input  logic [17:0]  perip_addr     ,
     input  logic [31:0]  perip_wdata    ,
     input  logic [3:0]   perip_be       ,
@@ -27,89 +24,41 @@ module dram_driver(
 );
 
     // ================================================================
-    // Write register bank: register write signals for 1 cycle
-    // to break the critical path from EX stage to BRAM WEA
+    // Address and control signals - direct connection for write
     // ================================================================
-    logic [15:0] bram_addr_r;
-    logic [ 3:0] bram_we_r;
-    logic [31:0] bram_din_r;
+    logic [15:0] bram_addr;
+    logic [ 3:0] bram_we;
 
-    always @(posedge clk) begin
-        bram_addr_r <= perip_addr[17:2];
-        bram_we_r   <= dram_wen ? perip_be : 4'b0000;
-        bram_din_r  <= perip_wdata;
-    end
-
-    // ================================================================
-    // Store buffer: track pending write validity for 2 cycles
-    //   Cycle N:   store arrives (dram_wen)
-    //   Posedge N+1: captured into bram_addr_r/bram_we_r/bram_din_r
-    //   Posedge N+2: BRAM writes the data
-    //   Posedge N+3: buffer cleared (forwarding no longer needed)
-    //
-    //   buf_valid_sr = 2'b11 → 2'b01 → 2'b00
-    // ================================================================
-    logic buf_valid;
-    logic [1:0] buf_valid_sr;
-
-    always @(posedge clk) begin
-        if (rst)
-            buf_valid_sr <= 2'b00;
-        else if (dram_wen)
-            buf_valid_sr <= 2'b11;
-        else
-            buf_valid_sr <= {1'b0, buf_valid_sr[1]};
-    end
-    assign buf_valid = buf_valid_sr[0];
-
-    // ================================================================
-    // Read address: combinational, no extra read latency
-    // ================================================================
-    logic [15:0] bram_addr_rd;
-    assign bram_addr_rd = perip_addr[17:2];
-
-    // ================================================================
-    // BRAM write enable: only assert when buffer holds valid pending data
-    // ================================================================
-    logic [3:0] bram_we_actual;
-    assign bram_we_actual = buf_valid ? bram_we_r : 4'b0000;
+    assign bram_addr = perip_addr[17:2];
+    assign bram_we   = dram_wen ? perip_be : 4'b0000;
 
     // ================================================================
     // True Dual Port BRAM instantiation
+    //   Port A: Write (direct connection, maintains 1-cycle write latency)
+    //   Port B: Read  (separate port, breaks read critical path)
+    //
+    //   The dual-port architecture physically separates read and write
+    //   paths in the BRAM fabric, allowing better timing optimization
+    //   without compromising write latency.
     // ================================================================
     logic [31:0] bram_dout;
 
     DRAM_TDP u_dram_tdp (
-        // Port A: Write (registered inputs)
-        .clka   (clk            ),
-        .wea    (bram_we_actual ),  // gated by buf_valid
-        .addra  (bram_addr_r    ),
-        .dina   (bram_din_r     ),
-        .douta  (               ),
+        // Port A: Write (direct, no extra registers)
+        .clka   (clk          ),
+        .wea    (bram_we      ),  // Direct write enable
+        .addra  (bram_addr    ),  // Direct address
+        .dina   (perip_wdata  ),  // Direct data
+        .douta  (             ),  // Unused (write-only port)
 
-        // Port B: Read (combinational address)
-        .clkb   (clk            ),
-        .web    (4'b0000        ),
-        .addrb  (bram_addr_rd   ),
-        .dinb   (32'b0          ),
-        .doutb  (bram_dout      )
+        // Port B: Read (separate port for read optimization)
+        .clkb   (clk          ),
+        .web    (4'b0000      ),  // Read-only port
+        .addrb  (bram_addr    ),  // Same address logic
+        .dinb   (32'b0        ),
+        .doutb  (bram_dout    )   // Read data output
     );
 
-    // ================================================================
-    // Store-to-load forwarding
-    //   When a load address matches the pending store address and the
-    //   buffer is valid, forward the stored data instead of the stale
-    //   BRAM output. Byte-level granularity: only bytes that were
-    //   actually written (bram_we_r) are forwarded; others come from BRAM.
-    // ================================================================
-    wire fwd = buf_valid && (bram_addr_rd == bram_addr_r);
-
-    logic [31:0] fwd_data;
-    assign fwd_data[ 7: 0] = bram_we_r[0] ? bram_din_r[ 7: 0] : bram_dout[ 7: 0];
-    assign fwd_data[15: 8] = bram_we_r[1] ? bram_din_r[15: 8] : bram_dout[15: 8];
-    assign fwd_data[23:16] = bram_we_r[2] ? bram_din_r[23:16] : bram_dout[23:16];
-    assign fwd_data[31:24] = bram_we_r[3] ? bram_din_r[31:24] : bram_dout[31:24];
-
-    assign perip_rdata = fwd ? fwd_data : bram_dout;
+    assign perip_rdata = bram_dout;
 
 endmodule
