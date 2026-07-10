@@ -40,7 +40,7 @@ module tb_full_system;
     wire        is_dram_addr = u_student_top.bridge_inst.is_dram_addr;
     wire        rd_is_dram_q = u_student_top.bridge_inst.rd_is_dram_q;
     wire [1:0]  buf_valid_sr = u_student_top.bridge_inst.dram_driver_inst.buf_valid_sr;
-    wire        fwd          = u_student_top.bridge_inst.dram_driver_inst.fwd_comb;
+    wire        fwd          = u_student_top.bridge_inst.dram_driver_inst.fwd;
     wire [31:0] bram_dout    = u_student_top.bridge_inst.dram_driver_inst.bram_dout;
     wire [31:0] dram_rdata   = u_student_top.bridge_inst.dram_driver_inst.perip_rdata;
 
@@ -68,8 +68,8 @@ module tb_full_system;
         if (rst_n == 0) begin  // CPU running (rst_n=0 means reset released)
             cycle_count <= cycle_count + 1;
 
-            // Progress report every 50000 cycles
-            if (cycle_count % 50000 == 0 && cycle_count > 0) begin
+            // Progress report every 200000 cycles
+            if (cycle_count % 200000 == 0 && cycle_count > 0) begin
                 $display("[%0d] Progress: PC=%h, stores=%0d, loads=%0d, fwds=%0d",
                          cycle_count, cpu_pc, store_count, load_count, fwd_count);
             end
@@ -141,7 +141,7 @@ module tb_full_system;
         $display("");
 
         // Run
-        repeat (500000) @(posedge clk_cpu);
+        repeat (10000000) @(posedge clk_cpu);
 
         $display("");
         $display("==============================================");
@@ -159,7 +159,7 @@ module tb_full_system;
 
     // Timeout
     initial begin
-        #120000000;
+        #2400000000;
         $display("[TIMEOUT]");
         $finish;
     end

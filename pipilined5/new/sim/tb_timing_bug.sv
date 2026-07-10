@@ -48,8 +48,7 @@ module tb_timing_bug;
     wire [3:0]  bram_we_r     = u_bridge.dram_driver_inst.bram_we_r;
     wire [31:0] bram_din_r    = u_bridge.dram_driver_inst.bram_din_r;
     wire [1:0]  buf_valid_sr  = u_bridge.dram_driver_inst.buf_valid_sr;
-    wire        fwd           = u_bridge.dram_driver_inst.fwd_comb;
-    wire        fwd_r         = u_bridge.dram_driver_inst.fwd_r;
+    wire        fwd           = u_bridge.dram_driver_inst.fwd;
     wire [31:0] bram_dout     = u_bridge.dram_driver_inst.bram_dout;
     wire        rd_is_dram_q  = u_bridge.rd_is_dram_q;
 
