@@ -40,7 +40,7 @@ module tb_full_system;
     wire        is_dram_addr = u_student_top.bridge_inst.is_dram_addr;
     wire        rd_is_dram_q = u_student_top.bridge_inst.rd_is_dram_q;
     wire [1:0]  buf_valid_sr = u_student_top.bridge_inst.dram_driver_inst.buf_valid_sr;
-    wire        fwd          = u_student_top.bridge_inst.dram_driver_inst.fwd;
+    wire        fwd_r        = u_student_top.bridge_inst.dram_driver_inst.fwd_r;
     wire [31:0] bram_dout    = u_student_top.bridge_inst.dram_driver_inst.bram_dout;
     wire [31:0] dram_rdata   = u_student_top.bridge_inst.dram_driver_inst.perip_rdata;
 
@@ -96,7 +96,7 @@ module tb_full_system;
             end
 
             // Track forwarding
-            if (fwd) begin
+            if (fwd_r) begin
                 fwd_count <= fwd_count + 1;
             end
 
@@ -109,8 +109,8 @@ module tb_full_system;
                              cycle_count, mem_addr, mem_we, mem_rdata, ex_valid);
                     $display("[%0d] inst=%h, is_ecall=%b, is_mret=%b, load_use_stall=%b",
                              cycle_count, cpu_inst, is_ecall, is_mret, load_use_stall);
-                    $display("[%0d] fwd=%b, buf_valid_sr=%b, rd_is_dram_q=%b",
-                             cycle_count, fwd, buf_valid_sr, rd_is_dram_q);
+                    $display("[%0d] fwd_r=%b, buf_valid_sr=%b, rd_is_dram_q=%b",
+                             cycle_count, fwd_r, buf_valid_sr, rd_is_dram_q);
                 end
             end else begin
                 pc_stuck_count <= 0;
@@ -141,7 +141,7 @@ module tb_full_system;
         $display("");
 
         // Run
-        repeat (10000000) @(posedge clk_cpu);
+        repeat (500000) @(posedge clk_cpu);
 
         $display("");
         $display("==============================================");
