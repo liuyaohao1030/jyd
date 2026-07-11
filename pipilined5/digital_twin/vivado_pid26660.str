@@ -1031,3 +1031,101 @@ setText(RDIResource.CommandsInput_TYPE_TCL_COMMAND_HERE, "file mkdir Timing_info
 // Tcl Command: 'file mkdir Timing_info'
 // Tcl Command: 'file mkdir Timing_info'
 // Tcl Message: file mkdir Timing_info 
+setText(RDIResource.CommandsInput_TYPE_TCL_COMMAND_HERE, "ls", true); // h.b (RDIResource.CommandsInput_TYPE_TCL_COMMAND_HERE)
+// Tcl Command: 'ls'
+// Tcl Command: 'ls'
+// Tcl Message: ls 
+// Tcl Message: digital_twin.cache digital_twin.gen digital_twin.hw digital_twin.ip_user_files digital_twin.runs digital_twin.sim digital_twin.srcs digital_twin.xpr Timing_info vivado.jou vivado.log vivado_12568.backup.jou vivado_12568.backup.log vivado_19820.backup.jou vivado_19820.backup.log vivado_31356.backup.jou vivado_31356.backup.log vivado_7504.backup.jou vivado_7504.backup.log vivado_pid26660.str vivado_pid7504.str 
+selectTab((HResource) null, (HResource) null, "Design Runs", 4); // aa
+// TclEventType: DESIGN_STALE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a (RDIResource.BaseDialog_OK)
+// Run Command: PAResourceCommand.PACommandNames_GOTO_IMPLEMENTED_DESIGN
+// Tcl Message: refresh_design 
+// TclEventType: DESIGN_REFRESH
+// HMemoryUtils.trashcanNow. Engine heap size: 3,737 MB. GUI used memory: 281 MB. Current time: 7/11/26, 3:51:19 PM CST
+// TclEventType: TIMING_RESULTS_UNLOAD
+// Engine heap size: 3,737 MB. GUI used memory: 281 MB. Current time: 7/11/26, 3:51:19 PM CST
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: POWER_CNS_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: FLOORPLAN_MODIFY
+// TclEventType: DESIGN_REFRESH
+// HMemoryUtils.trashcanNow. Engine heap size: 3,737 MB. GUI used memory: 275 MB. Current time: 7/11/26, 3:51:22 PM CST
+// DeviceView Instantiated
+// WARNING: HEventQueue.dispatchEvent() is taking  1108 ms.
+// Tcl Message: Netlist sorting complete. Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.227 . Memory (MB): peak = 4606.414 ; gain = 0.000 
+// Tcl Message: INFO: [Netlist 29-17] Analyzing 2175 Unisim elements for replacement INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds INFO: [Project 1-479] Netlist was created with Vivado 2023.2 INFO: [Project 1-570] Preparing netlist for logic optimization 
+// Tcl Message: Read ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.023 . Memory (MB): peak = 4606.414 ; gain = 0.000 
+// Tcl Message: INFO: [Timing 38-478] Restoring timing data from binary archive. INFO: [Timing 38-479] Binary timing data restore complete. INFO: [Project 1-856] Restoring constraints from binary archive. INFO: [Project 1-853] Binary constraint restore complete. INFO: [Designutils 20-5722] Start Reading Physical Databases. 
+// Tcl Message: Reading placement. 
+// Tcl Message: Read Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.015 . Memory (MB): peak = 4606.414 ; gain = 0.000 
+// Tcl Message: Reading placer database... 
+// Tcl Message: Read Device Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 4606.414 ; gain = 0.000 Read PlaceDB: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.416 . Memory (MB): peak = 4606.414 ; gain = 0.000 Read PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 4606.414 ; gain = 0.000 
+// Tcl Message: Reading routing. 
+// Tcl Message: Read RouteStorage: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.254 . Memory (MB): peak = 4606.414 ; gain = 0.000 Read Physdb Files: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.706 . Memory (MB): peak = 4606.414 ; gain = 0.000 
+// Tcl Message: Restored from archive | CPU: 1.000000 secs | Memory: 0.000000 MB | 
+// Tcl Message: Finished XDEF File Restore: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.706 . Memory (MB): peak = 4606.414 ; gain = 0.000 
+// Device view-level: 0.0
+// RouteApi: Init Delay Mediator Swing Worker Finished
+// TclEventType: DRC_ADDED
+// Tcl Message: refresh_design: Time (s): cpu = 00:00:08 ; elapsed = 00:00:05 . Memory (MB): peak = 4606.414 ; gain = 10.418 
+// TclEventType: DRC_ADDED
+// TclEventType: METHODOLOGY_ADDED
+// Device view-level: 0.3
+// TclEventType: METHODOLOGY_ADDED
+// TclEventType: HFED_INIT_ROUTE_STORAGE_COMPLETED
+// RouteApi::loadEngineXgdAndInitRouteStorage elapsed time: 2s
+// Device view-level: 0.4
+// TclEventType: POWER_UPDATED
+// WARNING: HEventQueue.dispatchEvent() is taking  4251 ms.
+// TclEventType: TIMING_SUMMARY_UPDATED
+// Elapsed time: 13 seconds
+dismissDialog("Reloading"); // bq (Reloading Progress)
+selectButton(PAResourceAtoD.CmdMsgDialog_OK, "OK"); // f (PAResourceAtoD.CmdMsgDialog_OK)
+dismissDialog("Critical Messages"); // E (dialog34)
+// Elapsed time: 27 seconds
+expandTree(PAResourceItoN.NavigableTimingReportTab_TIMING_REPORT_NAVIGATION_TREE, "[Root, Intra-Clock Paths]", 6); // a (PAResourceItoN.NavigableTimingReportTab_TIMING_REPORT_NAVIGATION_TREE)
+expandTree(PAResourceItoN.NavigableTimingReportTab_TIMING_REPORT_NAVIGATION_TREE, "[Root, Intra-Clock Paths, clk_out2_pll]", 8); // a (PAResourceItoN.NavigableTimingReportTab_TIMING_REPORT_NAVIGATION_TREE)
+selectTree(PAResourceItoN.NavigableTimingReportTab_TIMING_REPORT_NAVIGATION_TREE, "[Root, Intra-Clock Paths, clk_out2_pll, Setup -0.663 ns]", 9, false); // a (PAResourceItoN.NavigableTimingReportTab_TIMING_REPORT_NAVIGATION_TREE)
+// Elapsed time: 15 seconds
+selectTree(PAResourceItoN.NavigableTimingReportTab_TIMING_REPORT_NAVIGATION_TREE, "[Root, Design Timing Summary]", 2, false); // a (PAResourceItoN.NavigableTimingReportTab_TIMING_REPORT_NAVIGATION_TREE)
+// Elapsed time: 469 seconds
+setText(RDIResource.CommandsInput_TYPE_TCL_COMMAND_HERE, (String) null); // h.b (RDIResource.CommandsInput_TYPE_TCL_COMMAND_HERE)
+// Tcl (Dont Echo) Command: 'rdi::info_commands bd::match_path'
+// Tcl (Dont Echo) Command: 'bd::match_path {report_methodology} {Timing_info/} {methodology.rpt}'
+// Tcl Command: 'report_timing -max_paths 10 -nworst 1 -delay_type min_max -sort_by slack -file Timing_info/timing_detail.rpt; ; # 3. 导出高扇出网络报告 (high_fanout.rpt); report_high_fanout_nets -timing -load_types -max_nets 50 -file Timing_info/high_fanout.rpt; ; # 4. 导出 Methodology 检查报告 (methodology.rpt) - 顺手导出，帮它排查隐患; report_me...'
+// Tcl Command: 'report_timing -max_paths 10 -nworst 1 -delay_type min_max -sort_by slack -file Timing_info/timing_detail.rpt'
+// Tcl Message: report_timing -max_paths 10 -nworst 1 -delay_type min_max -sort_by slack -file Timing_info/timing_detail.rpt 
+// Tcl Message: INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: min_max. INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs 
+// TclEventType: TIMING_RESULTS_STALE
+// Tcl Message: INFO: [Timing 38-78] ReportTimingParams: -max_paths 10 -nworst 1 -delay_type min_max -sort_by slack. 
+// Tcl Command: ''
+// Tcl Command: '# 3. 导出高扇出网络报告 (high_fanout.rpt)'
+// Tcl Command: 'report_high_fanout_nets -timing -load_types -max_nets 50 -file Timing_info/high_fanout.rpt'
+// Tcl Message: # 3. 导出高扇出网络报告 (high_fanout.rpt) 
+// Tcl Message: report_high_fanout_nets -timing -load_types -max_nets 50 -file Timing_info/high_fanout.rpt 
+// Tcl Message: INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: max. INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs INFO: [Timing 38-78] ReportTimingParams: -max_paths 10 -nworst 1 -delay_type max -sort_by slack. 
+// Tcl Command: ''
+// Tcl Command: '# 4. 导出 Methodology 检查报告 (methodology.rpt) - 顺手导出，帮它排查隐患'
+// Tcl Command: 'report_methodology -file Timing_info/methodology.rpt'
+// Tcl Message: report_high_fanout_nets: Time (s): cpu = 00:00:03 ; elapsed = 00:00:02 . Memory (MB): peak = 4775.090 ; gain = 1.742 
+// Tcl Message: d:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/Timing_info/high_fanout.rpt 
+// Tcl Message: # 4. 导出 Methodology 检查报告 (methodology.rpt) - 顺手导出，帮它排查隐患 
+// Tcl Message: report_methodology -file Timing_info/methodology.rpt 
+// Tcl Message: Command: report_methodology -file Timing_info/methodology.rpt 
+// Tcl Message: INFO: [Timing 38-35] Done setting XDC timing constraints. 
+// TclEventType: TIMING_RESULTS_STALE
+// Tcl Message: INFO: [DRC 23-133] Running Methodology with 2 threads 
+// Tcl Message: INFO: [Vivado_Tcl 2-1520] The results of Report Methodology are in file d:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/Timing_info/methodology.rpt. 
+// Tcl Message: report_methodology completed successfully 
+// Tcl Message: 0 
+dismissDialog("Tcl Command"); // bq (Tcl Command Progress)
+// HMemoryUtils.trashcanNow. Engine heap size: 3,812 MB. GUI used memory: 302 MB. Current time: 7/11/26, 4:00:15 PM CST
+// HMemoryUtils.trashcanNow. Engine heap size: 3,812 MB. GUI used memory: 297 MB. Current time: 7/11/26, 4:30:17 PM CST
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Elapsed Time for: 'L.f': 01h:55m:51s
+// Elapsed Time for: 'L.f': 01h:55m:53s

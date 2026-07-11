@@ -64,24 +64,25 @@ module bpu_tb;
 
         // Same index as lookup PC, different tag must miss after replacement.
         update(32'h8000_0040, 6'd16, 1'b1, 32'h8000_0080);
-        if (dut.pht[16] !== 2'b10 || dut.btb_valid[16] !== 1'b1)
+        if (dut.u_gshare_btb_core.pht[16] !== 2'b10 ||
+            dut.u_gshare_btb_core.btb_valid[16] !== 1'b1)
             $fatal(1, "taken update did not allocate BTB/PHT");
-        if (dut.btb_target[16] !== 32'h8000_0080)
+        if (dut.u_gshare_btb_core.btb_data[16][31:0] !== 32'h8000_0080)
             $fatal(1, "BTB target mismatch");
 
         update(32'h8000_0040, 6'd16, 1'b1, 32'h8000_0080);
         update(32'h8000_0040, 6'd16, 1'b1, 32'h8000_0080);
-        if (dut.pht[16] !== 2'b11)
+        if (dut.u_gshare_btb_core.pht[16] !== 2'b11)
             $fatal(1, "PHT did not saturate high");
 
         // Saturate low and verify no wraparound.
         update(32'h8000_0040, 6'd16, 1'b0, 32'h8000_0080);
         update(32'h8000_0040, 6'd16, 1'b0, 32'h8000_0080);
         update(32'h8000_0040, 6'd16, 1'b0, 32'h8000_0080);
-        if (dut.pht[16] !== 2'b00)
+        if (dut.u_gshare_btb_core.pht[16] !== 2'b00)
             $fatal(1, "PHT did not saturate low");
         update(32'h8000_0040, 6'd16, 1'b0, 32'h8000_0080);
-        if (dut.pht[16] !== 2'b00)
+        if (dut.u_gshare_btb_core.pht[16] !== 2'b00)
             $fatal(1, "PHT wrapped below zero");
 
         // Drive GHR to all ones, then train the active Gshare entry.
@@ -100,7 +101,16 @@ module bpu_tb;
         if (btb_hit !== 1'b0)
             $fatal(1, "BTB tag collision was not rejected");
 
-        $display("BPU UNIT TEST PASSED (GHR=%0d)", dut.ghr);
+        // Runtime reset must invalidate stale RAM contents without clearing them.
+        rst = 1'b1;
+        tick;
+        rst = 1'b0;
+        lookup_pc = 32'h9000_0040;
+        #1;
+        if (btb_hit !== 1'b0 || pred_taken !== 1'b0)
+            $fatal(1, "runtime reset did not invalidate predictor state");
+
+        $display("BPU UNIT TEST PASSED (GHR=%0d)", dut.u_gshare_btb_core.ghr);
         $finish;
     end
 endmodule

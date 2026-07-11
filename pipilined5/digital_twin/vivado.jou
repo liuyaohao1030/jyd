@@ -96,3 +96,9 @@ pwd
 ls
 file mkdir Timing_info
 ls
+refresh_design
+report_timing -max_paths 10 -nworst 1 -delay_type min_max -sort_by slack -file Timing_info/timing_detail.rpt
+# 3. 导出高扇出网络报告 (high_fanout.rpt)
+report_high_fanout_nets -timing -load_types -max_nets 50 -file Timing_info/high_fanout.rpt
+# 4. 导出 Methodology 检查报告 (methodology.rpt) - 顺手导出，帮它排查隐患
+report_methodology -file Timing_info/methodology.rpt

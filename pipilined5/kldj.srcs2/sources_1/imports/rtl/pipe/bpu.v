@@ -64,21 +64,29 @@ module gshare_btb_core #(
     ,input  wire [`KLDJ_PC]       update_target
 );
 
-    localparam ENTRY_NUM = (1 << INDEX_WIDTH);
-    localparam TAG_WIDTH = 32 - INDEX_WIDTH - 2;
+    localparam ENTRY_NUM      = (1 << INDEX_WIDTH);
+    localparam TAG_WIDTH      = 32 - INDEX_WIDTH - 2;
+    localparam BTB_DATA_WIDTH = TAG_WIDTH + 32;
 
     reg [INDEX_WIDTH-1:0] ghr;
-    reg [1:0]             pht        [0:ENTRY_NUM-1];
-    reg                   btb_valid  [0:ENTRY_NUM-1];
-    reg [TAG_WIDTH-1:0]   btb_tag    [0:ENTRY_NUM-1];
-    reg [`KLDJ_PC]        btb_target [0:ENTRY_NUM-1];
+
+    // The data arrays intentionally have no reset. Keeping resettable validity
+    // bits separate allows Vivado to infer asynchronous-read distributed RAM.
+    (* ram_style = "distributed" *) reg [1:0] pht [0:ENTRY_NUM-1];
+    (* ram_style = "distributed" *) reg [BTB_DATA_WIDTH-1:0] btb_data [0:ENTRY_NUM-1];
+    reg [ENTRY_NUM-1:0] pht_valid;
+    reg [ENTRY_NUM-1:0] btb_valid;
 
     wire [INDEX_WIDTH-1:0] lookup_btb_idx;
     wire [TAG_WIDTH-1:0]   lookup_tag;
     wire [INDEX_WIDTH-1:0] update_btb_idx;
     wire [TAG_WIDTH-1:0]   update_tag;
-
-    integer i;
+    wire [1:0]             lookup_pht_value;
+    wire [1:0]             update_pht_value;
+    wire [1:0]             update_pht_next;
+    wire [BTB_DATA_WIDTH-1:0] lookup_btb_data;
+    wire [TAG_WIDTH-1:0]   lookup_btb_tag;
+    wire [`KLDJ_PC]        lookup_btb_target;
 
     assign lookup_btb_idx = lookup_pc[INDEX_WIDTH+1:2];
     assign lookup_pht_idx = lookup_btb_idx ^ ghr;
@@ -86,32 +94,36 @@ module gshare_btb_core #(
     assign update_btb_idx = update_pc[INDEX_WIDTH+1:2];
     assign update_tag     = update_pc[31:INDEX_WIDTH+2];
 
-    assign btb_hit     = btb_valid[lookup_btb_idx] && (btb_tag[lookup_btb_idx] == lookup_tag);
-    assign pred_taken  = btb_hit && pht[lookup_pht_idx][1];
-    assign pred_target = btb_target[lookup_btb_idx];
+    assign lookup_pht_value = pht_valid[lookup_pht_idx] ?
+                              pht[lookup_pht_idx] : BHT_RESET_VALUE;
+    assign update_pht_value = pht_valid[update_pht_idx] ?
+                              pht[update_pht_idx] : BHT_RESET_VALUE;
+    assign update_pht_next  = update_taken ?
+                              ((update_pht_value == 2'b11) ? 2'b11 : update_pht_value + 2'b01) :
+                              ((update_pht_value == 2'b00) ? 2'b00 : update_pht_value - 2'b01);
+
+    assign lookup_btb_data   = btb_data[lookup_btb_idx];
+    assign lookup_btb_tag    = lookup_btb_data[BTB_DATA_WIDTH-1:32];
+    assign lookup_btb_target = lookup_btb_data[31:0];
+
+    assign btb_hit     = btb_valid[lookup_btb_idx] && (lookup_btb_tag == lookup_tag);
+    assign pred_taken  = btb_hit && lookup_pht_value[1];
+    assign pred_target = lookup_btb_target;
 
     always @(posedge clk) begin
         if(rst == `KLDJ_RSTABLE) begin
-            ghr <= {INDEX_WIDTH{1'b0}};
-            for(i = 0; i < ENTRY_NUM; i = i + 1) begin
-                pht[i]        <= BHT_RESET_VALUE;
-                btb_valid[i]  <= 1'b0;
-                btb_tag[i]    <= {TAG_WIDTH{1'b0}};
-                btb_target[i] <= `KLDJ_ZERO32;
-            end
+            ghr       <= {INDEX_WIDTH{1'b0}};
+            pht_valid <= {ENTRY_NUM{1'b0}};
+            btb_valid <= {ENTRY_NUM{1'b0}};
         end else if(update_valid) begin
+            pht[update_pht_idx]       <= update_pht_next;
+            pht_valid[update_pht_idx] <= 1'b1;
+
             if(update_taken) begin
-                if(pht[update_pht_idx] != 2'b11) begin
-                    pht[update_pht_idx] <= pht[update_pht_idx] + 2'b01;
-                end
                 btb_valid[update_btb_idx]  <= 1'b1;
-                btb_tag[update_btb_idx]    <= update_tag;
-                btb_target[update_btb_idx] <= update_target;
-            end else begin
-                if(pht[update_pht_idx] != 2'b00) begin
-                    pht[update_pht_idx] <= pht[update_pht_idx] - 2'b01;
-                end
+                btb_data[update_btb_idx]   <= {update_tag, update_target};
             end
+
             ghr <= {ghr[INDEX_WIDTH-2:0], update_taken};
         end
     end

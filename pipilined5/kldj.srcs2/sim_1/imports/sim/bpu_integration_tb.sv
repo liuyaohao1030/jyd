@@ -104,7 +104,8 @@ module bpu_integration_tb;
             $fatal(1, "Gshare did not train: updates=%0d hits=%0d",
                    branch_updates, dynamic_pred_hits);
         $display("BPU INTEGRATION TEST PASSED (updates=%0d hits=%0d GHR=%0d)",
-                 branch_updates, dynamic_pred_hits, dut.u_bpu.ghr);
+                 branch_updates, dynamic_pred_hits,
+                 dut.u_bpu.u_gshare_btb_core.ghr);
         $finish;
     end
 endmodule
