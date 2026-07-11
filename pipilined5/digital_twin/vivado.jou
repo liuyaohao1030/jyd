@@ -18,3 +18,64 @@ create_run fix_timing3 -flow {Vivado Synthesis 2023}
 create_run impl_8 -parent_run fix_timing3 -flow {Vivado Implementation 2023}
 launch_runs impl_8 -jobs 8
 wait_on_run impl_8
+current_run [get_runs fix_timing3]
+reset_run fix_timing3
+launch_runs fix_timing3 -jobs 8
+wait_on_run fix_timing3
+export_ip_user_files -of_objects  [get_files d:/Desktop/JYD/DESKTOP/JYD/src2/dram.coe] -no_script -reset -force -quiet
+remove_files  d:/Desktop/JYD/DESKTOP/JYD/src2/dram.coe
+reset_run fix_timing3
+launch_runs impl_8 -jobs 8
+wait_on_run impl_8
+open_run impl_8
+launch_runs impl_8 -to_step write_bitstream -jobs 8
+wait_on_run impl_8
+open_hw_manager
+connect_hw_server -allow_non_jtag
+open_hw_target
+set_property PROGRAM.FILE {D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.runs/impl_7/top.bit} [get_hw_devices xc7k325t_0]
+current_hw_device [get_hw_devices xc7k325t_0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7k325t_0] 0]
+set_property PROBES.FILE {} [get_hw_devices xc7k325t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7k325t_0]
+set_property PROGRAM.FILE {D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.runs/impl_8/top.bit} [get_hw_devices xc7k325t_0]
+program_hw_devices [get_hw_devices xc7k325t_0]
+refresh_hw_device [lindex [get_hw_devices xc7k325t_0] 0]
+pwd
+open run impl8
+open run impl_8
+open_run impl_8
+create_run Try_175mhz -flow {Vivado Synthesis 2023}
+create_run impl_9 -parent_run Try_175mhz -flow {Vivado Implementation 2023}
+launch_runs impl_9 -jobs 8
+wait_on_run impl_9
+current_run [get_runs Try_175mhz]
+reset_run Try_175mhz
+set_property STEPS.PLACE_DESIGN.ARGS.DIRECTIVE ExtraNetDelay_high [get_runs impl_9]
+set_property STEPS.ROUTE_DESIGN.ARGS.DIRECTIVE AggressiveExplore [get_runs impl_9]
+launch_runs impl_9 -jobs 8
+wait_on_run impl_9
+open_run impl_9
+set_property -dict [list \
+  CONFIG.CLKOUT1_JITTER {173.722} \
+  CONFIG.CLKOUT1_PHASE_ERROR {164.344} \
+  CONFIG.CLKOUT2_JITTER {136.649} \
+  CONFIG.CLKOUT2_PHASE_ERROR {164.344} \
+  CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {175} \
+  CONFIG.MMCM_CLKFBOUT_MULT_F {21} \
+  CONFIG.MMCM_CLKOUT0_DIVIDE_F {21} \
+  CONFIG.MMCM_DIVCLK_DIVIDE {4} \
+] [get_ips pll]
+generate_target all [get_files  D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci]
+catch { config_ip_cache -export [get_ips -all pll] }
+export_ip_user_files -of_objects [get_files D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci]
+launch_runs pll_synth_1 -jobs 8
+wait_on_run pll_synth_1
+export_simulation -of_objects [get_files D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci] -directory D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.ip_user_files -ipstatic_source_dir D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/modelsim} {questa=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/questa} {riviera=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/riviera} {activehdl=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+reset_run Try_175mhz
+launch_runs impl_9 -jobs 8
+wait_on_run impl_9
+refresh_design
+launch_runs impl_9 -to_step write_bitstream -jobs 8
+wait_on_run impl_9

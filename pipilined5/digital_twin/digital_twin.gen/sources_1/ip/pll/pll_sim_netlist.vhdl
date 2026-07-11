@@ -2,10 +2,10 @@
 -- Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2023.2 (win64) Build 4029153 Fri Oct 13 20:14:34 MDT 2023
--- Date        : Fri Apr 25 10:05:17 2025
--- Host        : LAPTOP-TNKPRGBT running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode funcsim -rename_top pll -prefix
---               pll_ pll_sim_netlist.vhdl
+-- Date        : Sat Jul 11 19:34:33 2026
+-- Host        : DESKTOP-MO7L2KR running 64-bit major release  (build 9200)
+-- Command     : write_vhdl -force -mode funcsim
+--               d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll_sim_netlist.vhdl
 -- Design      : pll
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -15,7 +15,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity pll_pll_clk_wiz is
+entity pll_clk_wiz is
   port (
     clk_out1 : out STD_LOGIC;
     clk_out2 : out STD_LOGIC;
@@ -23,9 +23,9 @@ entity pll_pll_clk_wiz is
     clk_in1_p : in STD_LOGIC;
     clk_in1_n : in STD_LOGIC
   );
-end pll_pll_clk_wiz;
+end pll_clk_wiz;
 
-architecture STRUCTURE of pll_pll_clk_wiz is
+architecture STRUCTURE of pll_clk_wiz is
   signal clk_in1_pll : STD_LOGIC;
   signal clk_out1_pll : STD_LOGIC;
   signal clk_out2_pll : STD_LOGIC;
@@ -77,11 +77,11 @@ clkout2_buf: unisim.vcomponents.BUFG
 plle2_adv_inst: unisim.vcomponents.PLLE2_ADV
     generic map(
       BANDWIDTH => "OPTIMIZED",
-      CLKFBOUT_MULT => 9,
+      CLKFBOUT_MULT => 21,
       CLKFBOUT_PHASE => 0.000000,
       CLKIN1_PERIOD => 5.000000,
       CLKIN2_PERIOD => 0.000000,
-      CLKOUT0_DIVIDE => 18,
+      CLKOUT0_DIVIDE => 21,
       CLKOUT0_DUTY_CYCLE => 0.500000,
       CLKOUT0_PHASE => 0.000000,
       CLKOUT1_DIVIDE => 6,
@@ -100,7 +100,7 @@ plle2_adv_inst: unisim.vcomponents.PLLE2_ADV
       CLKOUT5_DUTY_CYCLE => 0.500000,
       CLKOUT5_PHASE => 0.000000,
       COMPENSATION => "ZHOLD",
-      DIVCLK_DIVIDE => 2,
+      DIVCLK_DIVIDE => 4,
       IS_CLKINSEL_INVERTED => '0',
       IS_PWRDWN_INVERTED => '0',
       IS_RST_INVERTED => '0',
@@ -150,7 +150,7 @@ end pll;
 
 architecture STRUCTURE of pll is
 begin
-inst: entity work.pll_pll_clk_wiz
+inst: entity work.pll_clk_wiz
      port map (
       clk_in1_n => clk_in1_n,
       clk_in1_p => clk_in1_p,

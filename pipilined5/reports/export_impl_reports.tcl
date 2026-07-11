@@ -9,14 +9,16 @@
 # ----------------------------
 # User config
 # ----------------------------
-set BASE_REPORT_DIR "D:/System/desktop/jyd-feature/pipilined5/reports"
+set BASE_REPORT_DIR "D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/reports"
+
+
 
 # 每次修改这里，方便区分实验
 # 例如：
 #   p1_2a_ex_side_is_dram_150mhz
 #   baseline_150mhz
 #   jal_id_redirect_160mhz
-set RUN_TAG "baseline_150mhz"
+set RUN_TAG "ok1_175mhz"
 
 # 如果你主要关注某个 clock，可以填 clock 名字
 # 不确定 clock 名字时，先留空，脚本会导出全局 timing

@@ -2,10 +2,10 @@
 // Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2023.2 (win64) Build 4029153 Fri Oct 13 20:14:34 MDT 2023
-// Date        : Fri Apr 25 10:05:17 2025
-// Host        : LAPTOP-TNKPRGBT running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode funcsim -rename_top pll -prefix
-//               pll_ pll_sim_netlist.v
+// Date        : Sat Jul 11 19:34:33 2026
+// Host        : DESKTOP-MO7L2KR running 64-bit major release  (build 9200)
+// Command     : write_verilog -force -mode funcsim
+//               d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll_sim_netlist.v
 // Design      : pll
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -32,7 +32,7 @@ module pll
   wire clk_out2;
   wire locked;
 
-  pll_pll_clk_wiz inst
+  pll_clk_wiz inst
        (.clk_in1_n(clk_in1_n),
         .clk_in1_p(clk_in1_p),
         .clk_out1(clk_out1),
@@ -40,7 +40,7 @@ module pll
         .locked(locked));
 endmodule
 
-module pll_pll_clk_wiz
+module pll_clk_wiz
    (clk_out1,
     clk_out2,
     locked,
@@ -94,11 +94,11 @@ module pll_pll_clk_wiz
   (* BOX_TYPE = "PRIMITIVE" *) 
   PLLE2_ADV #(
     .BANDWIDTH("OPTIMIZED"),
-    .CLKFBOUT_MULT(9),
+    .CLKFBOUT_MULT(21),
     .CLKFBOUT_PHASE(0.000000),
     .CLKIN1_PERIOD(5.000000),
     .CLKIN2_PERIOD(0.000000),
-    .CLKOUT0_DIVIDE(18),
+    .CLKOUT0_DIVIDE(21),
     .CLKOUT0_DUTY_CYCLE(0.500000),
     .CLKOUT0_PHASE(0.000000),
     .CLKOUT1_DIVIDE(6),
@@ -117,7 +117,7 @@ module pll_pll_clk_wiz
     .CLKOUT5_DUTY_CYCLE(0.500000),
     .CLKOUT5_PHASE(0.000000),
     .COMPENSATION("ZHOLD"),
-    .DIVCLK_DIVIDE(2),
+    .DIVCLK_DIVIDE(4),
     .IS_CLKINSEL_INVERTED(1'b0),
     .IS_PWRDWN_INVERTED(1'b0),
     .IS_RST_INVERTED(1'b0),
