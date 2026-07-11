@@ -157,3 +157,83 @@
 3. 检查 reset、lookup PC、update valid/PC 的高扇出。
 4. 在目标 `xc7k325tffg900-2` 上重新执行完整综合、布局和布线。
 5. 将新的 WNS、TNS、失败端点、最差路径、逻辑/布线延迟和高扇出数据追加到本日志。
+
+# Fix_timing3
+
+## 优化目标与基线
+
+本轮从已经回退并确认功能正确的 FixTiming1 版本继续优化，不包含 FixTiming2 的更新请求寄存器方案。
+
+FixTiming1 在 6.7 ns 约束下的布局布线结果：
+
+| 项目 | FixTiming1 |
+| --- | ---: |
+| WNS | -0.501 ns |
+| TNS | -18.963 ns |
+| 失败端点 | 73 |
+| 最差路径逻辑级数 | 19 |
+| 最差路径数据延迟 | 7.051 ns |
+| 逻辑延迟 | 1.594 ns |
+| 布线延迟 | 5.457 ns（77.393%） |
+
+最差路径经过转发、分支比较和 EX 恢复控制后到达 IFU PC，其中预测目标失配逻辑 `target_miss` 位于关键恢复链上。
+
+## 修改原则
+
+- 当前 BPU 只预测条件分支和 JAL，不预测 JALR，也尚未加入 RAS。
+- 对当前可被预测的直接控制流，正确目标由指令立即数唯一确定；原实现已经明确排除其目标比较。
+- 因而当前 `target_miss` 只服务于尚不存在的间接跳转预测，属于不可达功能路径，却仍会参与综合和布局布线。
+- 本轮只移除该无效目标比较链，不修改 BPU 存储、预测延迟、流水级、更新逻辑、外部接口或时序约束。
+- 保留 `id_ex_pred_target` 接口，供后续加入 RAS 时恢复目标校验；届时必须同时传递 `pred_is_ras` 或等价预测来源元数据，只对 RAS 预测执行目标比较。
+
+## 记录 1：简化 EX 预测恢复判定
+
+修改文件：`kldj.srcs2/sources_1/imports/rtl/pipe/ex_bpu_ctrl.v`
+
+- 删除 `ex_is_direct_ctrl`、`target_check_needed` 和 `target_miss` 组合逻辑。
+- `direction_miss` 仍为 `id_ex_pred_taken ^ ex_actual_redirect`。
+- `ex_redirect` 改为仅由有效指令的方向失配触发：`id_ex_valid && direction_miss`。
+- `ex_correct_pc`、异常返回、BPU 训练条件及全部模块端口保持不变。
+- 对尚未预测的 JALR、ECALL 和 MRET，`id_ex_pred_taken=0` 且实际发生重定向，仍会通过方向失配正常恢复。
+
+## 记录 2：定向与回归仿真
+
+新增文件：`kldj.srcs2/sim_1/imports/sim/ex_bpu_ctrl_tb.sv`
+
+- `ex_bpu_ctrl` 定向测试通过，共执行 34 个断言。
+- 覆盖无效流水项、条件分支 taken/not-taken 方向错误、直接预测目标值不同、JAL、未预测 JALR、ECALL、MRET 和 BPU 训练接口。
+- BPU 单元测试通过：`BPU UNIT TEST PASSED (GHR=0)`。
+- CPU 分支集成测试通过：条件分支更新 12 次、动态预测正确命中 4 次、最终 GHR 为 63。
+- 完整 CPU 回归通过：29 项通过、0 项失败；其中包含 JALR、ECALL/MRET、分支、CSR、数据转发、访存和 RV32M。
+- 正式 RTL 全量编译和所有测试的 elaboration 均通过。
+
+## 记录 3：独立综合结构检查
+
+新增脚本：`TimingFix_Log/check_fix_timing3_synth.tcl`
+
+- 本机 Vivado 2018.3 缺少目标 Kintex-7 器件库，因此使用 `xc7a35tcpg236-1` 做 `ex_bpu_ctrl` 的 out-of-context 结构检查。
+- 综合成功，0 error、0 critical warning；模块使用 40 个逻辑 LUT，无触发器。
+- `ex_redirect` 综合网表扇入共有 12 个对象，只依赖 `id_ex_valid`、`id_ex_pred_taken`、`exu_jump_raw`、`is_ecall` 和 `is_mret`。
+- `id_ex_pred_target` 在 `ex_redirect` 扇入中的依赖数为 0，确认目标比较链已从恢复关键锥中消失。
+- 综合会对保留的 32 位 `id_ex_pred_target` 报未连接端口 warning，这是为后续 RAS 保留接口的预期结果。
+- 6.667 ns 虚拟 IO 约束下，该组合模块 OOC 最差 slack 为 +3.484 ns、最差逻辑级数为 2；此结果不包含整机转发、分支计算、IFU PC 和实际布局布线，不能替代正式 WNS。
+
+## 后续加入 RAS 时的恢复逻辑
+
+- RAS 预测必须增加 `pred_is_ras` 或通用 `pred_source` 元数据，并随预测指令经过 IF/ID、ID/EX 流水寄存器。
+- 只有预测来源确实为 RAS（以后若预测普通 JALR，则为有效的间接目标预测）时，才允许比较 `id_ex_pred_target` 与 `ex_correct_pc`。
+- 恢复条件应扩展为“方向失配，或者有效间接目标预测发生目标失配”，不能无条件把 32 位目标比较重新并入所有分支的恢复链。
+- 加入 RAS 后必须重新补充返回地址命中/失配、嵌套调用、栈溢出/下溢和 flush 恢复测试，再重新测量关键路径。
+
+## 验证状态
+
+| 验证项 | 状态 | 结果 |
+| --- | --- | --- |
+| RTL 修改 | 已完成 | 移除当前不可达的预测目标比较链 |
+| EX 恢复控制定向仿真 | 通过 | 34 个断言全部通过 |
+| BPU 单元仿真 | 通过 | GShare、BTB、复位和训练行为通过 |
+| BPU 集成仿真 | 通过 | updates=12，hits=4，GHR=63 |
+| 完整 CPU 回归 | 通过 | 29 passed，0 failed |
+| RTL 编译 | 通过 | 正式 RTL 全量编译和 elaboration 成功 |
+| OOC 结构综合 | 通过 | `id_ex_pred_target` 对 `ex_redirect` 的依赖数为 0 |
+| 150 MHz 布局布线 | 待执行 | 报告应保存至 `kldj.srcs2/Timing_info/fixtiming3` |

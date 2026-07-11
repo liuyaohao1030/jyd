@@ -7,6 +7,7 @@ module ex_bpu_ctrl #(
     ,input  wire [`KLDJ_PC]       id_ex_pc
     ,input  wire [`KLDJ_PC]       id_ex_snpc
     ,input  wire                  id_ex_pred_taken
+    // Reserved for target validation when indirect/RAS prediction is added.
     ,input  wire [`KLDJ_PC]       id_ex_pred_target
     ,input  wire [BPU_INDEX_WIDTH-1:0] id_ex_pred_pht_idx
     ,input  wire [17:0]           id_ex_exu_op
@@ -29,15 +30,11 @@ module ex_bpu_ctrl #(
 
     wire ex_is_branch_op;
     wire ex_is_jal_op;
-    wire ex_is_direct_ctrl;
     wire ex_actual_redirect;
     wire direction_miss;
-    wire target_check_needed;
-    wire target_miss;
 
     assign ex_is_branch_op = (id_ex_exu_op >= 18'h14) && (id_ex_exu_op <= 18'h19);
     assign ex_is_jal_op    = (id_ex_exu_op == 18'h1c);
-    assign ex_is_direct_ctrl = ex_is_branch_op || ex_is_jal_op;
 
     assign ex_actual_redirect = exu_jump_raw || is_ecall || is_mret;
     assign ex_actual_taken    = id_ex_valid && ex_actual_redirect;
@@ -46,10 +43,7 @@ module ex_bpu_ctrl #(
                                 id_ex_snpc;
 
     assign direction_miss = id_ex_pred_taken ^ ex_actual_redirect;
-    assign target_check_needed = id_ex_valid && id_ex_pred_taken && ex_actual_redirect &&
-                                 !ex_is_direct_ctrl;
-    assign target_miss    = target_check_needed && (id_ex_pred_target != ex_correct_pc);
-    assign ex_redirect    = id_ex_valid && (direction_miss || target_miss);
+    assign ex_redirect    = id_ex_valid && direction_miss;
 
     assign bpu_update_valid  = id_ex_valid && (ex_is_branch_op || ex_is_jal_op);
     assign bpu_update_pc     = id_ex_pc;

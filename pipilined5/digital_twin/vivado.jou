@@ -3,10 +3,10 @@
 # SW Build 4029153 on Fri Oct 13 20:14:34 MDT 2023
 # IP Build 4028589 on Sat Oct 14 00:45:43 MDT 2023
 # SharedData Build 4025554 on Tue Oct 10 17:18:54 MDT 2023
-# Start of session at: Sat Jul 11 14:52:33 2026
-# Process ID: 26660
+# Start of session at: Sat Jul 11 17:53:23 2026
+# Process ID: 28348
 # Current directory: D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent7276 D:\Desktop\JYD\Source_code\merge_dualport_bpu\jyd\pipilined5\digital_twin\digital_twin.xpr
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent28556 D:\Desktop\JYD\Source_code\merge_dualport_bpu\jyd\pipilined5\digital_twin\digital_twin.xpr
 # Log file: D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/vivado.log
 # Journal file: D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin\vivado.jou
 # Running On: DESKTOP-MO7L2KR, OS: Windows, CPU Frequency: 3793 MHz, CPU Physical cores: 16, Host memory: 33618 MB
@@ -14,91 +14,7 @@
 start_gui
 open_project D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.xpr
 update_compile_order -fileset sources_1
-add_files -norecurse {D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_top.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/new/display_seg.sv D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/define.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_and.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_id_ex.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/new/IROM_BHV.sv D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_mul.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_lsu.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_wbu.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/new/dram_driver.sv D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_add.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/new/uart.sv D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/KLDJ_alu.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/new/DRAM_TDP.sv D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/new/perip_bridge.sv D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/ex_mem_req_ctrl.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/div_ip_wrapper.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/new/twin_controller.sv D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_regfile.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_xor.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/ex_bpu_ctrl.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_idu.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_ifu.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/bpu.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_mem_wb.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/new/seg7.sv D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_ex_mem.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_or.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/mul_ip_wrapper.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_if_id.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/new/top.sv D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_div.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_shifter.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_slt.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_wb_commit.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/mem_stage_top.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/ex_forward.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_csr.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_exu.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/new/counter.sv D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/new/student_top.sv}
-update_compile_order -fileset sources_1
-export_ip_user_files -of_objects  [get_files d:/Desktop/JYD/DESKTOP/JYD/src2/dram.coe] -no_script -reset -force -quiet
-remove_files  d:/Desktop/JYD/DESKTOP/JYD/src2/dram.coe
-set_property is_global_include true [get_files  D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/define.v]
-create_run BPU_try125mhz -flow {Vivado Synthesis 2023}
-create_run impl_4 -parent_run BPU_try125mhz -flow {Vivado Implementation 2023}
-launch_runs impl_4 -jobs 8
-wait_on_run impl_4
-current_run [get_runs BPU_try125mhz]
-open_run impl_4
-launch_runs impl_4 -to_step write_bitstream -jobs 8
-wait_on_run impl_4
-open_hw_manager
-connect_hw_server -allow_non_jtag
-open_hw_target
-set_property PROGRAM.FILE {D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.runs/impl_4/top.bit} [get_hw_devices xc7k325t_0]
-current_hw_device [get_hw_devices xc7k325t_0]
-refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7k325t_0] 0]
-set_property PROBES.FILE {} [get_hw_devices xc7k325t_0]
-set_property FULL_PROBES.FILE {} [get_hw_devices xc7k325t_0]
-set_property PROGRAM.FILE {D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.runs/impl_4/top.bit} [get_hw_devices xc7k325t_0]
-program_hw_devices [get_hw_devices xc7k325t_0]
-refresh_hw_device [lindex [get_hw_devices xc7k325t_0] 0]
-close_hw_manager
-set_property CONFIG.ARESETN {false} [get_ips div_gen_u32]
-generate_target all [get_files  D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci]
-catch { config_ip_cache -export [get_ips -all div_gen_u32] }
-catch { [ delete_ip_run [get_ips -all div_gen_u32] ] }
-export_ip_user_files -of_objects [get_files D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci] -no_script -sync -force -quiet
-create_ip_run [get_files -of_objects [get_fileset sources_1] D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci]
-export_simulation -of_objects [get_files D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci] -directory D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.ip_user_files -ipstatic_source_dir D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/modelsim} {questa=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/questa} {riviera=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/riviera} {activehdl=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
-create_run fixtiming1 -flow {Vivado Synthesis 2023}
-create_run impl_5 -parent_run fixtiming1 -flow {Vivado Implementation 2023}
-launch_runs impl_5 -jobs 8
-wait_on_run impl_5
-current_run [get_runs fixtiming1]
-open_run impl_5
-launch_runs impl_5 -to_step write_bitstream -jobs 8
-wait_on_run impl_5
-open_hw_manager
-connect_hw_server -allow_non_jtag
-open_hw_target
-set_property PROGRAM.FILE {D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.runs/impl_4/top.bit} [get_hw_devices xc7k325t_0]
-current_hw_device [get_hw_devices xc7k325t_0]
-refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7k325t_0] 0]
-set_property PROBES.FILE {} [get_hw_devices xc7k325t_0]
-set_property FULL_PROBES.FILE {} [get_hw_devices xc7k325t_0]
-set_property PROGRAM.FILE {D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.runs/impl_5/top.bit} [get_hw_devices xc7k325t_0]
-program_hw_devices [get_hw_devices xc7k325t_0]
-refresh_hw_device [lindex [get_hw_devices xc7k325t_0] 0]
-close_hw_manager
-create_run 150mhz -flow {Vivado Synthesis 2023}
-create_run try_150Mhz -flow {Vivado Synthesis 2023}
-create_run impl_6 -parent_run try_150Mhz -flow {Vivado Implementation 2023}
-launch_runs impl_6 -jobs 8
-wait_on_run impl_6
-current_run [get_runs try_150Mhz]
-open_run impl_6
-set_property -dict [list \
-  CONFIG.CLKOUT1_JITTER {157.199} \
-  CONFIG.CLKOUT1_PHASE_ERROR {105.461} \
-  CONFIG.CLKOUT2_JITTER {126.399} \
-  CONFIG.CLKOUT2_PHASE_ERROR {105.461} \
-  CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {150} \
-  CONFIG.MMCM_CLKFBOUT_MULT_F {9} \
-  CONFIG.MMCM_CLKOUT0_DIVIDE_F {18} \
-  CONFIG.MMCM_CLKOUT1_DIVIDE {6} \
-  CONFIG.MMCM_DIVCLK_DIVIDE {2} \
-] [get_ips pll]
-generate_target all [get_files  D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci]
-catch { config_ip_cache -export [get_ips -all pll] }
-export_ip_user_files -of_objects [get_files D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci] -no_script -sync -force -quiet
-create_ip_run [get_files -of_objects [get_fileset sources_1] D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci]
-export_simulation -of_objects [get_files D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci] -directory D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.ip_user_files -ipstatic_source_dir D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/modelsim} {questa=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/questa} {riviera=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/riviera} {activehdl=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
-reset_run try_150Mhz
-launch_runs impl_6 -jobs 8
-wait_on_run impl_6
-pwd
-ls
-file mkdir Timing_info
-ls
-refresh_design
-report_timing -max_paths 10 -nworst 1 -delay_type min_max -sort_by slack -file Timing_info/timing_detail.rpt
-# 3. 导出高扇出网络报告 (high_fanout.rpt)
-report_high_fanout_nets -timing -load_types -max_nets 50 -file Timing_info/high_fanout.rpt
-# 4. 导出 Methodology 检查报告 (methodology.rpt) - 顺手导出，帮它排查隐患
-report_methodology -file Timing_info/methodology.rpt
+create_run fix_timing3 -flow {Vivado Synthesis 2023}
+create_run impl_8 -parent_run fix_timing3 -flow {Vivado Implementation 2023}
+launch_runs impl_8 -jobs 8
+wait_on_run impl_8
