@@ -27,6 +27,7 @@ module KLDJ_top(
 );
 
     localparam [`KLDJ_INST] KLDJ_NOP = 32'h00000013;
+    localparam BPU_INDEX_WIDTH = 6;
 
     // Clock and reset
     wire                         core_clk;
@@ -42,12 +43,24 @@ module KLDJ_top(
     wire [`KLDJ_INST]            if_inst;
     wire [`KLDJ_PC]              if_pc;
     wire [`KLDJ_PC]              if_snpc;
+    wire                         bpu_pred_taken;
+    wire [`KLDJ_PC]              bpu_pred_target;
+    wire                         if_static_jal;
+    wire [`KLDJ_IMM]             if_static_jal_imm;
+    wire [`KLDJ_PC]              if_static_jal_target;
+    wire                         if_pred_taken;
+    wire [`KLDJ_PC]              if_pred_target;
+    wire [BPU_INDEX_WIDTH-1:0]   if_pred_pht_idx;
+    wire                         if_btb_hit;
 
     // IF/ID pipeline register outputs
     wire                         if_id_valid;
     wire [`KLDJ_INST]            if_id_inst;
     wire [`KLDJ_PC]              if_id_pc;
     wire [`KLDJ_PC]              if_id_snpc;
+    wire                         if_id_pred_taken;
+    wire [`KLDJ_PC]              if_id_pred_target;
+    wire [BPU_INDEX_WIDTH-1:0]   if_id_pred_pht_idx;
 
     // ID stage wires
     wire [`KLDJ_REGADDR]         id_reg_rs1_addr;
@@ -72,6 +85,9 @@ module KLDJ_top(
     wire                         id_ex_valid;
     wire [`KLDJ_PC]              id_ex_pc;
     wire [`KLDJ_PC]              id_ex_snpc;
+    wire                         id_ex_pred_taken;
+    wire [`KLDJ_PC]              id_ex_pred_target;
+    wire [BPU_INDEX_WIDTH-1:0]   id_ex_pred_pht_idx;
     wire [`KLDJ_REGADDR]         id_ex_rs1_addr;
     wire [`KLDJ_REGADDR]         id_ex_rs2_addr;
     wire [`KLDJ_REGADDR]         id_ex_rd_addr;
@@ -104,6 +120,13 @@ module KLDJ_top(
     wire [`KLDJ_DATA]            exu_data;
     wire [`KLDJ_DATA]            ex_mem_addr_pre;
     wire                         ex_redirect;
+    wire                         ex_actual_taken;
+    wire [`KLDJ_PC]              ex_correct_pc;
+    wire                         bpu_update_valid;
+    wire [`KLDJ_PC]              bpu_update_pc;
+    wire [BPU_INDEX_WIDTH-1:0]   bpu_update_pht_idx;
+    wire                         bpu_update_taken;
+    wire [`KLDJ_PC]              bpu_update_target;
     wire                         load_use_stall;
     wire                         div_stall;
     wire                         mul_stall;
@@ -171,20 +194,48 @@ module KLDJ_top(
     wire [`KLDJ_REG]             reg_id_rs1_data;
     wire [`KLDJ_REG]             reg_id_rs2_data;
 
+    // IF-stage static JAL prediction.  JAL is unconditional, so the
+    // instruction-encoded target is more reliable than a possibly stale BTB.
+    assign if_static_jal        = (if_inst[6:2] == `KLDJ_JAL) && (if_inst[1:0] == 2'b11);
+    assign if_static_jal_imm    = {{12{if_inst[31]}}, if_inst[19:12], if_inst[20], if_inst[30:21], 1'b0};
+    assign if_static_jal_target = if_pc + if_static_jal_imm;
+    assign if_pred_taken        = if_static_jal || bpu_pred_taken;
+    assign if_pred_target       = if_static_jal ? if_static_jal_target : bpu_pred_target;
+
     // ========================================================
     // Module instantiations
     // ========================================================
 
+    // Branch prediction unit
+    bpu #(
+         .INDEX_WIDTH  (BPU_INDEX_WIDTH)
+    ) u_bpu(
+        .clk          (core_clk          )
+        ,.rst          (core_rst          )
+        ,.lookup_pc    (if_pc             )
+        ,.pred_taken   (bpu_pred_taken    )
+        ,.pred_target  (bpu_pred_target   )
+        ,.btb_hit      (if_btb_hit        )
+        ,.lookup_pht_idx(if_pred_pht_idx  )
+        ,.update_valid (bpu_update_valid  )
+        ,.update_pc    (bpu_update_pc     )
+        ,.update_pht_idx(bpu_update_pht_idx)
+        ,.update_taken (bpu_update_taken  )
+        ,.update_target(bpu_update_target )
+    );
+
     // Select jump target: ecall jumps to mtvec, otherwise use EXU result
-    wire [31:0] redirect_pc = is_ecall ? mtvec_val : exu_jump_pc_raw;
+    wire [31:0] redirect_pc = ex_correct_pc;
 
     // IF stage
     KLDJ_ifu ifu0(
          .clk     (core_clk          )
         ,.rst     (core_rst          )
         ,.hold    (frontend_stall    )
-        ,.jump    (ex_redirect       )
-        ,.jump_pc (redirect_pc       ) 
+        ,.redirect   (ex_redirect       )
+        ,.redirect_pc(redirect_pc       )
+        ,.pred_taken (if_pred_taken     )
+        ,.pred_target(if_pred_target    )
         ,.inst_i  (tb_if_inst        )
         ,.inst_o  (if_inst           )
         ,.pc_o    (if_pc             )
@@ -192,18 +243,26 @@ module KLDJ_top(
     );
 
     // IF/ID pipeline register
-    pipe_if_id u_pipe_if_id(
+    pipe_if_id #(
+         .BPU_INDEX_WIDTH(BPU_INDEX_WIDTH)
+    ) u_pipe_if_id(
          .clk             (core_clk          )
         ,.rst             (core_rst          )
         ,.if_inst         (if_inst           )
         ,.if_pc           (if_pc             )
         ,.if_snpc         (if_snpc           )
+        ,.if_pred_taken   (if_pred_taken     )
+        ,.if_pred_target  (if_pred_target    )
+        ,.if_pred_pht_idx (if_pred_pht_idx   )
         ,.ex_redirect     (ex_redirect       )
         ,.load_use_stall  (frontend_stall    )
         ,.if_id_valid     (if_id_valid       )
         ,.if_id_inst      (if_id_inst        )
         ,.if_id_pc        (if_id_pc          )
         ,.if_id_snpc      (if_id_snpc        )
+        ,.if_id_pred_taken(if_id_pred_taken  )
+        ,.if_id_pred_target(if_id_pred_target)
+        ,.if_id_pred_pht_idx(if_id_pred_pht_idx)
     );
 
     // ID stage
@@ -232,12 +291,17 @@ module KLDJ_top(
     );
 
     // ID/EX pipeline register
-    pipe_id_ex u_pipe_id_ex(
+    pipe_id_ex #(
+         .BPU_INDEX_WIDTH(BPU_INDEX_WIDTH)
+    ) u_pipe_id_ex(
          .clk             (core_clk          )
         ,.rst             (core_rst          )
         ,.if_id_valid     (if_id_valid       )
         ,.if_id_pc        (if_id_pc          )
         ,.if_id_snpc      (if_id_snpc        )
+        ,.if_id_pred_taken(if_id_pred_taken  )
+        ,.if_id_pred_target(if_id_pred_target)
+        ,.if_id_pred_pht_idx(if_id_pred_pht_idx)
         ,.id_reg_rs1_addr (id_reg_rs1_addr   )
         ,.id_reg_rs2_addr (id_reg_rs2_addr   )
         ,.id_reg_rd_addr  (id_reg_rd_addr    )
@@ -262,6 +326,9 @@ module KLDJ_top(
         ,.id_ex_valid     (id_ex_valid       )
         ,.id_ex_pc        (id_ex_pc          )
         ,.id_ex_snpc      (id_ex_snpc        )
+        ,.id_ex_pred_taken(id_ex_pred_taken  )
+        ,.id_ex_pred_target(id_ex_pred_target)
+        ,.id_ex_pred_pht_idx(id_ex_pred_pht_idx)
         ,.id_ex_rs1_addr  (id_ex_rs1_addr    )
         ,.id_ex_rs2_addr  (id_ex_rs2_addr    )
         ,.id_ex_rd_addr   (id_ex_rd_addr     )
@@ -348,22 +415,49 @@ module KLDJ_top(
         ,.mul_stall   (mul_stall             )
     );
 
-    // ecall also triggers redirect (jump to mtvec)
-    assign ex_redirect = id_ex_valid && (exu_jump_raw || is_ecall);
+    // EX redirect and BPU update control
+    ex_bpu_ctrl #(
+         .BPU_INDEX_WIDTH(BPU_INDEX_WIDTH)
+    ) u_ex_bpu_ctrl(
+         .id_ex_valid       (id_ex_valid       )
+        ,.id_ex_pc          (id_ex_pc          )
+        ,.id_ex_snpc        (id_ex_snpc        )
+        ,.id_ex_pred_taken  (id_ex_pred_taken  )
+        ,.id_ex_pred_target (id_ex_pred_target )
+        ,.id_ex_pred_pht_idx(id_ex_pred_pht_idx)
+        ,.id_ex_exu_op      (id_ex_exu_op      )
+        ,.exu_jump_raw      (exu_jump_raw      )
+        ,.exu_jump_pc_raw   (exu_jump_pc_raw   )
+        ,.is_ecall          (is_ecall          )
+        ,.is_mret           (is_mret           )
+        ,.mtvec_val         (mtvec_val         )
+        ,.ex_actual_taken   (ex_actual_taken   )
+        ,.ex_correct_pc     (ex_correct_pc     )
+        ,.ex_redirect       (ex_redirect       )
+        ,.bpu_update_valid  (bpu_update_valid  )
+        ,.bpu_update_pc     (bpu_update_pc     )
+        ,.bpu_update_pht_idx(bpu_update_pht_idx)
+        ,.bpu_update_taken  (bpu_update_taken  )
+        ,.bpu_update_target (bpu_update_target )
+    );
+
     assign ex_stall = div_stall || mul_stall;
     assign frontend_stall = load_use_stall || ex_stall;
 
-    assign ex_req_load  = (id_ex_exu_op >= 18'h1d) && (id_ex_exu_op <= 18'h21);
-    assign ex_req_store = (id_ex_exu_op >= 18'h22) && (id_ex_exu_op <= 18'h24);
-    assign ex_req_mem   = id_ex_valid && !ex_stall && (ex_req_load || ex_req_store);
-    assign ex_req_size  = id_ex_ls_ctl[1:0];
-    assign ex_req_be    = (ex_req_size == 2'b00) ? (4'b0001 << ex_mem_addr_pre[1:0]) :
-                          (ex_req_size == 2'b01) ? (4'b0011 << {ex_mem_addr_pre[1], 1'b0}) :
-                          (ex_req_size == 2'b10) ? 4'b1111 : 4'b0000;
-    assign ex_req_wdata = (ex_req_size == 2'b00) ? {4{ex_store_wdata[7:0]}} :
-                          (ex_req_size == 2'b01) ? {2{ex_store_wdata[15:0]}} :
-                          ex_store_wdata;
-    
+    // EX-stage BRAM request control
+    ex_mem_req_ctrl u_ex_mem_req_ctrl(
+         .id_ex_valid    (id_ex_valid      )
+        ,.ex_stall       (ex_stall         )
+        ,.id_ex_exu_op   (id_ex_exu_op     )
+        ,.id_ex_ls_ctl   (id_ex_ls_ctl     )
+        ,.ex_mem_addr_pre(ex_mem_addr_pre  )
+        ,.ex_store_wdata (ex_store_wdata   )
+        ,.mem_addr       (mem_addr         )
+        ,.mem_wdata      (mem_wdata        )
+        ,.mem_we         (mem_we           )
+        ,.mem_be         (mem_be           )
+    );
+
     // CSR module instantiation
     KLDJ_csr u_csr(
          .clk       (core_clk              )
@@ -483,13 +577,9 @@ module KLDJ_top(
 
     // Top-level outputs
     assign tb_ex_jump   = ex_redirect;
-    assign tb_ex_jump_pc = ex_redirect ? redirect_pc : `KLDJ_ZERO32;
+    assign tb_ex_jump_pc = ex_redirect ? ex_correct_pc : `KLDJ_ZERO32;
     assign tb_ex_res    = wb_commit_valid ? wb_commit_wb_data : `KLDJ_ZERO32;
     assign tb_if_pc     = if_pc;
-    assign mem_addr     = ex_req_mem ? ex_mem_addr_pre : `KLDJ_ZERO32;
-    assign mem_wdata    = (id_ex_valid && !ex_stall && ex_req_store) ? ex_req_wdata : `KLDJ_ZERO32;
-    assign mem_we       = id_ex_valid && !ex_stall && ex_req_store;
-    assign mem_be       = ex_req_mem ? ex_req_be : 4'b0000;
 
 /*
     // ========================================================

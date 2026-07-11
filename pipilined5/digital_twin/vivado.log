@@ -3,10 +3,10 @@
 # SW Build 4029153 on Fri Oct 13 20:14:34 MDT 2023
 # IP Build 4028589 on Sat Oct 14 00:45:43 MDT 2023
 # SharedData Build 4025554 on Tue Oct 10 17:18:54 MDT 2023
-# Start of session at: Sat Jul 11 13:57:14 2026
-# Process ID: 7504
+# Start of session at: Sat Jul 11 14:52:33 2026
+# Process ID: 26660
 # Current directory: D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent24840 D:\Desktop\JYD\Source_code\merge_dualport_bpu\jyd\pipilined5\digital_twin\digital_twin.xpr
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent7276 D:\Desktop\JYD\Source_code\merge_dualport_bpu\jyd\pipilined5\digital_twin\digital_twin.xpr
 # Log file: D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/vivado.log
 # Journal file: D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin\vivado.jou
 # Running On: DESKTOP-MO7L2KR, OS: Windows, CPU Frequency: 3793 MHz, CPU Physical cores: 16, Host memory: 33618 MB
@@ -23,383 +23,109 @@ WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu208ld:part0:2.0 avail
 WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu216ld:part0:2.0 available at E:/Vivado2023.2/Vivado/2023.2/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu216ld/production/2.0/board.xml as part xczu59dr-ffvf1760-2-i specified in board_part file is either invalid or not available
 WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu670:part0:2.0 available at E:/Vivado2023.2/Vivado/2023.2/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu670/2.0/board.xml as part xczu67dr-fsve1156-2-i specified in board_part file is either invalid or not available
 WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu670ld:part0:1.0 available at E:/Vivado2023.2/Vivado/2023.2/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu670ld/1.0/board.xml as part xczu57dr-fsve1156-2-i specified in board_part file is either invalid or not available
-INFO: [Project 1-313] Project file moved from 'D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin' since last save.
-CRITICAL WARNING: [Project 1-311] Could not find the file 'D:/Desktop/JYD/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/define.v', nor could it be found using path 'D:/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/define.v'.
-CRITICAL WARNING: [Project 1-311] Could not find the file 'D:/Desktop/JYD/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_alu.v', nor could it be found using path 'D:/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_alu.v'.
-CRITICAL WARNING: [Project 1-311] Could not find the file 'D:/Desktop/JYD/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_exu.v', nor could it be found using path 'D:/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_exu.v'.
-CRITICAL WARNING: [Project 1-311] Could not find the file 'D:/Desktop/JYD/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_idu.v', nor could it be found using path 'D:/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_idu.v'.
-CRITICAL WARNING: [Project 1-311] Could not find the file 'D:/Desktop/JYD/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_ifu.v', nor could it be found using path 'D:/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_ifu.v'.
-CRITICAL WARNING: [Project 1-311] Could not find the file 'D:/Desktop/JYD/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_lsu.v', nor could it be found using path 'D:/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_lsu.v'.
-CRITICAL WARNING: [Project 1-311] Could not find the file 'D:/Desktop/JYD/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_regfile.v', nor could it be found using path 'D:/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_regfile.v'.
-CRITICAL WARNING: [Project 1-311] Could not find the file 'D:/Desktop/JYD/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_top.v', nor could it be found using path 'D:/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_top.v'.
-CRITICAL WARNING: [Project 1-311] Could not find the file 'D:/Desktop/JYD/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_wbu.v', nor could it be found using path 'D:/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_wbu.v'.
-CRITICAL WARNING: [Project 1-311] Could not find the file 'D:/Desktop/JYD/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu_add.v', nor could it be found using path 'D:/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu_add.v'.
-CRITICAL WARNING: [Project 1-311] Could not find the file 'D:/Desktop/JYD/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu_and.v', nor could it be found using path 'D:/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu_and.v'.
-CRITICAL WARNING: [Project 1-311] Could not find the file 'D:/Desktop/JYD/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu_or.v', nor could it be found using path 'D:/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu_or.v'.
-CRITICAL WARNING: [Project 1-311] Could not find the file 'D:/Desktop/JYD/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu_shifter.v', nor could it be found using path 'D:/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu_shifter.v'.
-CRITICAL WARNING: [Project 1-311] Could not find the file 'D:/Desktop/JYD/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu_slt.v', nor could it be found using path 'D:/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu_slt.v'.
-CRITICAL WARNING: [Project 1-311] Could not find the file 'D:/Desktop/JYD/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu_xor.v', nor could it be found using path 'D:/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu_xor.v'.
-CRITICAL WARNING: [Project 1-311] Could not find the file 'D:/Desktop/JYD/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/DataMemory.v', nor could it be found using path 'D:/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/DataMemory.v'.
-CRITICAL WARNING: [Project 1-311] Could not find the file 'D:/Desktop/JYD/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/MuxKeyWithDefault.v', nor could it be found using path 'D:/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/MuxKeyWithDefault.v'.
-CRITICAL WARNING: [Project 1-311] Could not find the file 'D:/Desktop/JYD/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/MuxKeyInternal.v', nor could it be found using path 'D:/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/MuxKeyInternal.v'.
-CRITICAL WARNING: [Project 1-311] Could not find the file 'D:/Desktop/JYD/DESKTOP/JYD/src0/irom.coe', nor could it be found using path 'D:/DESKTOP/JYD/src0/irom.coe'.
-CRITICAL WARNING: [Project 1-311] Could not find the file 'D:/Desktop/JYD/DESKTOP/JYD/src0/dram.coe', nor could it be found using path 'D:/DESKTOP/JYD/src0/dram.coe'.
-CRITICAL WARNING: [Project 1-311] Could not find the file 'D:/Desktop/JYD/DESKTOP/JYD/src1/irom.coe', nor could it be found using path 'D:/DESKTOP/JYD/src1/irom.coe'.
-CRITICAL WARNING: [Project 1-311] Could not find the file 'D:/Desktop/JYD/DESKTOP/JYD/src1/dram.coe', nor could it be found using path 'D:/DESKTOP/JYD/src1/dram.coe'.
-CRITICAL WARNING: [Project 1-311] Could not find the file 'D:/Desktop/JYD/DESKTOP/JYD/src2/irom.coe', nor could it be found using path 'D:/DESKTOP/JYD/src2/irom.coe'.
-CRITICAL WARNING: [Project 1-311] Could not find the file 'D:/Desktop/JYD/DESKTOP/JYD/src2/dram.coe', nor could it be found using path 'D:/DESKTOP/JYD/src2/dram.coe'.
 Scanning sources...
 Finished scanning sources
 INFO: [IP_Flow 19-234] Refreshing IP repositories
 INFO: [IP_Flow 19-1704] No user IP repositories specified
 INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'E:/Vivado2023.2/Vivado/2023.2/data/ip'.
-open_project: Time (s): cpu = 00:00:21 ; elapsed = 00:00:09 . Memory (MB): peak = 1607.777 ; gain = 379.242
+open_project: Time (s): cpu = 00:00:17 ; elapsed = 00:00:08 . Memory (MB): peak = 1608.102 ; gain = 357.207
 update_compile_order -fileset sources_1
-remove_files [get_files *.sv]
-D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/new/counter.sv D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/new/display_seg.sv D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/new/dram_driver.sv D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/new/perip_bridge.sv D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/new/seg7.sv D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/new/student_top.sv D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/new/twin_controller.sv D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/new/uart.sv D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/new/top.sv D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/imports/new/defines.sv D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/imports/new/ACTL.sv D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/imports/new/ALU.sv D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/imports/new/CCTL.sv D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/imports/new/CSR.sv D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/imports/new/Control.sv D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/imports/new/IMMGEN.sv D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/imports/new/Mask.sv D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/imports/new/NPC.sv D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/imports/new/PC.sv D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/imports/new/RF.sv D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/imports/new/myCPU.sv D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sim_1/new/tb_myCPU.sv D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sim_1/new/tb_top.sv D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sim_1/new/tb_uart.sv
+WARNING: [IP_Flow 19-4067] Ignoring invalid widget type specified checkbox.Providing a default widget
+WARNING: [IP_Flow 19-4067] Ignoring invalid widget type specified checkbox.Providing a default widget
+add_files -norecurse {D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_top.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/new/display_seg.sv D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/define.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_and.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_id_ex.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/new/IROM_BHV.sv D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_mul.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_lsu.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_wbu.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/new/dram_driver.sv D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_add.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/new/uart.sv D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/KLDJ_alu.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/new/DRAM_TDP.sv D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/new/perip_bridge.sv D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/ex_mem_req_ctrl.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/div_ip_wrapper.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/new/twin_controller.sv D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_regfile.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_xor.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/ex_bpu_ctrl.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_idu.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_ifu.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/bpu.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_mem_wb.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/new/seg7.sv D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_ex_mem.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_or.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/mul_ip_wrapper.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_if_id.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/new/top.sv D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_div.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_shifter.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_slt.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_wb_commit.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/mem_stage_top.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/ex_forward.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_csr.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_exu.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/new/counter.sv D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/new/student_top.sv}
 update_compile_order -fileset sources_1
-remove_files [get_files *.v]
-CRITICAL WARNING: [filemgmt 20-1679] Unable to remove the file: d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/DRAM/simulation/dist_mem_gen_v8_0.v
-from the fileset 'DRAM'.
-File is part of a sub-design (IP, Block Design, DSP Design, etc.) and must be removed via the sub-design parent.
-CRITICAL WARNING: [filemgmt 20-1679] Unable to remove the file: d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/DRAM/sim/DRAM.v
-from the fileset 'DRAM'.
-File is part of a sub-design (IP, Block Design, DSP Design, etc.) and must be removed via the sub-design parent.
-CRITICAL WARNING: [filemgmt 20-1679] Unable to remove the file: d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/DRAM/DRAM_stub.v
-from the fileset 'DRAM'.
-File is part of a sub-design (IP, Block Design, DSP Design, etc.) and must be removed via the sub-design parent.
-CRITICAL WARNING: [filemgmt 20-1679] Unable to remove the file: d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll_clk_wiz.v
-from the fileset 'sources_1'.
-File is part of a sub-design (IP, Block Design, DSP Design, etc.) and must be removed via the sub-design parent.
-CRITICAL WARNING: [filemgmt 20-1679] Unable to remove the file: d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll.v
-from the fileset 'sources_1'.
-File is part of a sub-design (IP, Block Design, DSP Design, etc.) and must be removed via the sub-design parent.
-CRITICAL WARNING: [filemgmt 20-1679] Unable to remove the file: d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll_stub.v
-from the fileset 'sources_1'.
-File is part of a sub-design (IP, Block Design, DSP Design, etc.) and must be removed via the sub-design parent.
-CRITICAL WARNING: [filemgmt 20-1679] Unable to remove the file: d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll_sim_netlist.v
-from the fileset 'sources_1'.
-File is part of a sub-design (IP, Block Design, DSP Design, etc.) and must be removed via the sub-design parent.
-CRITICAL WARNING: [filemgmt 20-1679] Unable to remove the file: d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/IROM/simulation/dist_mem_gen_v8_0.v
-from the fileset 'IROM'.
-File is part of a sub-design (IP, Block Design, DSP Design, etc.) and must be removed via the sub-design parent.
-CRITICAL WARNING: [filemgmt 20-1679] Unable to remove the file: d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/IROM/sim/IROM.v
-from the fileset 'IROM'.
-File is part of a sub-design (IP, Block Design, DSP Design, etc.) and must be removed via the sub-design parent.
-CRITICAL WARNING: [filemgmt 20-1679] Unable to remove the file: d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/IROM/IROM_stub.v
-from the fileset 'IROM'.
-File is part of a sub-design (IP, Block Design, DSP Design, etc.) and must be removed via the sub-design parent.
-d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll_clk_wiz.v d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll.v d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll_stub.v d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll_sim_netlist.v D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/imports/new/MuxKey.v D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/imports/new/MuxKeyInternal.v D:/Desktop/JYD/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/define.v D:/Desktop/JYD/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_alu.v D:/Desktop/JYD/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_exu.v D:/Desktop/JYD/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_idu.v D:/Desktop/JYD/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_ifu.v D:/Desktop/JYD/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_lsu.v D:/Desktop/JYD/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_regfile.v D:/Desktop/JYD/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_top.v D:/Desktop/JYD/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_wbu.v D:/Desktop/JYD/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu_add.v D:/Desktop/JYD/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu_and.v D:/Desktop/JYD/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu_or.v D:/Desktop/JYD/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu_shifter.v D:/Desktop/JYD/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu_slt.v D:/Desktop/JYD/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu_xor.v D:/Desktop/JYD/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/DataMemory.v D:/Desktop/JYD/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/MuxKeyWithDefault.v D:/Desktop/JYD/DESKTOP/JYD/KDLJ_SRC/pipilined5/kldj.srcs2/sources_1/imports/rtl/MuxKeyInternal.v d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/IROM/simulation/dist_mem_gen_v8_0.v d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/IROM/sim/IROM.v d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/IROM/IROM_stub.v d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/DRAM/simulation/dist_mem_gen_v8_0.v d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/DRAM/sim/DRAM.v d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/DRAM/DRAM_stub.v
-remove_files [get_files *.coe]
-D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/imports/test_src/dram.coe D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/imports/test_src/irom.coe D:/Desktop/JYD/DESKTOP/JYD/src0/irom.coe D:/Desktop/JYD/DESKTOP/JYD/src0/dram.coe D:/Desktop/JYD/DESKTOP/JYD/src1/irom.coe D:/Desktop/JYD/DESKTOP/JYD/src1/dram.coe D:/Desktop/JYD/DESKTOP/JYD/src2/irom.coe D:/Desktop/JYD/DESKTOP/JYD/src2/dram.coe
-pwd
-D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin
-cd ..
-cd scripts
-ls
-WARNING: [Common 17-259] Unknown Tcl command 'ls' sending command to the OS shell for execution. It is recommended to use 'exec' to send the command to the OS shell.
-create_div_gen_u32.tcl
-create_mult_gen_u33.tcl
-source create_div_gen_u32.tcl
-# set ip_name div_gen_u32
-# if {[llength [get_ips -quiet $ip_name]] == 0} {
-#     create_ip -name div_gen -vendor xilinx.com -library ip -module_name $ip_name
-# }
-# puts "Created/found IP: $ip_name"
-Created/found IP: div_gen_u32
-# puts "Required GUI configuration:"
-Required GUI configuration:
-# puts "  Algorithm Type        : Radix-2"
-  Algorithm Type        : Radix-2
-# puts "  Operand Sign          : Unsigned"
-  Operand Sign          : Unsigned
-# puts "  Dividend Width        : 32"
-  Dividend Width        : 32
-# puts "  Divisor Width         : 32"
-  Divisor Width         : 32
-# puts "  Remainder Type        : Remainder"
-  Remainder Type        : Remainder
-# puts "  Clocks Per Division   : 1"
-  Clocks Per Division   : 1
-# puts "  Flow Control          : NonBlocking"
-  Flow Control          : NonBlocking
-# puts "  Output has TREADY     : False / unchecked"
-  Output has TREADY     : False / unchecked
-# puts "  Latency Configuration : Automatic"
-  Latency Configuration : Automatic
-# puts "  Detect Divide-by-Zero : unchecked; wrapper handles it"
-  Detect Divide-by-Zero : unchecked; wrapper handles it
-# puts "  ACLKEN                : False / unchecked"
-  ACLKEN                : False / unchecked
-# puts "  ARESETn               : enabled if available"
-  ARESETn               : enabled if available
-# puts ""
-
-# puts "Available CONFIG properties for $ip_name:"
-Available CONFIG properties for div_gen_u32:
-WARNING: [Vivado 12-3672] The is_managed property should only be queried on the file object representing this IP. Use the get_files command to access file objects.
-WARNING: [Vivado 12-3670] The generate_synth_checkpoint property should only be queried on the file object representing this IP. Use the get_files command to access file objects.
-# foreach p [lsort [list_property [get_ips $ip_name]]] {
-#     if {[string match "CONFIG.*" $p]} {
-#         puts [format "  %-45s %s" $p [get_property $p [get_ips $ip_name]]]
-#     }
-# }
-  CONFIG.ACLKEN                                 false
-  CONFIG.ACLK_INTF.FREQ_HZ                      1000000
-  CONFIG.ACLK_INTF.INSERT_VIP                   0
-  CONFIG.ARESETN                                false
-  CONFIG.ARESETN_INTF.INSERT_VIP                0
-  CONFIG.Component_Name                         div_gen_u32
-  CONFIG.FlowControl                            NonBlocking
-  CONFIG.M_AXIS_DOUT.INSERT_VIP                 0
-  CONFIG.OptimizeGoal                           Performance
-  CONFIG.OutTLASTBehv                           Null
-  CONFIG.OutTready                              false
-  CONFIG.S_AXIS_DIVIDEND.INSERT_VIP             0
-  CONFIG.S_AXIS_DIVISOR.INSERT_VIP              0
-  CONFIG.algorithm_type                         Radix2
-  CONFIG.clocks_per_division                    1
-  CONFIG.divide_by_zero_detect                  false
-  CONFIG.dividend_and_quotient_width            16
-  CONFIG.dividend_has_tlast                     false
-  CONFIG.dividend_has_tuser                     false
-  CONFIG.dividend_tuser_width                   1
-  CONFIG.divisor_has_tlast                      false
-  CONFIG.divisor_has_tuser                      false
-  CONFIG.divisor_tuser_width                    1
-  CONFIG.divisor_width                          16
-  CONFIG.fractional_width                       16
-  CONFIG.latency                                20
-  CONFIG.latency_configuration                  Automatic
-  CONFIG.operand_sign                           Signed
-  CONFIG.remainder_type                         Remainder
-# puts ""
-
-# puts "After configuring the IP, run:"
-After configuring the IP, run:
-# puts "  generate_target all [get_ips $ip_name]"
-  generate_target all div_gen_u32
-# puts "  export_ip_user_files -of_objects [get_ips $ip_name] -no_script -sync -force -quiet"
-  export_ip_user_files -of_objects div_gen_u32 -no_script -sync -force -quiet
-# puts ""
-
-# puts "Then check div_gen_u32.veo. The RTL wrapper expects these synthesis ports:"
-Then check div_gen_u32.veo. The RTL wrapper expects these synthesis ports:
-# puts "  aclk, aresetn"
-  aclk, aresetn
-# puts "  s_axis_dividend_tvalid, s_axis_dividend_tdata[31:0]"
-  s_axis_dividend_tvalid, s_axis_dividend_tdata[31:0]
-# puts "  s_axis_divisor_tvalid,  s_axis_divisor_tdata[31:0]"
-  s_axis_divisor_tvalid,  s_axis_divisor_tdata[31:0]
-# puts "  m_axis_dout_tvalid, m_axis_dout_tdata[63:0]"
-  m_axis_dout_tvalid, m_axis_dout_tdata[63:0]
-# puts "No tready or aclken ports should be enabled for this configuration."
-No tready or aclken ports should be enabled for this configuration.
-ls
-WARNING: [Common 17-259] Unknown Tcl command 'ls' sending command to the OS shell for execution. It is recommended to use 'exec' to send the command to the OS shell.
-create_div_gen_u32.tcl
-create_mult_gen_u33.tcl
-source create_mult_gen_u33.tcl
-# set ip_name mult_gen_u33
-# if {[llength [get_ips -quiet $ip_name]] == 0} {
-#     create_ip -name mult_gen -vendor xilinx.com -library ip -module_name $ip_name
-# }
-# puts "Created/found IP: $ip_name"
-Created/found IP: mult_gen_u33
-# puts "Required GUI configuration:"
-Required GUI configuration:
-# puts "  IP                    : Multiplier Generator"
-  IP                    : Multiplier Generator
-# puts "  Component Name        : mult_gen_u33"
-  Component Name        : mult_gen_u33
-# puts "  A Width               : 33"
-  A Width               : 33
-# puts "  B Width               : 33"
-  B Width               : 33
-# puts "  Input Type            : Signed / two's complement signed"
-  Input Type            : Signed / two's complement signed
-# puts "  Output Product Width  : 66, full precision"
-  Output Product Width  : 66, full precision
-# puts "  Multiplier Type       : DSP48 / DSP block implementation"
-  Multiplier Type       : DSP48 / DSP block implementation
-# puts "  Pipeline / Latency    : Automatic / Performance / Speed / maximum pipelining"
-  Pipeline / Latency    : Automatic / Performance / Speed / maximum pipelining
-# puts "  Clock                 : CPU clk_out2_pll / EX-stage clk"
-  Clock                 : CPU clk_out2_pll / EX-stage clk
-# puts "  CE / Clock Enable     : disabled if configurable; tie high if generated"
-  CE / Clock Enable     : disabled if configurable; tie high if generated
-# puts "  Reset / SCLR          : disabled if configurable; tie inactive if generated"
-  Reset / SCLR          : disabled if configurable; tie inactive if generated
-# puts ""
-
-# puts "Available CONFIG properties for $ip_name:"
-Available CONFIG properties for mult_gen_u33:
-# foreach p [lsort [list_property [get_ips $ip_name]]] {
-#     if {[string match "CONFIG.*" $p]} {
-#         puts [format "  %-45s %s" $p [get_property $p [get_ips $ip_name]]]
-#     }
-# }
-  CONFIG.CLK_INTF.FREQ_HZ                       10000000
-  CONFIG.CLK_INTF.INSERT_VIP                    0
-  CONFIG.CcmImp                                 Distributed_Memory
-  CONFIG.ClockEnable                            false
-  CONFIG.Component_Name                         mult_gen_u33
-  CONFIG.ConstValue                             129
-  CONFIG.InternalUser                           0
-  CONFIG.MultType                               Parallel_Multiplier
-  CONFIG.Multiplier_Construction                Use_LUTs
-  CONFIG.OptGoal                                Speed
-  CONFIG.OutputWidthHigh                        35
-  CONFIG.OutputWidthLow                         0
-  CONFIG.PipeStages                             1
-  CONFIG.PortAType                              Signed
-  CONFIG.PortAWidth                             18
-  CONFIG.PortBType                              Signed
-  CONFIG.PortBWidth                             18
-  CONFIG.RoundPoint                             0
-  CONFIG.SCLR_INTF.INSERT_VIP                   0
-  CONFIG.SclrCePriority                         SCLR_Overrides_CE
-  CONFIG.SyncClear                              false
-  CONFIG.UseRounding                            false
-  CONFIG.Use_Custom_Output_Width                false
-  CONFIG.ZeroDetect                             false
-# puts ""
-
-# puts "After configuring the IP, run:"
-After configuring the IP, run:
-# puts "  generate_target all [get_ips $ip_name]"
-  generate_target all mult_gen_u33
-# puts "  export_ip_user_files -of_objects [get_ips $ip_name] -no_script -sync -force -quiet"
-  export_ip_user_files -of_objects mult_gen_u33 -no_script -sync -force -quiet
-# puts ""
-
-# puts "Then check mult_gen_u33.veo. The RTL wrapper currently expects native ports:"
-Then check mult_gen_u33.veo. The RTL wrapper currently expects native ports:
-# puts "  CLK"
-  CLK
-# puts "  A[32:0]"
-  A[32:0]
-# puts "  B[32:0]"
-  B[32:0]
-# puts "  P[65:0]"
-  P[65:0]
-# puts "If the template includes CE/ACLKEN or SCLR/ARESET, either regenerate without"
-If the template includes CE/ACLKEN or SCLR/ARESET, either regenerate without
-# puts "those optional ports or connect CE to 1'b1 and reset to its inactive value in"
-those optional ports or connect CE to 1'b1 and reset to its inactive value in
-# puts "mul_ip_wrapper.v. Also update MUL_LATENCY in mul_ip_wrapper.v to match the"
-mul_ip_wrapper.v. Also update MUL_LATENCY in mul_ip_wrapper.v to match the
-# puts "latency reported by the GUI/veo."
-latency reported by the GUI/veo.
-set_property -dict [list \
-  CONFIG.ARESETN {true} \
-  CONFIG.dividend_and_quotient_width {32} \
-  CONFIG.divisor_width {32} \
-  CONFIG.fractional_width {32} \
-  CONFIG.latency {34} \
-  CONFIG.operand_sign {Unsigned} \
-] [get_ips div_gen_u32]
-generate_target all [get_files  d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci]
-INFO: [IP_Flow 19-1686] Generating 'Instantiation Template' target for IP 'div_gen_u32'...
-INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'div_gen_u32'...
-INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'div_gen_u32'...
-INFO: [IP_Flow 19-1686] Generating 'C Simulation' target for IP 'div_gen_u32'...
-INFO: [IP_Flow 19-1686] Generating 'Test Bench' target for IP 'div_gen_u32'...
-INFO: [IP_Flow 19-1686] Generating 'Change Log' target for IP 'div_gen_u32'...
-catch { config_ip_cache -export [get_ips -all div_gen_u32] }
-INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: div_gen_u32
-export_ip_user_files -of_objects [get_files d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci] -no_script -sync -force -quiet
-create_ip_run [get_files -of_objects [get_fileset sources_1] d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci]
-launch_runs div_gen_u32_synth_1 -jobs 8
-INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: div_gen_u32
-[Sat Jul 11 14:06:41 2026] Launched div_gen_u32_synth_1...
-Run output will be captured here: D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.runs/div_gen_u32_synth_1/runme.log
-export_simulation -of_objects [get_files d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci] -directory D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.ip_user_files -ipstatic_source_dir D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/modelsim} {questa=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/questa} {riviera=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/riviera} {activehdl=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
-set_property -dict [list \
-  CONFIG.Multiplier_Construction {Use_Mults} \
-  CONFIG.PipeStages {4} \
-  CONFIG.PortAWidth {33} \
-  CONFIG.PortBWidth {33} \
-] [get_ips mult_gen_u33]
-generate_target all [get_files  d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci]
-INFO: [IP_Flow 19-1686] Generating 'Instantiation Template' target for IP 'mult_gen_u33'...
-INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'mult_gen_u33'...
-INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'mult_gen_u33'...
-INFO: [IP_Flow 19-1686] Generating 'Change Log' target for IP 'mult_gen_u33'...
-catch { config_ip_cache -export [get_ips -all mult_gen_u33] }
-INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: mult_gen_u33
-INFO: [IP_Flow 19-6922] IPCACHE: Exporting cached entry cb2277f7ff572f25 to dir: d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/mult_gen_u33_1
-INFO: [IP_Flow 19-6928] IPCACHE: copied cached file d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/ip/2023.2/c/b/cb2277f7ff572f25/mult_gen_u33.dcp to d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/mult_gen_u33_1/mult_gen_u33.dcp.
-INFO: [IP_Flow 19-6926] IPCACHE: added file to list for BOM: d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/mult_gen_u33_1/mult_gen_u33.dcp
-INFO: [IP_Flow 19-6928] IPCACHE: copied cached file d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/ip/2023.2/c/b/cb2277f7ff572f25/mult_gen_u33_sim_netlist.v to d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/mult_gen_u33_1/mult_gen_u33_sim_netlist.v.
-INFO: [IP_Flow 19-6926] IPCACHE: added file to list for BOM: d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/mult_gen_u33_1/mult_gen_u33_sim_netlist.v
-INFO: [IP_Flow 19-6928] IPCACHE: copied cached file d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/ip/2023.2/c/b/cb2277f7ff572f25/mult_gen_u33_sim_netlist.vhdl to d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/mult_gen_u33_1/mult_gen_u33_sim_netlist.vhdl.
-INFO: [IP_Flow 19-6926] IPCACHE: added file to list for BOM: d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/mult_gen_u33_1/mult_gen_u33_sim_netlist.vhdl
-INFO: [IP_Flow 19-6928] IPCACHE: copied cached file d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/ip/2023.2/c/b/cb2277f7ff572f25/mult_gen_u33_stub.v to d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/mult_gen_u33_1/mult_gen_u33_stub.v.
-INFO: [IP_Flow 19-6926] IPCACHE: added file to list for BOM: d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/mult_gen_u33_1/mult_gen_u33_stub.v
-INFO: [IP_Flow 19-6928] IPCACHE: copied cached file d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/ip/2023.2/c/b/cb2277f7ff572f25/mult_gen_u33_stub.vhdl to d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/mult_gen_u33_1/mult_gen_u33_stub.vhdl.
-INFO: [IP_Flow 19-6926] IPCACHE: added file to list for BOM: d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/mult_gen_u33_1/mult_gen_u33_stub.vhdl
-INFO: [IP_Flow 19-4993] Using cached IP synthesis design for IP mult_gen_u33, cache-ID = cb2277f7ff572f25; cache size = 70.582 MB.
-export_ip_user_files -of_objects [get_files d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci] -no_script -sync -force -quiet
-create_ip_run [get_files -of_objects [get_fileset sources_1] d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci]
-INFO: [Vivado 12-3453] The given sub-design is up-to-date, no action was taken.  If a run is still desired, use the '-force' option for the file:'d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci'
-export_simulation -of_objects [get_files d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci] -directory D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.ip_user_files -ipstatic_source_dir D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/modelsim} {questa=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/questa} {riviera=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/riviera} {activehdl=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
-WARNING: [IP_Flow 19-4067] Ignoring invalid widget type specified checkbox.Providing a default widget
-WARNING: [IP_Flow 19-4067] Ignoring invalid widget type specified checkbox.Providing a default widget
-INFO: [IP_Flow 19-3484] Absolute path of file 'd:/DESKTOP/JYD/COE/withMext/demo/dram.coe' provided. It will be converted relative to IP Instance files '../../../../../../../../../COE/withMext/demo/dram.coe'
-create_ip -name blk_mem_gen -vendor xilinx.com -library ip -version 8.4 -module_name DRAM_TDP
-set_property -dict [list \
-  CONFIG.Assume_Synchronous_Clk {true} \
-  CONFIG.Byte_Size {8} \
-  CONFIG.Coe_File {D:/DESKTOP/JYD/COE/withMext/demo/dram.coe} \
-  CONFIG.Enable_A {Always_Enabled} \
-  CONFIG.Enable_B {Always_Enabled} \
-  CONFIG.Fill_Remaining_Memory_Locations {true} \
-  CONFIG.Load_Init_File {true} \
-  CONFIG.Memory_Type {True_Dual_Port_RAM} \
-  CONFIG.Operating_Mode_B {READ_FIRST} \
-  CONFIG.Register_PortA_Output_of_Memory_Primitives {false} \
-  CONFIG.Register_PortB_Output_of_Memory_Primitives {false} \
-  CONFIG.Use_Byte_Write_Enable {true} \
-  CONFIG.Write_Depth_A {65536} \
-  CONFIG.Write_Width_A {32} \
-] [get_ips DRAM_TDP]
-INFO: [IP_Flow 19-3484] Absolute path of file 'd:/DESKTOP/JYD/COE/withMext/demo/dram.coe' provided. It will be converted relative to IP Instance files '../../../../../../../../../../../DESKTOP/JYD/COE/withMext/demo/dram.coe'
-generate_target {instantiation_template} [get_files d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/DRAM_TDP_1/DRAM_TDP.xci]
-INFO: [IP_Flow 19-1686] Generating 'Instantiation Template' target for IP 'DRAM_TDP'...
-generate_target all [get_files  d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/DRAM_TDP_1/DRAM_TDP.xci]
-INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'DRAM_TDP'...
-INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'DRAM_TDP'...
-INFO: [IP_Flow 19-1686] Generating 'Miscellaneous' target for IP 'DRAM_TDP'...
-INFO: [IP_Flow 19-1686] Generating 'Change Log' target for IP 'DRAM_TDP'...
-catch { config_ip_cache -export [get_ips -all DRAM_TDP] }
-INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: DRAM_TDP
-export_ip_user_files -of_objects [get_files d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/DRAM_TDP_1/DRAM_TDP.xci] -no_script -sync -force -quiet
-create_ip_run [get_files -of_objects [get_fileset sources_1] d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/DRAM_TDP_1/DRAM_TDP.xci]
-launch_runs DRAM_TDP_synth_1 -jobs 8
-INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: DRAM_TDP
-[Sat Jul 11 14:09:33 2026] Launched DRAM_TDP_synth_1...
-Run output will be captured here: D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.runs/DRAM_TDP_synth_1/runme.log
-export_simulation -of_objects [get_files d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/DRAM_TDP_1/DRAM_TDP.xci] -directory D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.ip_user_files -ipstatic_source_dir D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/modelsim} {questa=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/questa} {riviera=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/riviera} {activehdl=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
-WARNING: [IP_Flow 19-4067] Ignoring invalid widget type specified checkbox.Providing a default widget
-WARNING: [IP_Flow 19-4067] Ignoring invalid widget type specified checkbox.Providing a default widget
+export_ip_user_files -of_objects  [get_files d:/Desktop/JYD/DESKTOP/JYD/src2/dram.coe] -no_script -reset -force -quiet
+remove_files  d:/Desktop/JYD/DESKTOP/JYD/src2/dram.coe
+set_property is_global_include true [get_files  D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/define.v]
+create_run BPU_try125mhz -flow {Vivado Synthesis 2023}
+Run is defaulting to srcset: sources_1
+Run is defaulting to constrset: constrs_1
+Run is defaulting to part: xc7k325tffg900-2
+create_run impl_4 -parent_run BPU_try125mhz -flow {Vivado Implementation 2023}
+Run is defaulting to parent run srcset: sources_1
+Run is defaulting to parent run constrset: constrs_1
+Run is defaulting to parent run part: xc7k325tffg900-2
+launch_runs impl_4 -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci' is already up-to-date
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci' is already up-to-date
+[Sat Jul 11 15:16:57 2026] Launched BPU_try125mhz...
+Run output will be captured here: D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.runs/BPU_try125mhz/runme.log
+[Sat Jul 11 15:16:57 2026] Launched impl_4...
+Run output will be captured here: D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.runs/impl_4/runme.log
+current_run [get_runs BPU_try125mhz]
+open_run impl_4
 INFO: [Device 21-403] Loading part xc7k325tffg900-2
-set_property CONFIG.coefficient_file {D:/DESKTOP/JYD/COE/withMext/demo/irom-v2.coe} [get_ips IROM]
-INFO: [IP_Flow 19-3484] Absolute path of file 'd:/DESKTOP/JYD/COE/withMext/demo/irom-v2.coe' provided. It will be converted relative to IP Instance files '../../../../../../../../../../../DESKTOP/JYD/COE/withMext/demo/irom-v2.coe'
-generate_target all [get_files  D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/IROM/IROM.xci]
-INFO: [IP_Flow 19-1686] Generating 'Instantiation Template' target for IP 'IROM'...
-INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'IROM'...
-INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'IROM'...
-INFO: [IP_Flow 19-1686] Generating 'Change Log' target for IP 'IROM'...
-catch { config_ip_cache -export [get_ips -all IROM] }
-INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: IROM
-export_ip_user_files -of_objects [get_files D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/IROM/IROM.xci] -no_script -sync -force -quiet
-reset_run IROM_synth_1
-WARNING: [Vivado 12-1017] Problems encountered:
-1. Failed to delete one or more files in run directory D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.runs/IROM_synth_1
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.227 . Memory (MB): peak = 2122.070 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 2175 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2023.2
+INFO: [Project 1-570] Preparing netlist for logic optimization
+Read ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.035 . Memory (MB): peak = 2251.250 ; gain = 3.969
+INFO: [Timing 38-478] Restoring timing data from binary archive.
+INFO: [Timing 38-479] Binary timing data restore complete.
+INFO: [Project 1-856] Restoring constraints from binary archive.
+INFO: [Project 1-853] Binary constraint restore complete.
+INFO: [Designutils 20-5722] Start Reading Physical Databases.
+Reading placement.
+Read Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.015 . Memory (MB): peak = 2890.250 ; gain = 0.000
+Reading placer database...
+Read Device Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 2890.250 ; gain = 0.000
+Read PlaceDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.474 . Memory (MB): peak = 2895.516 ; gain = 5.266
+Read PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2895.516 ; gain = 0.000
+Reading routing.
+Read RouteStorage: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.239 . Memory (MB): peak = 2898.812 ; gain = 3.297
+Read Physdb Files: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.749 . Memory (MB): peak = 2898.898 ; gain = 8.648
+Restored from archive | CPU: 0.000000 secs | Memory: 0.000000 MB |
+Finished XDEF File Restore: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.750 . Memory (MB): peak = 2898.898 ; gain = 8.648
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 2898.961 ; gain = 0.047
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
 
-launch_runs IROM_synth_1 -jobs 8
-INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: IROM
-[Sat Jul 11 14:10:33 2026] Launched IROM_synth_1...
-Run output will be captured here: D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.runs/IROM_synth_1/runme.log
-export_simulation -of_objects [get_files D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/IROM/IROM.xci] -directory D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.ip_user_files -ipstatic_source_dir D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/modelsim} {questa=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/questa} {riviera=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/riviera} {activehdl=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+open_run: Time (s): cpu = 00:00:21 ; elapsed = 00:00:15 . Memory (MB): peak = 3083.602 ; gain = 1404.508
+open_report: Time (s): cpu = 00:00:10 ; elapsed = 00:00:07 . Memory (MB): peak = 3154.059 ; gain = 36.445
+CRITICAL WARNING: [Timing 38-282] The design failed to meet the timing requirements. Please see the timing summary report for details on the timing violations.
+launch_runs impl_4 -to_step write_bitstream -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci' is already up-to-date
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci' is already up-to-date
+[Sat Jul 11 15:23:14 2026] Launched impl_4...
+Run output will be captured here: D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.runs/impl_4/runme.log
+open_hw_manager
+connect_hw_server -allow_non_jtag
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-2222] Launching hw_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx hw_server v2023.2
+  **** Build date : Oct 13 2023 at 21:31:40
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+
+INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:0
+INFO: [Labtools 27-3417] Launching cs_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+
+******** Xilinx cs_server v2023.2.0
+  ****** Build date   : Oct 10 2023-12:01:56
+    **** Build number : 2023.2.1696910516
+      ** Copyright 2017-2022 Xilinx, Inc. All Rights Reserved.
+      ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+
+
+connect_hw_server: Time (s): cpu = 00:00:00 ; elapsed = 00:00:05 . Memory (MB): peak = 3302.062 ; gain = 0.000
+open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/C306A93EABCD
+set_property PROGRAM.FILE {D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.runs/impl_4/top.bit} [get_hw_devices xc7k325t_0]
+current_hw_device [get_hw_devices xc7k325t_0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7k325t_0] 0]
+INFO: [Labtools 27-1435] Device xc7k325t (JTAG device index = 0) is not programmed (DONE status = 0).
+set_property PROBES.FILE {} [get_hw_devices xc7k325t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7k325t_0]
+set_property PROGRAM.FILE {D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.runs/impl_4/top.bit} [get_hw_devices xc7k325t_0]
+program_hw_devices [get_hw_devices xc7k325t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+program_hw_devices: Time (s): cpu = 00:00:08 ; elapsed = 00:00:07 . Memory (MB): peak = 3302.062 ; gain = 0.000
+refresh_hw_device [lindex [get_hw_devices xc7k325t_0] 0]
+INFO: [Labtools 27-1434] Device xc7k325t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Digilent/C306A93EABCD
