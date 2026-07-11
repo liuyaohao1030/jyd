@@ -179,7 +179,7 @@ module div_ip_wrapper(
 `else
     div_gen_u32 u_div_gen_u32 (
          .aclk                   (clk)
-        ,.aresetn                (~ip_rst)
+        // ,.aresetn                (~ip_rst)
         ,.s_axis_dividend_tvalid (s_axis_dividend_tvalid)
         ,.s_axis_dividend_tdata  (s_axis_dividend_tdata)
         ,.s_axis_divisor_tvalid  (s_axis_divisor_tvalid)

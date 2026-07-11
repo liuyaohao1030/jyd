@@ -9,6 +9,7 @@ vmap xil_defaultlib modelsim_lib/msim/xil_defaultlib
 
 vlog -work xpm  -incr -mfcu  -sv "+incdir+../../../ipstatic" "+incdir+../../../../digital_twin.gen/sources_1/ip/pll" \
 "E:/Vivado2023.2/Vivado/2023.2/data/ip/xpm/xpm_cdc/hdl/xpm_cdc.sv" \
+"E:/Vivado2023.2/Vivado/2023.2/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv" \
 
 vcom -work xpm  -93  \
 "E:/Vivado2023.2/Vivado/2023.2/data/ip/xpm/xpm_VCOMP.vhd" \

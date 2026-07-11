@@ -34,6 +34,7 @@ vmap xil_defaultlib riviera/xil_defaultlib
 
 vlog -work xpm  -incr -l xpm -l xbip_utils_v3_0_11 -l axi_utils_v2_0_7 -l xbip_pipe_v3_0_7 -l xbip_dsp48_wrapper_v3_0_5 -l xbip_dsp48_addsub_v3_0_7 -l xbip_bram18k_v3_0_7 -l mult_gen_v12_0_19 -l floating_point_v7_0_21 -l xbip_dsp48_mult_v3_0_7 -l xbip_dsp48_multadd_v3_0_7 -l div_gen_v5_1_20 -l xil_defaultlib \
 "E:/Vivado2023.2/Vivado/2023.2/data/ip/xpm/xpm_cdc/hdl/xpm_cdc.sv" \
+"E:/Vivado2023.2/Vivado/2023.2/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv" \
 
 vcom -work xpm -93  -incr \
 "E:/Vivado2023.2/Vivado/2023.2/data/ip/xpm/xpm_VCOMP.vhd" \
@@ -73,7 +74,6 @@ vcom -work div_gen_v5_1_20 -93  -incr \
 
 vcom -work xil_defaultlib -93  -incr \
 "../../../../digital_twin.gen/sources_1/ip/div_gen_u32_1/sim/div_gen_u32.vhd" \
-
 
 vlog -work xil_defaultlib \
 "glbl.v"

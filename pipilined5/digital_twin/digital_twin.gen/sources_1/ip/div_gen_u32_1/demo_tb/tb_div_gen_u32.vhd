@@ -91,7 +91,6 @@ architecture tb of tb_div_gen_u32 is
 
   -- General inputs
   signal aclk               : std_logic := '0';  -- the master clock
-  signal aresetn            : std_logic := '1';  -- synchronous active low reset, overrides aclken
 
   -- Slave channel DIVIDEND inputs
   signal s_axis_dividend_tvalid    : std_logic := '0';  -- TVALID for channel A
@@ -180,7 +179,6 @@ begin
   dut : entity work.div_gen_u32
     port map (
       aclk                => aclk,
-      aresetn             => aresetn,
       s_axis_dividend_tvalid     => s_axis_dividend_tvalid,
       s_axis_dividend_tdata      => s_axis_dividend_tdata,
       s_axis_divisor_tvalid     => s_axis_divisor_tvalid,
@@ -211,26 +209,6 @@ begin
   end process clock_gen;
 
   -----------------------------------------------------------------------
-  -- Generate reset
-  -----------------------------------------------------------------------
-
-  -- Reset the core in cycle 200. Hold the reset active for 2 clock
-  -- cycles, as recommended in the Divider Generator Datasheet.
-  aresetn_gen : process
-  begin
-    aresetn <= '1';  -- inactive (aresetn is active low)
-    -- Drive reset T_HOLD time after rising edge of clock
-    wait until rising_edge(aclk);
-    wait for T_HOLD;
-    -- Reset goes low (active) in cycle 200, goes high 2 cycles later
-    wait for CLOCK_PERIOD * 200;
-    aresetn <= '0';
-    wait for CLOCK_PERIOD * 2;
-    aresetn <= '1';
-    wait;
-  end process aresetn_gen;
-
-  -----------------------------------------------------------------------
   -- Generate inputs
   -----------------------------------------------------------------------
 
@@ -248,7 +226,7 @@ begin
     loop
 
       -- Drive inputs T_HOLD time after rising edge of clock
-      wait until rising_edge(aclk) and aresetn = '1';
+      wait until rising_edge(aclk);
       wait for T_HOLD;
 
       -- Drive AXI TVALID signals to demonstrate different types of operation
@@ -344,7 +322,7 @@ begin
     -- Instead, check the protocol of the DOUT channel:
     -- check that the payload is valid (not X) when TVALID is high
 
-    if m_axis_dout_tvalid = '1' and aresetn = '1' then
+    if m_axis_dout_tvalid = '1' then
       if is_x(m_axis_dout_tdata) then
         report "ERROR: m_axis_dout_tdata is invalid when m_axis_dout_tvalid is high" severity error;
         check_ok := false;

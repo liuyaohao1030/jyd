@@ -56,7 +56,6 @@
 //----------- Begin Cut here for INSTANTIATION Template ---// INST_TAG
 div_gen_u32 your_instance_name (
   .aclk(aclk),                                      // input wire aclk
-  .aresetn(aresetn),                                // input wire aresetn
   .s_axis_divisor_tvalid(s_axis_divisor_tvalid),    // input wire s_axis_divisor_tvalid
   .s_axis_divisor_tdata(s_axis_divisor_tdata),      // input wire [31 : 0] s_axis_divisor_tdata
   .s_axis_dividend_tvalid(s_axis_dividend_tvalid),  // input wire s_axis_dividend_tvalid

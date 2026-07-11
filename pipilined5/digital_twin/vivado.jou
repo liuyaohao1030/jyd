@@ -38,3 +38,61 @@ set_property FULL_PROBES.FILE {} [get_hw_devices xc7k325t_0]
 set_property PROGRAM.FILE {D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.runs/impl_4/top.bit} [get_hw_devices xc7k325t_0]
 program_hw_devices [get_hw_devices xc7k325t_0]
 refresh_hw_device [lindex [get_hw_devices xc7k325t_0] 0]
+close_hw_manager
+set_property CONFIG.ARESETN {false} [get_ips div_gen_u32]
+generate_target all [get_files  D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci]
+catch { config_ip_cache -export [get_ips -all div_gen_u32] }
+catch { [ delete_ip_run [get_ips -all div_gen_u32] ] }
+export_ip_user_files -of_objects [get_files D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci]
+export_simulation -of_objects [get_files D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci] -directory D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.ip_user_files -ipstatic_source_dir D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/modelsim} {questa=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/questa} {riviera=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/riviera} {activehdl=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+create_run fixtiming1 -flow {Vivado Synthesis 2023}
+create_run impl_5 -parent_run fixtiming1 -flow {Vivado Implementation 2023}
+launch_runs impl_5 -jobs 8
+wait_on_run impl_5
+current_run [get_runs fixtiming1]
+open_run impl_5
+launch_runs impl_5 -to_step write_bitstream -jobs 8
+wait_on_run impl_5
+open_hw_manager
+connect_hw_server -allow_non_jtag
+open_hw_target
+set_property PROGRAM.FILE {D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.runs/impl_4/top.bit} [get_hw_devices xc7k325t_0]
+current_hw_device [get_hw_devices xc7k325t_0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7k325t_0] 0]
+set_property PROBES.FILE {} [get_hw_devices xc7k325t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7k325t_0]
+set_property PROGRAM.FILE {D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.runs/impl_5/top.bit} [get_hw_devices xc7k325t_0]
+program_hw_devices [get_hw_devices xc7k325t_0]
+refresh_hw_device [lindex [get_hw_devices xc7k325t_0] 0]
+close_hw_manager
+create_run 150mhz -flow {Vivado Synthesis 2023}
+create_run try_150Mhz -flow {Vivado Synthesis 2023}
+create_run impl_6 -parent_run try_150Mhz -flow {Vivado Implementation 2023}
+launch_runs impl_6 -jobs 8
+wait_on_run impl_6
+current_run [get_runs try_150Mhz]
+open_run impl_6
+set_property -dict [list \
+  CONFIG.CLKOUT1_JITTER {157.199} \
+  CONFIG.CLKOUT1_PHASE_ERROR {105.461} \
+  CONFIG.CLKOUT2_JITTER {126.399} \
+  CONFIG.CLKOUT2_PHASE_ERROR {105.461} \
+  CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {150} \
+  CONFIG.MMCM_CLKFBOUT_MULT_F {9} \
+  CONFIG.MMCM_CLKOUT0_DIVIDE_F {18} \
+  CONFIG.MMCM_CLKOUT1_DIVIDE {6} \
+  CONFIG.MMCM_DIVCLK_DIVIDE {2} \
+] [get_ips pll]
+generate_target all [get_files  D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci]
+catch { config_ip_cache -export [get_ips -all pll] }
+export_ip_user_files -of_objects [get_files D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci]
+export_simulation -of_objects [get_files D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci] -directory D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.ip_user_files -ipstatic_source_dir D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/modelsim} {questa=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/questa} {riviera=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/riviera} {activehdl=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+reset_run try_150Mhz
+launch_runs impl_6 -jobs 8
+wait_on_run impl_6
+pwd
+ls
+file mkdir Timing_info
+ls

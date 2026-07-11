@@ -2,8 +2,8 @@
 // Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2023.2 (win64) Build 4029153 Fri Oct 13 20:14:34 MDT 2023
-// Date        : Wed Apr 29 00:07:03 2026
-// Host        : DESKTOP-MO7L2KR running 64-bit major release  (build 9200)
+// Date        : Fri Apr 25 10:05:17 2025
+// Host        : LAPTOP-TNKPRGBT running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim -rename_top pll -prefix
 //               pll_ pll_sim_netlist.v
 // Design      : pll
@@ -94,14 +94,14 @@ module pll_pll_clk_wiz
   (* BOX_TYPE = "PRIMITIVE" *) 
   PLLE2_ADV #(
     .BANDWIDTH("OPTIMIZED"),
-    .CLKFBOUT_MULT(5),
+    .CLKFBOUT_MULT(9),
     .CLKFBOUT_PHASE(0.000000),
     .CLKIN1_PERIOD(5.000000),
     .CLKIN2_PERIOD(0.000000),
-    .CLKOUT0_DIVIDE(20),
+    .CLKOUT0_DIVIDE(18),
     .CLKOUT0_DUTY_CYCLE(0.500000),
     .CLKOUT0_PHASE(0.000000),
-    .CLKOUT1_DIVIDE(8),
+    .CLKOUT1_DIVIDE(6),
     .CLKOUT1_DUTY_CYCLE(0.500000),
     .CLKOUT1_PHASE(0.000000),
     .CLKOUT2_DIVIDE(1),
@@ -117,7 +117,7 @@ module pll_pll_clk_wiz
     .CLKOUT5_DUTY_CYCLE(0.500000),
     .CLKOUT5_PHASE(0.000000),
     .COMPENSATION("ZHOLD"),
-    .DIVCLK_DIVIDE(1),
+    .DIVCLK_DIVIDE(2),
     .IS_CLKINSEL_INVERTED(1'b0),
     .IS_PWRDWN_INVERTED(1'b0),
     .IS_RST_INVERTED(1'b0),
