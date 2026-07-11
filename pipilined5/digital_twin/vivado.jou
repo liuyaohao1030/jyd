@@ -3,86 +3,84 @@
 # SW Build 4029153 on Fri Oct 13 20:14:34 MDT 2023
 # IP Build 4028589 on Sat Oct 14 00:45:43 MDT 2023
 # SharedData Build 4025554 on Tue Oct 10 17:18:54 MDT 2023
-# Start of session at: Wed Apr 29 10:22:21 2026
-# Process ID: 31356
-# Current directory: D:/DESKTOP/JYD/KDLJ_SRC/pipilined5/digital_twin
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent14644 D:\Desktop\JYD\KDLJ_SRC\pipilined5\digital_twin\digital_twin.xpr
-# Log file: D:/DESKTOP/JYD/KDLJ_SRC/pipilined5/digital_twin/vivado.log
-# Journal file: D:/DESKTOP/JYD/KDLJ_SRC/pipilined5/digital_twin\vivado.jou
+# Start of session at: Sat Jul 11 13:57:14 2026
+# Process ID: 7504
+# Current directory: D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent24840 D:\Desktop\JYD\Source_code\merge_dualport_bpu\jyd\pipilined5\digital_twin\digital_twin.xpr
+# Log file: D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/vivado.log
+# Journal file: D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin\vivado.jou
 # Running On: DESKTOP-MO7L2KR, OS: Windows, CPU Frequency: 3793 MHz, CPU Physical cores: 16, Host memory: 33618 MB
 #-----------------------------------------------------------
 start_gui
-open_project D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.xpr
+open_project D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.xpr
 update_compile_order -fileset sources_1
-set_property CONFIG.coefficient_file {D:/DESKTOP/JYD/src0/irom.coe} [get_ips IROM]
-generate_target all [get_files  D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/IROM/IROM.xci]
+remove_files [get_files *.sv]
+update_compile_order -fileset sources_1
+remove_files [get_files *.v]
+remove_files [get_files *.coe]
+pwd
+cd ..
+cd scripts
+ls
+source create_div_gen_u32.tcl
+ls
+source create_mult_gen_u33.tcl
+set_property -dict [list \
+  CONFIG.ARESETN {true} \
+  CONFIG.dividend_and_quotient_width {32} \
+  CONFIG.divisor_width {32} \
+  CONFIG.fractional_width {32} \
+  CONFIG.latency {34} \
+  CONFIG.operand_sign {Unsigned} \
+] [get_ips div_gen_u32]
+generate_target all [get_files  d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci]
+catch { config_ip_cache -export [get_ips -all div_gen_u32] }
+export_ip_user_files -of_objects [get_files d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci]
+launch_runs div_gen_u32_synth_1 -jobs 8
+wait_on_run div_gen_u32_synth_1
+export_simulation -of_objects [get_files d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci] -directory D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.ip_user_files -ipstatic_source_dir D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/modelsim} {questa=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/questa} {riviera=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/riviera} {activehdl=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+set_property -dict [list \
+  CONFIG.Multiplier_Construction {Use_Mults} \
+  CONFIG.PipeStages {4} \
+  CONFIG.PortAWidth {33} \
+  CONFIG.PortBWidth {33} \
+] [get_ips mult_gen_u33]
+generate_target all [get_files  d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci]
+catch { config_ip_cache -export [get_ips -all mult_gen_u33] }
+export_ip_user_files -of_objects [get_files d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci]
+export_simulation -of_objects [get_files d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci] -directory D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.ip_user_files -ipstatic_source_dir D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/modelsim} {questa=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/questa} {riviera=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/riviera} {activehdl=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+create_ip -name blk_mem_gen -vendor xilinx.com -library ip -version 8.4 -module_name DRAM_TDP
+set_property -dict [list \
+  CONFIG.Assume_Synchronous_Clk {true} \
+  CONFIG.Byte_Size {8} \
+  CONFIG.Coe_File {D:/DESKTOP/JYD/COE/withMext/demo/dram.coe} \
+  CONFIG.Enable_A {Always_Enabled} \
+  CONFIG.Enable_B {Always_Enabled} \
+  CONFIG.Fill_Remaining_Memory_Locations {true} \
+  CONFIG.Load_Init_File {true} \
+  CONFIG.Memory_Type {True_Dual_Port_RAM} \
+  CONFIG.Operating_Mode_B {READ_FIRST} \
+  CONFIG.Register_PortA_Output_of_Memory_Primitives {false} \
+  CONFIG.Register_PortB_Output_of_Memory_Primitives {false} \
+  CONFIG.Use_Byte_Write_Enable {true} \
+  CONFIG.Write_Depth_A {65536} \
+  CONFIG.Write_Width_A {32} \
+] [get_ips DRAM_TDP]
+generate_target {instantiation_template} [get_files d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/DRAM_TDP_1/DRAM_TDP.xci]
+generate_target all [get_files  d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/DRAM_TDP_1/DRAM_TDP.xci]
+catch { config_ip_cache -export [get_ips -all DRAM_TDP] }
+export_ip_user_files -of_objects [get_files d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/DRAM_TDP_1/DRAM_TDP.xci] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/DRAM_TDP_1/DRAM_TDP.xci]
+launch_runs DRAM_TDP_synth_1 -jobs 8
+wait_on_run DRAM_TDP_synth_1
+export_simulation -of_objects [get_files d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/DRAM_TDP_1/DRAM_TDP.xci] -directory D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.ip_user_files -ipstatic_source_dir D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/modelsim} {questa=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/questa} {riviera=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/riviera} {activehdl=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+set_property CONFIG.coefficient_file {D:/DESKTOP/JYD/COE/withMext/demo/irom-v2.coe} [get_ips IROM]
+generate_target all [get_files  D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/IROM/IROM.xci]
 catch { config_ip_cache -export [get_ips -all IROM] }
-export_ip_user_files -of_objects [get_files D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/IROM/IROM.xci] -no_script -sync -force -quiet
+export_ip_user_files -of_objects [get_files D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/IROM/IROM.xci] -no_script -sync -force -quiet
 reset_run IROM_synth_1
 launch_runs IROM_synth_1 -jobs 8
 wait_on_run IROM_synth_1
-export_simulation -of_objects [get_files D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/IROM/IROM.xci] -directory D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.ip_user_files -ipstatic_source_dir D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.cache/compile_simlib/modelsim} {questa=D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.cache/compile_simlib/questa} {riviera=D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.cache/compile_simlib/riviera} {activehdl=D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
-set_property CONFIG.coefficient_file {D:/DESKTOP/JYD/src0/dram.coe} [get_ips DRAM]
-generate_target all [get_files  D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/DRAM/DRAM.xci]
-catch { config_ip_cache -export [get_ips -all DRAM] }
-export_ip_user_files -of_objects [get_files D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/DRAM/DRAM.xci] -no_script -sync -force -quiet
-reset_run DRAM_synth_1
-launch_runs DRAM_synth_1 -jobs 8
-wait_on_run DRAM_synth_1
-export_simulation -of_objects [get_files D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/DRAM/DRAM.xci] -directory D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.ip_user_files -ipstatic_source_dir D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.cache/compile_simlib/modelsim} {questa=D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.cache/compile_simlib/questa} {riviera=D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.cache/compile_simlib/riviera} {activehdl=D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
-reset_run synth_1
-launch_runs synth_1 -jobs 8
-wait_on_run synth_1
-launch_runs impl_1 -jobs 8
-wait_on_run impl_1
-open_run impl_1
-launch_runs impl_1 -to_step write_bitstream -jobs 8
-wait_on_run impl_1
-set_property -dict [list \
-  CONFIG.CLKOUT1_JITTER {123.939} \
-  CONFIG.CLKOUT1_PHASE_ERROR {82.897} \
-  CONFIG.CLKOUT2_JITTER {103.551} \
-  CONFIG.CLKOUT2_PHASE_ERROR {82.897} \
-  CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {130} \
-  CONFIG.MMCM_CLKFBOUT_MULT_F {13} \
-  CONFIG.MMCM_CLKOUT0_DIVIDE_F {26} \
-  CONFIG.MMCM_CLKOUT1_DIVIDE {10} \
-  CONFIG.MMCM_DIVCLK_DIVIDE {2} \
-] [get_ips pll]
-generate_target all [get_files  D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci]
-catch { config_ip_cache -export [get_ips -all pll] }
-export_ip_user_files -of_objects [get_files D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci] -no_script -sync -force -quiet
-reset_run pll_synth_1
-launch_runs pll_synth_1 -jobs 8
-wait_on_run pll_synth_1
-export_simulation -of_objects [get_files D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci] -directory D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.ip_user_files -ipstatic_source_dir D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.cache/compile_simlib/modelsim} {questa=D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.cache/compile_simlib/questa} {riviera=D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.cache/compile_simlib/riviera} {activehdl=D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
-reset_run synth_1
-launch_runs synth_1 -jobs 8
-wait_on_run synth_1
-launch_runs impl_1 -jobs 8
-wait_on_run impl_1
-refresh_design
-close_design
-set_property -dict [list \
-  CONFIG.CLKOUT1_JITTER {129.198} \
-  CONFIG.CLKOUT1_PHASE_ERROR {89.971} \
-  CONFIG.CLKOUT2_JITTER {107.523} \
-  CONFIG.CLKOUT2_PHASE_ERROR {89.971} \
-  CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {125} \
-  CONFIG.MMCM_CLKFBOUT_MULT_F {5} \
-  CONFIG.MMCM_CLKOUT0_DIVIDE_F {20} \
-  CONFIG.MMCM_CLKOUT1_DIVIDE {8} \
-  CONFIG.MMCM_DIVCLK_DIVIDE {1} \
-] [get_ips pll]
-generate_target all [get_files  D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci]
-catch { config_ip_cache -export [get_ips -all pll] }
-catch { [ delete_ip_run [get_ips -all pll] ] }
-export_ip_user_files -of_objects [get_files D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci] -no_script -sync -force -quiet
-create_ip_run [get_files -of_objects [get_fileset sources_1] D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci]
-export_simulation -of_objects [get_files D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci] -directory D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.ip_user_files -ipstatic_source_dir D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.cache/compile_simlib/modelsim} {questa=D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.cache/compile_simlib/questa} {riviera=D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.cache/compile_simlib/riviera} {activehdl=D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
-reset_run synth_1
-launch_runs synth_1 -jobs 8
-wait_on_run synth_1
-launch_runs impl_1 -jobs 8
-wait_on_run impl_1
-open_run impl_1
+export_simulation -of_objects [get_files D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/IROM/IROM.xci] -directory D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.ip_user_files -ipstatic_source_dir D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/modelsim} {questa=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/questa} {riviera=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/riviera} {activehdl=D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet

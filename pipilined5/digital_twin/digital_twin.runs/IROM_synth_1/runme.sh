@@ -25,7 +25,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='D:/Desktop/JYD/KDLJ_SRC/pipilined5/digital_twin/digital_twin.runs/IROM_synth_1'
+HD_PWD='D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.runs/IROM_synth_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log

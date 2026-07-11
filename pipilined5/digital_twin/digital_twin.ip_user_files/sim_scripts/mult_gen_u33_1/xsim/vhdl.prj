@@ -1,0 +1,5 @@
+vhdl xil_defaultlib  \
+"../../../../digital_twin.gen/sources_1/ip/mult_gen_u33_1/sim/mult_gen_u33.vhd" \
+
+# Do not sort compile order
+nosort
