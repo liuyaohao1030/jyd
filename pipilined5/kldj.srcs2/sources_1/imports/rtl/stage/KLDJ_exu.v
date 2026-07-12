@@ -144,20 +144,18 @@ module KLDJ_exu(
     // 对于普通指令和访存指令（基址计算），输出 ALU 的计算结果
     // 对于 JAL/JALR，输出 data3 (即 snpc)
     // 对于 CSR 指令，输出旧 CSR 值 (写入 rd)
-    wire is_jump_op = (exu_op == 18'h9) || (exu_op == 18'h1c);
-
-    assign exu_res = is_mul_op ? mul_result :
-                     is_div_op ? div_result :
-                     is_jump_op ? data3 :
+    assign exu_res = is_mul_op ? mul_result : 
+                     is_div_op ? div_result : 
+                     (exu_op == 18'h9 | exu_op == 18'h1c) ? data3 :
                      csr_op ? csr_rdata :
-                     is_load_or_store ? load_store_addr :
+                     is_load_or_store ? load_store_addr : 
                      alu_res;
 
     // mret also triggers a jump
-    assign exu_jump = is_jump_op || branch_taken || is_mret;
+    assign exu_jump = (exu_op == 18'h9 | exu_op == 18'h1c) | branch_taken | is_mret;
     assign exu_jump_pc = (exu_op == 18'h9) ? {alu_res[31:1], 1'b0} :
                          (exu_op == 18'h1c) ? alu_res :
-                         branch_taken ? branch_target :
+                         (branch_taken) ? branch_target :
                          is_mret ? mret_pc :
                          32'b0;
 
