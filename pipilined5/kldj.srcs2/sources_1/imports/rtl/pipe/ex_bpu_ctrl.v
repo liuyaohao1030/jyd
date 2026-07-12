@@ -33,7 +33,14 @@ module ex_bpu_ctrl #(
     wire ex_actual_redirect;
     wire direction_miss;
 
-    assign ex_is_branch_op = (id_ex_exu_op >= 18'h14) && (id_ex_exu_op <= 18'h19);
+    // Explicit decode avoids magnitude comparators on the recovery path while
+    // preserving the exact set of operation values accepted previously.
+    assign ex_is_branch_op = (id_ex_exu_op == 18'h14) ||
+                             (id_ex_exu_op == 18'h15) ||
+                             (id_ex_exu_op == 18'h16) ||
+                             (id_ex_exu_op == 18'h17) ||
+                             (id_ex_exu_op == 18'h18) ||
+                             (id_ex_exu_op == 18'h19);
     assign ex_is_jal_op    = (id_ex_exu_op == 18'h1c);
 
     assign ex_actual_redirect = exu_jump_raw || is_ecall || is_mret;
