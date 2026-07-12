@@ -1,2 +1,0 @@
-DRAM_TDP.v,verilog,xil_defaultlib,../../../../digital_twin.gen/sources_1/ip/DRAM_TDP_1/sim/DRAM_TDP.v,
-glbl.v,Verilog,xil_defaultlib,glbl.v

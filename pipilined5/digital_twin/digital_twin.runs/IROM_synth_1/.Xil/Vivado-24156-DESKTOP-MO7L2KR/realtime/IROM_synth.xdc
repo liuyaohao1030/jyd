@@ -1,6 +1,0 @@
-set_property SRC_FILE_INFO {cfile:d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/IROM/IROM_ooc.xdc rfile:../../../../../../../../../../../../Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/IROM/IROM_ooc.xdc id:1 order:EARLY scoped_inst:U0} [current_design]
-set_property SRC_FILE_INFO {cfile:D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.runs/IROM_synth_1/dont_touch.xdc rfile:../../../dont_touch.xdc id:2} [current_design]
-set_property src_info {type:SCOPED_XDC file:1 line:53 export:INPUT save:INPUT read:FILTER_OUT_OF_CONTEXT} [current_design]
-create_clock -period 20.000 -name TS_CLK [get_pins U0/clk]
-set_property src_info {type:XDC file:2 line:9 export:INPUT save:INPUT read:READ} [current_design]
-set_property KEEP_HIERARCHY SOFT [get_cells U0]

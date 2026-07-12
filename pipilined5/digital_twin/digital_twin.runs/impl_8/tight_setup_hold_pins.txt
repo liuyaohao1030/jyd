@@ -1,7 +1,0 @@
-+====================+===================+====================================================================+
-| Launch Setup Clock | Launch Hold Clock | Pin                                                                |
-+====================+===================+====================================================================+
-| clk_out2_pll       | clk_out2_pll      | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[9]/D  |
-| clk_out2_pll       | clk_out2_pll      | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[11]/D |
-| clk_out2_pll       | clk_out2_pll      | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[6]/D  |
-+--------------------+-------------------+--------------------------------------------------------------------+
