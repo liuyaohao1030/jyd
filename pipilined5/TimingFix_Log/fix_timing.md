@@ -237,3 +237,86 @@ FixTiming1 在 6.7 ns 约束下的布局布线结果：
 | RTL 编译 | 通过 | 正式 RTL 全量编译和 elaboration 成功 |
 | OOC 结构综合 | 通过 | `id_ex_pred_target` 对 `ex_redirect` 的依赖数为 0 |
 | 150 MHz 布局布线 | 待执行 | 报告应保存至 `kldj.srcs2/Timing_info/fixtiming3` |
+
+# Fix_timing4A
+
+## 优化目标与基线
+
+FixTiming3 已完成综合、布局布线和功能验证。6.7 ns 约束下 WNS 为 +0.142 ns、TNS 为 0，最差路径为 14 级，数据延迟 6.444 ns，其中布线延迟 5.392 ns（83.675%）。最差路径仍进入 IFU PC，并包含 BTB 数据查询与目标选择锥。
+
+用户额外验证：在 175 MHz 下，将 Place Design directive 设为 `ExtraNetDelay_high`、Route Design directive 设为 `AggressiveExplore` 时，WNS 可达到约 +0.009 ns；该结果已经过时序但尚无足够裕量承受 RAS 目标选择逻辑。
+
+## 修改原则
+
+- 本轮只实施 FixTiming4A，不同时缩减表深度，也不处理更新侧高扇出。
+- RISC-V 条件分支和 JAL 都是 PC-relative 直接控制流，目标由当前指令立即数唯一确定。
+- JAL 已在 IF 阶段静态识别；本轮将条件分支目标也改为 IF 阶段静态计算。
+- BTB 保留 tag、valid 和 PHT 方向预测，不再保存 32 位 target。
+- GShare 历史长度、PHT/BTB 项数、预测周期、流水级和 EX 恢复策略保持不变。
+- IF/ID、ID/EX 中的 `pred_target` 仍保留，供以后加入 RAS 或其他间接目标预测。
+
+## 记录 1：静态条件分支目标与 tag-only BTB
+
+修改文件：
+
+- `kldj.srcs2/sources_1/imports/rtl/KLDJ_top.v`
+- `kldj.srcs2/sources_1/imports/rtl/pipe/bpu.v`
+- `kldj.srcs2/sim_1/imports/sim/bpu_tb.sv`
+- `kldj.srcs2/sim_1/imports/sim/bpu_integration_tb.sv`
+
+RTL 调整：
+
+- IF 阶段新增 B-type opcode 识别、立即数拼接和 `if_pc + branch_imm` 目标计算。
+- 条件分支只有在当前指令确认为 B-type 且 GShare/BTB 方向预测 taken 时才跳转。
+- JAL 继续使用原有静态目标，JALR 仍不参与预测。
+- BPU 的 BTB 数据阵列由 `{tag, target}` 改为 tag-only；taken 更新只写 tag 和 valid。
+- 移除 BPU 模块的 `pred_target` 和 `update_target` 端口；EX 端保留的更新目标接口暂不参与 BPU 存储。
+
+## 验证状态
+
+| 验证项 | 状态 | 结果 |
+| --- | --- | --- |
+| RTL 修改 | 已完成 | 静态条件分支目标与 tag-only BTB 已实现 |
+| BPU 单元仿真 | 通过 | PHT、GHR、tag 命中/冲突和运行时复位通过 |
+| BPU 集成仿真 | 通过 | updates=12，hits=4，GHR=63；负偏移静态目标断言通过 |
+| EX 恢复控制仿真 | 通过 | 34 个断言全部通过 |
+| 完整 CPU 回归 | 通过 | 29 passed，0 failed |
+| RTL 全量编译 | 通过 | 正式 RTL 和全部测试 elaboration 成功 |
+| LUTRAM 推断检查 | 通过 | BTB=`RAM64M x8`，PHT=`RAM64X1D x2` |
+| 150/175 MHz 布局布线 | 待执行 | 报告建议保存至 `Timing_info/150mhz/fixtiming4A` |
+
+## 记录 2：功能验证结果
+
+- BPU 单元测试通过，tag-only BTB 的分配、tag 冲突、PHT 饱和、GHR 训练和运行时复位行为正确。
+- 分支集成测试通过，统计保持为更新 12 次、动态预测命中 4 次、最终 GHR=63。
+- 集成测试新增 `0x80000008 -> 0x80000004` 的负偏移 B-type 静态目标断言，确认立即数拼接和加法结果正确。
+- FixTiming3 的 EX 恢复控制定向测试保持 34 个断言全部通过。
+- 完整 CPU 回归保持 29 项通过、0 项失败，覆盖分支、JAL、JALR、ECALL/MRET、CSR、访存、转发和 RV32M。
+
+## 记录 3：LUTRAM 推断与资源结果
+
+新增脚本：`TimingFix_Log/check_fix_timing4a_synth.tcl`
+
+本机 Vivado 2018.3 使用 `xc7a35tcpg236-1` 做与 Kintex-7 同系列原语规则的独立推断检查；正式资源和时序仍以 Vivado 2023.2、`xc7k325tffg900-2` 全工程结果为准。
+
+| 项目 | FixTiming3 BPU | FixTiming4A BPU |
+| --- | ---: | ---: |
+| BTB 数据格式 | 64 x 56 `{tag,target}` | 64 x 24 tag-only |
+| BTB primitive | `RAM64M x19` | `RAM64M x8` |
+| PHT primitive | `RAM64X1D x2` | `RAM64X1D x2` |
+| LUTRAM | 80 | 36 |
+| 普通逻辑 LUT | 235 | 235 |
+| FDRE | 134 | 134 |
+| BPU OOC WNS（6.667 ns） | +2.205 ns | +2.205 ns |
+
+- LUTRAM 减少 44 个，来源仅为删除 BTB 的 32 位 target 字段。
+- 普通逻辑 LUT、valid/GHR 寄存器和 BPU 内部 OOC WNS 保持不变，说明 GShare 方向预测结构未被改变。
+- 第一次检查脚本按 `RAM64M x6` 预估打包数量，与 Vivado 实际 `x8` 不同；根据 Final Mapping Report 修正断言后重新运行，脚本以 0 error 完成并输出 DCP。
+- OOC WNS 不包含新增的 IF 静态分支目标加法器、IFU PC 选择和全工程布线，不能用于预测最终 WNS；必须执行完整综合和实现。
+
+## 移植注意事项
+
+- 条件分支预测现在依赖 IF 阶段指令与 PC 同周期对应；移植时必须保持 `if_inst` 与 `if_pc` 对齐，这与已有静态 JAL 预测要求一致。
+- BPU 的 `pred_taken` 只提供动态方向判断，顶层必须用当前指令的 B-type opcode 对其进行门控，不能让陈旧 BTB tag 使非分支指令跳转。
+- 条件分支目标必须使用 B-type 立即数格式：`{inst[31], inst[7], inst[30:25], inst[11:8], 1'b0}` 并正确符号扩展。
+- 以后加入 RAS 时，RAS target 应作为新的预测来源进入 `if_pred_target`，不能重新把直接分支 target 放回 BTB。

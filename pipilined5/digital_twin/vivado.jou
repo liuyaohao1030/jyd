@@ -79,3 +79,25 @@ wait_on_run impl_9
 refresh_design
 launch_runs impl_9 -to_step write_bitstream -jobs 8
 wait_on_run impl_9
+set_property PROBES.FILE {} [get_hw_devices xc7k325t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7k325t_0]
+set_property PROGRAM.FILE {D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.runs/impl_9/top.bit} [get_hw_devices xc7k325t_0]
+program_hw_devices [get_hw_devices xc7k325t_0]
+refresh_hw_device [lindex [get_hw_devices xc7k325t_0] 0]
+cd D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/reports
+source D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/reports/export_impl_reports.tcl
+open_run impl_8
+report_timing_summary -delay_type min_max -report_unconstrained -check_timing_verbose -max_paths 10 -input_pins -routable_nets -name timing_1
+file mkdir Timing_info/Timing_fix3
+pwd
+cd ..
+file mkdir Timing_info/Timing_fix3
+report_timing_summary -delay_type max -report_unconstrained -check_timing_verbose -max_paths 20 -file Timing_info/Timing_fix3/timing_summary.rpt
+# 3. 导出包含完整连线(nets)和引脚(pins)信息的最差路径详细报告
+report_timing -delay_type max -path_type full_clock_expanded -max_paths 60 -nworst 1 -sort_by slack -input_pins -nets -file Timing_info/Timing_fix3/worst_paths.rpt
+# 4. 导出高扇出网络报告
+report_high_fanout_nets -timing -load_types -max_nets 100 -file Timing_info/Timing_fix3/high_fanout.rpt
+# 5. 导出按层级划分的资源利用率报告
+report_utilization -hierarchical -hierarchical_depth 6 -file Timing_info/Timing_fix3/utilization_hier.rpt
+# 6. 导出拥塞分析报告（确认物理布线是否健康）
+report_design_analysis -congestion -file Timing_info/Timing_fix3/congestion.rpt

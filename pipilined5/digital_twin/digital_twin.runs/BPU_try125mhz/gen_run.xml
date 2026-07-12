@@ -362,7 +362,7 @@
     <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2023"/>
     <Step Id="synth_design"/>
   </Strategy>
-  <BlockFileSet Type="BlockSrcs" Name="IROM"/>
   <BlockFileSet Type="BlockSrcs" Name="div_gen_u32"/>
+  <BlockFileSet Type="BlockSrcs" Name="IROM"/>
   <BlockFileSet Type="BlockSrcs" Name="DRAM_TDP"/>
 </GenRun>

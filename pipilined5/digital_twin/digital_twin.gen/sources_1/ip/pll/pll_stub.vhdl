@@ -4,8 +4,8 @@
 -- Tool Version: Vivado v.2023.2 (win64) Build 4029153 Fri Oct 13 20:14:34 MDT 2023
 -- Date        : Sat Jul 11 19:34:33 2026
 -- Host        : DESKTOP-MO7L2KR running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode synth_stub
---               d:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll_stub.vhdl
+-- Command     : write_vhdl -force -mode synth_stub -rename_top pll -prefix
+--               pll_ pll_stub.vhdl
 -- Design      : pll
 -- Purpose     : Stub declaration of top-level module interface
 -- Device      : xc7k325tffg900-2

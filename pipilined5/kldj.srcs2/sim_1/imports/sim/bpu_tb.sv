@@ -6,25 +6,22 @@ module bpu_tb;
     reg rst;
     reg [31:0] lookup_pc;
     wire pred_taken;
-    wire [31:0] pred_target;
     wire btb_hit;
     wire [5:0] lookup_pht_idx;
     reg update_valid;
     reg [31:0] update_pc;
     reg [5:0] update_pht_idx;
     reg update_taken;
-    reg [31:0] update_target;
 
     always #5 clk = ~clk;
 
     bpu dut(
-         .clk(clk), .rst(rst)
+        .clk(clk), .rst(rst)
         ,.lookup_pc(lookup_pc)
-        ,.pred_taken(pred_taken), .pred_target(pred_target)
+        ,.pred_taken(pred_taken)
         ,.btb_hit(btb_hit), .lookup_pht_idx(lookup_pht_idx)
         ,.update_valid(update_valid), .update_pc(update_pc)
         ,.update_pht_idx(update_pht_idx), .update_taken(update_taken)
-        ,.update_target(update_target)
     );
 
     task tick;
@@ -35,12 +32,10 @@ module bpu_tb;
         input [31:0] pc;
         input [5:0] pht_idx;
         input taken;
-        input [31:0] target;
         begin
             update_pc = pc;
             update_pht_idx = pht_idx;
             update_taken = taken;
-            update_target = target;
             update_valid = 1'b1;
             tick;
             update_valid = 1'b0;
@@ -54,7 +49,6 @@ module bpu_tb;
         update_pc = 32'b0;
         update_pht_idx = 6'b0;
         update_taken = 1'b0;
-        update_target = 32'b0;
         repeat (2) tick;
         rst = 1'b0;
         #1;
@@ -63,39 +57,38 @@ module bpu_tb;
             $fatal(1, "reset state predicted a branch");
 
         // Same index as lookup PC, different tag must miss after replacement.
-        update(32'h8000_0040, 6'd16, 1'b1, 32'h8000_0080);
+        update(32'h8000_0040, 6'd16, 1'b1);
         if (dut.u_gshare_btb_core.pht[16] !== 2'b10 ||
             dut.u_gshare_btb_core.btb_valid[16] !== 1'b1)
             $fatal(1, "taken update did not allocate BTB/PHT");
-        if (dut.u_gshare_btb_core.btb_data[16][31:0] !== 32'h8000_0080)
-            $fatal(1, "BTB target mismatch");
+        if (dut.u_gshare_btb_core.btb_tag[16] !== 24'h800000)
+            $fatal(1, "BTB tag mismatch");
 
-        update(32'h8000_0040, 6'd16, 1'b1, 32'h8000_0080);
-        update(32'h8000_0040, 6'd16, 1'b1, 32'h8000_0080);
+        update(32'h8000_0040, 6'd16, 1'b1);
+        update(32'h8000_0040, 6'd16, 1'b1);
         if (dut.u_gshare_btb_core.pht[16] !== 2'b11)
             $fatal(1, "PHT did not saturate high");
 
         // Saturate low and verify no wraparound.
-        update(32'h8000_0040, 6'd16, 1'b0, 32'h8000_0080);
-        update(32'h8000_0040, 6'd16, 1'b0, 32'h8000_0080);
-        update(32'h8000_0040, 6'd16, 1'b0, 32'h8000_0080);
+        update(32'h8000_0040, 6'd16, 1'b0);
+        update(32'h8000_0040, 6'd16, 1'b0);
+        update(32'h8000_0040, 6'd16, 1'b0);
         if (dut.u_gshare_btb_core.pht[16] !== 2'b00)
             $fatal(1, "PHT did not saturate low");
-        update(32'h8000_0040, 6'd16, 1'b0, 32'h8000_0080);
+        update(32'h8000_0040, 6'd16, 1'b0);
         if (dut.u_gshare_btb_core.pht[16] !== 2'b00)
             $fatal(1, "PHT wrapped below zero");
 
         // Drive GHR to all ones, then train the active Gshare entry.
-        repeat (6) update(32'h8000_0040, 6'd16, 1'b1, 32'h8000_0080);
-        update(32'h8000_0040, 6'd47, 1'b1, 32'h8000_0080);
-        update(32'h8000_0040, 6'd47, 1'b1, 32'h8000_0080);
+        repeat (6) update(32'h8000_0040, 6'd16, 1'b1);
+        update(32'h8000_0040, 6'd47, 1'b1);
+        update(32'h8000_0040, 6'd47, 1'b1);
         lookup_pc = 32'h8000_0040;
         #1;
-        if (btb_hit !== 1'b1 || pred_taken !== 1'b1 ||
-            pred_target !== 32'h8000_0080)
+        if (btb_hit !== 1'b1 || pred_taken !== 1'b1)
             $fatal(1, "BTB lookup failed");
 
-        update(32'h9000_0040, 6'd16, 1'b1, 32'h9000_0100);
+        update(32'h9000_0040, 6'd16, 1'b1);
         lookup_pc = 32'h8000_0040;
         #1;
         if (btb_hit !== 1'b0)

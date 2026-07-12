@@ -1,0 +1,17 @@
+#-----------------------------------------------------------
+# Vivado v2023.2 (64-bit)
+# SW Build 4029153 on Fri Oct 13 20:14:34 MDT 2023
+# IP Build 4028589 on Sat Oct 14 00:45:43 MDT 2023
+# SharedData Build 4025554 on Tue Oct 10 17:18:54 MDT 2023
+# Start of session at: Sun Jul 12 14:29:42 2026
+# Process ID: 22360
+# Current directory: D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.runs/Try_175mhz_default
+# Command line: vivado.exe -log top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source top.tcl
+# Log file: D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.runs/Try_175mhz_default/top.vds
+# Journal file: D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.runs/Try_175mhz_default\vivado.jou
+# Running On: DESKTOP-MO7L2KR, OS: Windows, CPU Frequency: 3793 MHz, CPU Physical cores: 16, Host memory: 33618 MB
+#-----------------------------------------------------------
+source top.tcl -notrace
+create_project: Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 564.723 ; gain = 178.086
+ERROR: [Vivado 12-172] File or Directory 'd:/Desktop/JYD/DESKTOP/JYD/src2/dram.coe' does not exist
+INFO: [Common 17-206] Exiting Vivado at Sun Jul 12 14:29:50 2026...

@@ -16,6 +16,7 @@ module bpu_integration_tb;
     integer i;
     integer branch_updates = 0;
     integer dynamic_pred_hits = 0;
+    integer static_target_checks = 0;
 
     always #5 clk = ~clk;
 
@@ -45,6 +46,12 @@ module bpu_integration_tb;
             branch_updates <= branch_updates + 1;
             if (dut.id_ex_pred_taken && dut.exu_jump_raw && !dut.ex_redirect)
                 dynamic_pred_hits <= dynamic_pred_hits + 1;
+        end
+
+        if (!rst && if_pc == 32'h8000_0008) begin
+            if (!dut.if_static_branch || dut.if_static_branch_target !== 32'h8000_0004)
+                $fatal(1, "static branch target mismatch: target=%h", dut.if_static_branch_target);
+            static_target_checks <= static_target_checks + 1;
         end
     end
 
@@ -103,6 +110,8 @@ module bpu_integration_tb;
         if (branch_updates < 12 || dynamic_pred_hits == 0)
             $fatal(1, "Gshare did not train: updates=%0d hits=%0d",
                    branch_updates, dynamic_pred_hits);
+        if (static_target_checks == 0)
+            $fatal(1, "static branch target was not observed");
         $display("BPU INTEGRATION TEST PASSED (updates=%0d hits=%0d GHR=%0d)",
                  branch_updates, dynamic_pred_hits,
                  dut.u_bpu.u_gshare_btb_core.ghr);

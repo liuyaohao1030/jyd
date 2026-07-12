@@ -1,0 +1,29 @@
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
+| Date         : Sun Jul 12 14:21:27 2026
+| Host         : DESKTOP-MO7L2KR running 64-bit major release  (build 9200)
+| Command      : report_utilization -hierarchical -hierarchical_depth 4 -file D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/TimingFix_Log/Fix_timing4A_synth/utilization_hierarchical.rpt
+| Design       : bpu
+| Device       : 7a35tcpg236-1
+| Design State : Synthesized
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Utilization Design Information
+
+Table of Contents
+-----------------
+1. Utilization by Hierarchy
+
+1. Utilization by Hierarchy
+---------------------------
+
++---------------------+-----------------+------------+------------+---------+------+-----+--------+--------+--------------+
+|       Instance      |      Module     | Total LUTs | Logic LUTs | LUTRAMs | SRLs | FFs | RAMB36 | RAMB18 | DSP48 Blocks |
++---------------------+-----------------+------------+------------+---------+------+-----+--------+--------+--------------+
+| bpu                 |           (top) |        271 |        235 |      36 |    0 | 134 |      0 |      0 |            0 |
+|   (bpu)             |           (top) |          0 |          0 |       0 |    0 |   0 |      0 |      0 |            0 |
+|   u_gshare_btb_core | gshare_btb_core |        271 |        235 |      36 |    0 | 134 |      0 |      0 |            0 |
++---------------------+-----------------+------------+------------+---------+------+-----+--------+--------+--------------+
+
+

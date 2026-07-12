@@ -10,7 +10,6 @@ module bpu #(
     // IF stage lookup
     ,input  wire [`KLDJ_PC]       lookup_pc
     ,output wire                  pred_taken
-    ,output wire [`KLDJ_PC]       pred_target
     ,output wire                  btb_hit
     ,output wire [INDEX_WIDTH-1:0] lookup_pht_idx
 
@@ -19,7 +18,6 @@ module bpu #(
     ,input  wire [`KLDJ_PC]       update_pc
     ,input  wire [INDEX_WIDTH-1:0] update_pht_idx
     ,input  wire                  update_taken
-    ,input  wire [`KLDJ_PC]       update_target
 );
 
     gshare_btb_core #(
@@ -30,14 +28,12 @@ module bpu #(
         ,.rst            (rst            )
         ,.lookup_pc      (lookup_pc      )
         ,.pred_taken     (pred_taken     )
-        ,.pred_target    (pred_target    )
         ,.btb_hit        (btb_hit        )
         ,.lookup_pht_idx (lookup_pht_idx )
         ,.update_valid   (update_valid   )
         ,.update_pc      (update_pc      )
         ,.update_pht_idx (update_pht_idx )
         ,.update_taken   (update_taken   )
-        ,.update_target  (update_target  )
     );
 
 endmodule
@@ -52,7 +48,6 @@ module gshare_btb_core #(
     // IF stage lookup
     ,input  wire [`KLDJ_PC]       lookup_pc
     ,output wire                  pred_taken
-    ,output wire [`KLDJ_PC]       pred_target
     ,output wire                  btb_hit
     ,output wire [INDEX_WIDTH-1:0] lookup_pht_idx
 
@@ -61,19 +56,17 @@ module gshare_btb_core #(
     ,input  wire [`KLDJ_PC]       update_pc
     ,input  wire [INDEX_WIDTH-1:0] update_pht_idx
     ,input  wire                  update_taken
-    ,input  wire [`KLDJ_PC]       update_target
 );
 
-    localparam ENTRY_NUM      = (1 << INDEX_WIDTH);
-    localparam TAG_WIDTH      = 32 - INDEX_WIDTH - 2;
-    localparam BTB_DATA_WIDTH = TAG_WIDTH + 32;
+    localparam ENTRY_NUM = (1 << INDEX_WIDTH);
+    localparam TAG_WIDTH = 32 - INDEX_WIDTH - 2;
 
     reg [INDEX_WIDTH-1:0] ghr;
 
     // The data arrays intentionally have no reset. Keeping resettable validity
     // bits separate allows Vivado to infer asynchronous-read distributed RAM.
     (* ram_style = "distributed" *) reg [1:0] pht [0:ENTRY_NUM-1];
-    (* ram_style = "distributed" *) reg [BTB_DATA_WIDTH-1:0] btb_data [0:ENTRY_NUM-1];
+    (* ram_style = "distributed" *) reg [TAG_WIDTH-1:0] btb_tag [0:ENTRY_NUM-1];
     reg [ENTRY_NUM-1:0] pht_valid;
     reg [ENTRY_NUM-1:0] btb_valid;
 
@@ -84,9 +77,7 @@ module gshare_btb_core #(
     wire [1:0]             lookup_pht_value;
     wire [1:0]             update_pht_value;
     wire [1:0]             update_pht_next;
-    wire [BTB_DATA_WIDTH-1:0] lookup_btb_data;
     wire [TAG_WIDTH-1:0]   lookup_btb_tag;
-    wire [`KLDJ_PC]        lookup_btb_target;
 
     assign lookup_btb_idx = lookup_pc[INDEX_WIDTH+1:2];
     assign lookup_pht_idx = lookup_btb_idx ^ ghr;
@@ -102,13 +93,10 @@ module gshare_btb_core #(
                               ((update_pht_value == 2'b11) ? 2'b11 : update_pht_value + 2'b01) :
                               ((update_pht_value == 2'b00) ? 2'b00 : update_pht_value - 2'b01);
 
-    assign lookup_btb_data   = btb_data[lookup_btb_idx];
-    assign lookup_btb_tag    = lookup_btb_data[BTB_DATA_WIDTH-1:32];
-    assign lookup_btb_target = lookup_btb_data[31:0];
+    assign lookup_btb_tag = btb_tag[lookup_btb_idx];
 
     assign btb_hit     = btb_valid[lookup_btb_idx] && (lookup_btb_tag == lookup_tag);
     assign pred_taken  = btb_hit && lookup_pht_value[1];
-    assign pred_target = lookup_btb_target;
 
     always @(posedge clk) begin
         if(rst == `KLDJ_RSTABLE) begin
@@ -120,8 +108,8 @@ module gshare_btb_core #(
             pht_valid[update_pht_idx] <= 1'b1;
 
             if(update_taken) begin
-                btb_valid[update_btb_idx]  <= 1'b1;
-                btb_data[update_btb_idx]   <= {update_tag, update_target};
+                btb_valid[update_btb_idx] <= 1'b1;
+                btb_tag[update_btb_idx]   <= update_tag;
             end
 
             ghr <= {ghr[INDEX_WIDTH-2:0], update_taken};

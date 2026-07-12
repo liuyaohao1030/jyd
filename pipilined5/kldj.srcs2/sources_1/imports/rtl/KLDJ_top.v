@@ -44,10 +44,12 @@ module KLDJ_top(
     wire [`KLDJ_PC]              if_pc;
     wire [`KLDJ_PC]              if_snpc;
     wire                         bpu_pred_taken;
-    wire [`KLDJ_PC]              bpu_pred_target;
     wire                         if_static_jal;
     wire [`KLDJ_IMM]             if_static_jal_imm;
     wire [`KLDJ_PC]              if_static_jal_target;
+    wire                         if_static_branch;
+    wire [`KLDJ_IMM]             if_static_branch_imm;
+    wire [`KLDJ_PC]              if_static_branch_target;
     wire                         if_pred_taken;
     wire [`KLDJ_PC]              if_pred_target;
     wire [BPU_INDEX_WIDTH-1:0]   if_pred_pht_idx;
@@ -194,13 +196,16 @@ module KLDJ_top(
     wire [`KLDJ_REG]             reg_id_rs1_data;
     wire [`KLDJ_REG]             reg_id_rs2_data;
 
-    // IF-stage static JAL prediction.  JAL is unconditional, so the
-    // instruction-encoded target is more reliable than a possibly stale BTB.
+    // Direct-control targets are encoded in the instruction. The BTB only
+    // identifies trained branches; it does not need to store their targets.
     assign if_static_jal        = (if_inst[6:2] == `KLDJ_JAL) && (if_inst[1:0] == 2'b11);
     assign if_static_jal_imm    = {{12{if_inst[31]}}, if_inst[19:12], if_inst[20], if_inst[30:21], 1'b0};
     assign if_static_jal_target = if_pc + if_static_jal_imm;
-    assign if_pred_taken        = if_static_jal || bpu_pred_taken;
-    assign if_pred_target       = if_static_jal ? if_static_jal_target : bpu_pred_target;
+    assign if_static_branch        = (if_inst[6:2] == `KLDJ_BRANCH) && (if_inst[1:0] == 2'b11);
+    assign if_static_branch_imm    = {{20{if_inst[31]}}, if_inst[7], if_inst[30:25], if_inst[11:8], 1'b0};
+    assign if_static_branch_target = if_pc + if_static_branch_imm;
+    assign if_pred_taken           = if_static_jal || (if_static_branch && bpu_pred_taken);
+    assign if_pred_target          = if_static_jal ? if_static_jal_target : if_static_branch_target;
 
     // ========================================================
     // Module instantiations
@@ -214,14 +219,12 @@ module KLDJ_top(
         ,.rst          (core_rst          )
         ,.lookup_pc    (if_pc             )
         ,.pred_taken   (bpu_pred_taken    )
-        ,.pred_target  (bpu_pred_target   )
         ,.btb_hit      (if_btb_hit        )
         ,.lookup_pht_idx(if_pred_pht_idx  )
         ,.update_valid (bpu_update_valid  )
         ,.update_pc    (bpu_update_pc     )
         ,.update_pht_idx(bpu_update_pht_idx)
         ,.update_taken (bpu_update_taken  )
-        ,.update_target(bpu_update_target )
     );
 
     // Select jump target: ecall jumps to mtvec, otherwise use EXU result
