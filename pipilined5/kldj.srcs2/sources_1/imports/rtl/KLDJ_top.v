@@ -41,7 +41,7 @@ module KLDJ_top(
 
     // IF stage wires
     wire [`KLDJ_INST]            if_inst;
-    wire [`KLDJ_PC]              if_pc;
+    (* mark_debug = "true" *) wire [`KLDJ_PC]              if_pc;
     wire [`KLDJ_PC]              if_snpc;
     wire                         bpu_pred_taken;
     wire [`KLDJ_PC]              bpu_pred_target;
@@ -115,10 +115,10 @@ module KLDJ_top(
     wire [`KLDJ_DATA]            ex1_data3;
     wire [`KLDJ_DATA]            ex1_data4;
     wire [`KLDJ_DATA]            ex1_store_wdata;
-    wire                         ex1_dependency_stall;
+    (* mark_debug = "true" *) wire                         ex1_dependency_stall;
 
     // EX1/EX2 pipeline register outputs
-    wire                         ex1_ex2_valid;
+    (* mark_debug = "true" *) wire                         ex1_ex2_valid;
     wire [`KLDJ_PC]              ex1_ex2_pc;
     wire [`KLDJ_PC]              ex1_ex2_snpc;
     wire                         ex1_ex2_pred_taken;
@@ -144,7 +144,7 @@ module KLDJ_top(
     wire [`KLDJ_PC]              exu_jump_pc_raw;
     wire [`KLDJ_DATA]            exu_data;
     wire [`KLDJ_DATA]            ex2_mem_addr_pre;
-    wire                         ex_redirect;
+    (* mark_debug = "true" *) wire                         ex_redirect;
     wire                         ex_actual_taken;
     wire [`KLDJ_PC]              ex_correct_pc;
     wire                         bpu_update_valid;
@@ -154,7 +154,7 @@ module KLDJ_top(
     wire [`KLDJ_PC]              bpu_update_target;
     wire                         div_stall;
     wire                         mul_stall;
-    wire                         ex2_stall;
+    (* mark_debug = "true" *) wire                         ex2_stall;
     wire                         frontend_stall;
 
     // CSR module wires
@@ -167,7 +167,7 @@ module KLDJ_top(
     wire [31:0]                  mtvec_val;
 
     // EX2/MEM pipeline register outputs (renamed from ex_mem_* to ex2_mem_*)
-    wire                         ex2_mem_valid;
+    (* mark_debug = "true" *) wire                         ex2_mem_valid;
     wire [`KLDJ_PC]              ex2_mem_pc;
     wire [`KLDJ_REGADDR]         ex2_mem_rd_addr;
     wire                         ex2_mem_wb_ctl;
@@ -189,12 +189,20 @@ module KLDJ_top(
 
     // EX-stage memory request wires
 
+    // Debug wires for memory interface (marked for ILA)
+    (* mark_debug = "true" *) wire [`KLDJ_DATA]            dbg_mem_addr;
+    (* mark_debug = "true" *) wire                         dbg_mem_we;
+    (* mark_debug = "true" *) wire [`KLDJ_DATA]            dbg_mem_rdata;
+    assign dbg_mem_addr  = mem_addr;
+    assign dbg_mem_we    = mem_we;
+    assign dbg_mem_rdata = mem_rdata;
+
     // MEM/WB pipeline register outputs
-    wire                         mem_wb_valid;
+    (* mark_debug = "true" *) wire                         mem_wb_valid;
     wire [`KLDJ_PC]              mem_wb_pc;
     wire [`KLDJ_REGADDR]         mem_wb_rd_addr;
     wire                         mem_wb_wb_ctl;
-    wire [`KLDJ_DATA]            mem_wb_wb_data;
+    (* mark_debug = "true" *) wire [`KLDJ_DATA]            mem_wb_wb_data;
     wire                         mem_wb_forward_valid;
 
     // WB wires
