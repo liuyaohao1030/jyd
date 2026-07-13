@@ -78,14 +78,16 @@ module pipe_ex1_ex2 #(
             ex1_ex2_pred_taken  <= 1'b0;
             ex1_ex2_wb_ctl      <= 1'b0;
             ex1_ex2_csr_op      <= 1'b0;
-        end else if (!ex2_stall) begin
-            // normal advancement
+        end else if (ex2_stall) begin
+            // hold when ex2_stall (keep current values, do nothing)
+            // This is critical for MUL/DIV multi-cycle operations
+        end else begin
+            // normal advancement (when !ex2_stall and !ex1_dependency_stall)
             ex1_ex2_valid       <= id_ex_valid;
             ex1_ex2_pred_taken  <= id_ex_valid && id_ex_pred_taken;
             ex1_ex2_wb_ctl      <= id_ex_valid && id_ex_wb_ctl;
             ex1_ex2_csr_op      <= id_ex_valid && id_ex_csr_op;
         end
-        // else: hold (ex2_stall without dependency_stall)
     end
 
     always @(posedge clk) begin
@@ -110,8 +112,11 @@ module pipe_ex1_ex2 #(
             ex1_ex2_exu_op      <= 18'd0;
             ex1_ex2_alu_ctrl    <= 10'd0;
             ex1_ex2_ls_ctl      <= 4'd0;
-        end else if (!ex2_stall) begin
-            // normal advancement
+        end else if (ex2_stall) begin
+            // hold when ex2_stall (keep all data fields, do nothing)
+            // This is critical for MUL/DIV multi-cycle operations
+        end else begin
+            // normal advancement (when !ex2_stall and !ex1_dependency_stall)
             ex1_ex2_pc          <= id_ex_pc;
             ex1_ex2_snpc        <= id_ex_snpc;
             ex1_ex2_pred_target <= id_ex_valid ? id_ex_pred_target : `KLDJ_ZERO32;
@@ -128,7 +133,6 @@ module pipe_ex1_ex2 #(
             ex1_ex2_csr_addr    <= id_ex_csr_addr;
             ex1_ex2_csr_zimm    <= id_ex_csr_zimm;
         end
-        // else: hold all data (ex2_stall without dependency_stall)
     end
 
 endmodule

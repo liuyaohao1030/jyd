@@ -188,12 +188,6 @@ module KLDJ_top(
     wire [3:0]                   mem_be_memstage_unused;
 
     // EX-stage memory request wires
-    wire                         ex_req_load;
-    wire                         ex_req_store;
-    wire                         ex_req_mem;
-    wire [1:0]                   ex_req_size;
-    wire [3:0]                   ex_req_be;
-    wire [`KLDJ_DATA]            ex_req_wdata;
 
     // MEM/WB pipeline register outputs
     wire                         mem_wb_valid;
@@ -672,12 +666,12 @@ module KLDJ_top(
     // ========================================================
     wire perf_event_instret        = mem_wb_valid;
     wire perf_event_frontend_stall = frontend_stall;
-    wire perf_event_load_use_stall = load_use_stall;
+    wire perf_event_load_use_stall = ex1_dependency_stall;
     wire perf_event_mul_stall      = mul_stall;
     wire perf_event_div_stall      = div_stall;
     wire perf_event_redirect       = ex_redirect;
-    wire perf_event_load           = id_ex_valid && !ex_stall && ex_req_load;
-    wire perf_event_store          = id_ex_valid && !ex_stall && ex_req_store;
+    wire perf_event_load           = ex1_ex2_valid && !ex2_stall && ((ex1_ex2_exu_op >= 18'h1d) && (ex1_ex2_exu_op <= 18'h21));
+    wire perf_event_store          = ex1_ex2_valid && !ex2_stall && ((ex1_ex2_exu_op >= 18'h22) && (ex1_ex2_exu_op <= 18'h24));
 
     KLDJ_perf_counters u_perf_counters(
          .clk                      (core_clk                  )
