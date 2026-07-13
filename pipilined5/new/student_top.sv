@@ -36,6 +36,23 @@ module student_top#(
     output [P_SEG_CNT - 1:0]                    virtual_seg
 );
 
+    // Reset synchronizer: hold reset for 16 cycles after PLL locks
+    logic [3:0] rst_cnt = 4'd0;
+    logic       rst_sync = 1'b1;
+
+    always_ff @(posedge w_cpu_clk) begin
+        if (w_clk_rst) begin
+            // w_clk_rst=1 means PLL NOT locked (active-high reset from ~locked)
+            rst_cnt  <= 4'd0;
+            rst_sync <= 1'b1;
+        end else if (rst_cnt != 4'd15) begin
+            rst_cnt  <= rst_cnt + 1'b1;
+            rst_sync <= 1'b1;
+        end else begin
+            rst_sync <= 1'b0;
+        end
+    end
+
     // IROM
     logic [31:0] pc;
     logic [11:0] inst_addr;
@@ -51,7 +68,7 @@ module student_top#(
 
     KLDJ_top u_KLDJ_top (
         .clk            (w_cpu_clk),
-        .rst            (w_clk_rst),
+        .rst            (rst_sync),
 
         .tb_if_inst     (instruction),
         .tb_if_pc       (pc),

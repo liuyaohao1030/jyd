@@ -30,8 +30,8 @@ module KLDJ_top(
     localparam BPU_INDEX_WIDTH = 6;
 
     // Clock and reset
-    wire                         core_clk;
-    wire                         core_locked;
+    (* mark_debug = "true" *)wire                         core_clk;
+    (* mark_debug = "true" *)wire                         core_locked;
     (* mark_debug = "true" *) wire                         core_rst;
 
     assign core_clk      = clk;
