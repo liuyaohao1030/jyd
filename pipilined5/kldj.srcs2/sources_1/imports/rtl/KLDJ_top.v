@@ -109,16 +109,41 @@ module KLDJ_top(
     wire                         id_ex_csr_op;
     wire [4:0]                   id_ex_csr_zimm;
 
-    // EX stage wires
-    wire [`KLDJ_DATA]            ex_data1;
-    wire [`KLDJ_DATA]            ex_data2;
-    wire [`KLDJ_DATA]            ex_data3;
-    wire [`KLDJ_DATA]            ex_data4;
-    wire [`KLDJ_DATA]            ex_store_wdata;
+    // EX1 stage wires (forwarding outputs)
+    wire [`KLDJ_DATA]            ex1_data1;
+    wire [`KLDJ_DATA]            ex1_data2;
+    wire [`KLDJ_DATA]            ex1_data3;
+    wire [`KLDJ_DATA]            ex1_data4;
+    wire [`KLDJ_DATA]            ex1_store_wdata;
+    wire                         ex1_dependency_stall;
+
+    // EX1/EX2 pipeline register outputs
+    wire                         ex1_ex2_valid;
+    wire [`KLDJ_PC]              ex1_ex2_pc;
+    wire [`KLDJ_PC]              ex1_ex2_snpc;
+    wire                         ex1_ex2_pred_taken;
+    wire [`KLDJ_PC]              ex1_ex2_pred_target;
+    wire [BPU_INDEX_WIDTH-1:0]   ex1_ex2_pred_pht_idx;
+    wire [`KLDJ_REGADDR]         ex1_ex2_rd_addr;
+    wire                         ex1_ex2_wb_ctl;
+    wire [17:0]                  ex1_ex2_exu_op;
+    wire [9:0]                   ex1_ex2_alu_ctrl;
+    wire [3:0]                   ex1_ex2_ls_ctl;
+    wire [`KLDJ_DATA]            ex1_ex2_data1;
+    wire [`KLDJ_DATA]            ex1_ex2_data2;
+    wire [`KLDJ_DATA]            ex1_ex2_data3;
+    wire [`KLDJ_DATA]            ex1_ex2_data4;
+    wire [`KLDJ_DATA]            ex1_ex2_store_wdata;
+    wire [11:0]                  ex1_ex2_csr_addr;
+    wire                         ex1_ex2_csr_op;
+    wire [4:0]                   ex1_ex2_csr_zimm;
+    wire                         ex1_ex2_load_op;
+
+    // EX2 stage wires
     wire                         exu_jump_raw;
     wire [`KLDJ_PC]              exu_jump_pc_raw;
     wire [`KLDJ_DATA]            exu_data;
-    wire [`KLDJ_DATA]            ex_mem_addr_pre;
+    wire [`KLDJ_DATA]            ex2_mem_addr_pre;
     wire                         ex_redirect;
     wire                         ex_actual_taken;
     wire [`KLDJ_PC]              ex_correct_pc;
@@ -127,10 +152,9 @@ module KLDJ_top(
     wire [BPU_INDEX_WIDTH-1:0]   bpu_update_pht_idx;
     wire                         bpu_update_taken;
     wire [`KLDJ_PC]              bpu_update_target;
-    wire                         load_use_stall;
     wire                         div_stall;
     wire                         mul_stall;
-    wire                         ex_stall;
+    wire                         ex2_stall;
     wire                         frontend_stall;
 
     // CSR module wires
@@ -142,18 +166,18 @@ module KLDJ_top(
     wire [31:0]                  mret_pc;
     wire [31:0]                  mtvec_val;
 
-    // EX/MEM pipeline register outputs
-    wire                         ex_mem_valid;
-    wire [`KLDJ_PC]              ex_mem_pc;
-    wire [`KLDJ_REGADDR]         ex_mem_rd_addr;
-    wire                         ex_mem_wb_ctl;
-    wire [17:0]                  ex_mem_exu_op;
-    wire [3:0]                   ex_mem_ls_ctl;
-    wire [`KLDJ_DATA]            ex_mem_exu_res;
-    wire [`KLDJ_DATA]            ex_mem_mem_addr;
-    wire [`KLDJ_DATA]            ex_mem_store_wdata;
-    wire                         ex_mem_load_op;
-    wire                         ex_mem_forward_valid;
+    // EX2/MEM pipeline register outputs (renamed from ex_mem_* to ex2_mem_*)
+    wire                         ex2_mem_valid;
+    wire [`KLDJ_PC]              ex2_mem_pc;
+    wire [`KLDJ_REGADDR]         ex2_mem_rd_addr;
+    wire                         ex2_mem_wb_ctl;
+    wire [17:0]                  ex2_mem_exu_op;
+    wire [3:0]                   ex2_mem_ls_ctl;
+    wire [`KLDJ_DATA]            ex2_mem_exu_res;
+    wire [`KLDJ_DATA]            ex2_mem_mem_addr;
+    wire [`KLDJ_DATA]            ex2_mem_store_wdata;
+    wire                         ex2_mem_load_op;
+    wire                         ex2_mem_forward_valid;
 
     // MEM stage wires
     wire [`KLDJ_DATA]            mem_stage_wb_data;
@@ -321,8 +345,8 @@ module KLDJ_top(
         ,.id_csr_op       (id_csr_op         )
         ,.id_csr_zimm     (id_csr_zimm       )
         ,.ex_redirect     (ex_redirect       )
-        ,.load_use_stall  (load_use_stall    )
-        ,.ex_stall        (ex_stall          )
+        ,.load_use_stall  (ex1_dependency_stall || ex2_stall)
+        ,.ex_stall        (ex2_stall         )
         ,.id_ex_valid     (id_ex_valid       )
         ,.id_ex_pc        (id_ex_pc          )
         ,.id_ex_snpc      (id_ex_snpc        )
@@ -350,7 +374,24 @@ module KLDJ_top(
         ,.id_ex_csr_zimm  (id_ex_csr_zimm    )
     );
 
-    // EX forwarding and MUX
+    // EX1 hazard detection
+    ex1_hazard u_ex1_hazard(
+         .id_ex_valid          (id_ex_valid          )
+        ,.id_ex_rs1_addr       (id_ex_rs1_addr       )
+        ,.id_ex_rs2_addr       (id_ex_rs2_addr       )
+        ,.id_ex_rs1_ren        (id_ex_rs1_ren        )
+        ,.id_ex_rs2_ren        (id_ex_rs2_ren        )
+        ,.ex1_ex2_valid        (ex1_ex2_valid        )
+        ,.ex1_ex2_rd_addr      (ex1_ex2_rd_addr      )
+        ,.ex1_ex2_wb_ctl       (ex1_ex2_wb_ctl       )
+        ,.ex2_mem_valid        (ex2_mem_valid        )
+        ,.ex2_mem_rd_addr      (ex2_mem_rd_addr      )
+        ,.ex2_mem_wb_ctl       (ex2_mem_wb_ctl       )
+        ,.ex2_mem_load_op      (ex2_mem_load_op      )
+        ,.ex1_dependency_stall (ex1_dependency_stall )
+    );
+
+    // EX1 forwarding and MUX
     ex_forward u_ex_forward(
          .id_ex_valid          (id_ex_valid          )
         ,.id_ex_rs1_addr       (id_ex_rs1_addr       )
@@ -365,40 +406,84 @@ module KLDJ_top(
         ,.id_ex_data4          (id_ex_data4          )
         ,.id_ex_rs1_data       (id_ex_rs1_data       )
         ,.id_ex_rs2_data       (id_ex_rs2_data       )
-        ,.ex_mem_rd_addr       (ex_mem_rd_addr       )
-        ,.ex_mem_exu_res       (ex_mem_exu_res       )
-        ,.ex_mem_forward_valid (ex_mem_forward_valid )
+        ,.ex_mem_rd_addr       (ex2_mem_rd_addr      )
+        ,.ex_mem_exu_res       (ex2_mem_exu_res      )
+        ,.ex_mem_forward_valid (ex2_mem_forward_valid)
         ,.mem_wb_rd_addr       (mem_wb_rd_addr       )
         ,.mem_wb_wb_data       (mem_wb_wb_data       )
         ,.mem_wb_forward_valid (mem_wb_forward_valid )
-        ,.if_id_valid          (if_id_valid          )
-        ,.id_reg_rs1_addr      (id_reg_rs1_addr      )
-        ,.id_reg_rs2_addr      (id_reg_rs2_addr      )
-        ,.id_reg_rs1_ren       (id_reg_rs1_ren       )
-        ,.id_reg_rs2_ren       (id_reg_rs2_ren       )
-        ,.ex_data1             (ex_data1             )
-        ,.ex_data2             (ex_data2             )
-        ,.ex_data3             (ex_data3             )
-        ,.ex_data4             (ex_data4             )
-        ,.ex_store_wdata       (ex_store_wdata       )
-        ,.load_use_stall       (load_use_stall       )
+        ,.ex1_data1            (ex1_data1            )
+        ,.ex1_data2            (ex1_data2            )
+        ,.ex1_data3            (ex1_data3            )
+        ,.ex1_data4            (ex1_data4            )
+        ,.ex1_store_wdata      (ex1_store_wdata      )
     );
 
-    // EX stage
+    // EX1/EX2 pipeline register
+    pipe_ex1_ex2 #(
+         .BPU_INDEX_WIDTH(BPU_INDEX_WIDTH)
+    ) u_pipe_ex1_ex2(
+         .clk                  (core_clk             )
+        ,.rst                  (core_rst             )
+        ,.id_ex_valid          (id_ex_valid          )
+        ,.id_ex_pc             (id_ex_pc             )
+        ,.id_ex_snpc           (id_ex_snpc           )
+        ,.id_ex_pred_taken     (id_ex_pred_taken     )
+        ,.id_ex_pred_target    (id_ex_pred_target    )
+        ,.id_ex_pred_pht_idx   (id_ex_pred_pht_idx   )
+        ,.id_ex_rd_addr        (id_ex_rd_addr        )
+        ,.id_ex_wb_ctl         (id_ex_wb_ctl         )
+        ,.id_ex_exu_op         (id_ex_exu_op         )
+        ,.id_ex_alu_ctrl       (id_ex_alu_ctrl       )
+        ,.id_ex_ls_ctl         (id_ex_ls_ctl         )
+        ,.ex1_data1            (ex1_data1            )
+        ,.ex1_data2            (ex1_data2            )
+        ,.ex1_data3            (ex1_data3            )
+        ,.ex1_data4            (ex1_data4            )
+        ,.ex1_store_wdata      (ex1_store_wdata      )
+        ,.id_ex_csr_addr       (id_ex_csr_addr       )
+        ,.id_ex_csr_op         (id_ex_csr_op         )
+        ,.id_ex_csr_zimm       (id_ex_csr_zimm       )
+        ,.ex_redirect          (ex_redirect          )
+        ,.ex1_dependency_stall (ex1_dependency_stall )
+        ,.ex2_stall            (ex2_stall            )
+        ,.ex1_ex2_valid        (ex1_ex2_valid        )
+        ,.ex1_ex2_pc           (ex1_ex2_pc           )
+        ,.ex1_ex2_snpc         (ex1_ex2_snpc         )
+        ,.ex1_ex2_pred_taken   (ex1_ex2_pred_taken   )
+        ,.ex1_ex2_pred_target  (ex1_ex2_pred_target  )
+        ,.ex1_ex2_pred_pht_idx (ex1_ex2_pred_pht_idx )
+        ,.ex1_ex2_rd_addr      (ex1_ex2_rd_addr      )
+        ,.ex1_ex2_wb_ctl       (ex1_ex2_wb_ctl       )
+        ,.ex1_ex2_exu_op       (ex1_ex2_exu_op       )
+        ,.ex1_ex2_alu_ctrl     (ex1_ex2_alu_ctrl     )
+        ,.ex1_ex2_ls_ctl       (ex1_ex2_ls_ctl       )
+        ,.ex1_ex2_data1        (ex1_ex2_data1        )
+        ,.ex1_ex2_data2        (ex1_ex2_data2        )
+        ,.ex1_ex2_data3        (ex1_ex2_data3        )
+        ,.ex1_ex2_data4        (ex1_ex2_data4        )
+        ,.ex1_ex2_store_wdata  (ex1_ex2_store_wdata  )
+        ,.ex1_ex2_csr_addr     (ex1_ex2_csr_addr     )
+        ,.ex1_ex2_csr_op       (ex1_ex2_csr_op       )
+        ,.ex1_ex2_csr_zimm     (ex1_ex2_csr_zimm     )
+        ,.ex1_ex2_load_op      (ex1_ex2_load_op      )
+    );
+
+    // EX2 stage (EXU)
     KLDJ_exu exu2(
         .clk          (core_clk              )
         ,.rst         (core_rst              )
-        ,.valid       (id_ex_valid           )
-        ,.data1       (ex_data1              )
-        ,.data2       (ex_data2              )
-        ,.data3       (ex_data3              )
-        ,.data4       (ex_data4              )
-        ,.exu_op      (id_ex_exu_op          )
-        ,.alu_ctrl    (id_ex_alu_ctrl        )
+        ,.valid       (ex1_ex2_valid         )
+        ,.data1       (ex1_ex2_data1         )
+        ,.data2       (ex1_ex2_data2         )
+        ,.data3       (ex1_ex2_data3         )
+        ,.data4       (ex1_ex2_data4         )
+        ,.exu_op      (ex1_ex2_exu_op        )
+        ,.alu_ctrl    (ex1_ex2_alu_ctrl      )
         // CSR interface
-        ,.csr_addr    (id_ex_csr_addr        )
-        ,.csr_op      (id_ex_csr_op          )
-        ,.csr_zimm    (id_ex_csr_zimm        )
+        ,.csr_addr    (ex1_ex2_csr_addr      )
+        ,.csr_op      (ex1_ex2_csr_op        )
+        ,.csr_zimm    (ex1_ex2_csr_zimm      )
         ,.csr_rdata   (csr_rdata             )
         ,.csr_we      (csr_we                )
         ,.csr_wdata   (csr_wdata             )
@@ -410,106 +495,106 @@ module KLDJ_top(
         ,.exu_jump    (exu_jump_raw          )
         ,.exu_jump_pc (exu_jump_pc_raw       )
         ,.exu_res     (exu_data              )
-        ,.ex_mem_addr (ex_mem_addr_pre       )
+        ,.ex_mem_addr (ex2_mem_addr_pre      )
         ,.div_stall   (div_stall             )
         ,.mul_stall   (mul_stall             )
     );
 
-    // EX redirect and BPU update control
+    // EX2 redirect and BPU update control
     ex_bpu_ctrl #(
          .BPU_INDEX_WIDTH(BPU_INDEX_WIDTH)
     ) u_ex_bpu_ctrl(
-         .id_ex_valid       (id_ex_valid       )
-        ,.id_ex_pc          (id_ex_pc          )
-        ,.id_ex_snpc        (id_ex_snpc        )
-        ,.id_ex_pred_taken  (id_ex_pred_taken  )
-        ,.id_ex_pred_target (id_ex_pred_target )
-        ,.id_ex_pred_pht_idx(id_ex_pred_pht_idx)
-        ,.id_ex_exu_op      (id_ex_exu_op      )
-        ,.exu_jump_raw      (exu_jump_raw      )
-        ,.exu_jump_pc_raw   (exu_jump_pc_raw   )
-        ,.is_ecall          (is_ecall          )
-        ,.is_mret           (is_mret           )
-        ,.mtvec_val         (mtvec_val         )
-        ,.ex_actual_taken   (ex_actual_taken   )
-        ,.ex_correct_pc     (ex_correct_pc     )
-        ,.ex_redirect       (ex_redirect       )
-        ,.bpu_update_valid  (bpu_update_valid  )
-        ,.bpu_update_pc     (bpu_update_pc     )
-        ,.bpu_update_pht_idx(bpu_update_pht_idx)
-        ,.bpu_update_taken  (bpu_update_taken  )
-        ,.bpu_update_target (bpu_update_target )
+         .ex1_ex2_valid       (ex1_ex2_valid       )
+        ,.ex1_ex2_pc          (ex1_ex2_pc          )
+        ,.ex1_ex2_snpc        (ex1_ex2_snpc        )
+        ,.ex1_ex2_pred_taken  (ex1_ex2_pred_taken  )
+        ,.ex1_ex2_pred_target (ex1_ex2_pred_target )
+        ,.ex1_ex2_pred_pht_idx(ex1_ex2_pred_pht_idx)
+        ,.ex1_ex2_exu_op      (ex1_ex2_exu_op      )
+        ,.exu_jump_raw        (exu_jump_raw        )
+        ,.exu_jump_pc_raw     (exu_jump_pc_raw     )
+        ,.is_ecall            (is_ecall            )
+        ,.is_mret             (is_mret             )
+        ,.mtvec_val           (mtvec_val           )
+        ,.ex_actual_taken     (ex_actual_taken     )
+        ,.ex_correct_pc       (ex_correct_pc       )
+        ,.ex_redirect         (ex_redirect         )
+        ,.bpu_update_valid    (bpu_update_valid    )
+        ,.bpu_update_pc       (bpu_update_pc       )
+        ,.bpu_update_pht_idx  (bpu_update_pht_idx  )
+        ,.bpu_update_taken    (bpu_update_taken    )
+        ,.bpu_update_target   (bpu_update_target   )
     );
 
-    assign ex_stall = div_stall || mul_stall;
-    assign frontend_stall = load_use_stall || ex_stall;
+    assign ex2_stall = div_stall || mul_stall;
+    assign frontend_stall = ex1_dependency_stall || ex2_stall;
 
-    // EX-stage BRAM request control
+    // EX2-stage BRAM request control
     ex_mem_req_ctrl u_ex_mem_req_ctrl(
-         .id_ex_valid    (id_ex_valid      )
-        ,.ex_stall       (ex_stall         )
-        ,.id_ex_exu_op   (id_ex_exu_op     )
-        ,.id_ex_ls_ctl   (id_ex_ls_ctl     )
-        ,.ex_mem_addr_pre(ex_mem_addr_pre  )
-        ,.ex_store_wdata (ex_store_wdata   )
-        ,.mem_addr       (mem_addr         )
-        ,.mem_wdata      (mem_wdata        )
-        ,.mem_we         (mem_we           )
-        ,.mem_be         (mem_be           )
+         .ex1_ex2_valid    (ex1_ex2_valid     )
+        ,.ex2_stall        (ex2_stall         )
+        ,.ex1_ex2_exu_op   (ex1_ex2_exu_op    )
+        ,.ex1_ex2_ls_ctl   (ex1_ex2_ls_ctl    )
+        ,.ex2_mem_addr_pre (ex2_mem_addr_pre  )
+        ,.ex2_store_wdata  (ex1_ex2_store_wdata)
+        ,.mem_addr         (mem_addr          )
+        ,.mem_wdata        (mem_wdata         )
+        ,.mem_we           (mem_we            )
+        ,.mem_be           (mem_be            )
     );
 
     // CSR module instantiation
     KLDJ_csr u_csr(
-         .clk       (core_clk              )
-        ,.rst       (core_rst              )
-        ,.csr_raddr (id_ex_csr_addr        )
-        ,.csr_rdata (csr_rdata             )
-        ,.csr_we    (csr_we && id_ex_valid  )
-        ,.csr_waddr (id_ex_csr_addr        )
-        ,.csr_wdata (csr_wdata             )
-        ,.ecall_en  (is_ecall && id_ex_valid)
-        ,.ecall_pc  (id_ex_pc              )
-        ,.mret_en   (is_mret && id_ex_valid )
-        ,.mret_pc   (mret_pc               )
-        ,.mtvec_val (mtvec_val             )
+         .clk       (core_clk                    )
+        ,.rst       (core_rst                    )
+        ,.csr_raddr (ex1_ex2_csr_addr            )
+        ,.csr_rdata (csr_rdata                   )
+        ,.csr_we    (csr_we && ex1_ex2_valid     )
+        ,.csr_waddr (ex1_ex2_csr_addr            )
+        ,.csr_wdata (csr_wdata                   )
+        ,.ecall_en  (is_ecall && ex1_ex2_valid   )
+        ,.ecall_pc  (ex1_ex2_pc                  )
+        ,.mret_en   (is_mret && ex1_ex2_valid    )
+        ,.mret_pc   (mret_pc                     )
+        ,.mtvec_val (mtvec_val                   )
     );
 
-    // EX/MEM pipeline register
+    // EX2/MEM pipeline register
     pipe_ex_mem u_pipe_ex_mem(
-         .clk               (core_clk            )
-        ,.rst               (core_rst            )
-        ,.id_ex_valid       (id_ex_valid         )
-        ,.id_ex_pc          (id_ex_pc            )
-        ,.id_ex_rd_addr     (id_ex_rd_addr       )
-        ,.id_ex_wb_ctl      (id_ex_wb_ctl        )
-        ,.id_ex_exu_op      (id_ex_exu_op        )
-        ,.id_ex_ls_ctl      (id_ex_ls_ctl        )
-        ,.exu_data          (exu_data            )
-        ,.ex_mem_addr_i     (ex_mem_addr_pre     )
-        ,.ex_store_wdata    (ex_store_wdata      )
-        ,.ex_stall          (ex_stall            )
-        ,.ex_mem_valid      (ex_mem_valid        )
-        ,.ex_mem_pc         (ex_mem_pc           )
-        ,.ex_mem_rd_addr    (ex_mem_rd_addr      )
-        ,.ex_mem_wb_ctl     (ex_mem_wb_ctl       )
-        ,.ex_mem_exu_op     (ex_mem_exu_op       )
-        ,.ex_mem_ls_ctl     (ex_mem_ls_ctl       )
-        ,.ex_mem_exu_res    (ex_mem_exu_res      )
-        ,.ex_mem_mem_addr   (ex_mem_mem_addr     )
-        ,.ex_mem_store_wdata(ex_mem_store_wdata  )
-        ,.ex_mem_load_op    (ex_mem_load_op      )
-        ,.ex_mem_forward_valid(ex_mem_forward_valid)
+         .clk                  (core_clk            )
+        ,.rst                  (core_rst            )
+        ,.ex1_ex2_valid        (ex1_ex2_valid       )
+        ,.ex1_ex2_pc           (ex1_ex2_pc          )
+        ,.ex1_ex2_rd_addr      (ex1_ex2_rd_addr     )
+        ,.ex1_ex2_wb_ctl       (ex1_ex2_wb_ctl      )
+        ,.ex1_ex2_exu_op       (ex1_ex2_exu_op      )
+        ,.ex1_ex2_ls_ctl       (ex1_ex2_ls_ctl      )
+        ,.exu_data             (exu_data            )
+        ,.ex2_mem_addr_i       (ex2_mem_addr_pre    )
+        ,.ex2_store_wdata      (ex1_ex2_store_wdata )
+        ,.ex2_stall            (ex2_stall           )
+        ,.ex2_mem_valid        (ex2_mem_valid       )
+        ,.ex2_mem_pc           (ex2_mem_pc          )
+        ,.ex2_mem_rd_addr      (ex2_mem_rd_addr     )
+        ,.ex2_mem_wb_ctl       (ex2_mem_wb_ctl      )
+        ,.ex2_mem_exu_op       (ex2_mem_exu_op      )
+        ,.ex2_mem_ls_ctl       (ex2_mem_ls_ctl      )
+        ,.ex2_mem_exu_res      (ex2_mem_exu_res     )
+        ,.ex2_mem_mem_addr     (ex2_mem_mem_addr    )
+        ,.ex2_mem_store_wdata  (ex2_mem_store_wdata )
+        ,.ex2_mem_load_op      (ex2_mem_load_op     )
+        ,.ex2_mem_forward_valid(ex2_mem_forward_valid)
     );
 
     // MEM stage (LSU + memory interface + WB data MUX)
     mem_stage_top u_mem_stage_top(
-         .ex_mem_valid       (ex_mem_valid        )
-        ,.ex_mem_exu_op      (ex_mem_exu_op       )
-        ,.ex_mem_ls_ctl      (ex_mem_ls_ctl       )
-        ,.ex_mem_exu_res     (ex_mem_exu_res      )
-        ,.ex_mem_mem_addr    (ex_mem_mem_addr     )
-        ,.ex_mem_store_wdata (ex_mem_store_wdata  )
-        ,.ex_mem_wb_ctl      (ex_mem_wb_ctl       )
+         .ex_mem_valid       (ex2_mem_valid       )
+        ,.ex_mem_exu_op      (ex2_mem_exu_op      )
+        ,.ex_mem_ls_ctl      (ex2_mem_ls_ctl      )
+        ,.ex_mem_exu_res     (ex2_mem_exu_res     )
+        ,.ex_mem_mem_addr    (ex2_mem_mem_addr    )
+        ,.ex_mem_store_wdata (ex2_mem_store_wdata )
+        ,.ex_mem_wb_ctl      (ex2_mem_wb_ctl      )
         ,.mem_rdata          (mem_rdata           )
         ,.mem_addr           (mem_addr_memstage_unused )
         ,.mem_wdata          (mem_wdata_memstage_unused)
@@ -523,9 +608,9 @@ module KLDJ_top(
     pipe_mem_wb u_pipe_mem_wb(
          .clk               (core_clk            )
         ,.rst               (core_rst            )
-        ,.ex_mem_valid      (ex_mem_valid        )
-        ,.ex_mem_pc         (ex_mem_pc           )
-        ,.ex_mem_rd_addr    (ex_mem_rd_addr      )
+        ,.ex_mem_valid      (ex2_mem_valid       )
+        ,.ex_mem_pc         (ex2_mem_pc          )
+        ,.ex_mem_rd_addr    (ex2_mem_rd_addr     )
         ,.mem_stage_wb_ctl  (mem_stage_wb_ctl    )
         ,.wb_reg_rd_data    (wb_reg_rd_data      )
         ,.mem_wb_valid      (mem_wb_valid        )

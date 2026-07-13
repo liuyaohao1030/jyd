@@ -23,20 +23,12 @@ module ex_forward(
     ,input wire [`KLDJ_REGADDR]  mem_wb_rd_addr
     ,input wire [`KLDJ_DATA]     mem_wb_wb_data
     ,input wire                  mem_wb_forward_valid
-    // from IF/ID stage
-    ,input wire                  if_id_valid
-    ,input wire [`KLDJ_REGADDR]  id_reg_rs1_addr
-    ,input wire [`KLDJ_REGADDR]  id_reg_rs2_addr
-    ,input wire                  id_reg_rs1_ren
-    ,input wire                  id_reg_rs2_ren
-    // outputs to EXU
-    ,output wire [`KLDJ_DATA]    ex_data1
-    ,output wire [`KLDJ_DATA]    ex_data2
-    ,output wire [`KLDJ_DATA]    ex_data3
-    ,output wire [`KLDJ_DATA]    ex_data4
-    ,output wire [`KLDJ_DATA]    ex_store_wdata
-    // outputs to pipeline control
-    ,output wire                 load_use_stall
+    // outputs to EX1/EX2 pipeline register (renamed for clarity)
+    ,output wire [`KLDJ_DATA]    ex1_data1
+    ,output wire [`KLDJ_DATA]    ex1_data2
+    ,output wire [`KLDJ_DATA]    ex1_data3
+    ,output wire [`KLDJ_DATA]    ex1_data4
+    ,output wire [`KLDJ_DATA]    ex1_store_wdata
 );
 
     wire                         ex_mem_rs1_forward_hit;
@@ -49,12 +41,7 @@ module ex_forward(
     wire                         id_ex_store_op;
     wire                         id_ex_load_op;
 
-    assign id_ex_load_op = (id_ex_exu_op >= 18'h1d) && (id_ex_exu_op <= 18'h21);
-
-    assign load_use_stall = id_ex_valid && id_ex_load_op && (id_ex_rd_addr != 5'd0) &&
-                            if_id_valid &&
-                            ((id_reg_rs1_ren && (id_reg_rs1_addr == id_ex_rd_addr)) ||
-                             (id_reg_rs2_ren && (id_reg_rs2_addr == id_ex_rd_addr)));
+    // Removed old load_use_stall logic - now handled by ex1_hazard module
 
     assign ex_mem_rs1_forward_hit = id_ex_rs1_ren && ex_mem_forward_valid &&
                                     (id_ex_rs1_addr == ex_mem_rd_addr);
@@ -77,10 +64,10 @@ module ex_forward(
                                 ((id_ex_exu_op >= 18'h25) && (id_ex_exu_op <= 18'h2c));
     assign id_ex_store_op = ((id_ex_exu_op >= 18'h22) && (id_ex_exu_op <= 18'h24));
 
-    assign ex_data1 = id_ex_rs1_ren ? ex_rs1_data : id_ex_data1;
-    assign ex_data2 = id_ex_rs2_to_data2 ? ex_rs2_data : id_ex_data2;
-    assign ex_data3 = id_ex_data3;
-    assign ex_data4 = id_ex_data4;
-    assign ex_store_wdata = id_ex_store_op ? ex_rs2_data : id_ex_data3;
+    assign ex1_data1 = id_ex_rs1_ren ? ex_rs1_data : id_ex_data1;
+    assign ex1_data2 = id_ex_rs2_to_data2 ? ex_rs2_data : id_ex_data2;
+    assign ex1_data3 = id_ex_data3;
+    assign ex1_data4 = id_ex_data4;
+    assign ex1_store_wdata = id_ex_store_op ? ex_rs2_data : id_ex_data3;
 
 endmodule
