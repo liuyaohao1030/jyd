@@ -44,6 +44,8 @@ module bpu_tb;
             update_valid = 1'b1;
             tick;
             update_valid = 1'b0;
+            // Predictor table writes are intentionally pipelined by one cycle.
+            tick;
         end
     endtask
 
@@ -109,6 +111,27 @@ module bpu_tb;
         #1;
         if (btb_hit !== 1'b0 || pred_taken !== 1'b0)
             $fatal(1, "runtime reset did not invalidate predictor state");
+
+        // Consecutive updates must pass through the one-entry write pipeline
+        // without dropping either request.
+        update_pc = 32'h8000_000c;
+        update_pht_idx = 6'd3;
+        update_taken = 1'b1;
+        update_target = 32'h8000_0100;
+        update_valid = 1'b1;
+        tick;
+        update_pc = 32'h8000_0014;
+        update_pht_idx = 6'd5;
+        update_target = 32'h8000_0200;
+        tick;
+        update_valid = 1'b0;
+        tick;
+        if (dut.u_gshare_btb_core.pht[3] !== 2'b10 ||
+            dut.u_gshare_btb_core.pht[5] !== 2'b10)
+            $fatal(1, "back-to-back PHT updates were not preserved");
+        if (dut.u_gshare_btb_core.btb_data[3][31:0] !== 32'h8000_0100 ||
+            dut.u_gshare_btb_core.btb_data[5][31:0] !== 32'h8000_0200)
+            $fatal(1, "back-to-back BTB updates were not preserved");
 
         $display("BPU UNIT TEST PASSED (GHR=%0d)", dut.u_gshare_btb_core.ghr);
         $finish;

@@ -61,11 +61,16 @@ module pipe_id_ex #(
     ,output reg [11:0]           id_ex_csr_addr
     ,output reg                  id_ex_csr_op
     ,output reg [4:0]            id_ex_csr_zimm
-    // combinational derived outputs
-    ,output wire                 id_ex_load_op
+    // registered predecode outputs
+    ,output reg                  id_ex_load_op
+    ,output reg                  id_ex_store_op
+    ,output reg                  id_ex_rs2_to_data2
 );
 
-    assign id_ex_load_op = (id_ex_exu_op >= 18'h1d) && (id_ex_exu_op <= 18'h21);
+    wire id_load_op = (id_exu_op >= 18'h1d) && (id_exu_op <= 18'h21);
+    wire id_store_op = (id_exu_op >= 18'h22) && (id_exu_op <= 18'h24);
+    wire id_rs2_to_data2 = ((id_exu_op >= 18'ha) && (id_exu_op <= 18'h19)) ||
+                           ((id_exu_op >= 18'h25) && (id_exu_op <= 18'h2c));
 
     always@(posedge clk) begin
         if(rst == `KLDJ_RSTABLE) begin
@@ -75,6 +80,9 @@ module pipe_id_ex #(
             id_ex_rs2_ren  <= 1'b0;
             id_ex_wb_ctl   <= 1'b0;
             id_ex_csr_op   <= 1'b0;
+            id_ex_load_op  <= 1'b0;
+            id_ex_store_op <= 1'b0;
+            id_ex_rs2_to_data2 <= 1'b0;
         end else if(ex_redirect || load_use_stall) begin
             id_ex_valid    <= 1'b0;
             id_ex_pred_taken  <= 1'b0;
@@ -82,6 +90,9 @@ module pipe_id_ex #(
             id_ex_rs2_ren  <= 1'b0;
             id_ex_wb_ctl   <= 1'b0;
             id_ex_csr_op   <= 1'b0;
+            id_ex_load_op  <= 1'b0;
+            id_ex_store_op <= 1'b0;
+            id_ex_rs2_to_data2 <= 1'b0;
         end else if(!ex_stall) begin
             id_ex_valid    <= if_id_valid;
             id_ex_pred_taken  <= if_id_valid && if_id_pred_taken;
@@ -89,6 +100,9 @@ module pipe_id_ex #(
             id_ex_rs2_ren  <= if_id_valid && id_reg_rs2_ren;
             id_ex_wb_ctl   <= if_id_valid && id_wb_ctl;
             id_ex_csr_op   <= if_id_valid && id_csr_op;
+            id_ex_load_op  <= if_id_valid && id_load_op;
+            id_ex_store_op <= if_id_valid && id_store_op;
+            id_ex_rs2_to_data2 <= if_id_valid && id_rs2_to_data2;
         end
     end
 

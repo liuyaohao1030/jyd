@@ -237,3 +237,101 @@ FixTiming1 在 6.7 ns 约束下的布局布线结果：
 | RTL 编译 | 通过 | 正式 RTL 全量编译和 elaboration 成功 |
 | OOC 结构综合 | 通过 | `id_ex_pred_target` 对 `ex_redirect` 的依赖数为 0 |
 | 150 MHz 布局布线 | 待执行 | 报告应保存至 `kldj.srcs2/Timing_info/fixtiming3` |
+
+# Fix_Timing5
+
+## 本轮目标与范围
+
+本轮以 FixTiming3 的 175 MHz routed timing 报告为基线，只做加入普通 JALR 预测之前的时序结构优化。保持现有五级流水线、GShare + BTB 预测策略、JAL 静态预测和双端口 BRAM 接口不变；本轮不加入普通 JALR 预测，也不加入 RAS。
+
+根据当前分工，本轮由 Codex 完成 RTL 修改、测试平台补充和功能仿真；综合、布局布线及 175 MHz 时序收敛验证由用户执行。因此下文只确认 RTL 仿真结果，不把结构优化意图表述为已经实现时序收敛。
+
+## 修改前 175 MHz 基线
+
+数据来源：`Timing_info/fixtiming3/175mhz` 中 Vivado 2023.2 的 routed timing 报告。
+
+| 项目 | 修改前 |
+| --- | ---: |
+| 目标频率 | 175 MHz |
+| 时钟周期 | 5.714 ns |
+| WNS | -0.337 ns |
+| TNS | -18.037 ns |
+| Setup 失败端点 | 172 |
+| 最差路径数据延迟 | 5.820 ns |
+| 最差路径逻辑延迟 | 1.018 ns |
+| 最差路径布线延迟 | 4.802 ns（82.509%） |
+| 最差路径逻辑级数 | 13 |
+
+最差路径从 `u_pipe_ex_mem/ex_mem_exu_op_reg[0]` 出发，经 load 类型译码、`ex_mem_forward_valid`、操作数转发、分支比较和 EX 恢复控制，最终到达 IFU PC 寄存器。该路径说明晚到的 18 位 `exu_op` 译码和组合生成的转发资格位仍位于分支恢复关键链上。
+
+## 记录 1：将访存和操作数选择译码前移到 ID/EX
+
+修改文件：
+
+- `kldj.srcs2/sources_1/imports/rtl/pipe/pipe_id_ex.v`
+- `kldj.srcs2/sources_1/imports/rtl/pipe/ex_forward.v`
+- `kldj.srcs2/sources_1/imports/rtl/pipe/ex_mem_req_ctrl.v`
+- `kldj.srcs2/sources_1/imports/rtl/KLDJ_top.v`
+
+在进入 ID/EX 时预译码并寄存三个一位控制信号：`id_ex_load_op`、`id_ex_store_op` 和 `id_ex_rs2_to_data2`。`ex_forward` 和 `ex_mem_req_ctrl` 直接使用这些控制位，不再在 EX 级重复对 18 位 `id_ex_exu_op` 做范围比较。
+
+三个控制位与原有 ID/EX 有效位采用相同的流水控制：reset、EX redirect 和 load-use bubble 时清零，EX stall 时保持，其余周期随 IF/ID 指令更新。该修改不改变指令分类，仅将原组合译码移到前一流水边界。
+
+## 记录 2：寄存 EX/MEM 转发资格
+
+修改文件：
+
+- `kldj.srcs2/sources_1/imports/rtl/pipe/pipe_ex_mem.v`
+- `kldj.srcs2/sources_1/imports/rtl/KLDJ_top.v`
+
+将原先由 `ex_mem_exu_op` 组合译码得到的 `ex_mem_load_op`，以及继续组合生成的 `ex_mem_forward_valid`，改为在 EX/MEM 流水寄存器中与对应指令同拍生成并寄存。reset 或 EX stall 插入无效项时两者同步清零。
+
+目标是从分支恢复路径中移除“EX/MEM opcode -> load 译码 -> forwarding valid”这一段组合依赖。是否达到 175 MHz 仍必须以本版本重新布局布线后的报告为准。
+
+## 记录 3：寄存 BPU 表更新请求
+
+修改文件：`kldj.srcs2/sources_1/imports/rtl/pipe/bpu.v`
+
+增加一拍、吞吐率为每周期一条的 BPU 表更新流水包，寄存 `valid`、PC、原预测 PHT index、taken 和 target。PHT/BTB 数据表及 valid 位在下一周期使用该流水包写入，使 EX 结果不再直接驱动 distributed RAM 写端口。
+
+GHR 仍在原始 EX 更新请求到达的周期更新，保持后续 GShare 查询使用历史的时序不变。PHT/BTB 训练可见性延后一周期，但查询仍为零周期组合读取，BPU 外部接口和处理器架构状态不变；连续更新可逐周期进入流水包，不会因为增加寄存器而降低更新吞吐率。
+
+## 记录 4：仿真增强
+
+修改文件：
+
+- `kldj.srcs2/sim_1/imports/sim/bpu_tb.sv`
+- `kldj.srcs2/sim_1/imports/sim/KLDJ_top_tb.sv`
+
+`bpu_tb` 已适配表写入延后一周期的时序，并增加两个连续周期分别更新不同 PHT/BTB entry 的检查，确认两条请求均被保存。
+
+完整 CPU 测试在时钟下降沿增加结构等价断言，逐周期核对三个 ID/EX 预译码位、`ex_mem_load_op` 和 `ex_mem_forward_valid` 与修改前定义一致。已有 CPU 指令结果检查继续覆盖分支、JAL、未预测 JALR、RAW 转发、load-use stall、访存、CSR、异常返回和 RV32M。
+
+## 仿真结果
+
+工具：Vivado Simulator 2023.2。仿真工作目录：`TimingFix_Log/.fix5_sim_work`。
+
+| 验证项 | 结果 |
+| --- | --- |
+| 正式 RTL 与全部测试平台编译 | 通过，无编译错误 |
+| 五个仿真顶层 elaboration | 全部通过 |
+| BPU 单元测试 | 通过，包含连续更新和运行时复位检查 |
+| EX/BPU 恢复控制定向测试 | 通过，34 个检查 |
+| BPU/CPU 集成测试 | 通过，updates=12，hits=4，GHR=63 |
+| 完整 CPU 回归 | 通过，29 passed，0 failed |
+| RV32M 包装器回归 | 通过，MUL/DIV/REM 及边界条件全部通过 |
+
+最终仿真日志分别保存为 `TimingFix_Log/.fix5_sim_work/*_final.log`。差异检查 `git diff --check` 未发现空白错误。
+
+## 当前状态与后续验证
+
+| 验证项 | 状态 | 说明 |
+| --- | --- | --- |
+| RTL 结构优化 | 已完成 | 预译码前移、转发资格寄存、BPU 表更新寄存 |
+| 功能仿真 | 通过 | 最终版本全量回归通过 |
+| 175 MHz 综合 | 待用户执行 | 需检查 LUTRAM 推断、资源和综合后关键路径 |
+| 175 MHz 布局布线 | 待用户执行 | 需以 routed WNS/TNS、失败端点和最差路径判断收敛 |
+| 普通 JALR 预测 | 未开始 | 待本轮时序结构结果确认后加入 |
+| RET/RAS 预测 | 未开始 | 在普通 JALR 预测验证后加入 |
+
+`TimingFix_Log/Fix_Timing5_impl` 和 `TimingFix_Log/run_fix_timing5_175.tcl` 来自分工确认前被中断的一次尝试，其中只有不完整的中间产物，不作为 Fix_Timing5 的综合、实现或时序结论。正式结果应由用户重新运行工程流程后另行记录。

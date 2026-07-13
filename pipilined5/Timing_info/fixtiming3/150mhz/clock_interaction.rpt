@@ -1,0 +1,26 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2023.2 (win64) Build 4029153 Fri Oct 13 20:14:34 MDT 2023
+| Date         : Sun Jul 12 17:16:45 2026
+| Host         : DESKTOP-MO7L2KR running 64-bit major release  (build 9200)
+| Command      : report_clock_interaction -delay_type max -file D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/Timing_info/fixtiming3/150mhz/20260712_171624_baseline_150mhz/clock_interaction.rpt
+| Design       : top
+| Device       : 7k325t-ffg900
+| Speed File   : -2  PRODUCTION 1.12 2017-02-17
+| Design State : Routed
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Clock Interaction Report
+
+Clock Interaction Table
+-----------------------
+
+                            WNS                            TNS Failing  TNS Total    WNS Path         Clock-Pair           Inter-Clock  
+From Clock    To Clock      Clock Edges  WNS(ns)  TNS(ns)    Endpoints    Endpoints  Requirement(ns)  Classification       Constraints  
+------------  ------------  -----------  -------  -------  -----------  -----------  ---------------  -------------------  -----------  
+clk_out1_pll  clk_out1_pll  rise - rise    16.10     0.00            0          558            20.00  Clean                Timed        
+clk_out1_pll  clk_out2_pll  rise - rise    -0.00    -0.00            1           32             4.00  Clean                Timed        
+clk_out2_pll  clk_out1_pll  rise - rise     0.32     0.00            0           63             4.00  Clean                Timed        
+clk_out2_pll  clk_out2_pll  rise - rise     0.15     0.00            0       331179             8.00  Clean                Timed        
+
+

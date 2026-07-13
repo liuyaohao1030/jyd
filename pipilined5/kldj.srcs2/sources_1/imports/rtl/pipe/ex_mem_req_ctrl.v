@@ -1,9 +1,10 @@
 `include "../define.v"
 
 module ex_mem_req_ctrl(
-     input  wire                  id_ex_valid
+    input  wire                  id_ex_valid
     ,input  wire                  ex_stall
-    ,input  wire [17:0]           id_ex_exu_op
+    ,input  wire                  id_ex_load_op
+    ,input  wire                  id_ex_store_op
     ,input  wire [3:0]            id_ex_ls_ctl
     ,input  wire [`KLDJ_DATA]     ex_mem_addr_pre
     ,input  wire [`KLDJ_DATA]     ex_store_wdata
@@ -21,8 +22,8 @@ module ex_mem_req_ctrl(
     wire [3:0] ex_req_be;
     wire [`KLDJ_DATA] ex_req_wdata;
 
-    assign ex_req_load  = (id_ex_exu_op >= 18'h1d) && (id_ex_exu_op <= 18'h21);
-    assign ex_req_store = (id_ex_exu_op >= 18'h22) && (id_ex_exu_op <= 18'h24);
+    assign ex_req_load  = id_ex_load_op;
+    assign ex_req_store = id_ex_store_op;
     assign ex_req_mem   = id_ex_valid && !ex_stall && (ex_req_load || ex_req_store);
     assign ex_req_size  = id_ex_ls_ctl[1:0];
     assign ex_req_be    = (ex_req_size == 2'b00) ? (4'b0001 << ex_mem_addr_pre[1:0]) :

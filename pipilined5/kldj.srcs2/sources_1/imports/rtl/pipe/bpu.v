@@ -70,6 +70,14 @@ module gshare_btb_core #(
 
     reg [INDEX_WIDTH-1:0] ghr;
 
+    // Keep GHR resolution timing unchanged, but pipeline table writes by one
+    // cycle so the EX result does not directly drive the distributed RAM ports.
+    reg                         update_valid_q;
+    reg [`KLDJ_PC]              update_pc_q;
+    reg [INDEX_WIDTH-1:0]       update_pht_idx_q;
+    reg                         update_taken_q;
+    reg [`KLDJ_PC]              update_target_q;
+
     // The data arrays intentionally have no reset. Keeping resettable validity
     // bits separate allows Vivado to infer asynchronous-read distributed RAM.
     (* ram_style = "distributed" *) reg [1:0] pht [0:ENTRY_NUM-1];
@@ -91,14 +99,14 @@ module gshare_btb_core #(
     assign lookup_btb_idx = lookup_pc[INDEX_WIDTH+1:2];
     assign lookup_pht_idx = lookup_btb_idx ^ ghr;
     assign lookup_tag     = lookup_pc[31:INDEX_WIDTH+2];
-    assign update_btb_idx = update_pc[INDEX_WIDTH+1:2];
-    assign update_tag     = update_pc[31:INDEX_WIDTH+2];
+    assign update_btb_idx = update_pc_q[INDEX_WIDTH+1:2];
+    assign update_tag     = update_pc_q[31:INDEX_WIDTH+2];
 
     assign lookup_pht_value = pht_valid[lookup_pht_idx] ?
                               pht[lookup_pht_idx] : BHT_RESET_VALUE;
-    assign update_pht_value = pht_valid[update_pht_idx] ?
-                              pht[update_pht_idx] : BHT_RESET_VALUE;
-    assign update_pht_next  = update_taken ?
+    assign update_pht_value = pht_valid[update_pht_idx_q] ?
+                              pht[update_pht_idx_q] : BHT_RESET_VALUE;
+    assign update_pht_next  = update_taken_q ?
                               ((update_pht_value == 2'b11) ? 2'b11 : update_pht_value + 2'b01) :
                               ((update_pht_value == 2'b00) ? 2'b00 : update_pht_value - 2'b01);
 
@@ -115,16 +123,27 @@ module gshare_btb_core #(
             ghr       <= {INDEX_WIDTH{1'b0}};
             pht_valid <= {ENTRY_NUM{1'b0}};
             btb_valid <= {ENTRY_NUM{1'b0}};
-        end else if(update_valid) begin
-            pht[update_pht_idx]       <= update_pht_next;
-            pht_valid[update_pht_idx] <= 1'b1;
+            update_valid_q <= 1'b0;
+        end else begin
+            update_valid_q <= update_valid;
+            if(update_valid) begin
+                update_pc_q      <= update_pc;
+                update_pht_idx_q <= update_pht_idx;
+                update_taken_q   <= update_taken;
+                update_target_q  <= update_target;
 
-            if(update_taken) begin
-                btb_valid[update_btb_idx]  <= 1'b1;
-                btb_data[update_btb_idx]   <= {update_tag, update_target};
+                ghr <= {ghr[INDEX_WIDTH-2:0], update_taken};
             end
 
-            ghr <= {ghr[INDEX_WIDTH-2:0], update_taken};
+            if(update_valid_q) begin
+                pht[update_pht_idx_q]       <= update_pht_next;
+                pht_valid[update_pht_idx_q] <= 1'b1;
+
+                if(update_taken_q) begin
+                    btb_valid[update_btb_idx] <= 1'b1;
+                    btb_data[update_btb_idx]  <= {update_tag, update_target_q};
+                end
+            end
         end
     end
 

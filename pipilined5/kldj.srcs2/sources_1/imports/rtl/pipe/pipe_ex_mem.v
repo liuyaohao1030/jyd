@@ -9,6 +9,7 @@ module pipe_ex_mem(
     ,input wire [`KLDJ_REGADDR]  id_ex_rd_addr
     ,input wire                  id_ex_wb_ctl
     ,input wire [17:0]           id_ex_exu_op
+    ,input wire                  id_ex_load_op
     ,input wire [3:0]            id_ex_ls_ctl
     ,input wire [`KLDJ_DATA]     exu_data
     ,input wire [`KLDJ_DATA]     ex_mem_addr_i
@@ -24,14 +25,10 @@ module pipe_ex_mem(
     ,output reg [`KLDJ_DATA]     ex_mem_exu_res
     ,(* keep = "true" *) output reg [`KLDJ_DATA] ex_mem_mem_addr
     ,output reg [`KLDJ_DATA]     ex_mem_store_wdata
-    // combinational derived outputs
-    ,output wire                 ex_mem_load_op
-    ,output wire                 ex_mem_forward_valid
+    // registered predecode outputs
+    ,output reg                  ex_mem_load_op
+    ,output reg                  ex_mem_forward_valid
 );
-
-    assign ex_mem_load_op = (ex_mem_exu_op >= 18'h1d) && (ex_mem_exu_op <= 18'h21);
-    assign ex_mem_forward_valid = ex_mem_valid && ex_mem_wb_ctl && !ex_mem_load_op &&
-                                  (ex_mem_rd_addr != 5'd0);
 
     always@(posedge clk) begin
         if(rst == `KLDJ_RSTABLE) begin
@@ -44,6 +41,8 @@ module pipe_ex_mem(
             ex_mem_exu_res     <= `KLDJ_ZERO32;
             ex_mem_mem_addr    <= `KLDJ_ZERO32;
             ex_mem_store_wdata <= `KLDJ_ZERO32;
+            ex_mem_load_op     <= 1'b0;
+            ex_mem_forward_valid <= 1'b0;
         end else if(ex_stall) begin
             ex_mem_valid       <= 1'b0;
             ex_mem_pc          <= `KLDJ_ZERO32;
@@ -54,6 +53,8 @@ module pipe_ex_mem(
             ex_mem_exu_res     <= `KLDJ_ZERO32;
             ex_mem_mem_addr    <= `KLDJ_ZERO32;
             ex_mem_store_wdata <= `KLDJ_ZERO32;
+            ex_mem_load_op     <= 1'b0;
+            ex_mem_forward_valid <= 1'b0;
         end else begin
             ex_mem_valid       <= id_ex_valid;
             ex_mem_pc          <= id_ex_pc;
@@ -64,6 +65,9 @@ module pipe_ex_mem(
             ex_mem_exu_res     <= exu_data;
             ex_mem_mem_addr    <= ex_mem_addr_i;
             ex_mem_store_wdata <= ex_store_wdata;
+            ex_mem_load_op     <= id_ex_valid && id_ex_load_op;
+            ex_mem_forward_valid <= id_ex_valid && id_ex_wb_ctl && !id_ex_load_op &&
+                                    (id_ex_rd_addr != 5'd0);
         end
     end
 

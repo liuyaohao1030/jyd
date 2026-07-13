@@ -119,6 +119,34 @@ module KLDJ_top_tb;
         ,.perf_store_count         (perf_store_count          )
     );
 
+    // Fix_Timing5 structural equivalence checks. These compare the new
+    // registered one-bit controls against the original exu_op definitions.
+    always @(negedge clk) begin
+        if (!rst) begin
+            if (u_dut.id_ex_load_op !==
+                (u_dut.id_ex_valid && (u_dut.id_ex_exu_op >= 18'h1d) &&
+                 (u_dut.id_ex_exu_op <= 18'h21)))
+                $fatal(1, "id_ex_load_op predecode mismatch");
+            if (u_dut.id_ex_store_op !==
+                (u_dut.id_ex_valid && (u_dut.id_ex_exu_op >= 18'h22) &&
+                 (u_dut.id_ex_exu_op <= 18'h24)))
+                $fatal(1, "id_ex_store_op predecode mismatch");
+            if (u_dut.id_ex_rs2_to_data2 !==
+                (u_dut.id_ex_valid &&
+                 (((u_dut.id_ex_exu_op >= 18'ha) && (u_dut.id_ex_exu_op <= 18'h19)) ||
+                  ((u_dut.id_ex_exu_op >= 18'h25) && (u_dut.id_ex_exu_op <= 18'h2c)))))
+                $fatal(1, "id_ex_rs2_to_data2 predecode mismatch");
+            if (u_dut.ex_mem_load_op !==
+                (u_dut.ex_mem_valid && (u_dut.ex_mem_exu_op >= 18'h1d) &&
+                 (u_dut.ex_mem_exu_op <= 18'h21)))
+                $fatal(1, "ex_mem_load_op predecode mismatch");
+            if (u_dut.ex_mem_forward_valid !==
+                (u_dut.ex_mem_valid && u_dut.ex_mem_wb_ctl &&
+                 !u_dut.ex_mem_load_op && (u_dut.ex_mem_rd_addr != 5'd0)))
+                $fatal(1, "ex_mem_forward_valid registered control mismatch");
+        end
+    end
+
     // ------------------------------------------------
     // Helpers
     // ------------------------------------------------

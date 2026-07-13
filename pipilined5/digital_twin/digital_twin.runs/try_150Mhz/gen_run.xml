@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="try_150Mhz" LaunchPart="xc7k325tffg900-2" LaunchTime="1783755991" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/try_150Mhz/top.dcp">
+<GenRun Id="try_150Mhz" LaunchPart="xc7k325tffg900-2" LaunchTime="1783755991" LaunchIncrCheckpoint="$PPRDIR/../../../../merge_dualport_bpu/jyd/pipilined5/digital_twin/digital_twin.srcs/utils_1/imports/try_150Mhz/top.dcp">
   <File Type="PA-TCL" Name="top.tcl"/>
   <File Type="REPORTS-TCL" Name="top_reports.tcl"/>
   <File Type="RDS-RDS" Name="top.vds"/>

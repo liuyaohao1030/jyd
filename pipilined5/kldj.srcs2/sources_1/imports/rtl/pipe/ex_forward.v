@@ -8,7 +8,9 @@ module ex_forward(
     ,input wire [`KLDJ_REGADDR]  id_ex_rd_addr
     ,input wire                  id_ex_rs1_ren
     ,input wire                  id_ex_rs2_ren
-    ,input wire [17:0]           id_ex_exu_op
+    ,input wire                  id_ex_load_op
+    ,input wire                  id_ex_store_op
+    ,input wire                  id_ex_rs2_to_data2
     ,input wire [`KLDJ_DATA]     id_ex_data1
     ,input wire [`KLDJ_DATA]     id_ex_data2
     ,input wire [`KLDJ_DATA]     id_ex_data3
@@ -45,12 +47,6 @@ module ex_forward(
     wire                         mem_wb_rs2_forward_hit;
     wire [`KLDJ_DATA]            ex_rs1_data;
     wire [`KLDJ_DATA]            ex_rs2_data;
-    wire                         id_ex_rs2_to_data2;
-    wire                         id_ex_store_op;
-    wire                         id_ex_load_op;
-
-    assign id_ex_load_op = (id_ex_exu_op >= 18'h1d) && (id_ex_exu_op <= 18'h21);
-
     assign load_use_stall = id_ex_valid && id_ex_load_op && (id_ex_rd_addr != 5'd0) &&
                             if_id_valid &&
                             ((id_reg_rs1_ren && (id_reg_rs1_addr == id_ex_rd_addr)) ||
@@ -72,10 +68,6 @@ module ex_forward(
     assign ex_rs2_data = ex_mem_rs2_forward_hit ? ex_mem_exu_res :
                          mem_wb_rs2_forward_hit ? mem_wb_wb_data :
                          id_ex_rs2_data;
-
-    assign id_ex_rs2_to_data2 = ((id_ex_exu_op >= 18'ha) && (id_ex_exu_op <= 18'h19)) |
-                                ((id_ex_exu_op >= 18'h25) && (id_ex_exu_op <= 18'h2c));
-    assign id_ex_store_op = ((id_ex_exu_op >= 18'h22) && (id_ex_exu_op <= 18'h24));
 
     assign ex_data1 = id_ex_rs1_ren ? ex_rs1_data : id_ex_data1;
     assign ex_data2 = id_ex_rs2_to_data2 ? ex_rs2_data : id_ex_data2;

@@ -104,6 +104,8 @@ module KLDJ_top(
     wire [`KLDJ_DATA]            id_ex_rs1_data;
     wire [`KLDJ_DATA]            id_ex_rs2_data;
     wire                         id_ex_load_op;
+    wire                         id_ex_store_op;
+    wire                         id_ex_rs2_to_data2;
     // CSR signals from ID/EX
     wire [11:0]                  id_ex_csr_addr;
     wire                         id_ex_csr_op;
@@ -345,6 +347,8 @@ module KLDJ_top(
         ,.id_ex_rs1_data  (id_ex_rs1_data    )
         ,.id_ex_rs2_data  (id_ex_rs2_data    )
         ,.id_ex_load_op   (id_ex_load_op     )
+        ,.id_ex_store_op  (id_ex_store_op    )
+        ,.id_ex_rs2_to_data2(id_ex_rs2_to_data2)
         ,.id_ex_csr_addr  (id_ex_csr_addr    )
         ,.id_ex_csr_op    (id_ex_csr_op      )
         ,.id_ex_csr_zimm  (id_ex_csr_zimm    )
@@ -358,7 +362,9 @@ module KLDJ_top(
         ,.id_ex_rd_addr        (id_ex_rd_addr        )
         ,.id_ex_rs1_ren        (id_ex_rs1_ren        )
         ,.id_ex_rs2_ren        (id_ex_rs2_ren        )
-        ,.id_ex_exu_op         (id_ex_exu_op         )
+        ,.id_ex_load_op        (id_ex_load_op        )
+        ,.id_ex_store_op       (id_ex_store_op       )
+        ,.id_ex_rs2_to_data2   (id_ex_rs2_to_data2   )
         ,.id_ex_data1          (id_ex_data1          )
         ,.id_ex_data2          (id_ex_data2          )
         ,.id_ex_data3          (id_ex_data3          )
@@ -448,7 +454,8 @@ module KLDJ_top(
     ex_mem_req_ctrl u_ex_mem_req_ctrl(
          .id_ex_valid    (id_ex_valid      )
         ,.ex_stall       (ex_stall         )
-        ,.id_ex_exu_op   (id_ex_exu_op     )
+        ,.id_ex_load_op  (id_ex_load_op    )
+        ,.id_ex_store_op (id_ex_store_op   )
         ,.id_ex_ls_ctl   (id_ex_ls_ctl     )
         ,.ex_mem_addr_pre(ex_mem_addr_pre  )
         ,.ex_store_wdata (ex_store_wdata   )
@@ -483,6 +490,7 @@ module KLDJ_top(
         ,.id_ex_rd_addr     (id_ex_rd_addr       )
         ,.id_ex_wb_ctl      (id_ex_wb_ctl        )
         ,.id_ex_exu_op      (id_ex_exu_op        )
+        ,.id_ex_load_op     (id_ex_load_op       )
         ,.id_ex_ls_ctl      (id_ex_ls_ctl        )
         ,.exu_data          (exu_data            )
         ,.ex_mem_addr_i     (ex_mem_addr_pre     )

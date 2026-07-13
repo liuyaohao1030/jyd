@@ -1,0 +1,55 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2023.2 (win64) Build 4029153 Fri Oct 13 20:14:34 MDT 2023
+| Date         : Sun Jul 12 17:16:48 2026
+| Host         : DESKTOP-MO7L2KR running 64-bit major release  (build 9200)
+| Command      : report_utilization -hierarchical -file D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/Timing_info/fixtiming3/150mhz/20260712_171624_baseline_150mhz/utilization_hier.rpt
+| Design       : top
+| Device       : xc7k325tffg900-2
+| Speed File   : -2
+| Design State : Routed
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Utilization Design Information
+
+Table of Contents
+-----------------
+1. Utilization by Hierarchy
+
+1. Utilization by Hierarchy
+---------------------------
+
++-----------------------------------------+---------------------------------+------------+------------+---------+------+------+--------+--------+------------+
+|                 Instance                |              Module             | Total LUTs | Logic LUTs | LUTRAMs | SRLs |  FFs | RAMB36 | RAMB18 | DSP Blocks |
++-----------------------------------------+---------------------------------+------------+------------+---------+------+------+--------+--------+------------+
+| top                                     |                           (top) |      44533 |      11765 |   32768 |    0 | 2242 |      0 |      0 |          0 |
+|   (top)                                 |                           (top) |          0 |          0 |       0 |    0 |    0 |      0 |      0 |          0 |
+|   pll_inst                              |                             pll |          0 |          0 |       0 |    0 |    0 |      0 |      0 |          0 |
+|     inst                                |                     pll_clk_wiz |          0 |          0 |       0 |    0 |    0 |      0 |      0 |          0 |
+|   student_top_inst                      |                     student_top |      44337 |      11569 |   32768 |    0 | 1938 |      0 |      0 |          0 |
+|     Mem_IROM                            |                            IROM |       1086 |       1086 |       0 |    0 |    0 |      0 |      0 |          0 |
+|       U0                                |       IROM_dist_mem_gen_v8_0_14 |       1086 |       1086 |       0 |    0 |    0 |      0 |      0 |          0 |
+|     bridge_inst                         |                    perip_bridge |      41417 |       8649 |   32768 |    0 |  150 |      0 |      0 |          0 |
+|       (bridge_inst)                     |                    perip_bridge |          0 |          0 |       0 |    0 |   96 |      0 |      0 |          0 |
+|       counter_inst                      |                         counter |          7 |          7 |       0 |    0 |   49 |      0 |      0 |          0 |
+|       dram_driver_inst                  |                     dram_driver |      41372 |       8604 |   32768 |    0 |    0 |      0 |      0 |          0 |
+|         Mem_DRAM                        |                            DRAM |      41372 |       8604 |   32768 |    0 |    0 |      0 |      0 |          0 |
+|           U0                            |       DRAM_dist_mem_gen_v8_0_14 |      41372 |       8604 |   32768 |    0 |    0 |      0 |      0 |          0 |
+|             synth_options.dist_mem_inst | DRAM_dist_mem_gen_v8_0_14_synth |      41372 |       8604 |   32768 |    0 |    0 |      0 |      0 |          0 |
+|               gen_sp_ram.spram_inst     |                      DRAM_spram |      41372 |       8604 |   32768 |    0 |    0 |      0 |      0 |          0 |
+|       seg_driver                        |                     display_seg |         38 |         38 |       0 |    0 |    5 |      0 |      0 |          0 |
+|     u_KLDJ_top                          |                        KLDJ_top |       1834 |       1834 |       0 |    0 | 1788 |      0 |      0 |          0 |
+|       (u_KLDJ_top)                      |                        KLDJ_top |        473 |        473 |       0 |    0 |  764 |      0 |      0 |          0 |
+|       exu2                              |                        KLDJ_exu |        190 |        190 |       0 |    0 |    0 |      0 |      0 |          0 |
+|         (exu2)                          |                        KLDJ_exu |         28 |         28 |       0 |    0 |    0 |      0 |      0 |          0 |
+|         u_KLDJ_alu                      |                        KLDJ_alu |        162 |        162 |       0 |    0 |    0 |      0 |      0 |          0 |
+|           (u_KLDJ_alu)                  |                        KLDJ_alu |         90 |         90 |       0 |    0 |    0 |      0 |      0 |          0 |
+|           u_alu_add                     |                         alu_add |         73 |         73 |       0 |    0 |    0 |      0 |      0 |          0 |
+|       ifu0                              |                        KLDJ_ifu |        441 |        441 |       0 |    0 |   32 |      0 |      0 |          0 |
+|       reg5                              |                    KLDJ_regfile |        736 |        736 |       0 |    0 |  992 |      0 |      0 |          0 |
+|   twin_controller_inst                  |                 twin_controller |         92 |         92 |       0 |    0 |  222 |      0 |      0 |          0 |
+|   uart_inst                             |                            uart |        104 |        104 |       0 |    0 |   82 |      0 |      0 |          0 |
++-----------------------------------------+---------------------------------+------------+------------+---------+------+------+--------+--------+------------+
+* Note: The sum of lower-level cells may be larger than their parent cells total, due to cross-hierarchy LUT combining
+
+

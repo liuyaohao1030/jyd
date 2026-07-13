@@ -1,0 +1,5 @@
+Implementation Strategy: Vivado Implementation Defaults
+Opt Design Directive: Default
+Place Design Directive: ExtraNetDelay_high
+Phys Opt Directive: Default
+Route Design Directive: AggressiveExplore

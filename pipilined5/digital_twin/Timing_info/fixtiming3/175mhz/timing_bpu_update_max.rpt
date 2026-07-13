@@ -1,0 +1,34 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2023.2 (win64) Build 4029153 Fri Oct 13 20:14:34 MDT 2023
+| Date         : Mon Jul 13 13:27:26 2026
+| Host         : DESKTOP-MO7L2KR running 64-bit major release  (build 9200)
+| Command      : report_timing -delay_type max -through [get_nets -hier *bpu_update*] -to [get_cells -hier *u_bpu*] -max_paths 50 -nworst 10 -path_type full_clock_expanded -sort_by slack -nets -input_pins -file Timing_info/fixtiming3/175mhz/timing_bpu_update_max.rpt
+| Design       : top
+| Device       : 7k325t-ffg900
+| Speed File   : -2  PRODUCTION 1.12 2017-02-17
+| Design State : Routed
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+No timing paths found.
+
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2023.2 (win64) Build 4029153 Fri Oct 13 20:14:34 MDT 2023
+| Date         : Mon Jul 13 13:27:26 2026
+| Host         : DESKTOP-MO7L2KR running 64-bit major release  (build 9200)
+| Command      : report_timing -delay_type max -from [get_cells -hier *exu*] -to [get_cells -hier *u_bpu*] -max_paths 50 -nworst 10 -path_type full_clock_expanded -sort_by slack -nets -input_pins -append -file Timing_info/fixtiming3/175mhz/timing_bpu_update_max.rpt
+| Design       : top
+| Device       : 7k325t-ffg900
+| Speed File   : -2  PRODUCTION 1.12 2017-02-17
+| Design State : Routed
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+No timing paths found.
+
+

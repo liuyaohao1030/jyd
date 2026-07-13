@@ -1,0 +1,73 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2023.2 (win64) Build 4029153 Fri Oct 13 20:14:34 MDT 2023
+| Date         : Mon Jul 13 17:02:41 2026
+| Host         : DESKTOP-MO7L2KR running 64-bit major release  (build 9200)
+| Command      : report_utilization -hierarchical -hierarchical_depth 6 -file D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/TimingFix_Log/Fix_Timing5_impl/utilization_synth.rpt
+| Design       : top
+| Device       : xc7k325tffg900-2
+| Speed File   : -2
+| Design State : Synthesized
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Utilization Design Information
+
+Table of Contents
+-----------------
+1. Utilization by Hierarchy
+
+1. Utilization by Hierarchy
+---------------------------
+
++------------------------------+-----------------------------------+------------+------------+---------+------+------+--------+--------+------------+
+|           Instance           |               Module              | Total LUTs | Logic LUTs | LUTRAMs | SRLs |  FFs | RAMB36 | RAMB18 | DSP Blocks |
++------------------------------+-----------------------------------+------------+------------+---------+------+------+--------+--------+------------+
+| top                          |                             (top) |       5968 |       5878 |      80 |   10 | 6155 |     64 |      0 |          4 |
+|   (top)                      |                             (top) |          1 |          1 |       0 |    0 |    0 |      0 |      0 |          0 |
+|   pll_inst                   |                               pll |          0 |          0 |       0 |    0 |    0 |      0 |      0 |          0 |
+|     inst                     |                       pll_clk_wiz |          0 |          0 |       0 |    0 |    0 |      0 |      0 |          0 |
+|   student_top_inst           |                       student_top |       5772 |       5682 |      80 |   10 | 5851 |     64 |      0 |          4 |
+|     (student_top_inst)       |                       student_top |          3 |          3 |       0 |    0 |    0 |      0 |      0 |          0 |
+|     Mem_IROM                 |                              IROM |       1192 |       1192 |       0 |    0 |    0 |      0 |      0 |          0 |
+|       (Mem_IROM)             |                              IROM |          0 |          0 |       0 |    0 |    0 |      0 |      0 |          0 |
+|       U0                     |         IROM_dist_mem_gen_v8_0_14 |       1192 |       1192 |       0 |    0 |    0 |      0 |      0 |          0 |
+|     bridge_inst              |                      perip_bridge |        481 |        481 |       0 |    0 |  388 |     64 |      0 |          0 |
+|       (bridge_inst)          |                      perip_bridge |         25 |         25 |       0 |    0 |  135 |      0 |      0 |          0 |
+|       counter_inst           |                           counter |         60 |         60 |       0 |    0 |  146 |      0 |      0 |          0 |
+|       dram_driver_inst       |                       dram_driver |        350 |        350 |       0 |    0 |  102 |     64 |      0 |          0 |
+|         (dram_driver_inst)   |                       dram_driver |         62 |         62 |       0 |    0 |   94 |      0 |      0 |          0 |
+|         u_dram_tdp           |                          DRAM_TDP |        288 |        288 |       0 |    0 |    8 |     64 |      0 |          0 |
+|           (u_dram_tdp)       |                          DRAM_TDP |          0 |          0 |       0 |    0 |    0 |      0 |      0 |          0 |
+|           U0                 |       DRAM_TDP_blk_mem_gen_v8_4_7 |        288 |        288 |       0 |    0 |    8 |     64 |      0 |          0 |
+|             (U0)             |       DRAM_TDP_blk_mem_gen_v8_4_7 |          0 |          0 |       0 |    0 |    0 |      0 |      0 |          0 |
+|             inst_blk_mem_gen | DRAM_TDP_blk_mem_gen_v8_4_7_synth |        288 |        288 |       0 |    0 |    8 |     64 |      0 |          0 |
+|       seg_driver             |                       display_seg |         46 |         46 |       0 |    0 |    5 |      0 |      0 |          0 |
+|     u_KLDJ_top               |                          KLDJ_top |       4096 |       4006 |      80 |   10 | 5463 |      0 |      0 |          4 |
+|       (u_KLDJ_top)           |                          KLDJ_top |          1 |          1 |       0 |    0 |    0 |      0 |      0 |          0 |
+|       exu2                   |                          KLDJ_exu |       1469 |       1459 |       0 |   10 | 3556 |      0 |      0 |          4 |
+|         u_KLDJ_alu           |                          KLDJ_alu |          0 |          0 |       0 |    0 |    0 |      0 |      0 |          0 |
+|           u_alu_add          |                           alu_add |          0 |          0 |       0 |    0 |    0 |      0 |      0 |          0 |
+|         u_div_ip_wrapper     |                    div_ip_wrapper |       1303 |       1302 |       0 |    1 | 3374 |      0 |      0 |          0 |
+|           (u_div_ip_wrapper) |                    div_ip_wrapper |        118 |        118 |       0 |    0 |  105 |      0 |      0 |          0 |
+|           u_div_gen_u32      |                       div_gen_u32 |       1185 |       1184 |       0 |    1 | 3269 |      0 |      0 |          0 |
+|             (u_div_gen_u32)  |                       div_gen_u32 |          0 |          0 |       0 |    0 |    0 |      0 |      0 |          0 |
+|             U0               |       div_gen_u32_div_gen_v5_1_20 |       1185 |       1184 |       0 |    1 | 3269 |      0 |      0 |          0 |
+|         u_mul_ip_wrapper     |                    mul_ip_wrapper |        166 |        157 |       0 |    9 |  182 |      0 |      0 |          4 |
+|           (u_mul_ip_wrapper) |                    mul_ip_wrapper |        157 |        157 |       0 |    0 |  132 |      0 |      0 |          0 |
+|           u_mult_gen_u33     |                      mult_gen_u33 |          9 |          0 |       0 |    9 |   50 |      0 |      0 |          4 |
+|             (u_mult_gen_u33) |                      mult_gen_u33 |          0 |          0 |       0 |    0 |    0 |      0 |      0 |          0 |
+|             U0               |    mult_gen_u33_mult_gen_v12_0_19 |          9 |          0 |       0 |    9 |   50 |      0 |      0 |          4 |
+|       ifu0                   |                          KLDJ_ifu |         66 |         66 |       0 |    0 |   32 |      0 |      0 |          0 |
+|       reg5                   |                      KLDJ_regfile |        513 |        513 |       0 |    0 |  992 |      0 |      0 |          0 |
+|       u_bpu                  |                               bpu |        294 |        214 |      80 |    0 |  204 |      0 |      0 |          0 |
+|         u_gshare_btb_core    |                   gshare_btb_core |        294 |        214 |      80 |    0 |  204 |      0 |      0 |          0 |
+|       u_csr                  |                          KLDJ_csr |         78 |         78 |       0 |    0 |  160 |      0 |      0 |          0 |
+|       u_pipe_ex_mem          |                       pipe_ex_mem |         42 |         42 |       0 |    0 |   81 |      0 |      0 |          0 |
+|       u_pipe_id_ex           |                        pipe_id_ex |       1233 |       1233 |       0 |    0 |  296 |      0 |      0 |          0 |
+|       u_pipe_if_id           |                        pipe_if_id |        351 |        351 |       0 |    0 |  103 |      0 |      0 |          0 |
+|       u_pipe_mem_wb          |                       pipe_mem_wb |         49 |         49 |       0 |    0 |   39 |      0 |      0 |          0 |
+|   twin_controller_inst       |                   twin_controller |         88 |         88 |       0 |    0 |  222 |      0 |      0 |          0 |
+|   uart_inst                  |                              uart |        107 |        107 |       0 |    0 |   82 |      0 |      0 |          0 |
++------------------------------+-----------------------------------+------------+------------+---------+------+------+--------+--------+------------+
+
+
