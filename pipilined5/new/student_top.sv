@@ -37,8 +37,10 @@ module student_top#(
 );
 
     // Reset synchronizer: hold reset for 16 cycles after PLL locks
-    logic [3:0] rst_cnt = 4'd0;
-    logic       rst_sync = 1'b1;
+    (* mark_debug = "true" *) logic [3:0] rst_cnt = 4'd0;
+    (* mark_debug = "true" *) logic       rst_sync = 1'b1;
+    (* mark_debug = "true" *) logic       dbg_w_clk_rst;
+    assign dbg_w_clk_rst = w_clk_rst;
 
     always_ff @(posedge w_cpu_clk) begin
         if (w_clk_rst) begin
