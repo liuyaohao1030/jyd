@@ -36,24 +36,24 @@ module student_top#(
     output [P_SEG_CNT - 1:0]                    virtual_seg
 );
 
-    // Reset synchronizer: hold reset for 16 cycles after PLL locks
-    (* mark_debug = "true" *) logic [3:0] rst_cnt = 4'd0;
-    (* mark_debug = "true" *) logic       rst_sync = 1'b1;
-    (* mark_debug = "true" *) logic       dbg_w_clk_rst;
+    // Power-on reset: shift register generates reset pulse for 16 cycles
+    // This works regardless of PLL lock timing
+    (* mark_debug = "true" *) logic [15:0] rst_shift = 16'hFFFF;
+    (* mark_debug = "true" *) logic        rst_sync;
+    (* mark_debug = "true" *) logic        dbg_w_clk_rst;
     assign dbg_w_clk_rst = w_clk_rst;
 
     always_ff @(posedge w_cpu_clk) begin
         if (w_clk_rst) begin
-            // w_clk_rst=1 means PLL NOT locked (active-high reset from ~locked)
-            rst_cnt  <= 4'd0;
-            rst_sync <= 1'b1;
-        end else if (rst_cnt != 4'd15) begin
-            rst_cnt  <= rst_cnt + 1'b1;
-            rst_sync <= 1'b1;
+            // PLL not locked, hold reset
+            rst_shift <= 16'hFFFF;
         end else begin
-            rst_sync <= 1'b0;
+            // PLL locked, shift out the reset
+            rst_shift <= {rst_shift[14:0], 1'b0};
         end
     end
+
+    assign rst_sync = rst_shift[15] | w_clk_rst;
 
     // IROM
     logic [31:0] pc;
