@@ -32,7 +32,7 @@ module KLDJ_top(
     // Clock and reset
     wire                         core_clk;
     wire                         core_locked;
-    wire                         core_rst;
+    (* mark_debug = "true" *) wire                         core_rst;
 
     assign core_clk      = clk;
     assign core_locked   = 1'b1;
