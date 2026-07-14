@@ -1,2 +1,0 @@
-mult_gen_u33.vhd,vhdl,xil_defaultlib,../../../../digital_twin.gen/sources_1/ip/mult_gen_u33_1/sim/mult_gen_u33.vhd,
-glbl.v,Verilog,xil_defaultlib,glbl.v
