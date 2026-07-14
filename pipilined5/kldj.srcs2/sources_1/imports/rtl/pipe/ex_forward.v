@@ -19,6 +19,10 @@ module ex_forward(
     ,input wire [`KLDJ_REGADDR]  ex_mem_rd_addr
     ,input wire [`KLDJ_DATA]     ex_mem_exu_res
     ,input wire                  ex_mem_forward_valid
+    // from MEM-response stage (load data is now available here)
+    ,input wire [`KLDJ_REGADDR]  mem_resp_rd_addr
+    ,input wire [`KLDJ_DATA]     mem_resp_wb_data
+    ,input wire                  mem_resp_forward_valid
     // from MEM/WB pipeline register
     ,input wire [`KLDJ_REGADDR]  mem_wb_rd_addr
     ,input wire [`KLDJ_DATA]     mem_wb_wb_data
@@ -34,8 +38,10 @@ module ex_forward(
 );
 
     wire                         ex_mem_rs1_forward_hit;
+    wire                         mem_resp_rs1_forward_hit;
     wire                         mem_wb_rs1_forward_hit;
     wire                         ex_mem_rs2_forward_hit;
+    wire                         mem_resp_rs2_forward_hit;
     wire                         mem_wb_rs2_forward_hit;
     wire [`KLDJ_DATA]            ex_rs1_data;
     wire [`KLDJ_DATA]            ex_rs2_data;
@@ -47,18 +53,27 @@ module ex_forward(
 
     assign ex_mem_rs1_forward_hit = id_ex_rs1_ren && ex_mem_forward_valid &&
                                     (id_ex_rs1_addr == ex_mem_rd_addr);
+    assign mem_resp_rs1_forward_hit = id_ex_rs1_ren && mem_resp_forward_valid &&
+                                      (id_ex_rs1_addr == mem_resp_rd_addr);
     assign mem_wb_rs1_forward_hit = id_ex_rs1_ren && mem_wb_forward_valid &&
                                     (id_ex_rs1_addr == mem_wb_rd_addr);
     assign ex_mem_rs2_forward_hit = id_ex_rs2_ren && ex_mem_forward_valid &&
                                     (id_ex_rs2_addr == ex_mem_rd_addr);
+    assign mem_resp_rs2_forward_hit = id_ex_rs2_ren && mem_resp_forward_valid &&
+                                      (id_ex_rs2_addr == mem_resp_rd_addr);
     assign mem_wb_rs2_forward_hit = id_ex_rs2_ren && mem_wb_forward_valid &&
                                     (id_ex_rs2_addr == mem_wb_rd_addr);
 
+    // Youngest matching producer wins.  EX2/MEM can forward non-load ALU
+    // results, MEM_RESP can forward the final load/ALU writeback value, and
+    // MEM/WB is the oldest source.
     assign ex_rs1_data = ex_mem_rs1_forward_hit ? ex_mem_exu_res :
+                         mem_resp_rs1_forward_hit ? mem_resp_wb_data :
                          mem_wb_rs1_forward_hit ? mem_wb_wb_data :
                          id_ex_rs1_data;
 
     assign ex_rs2_data = ex_mem_rs2_forward_hit ? ex_mem_exu_res :
+                         mem_resp_rs2_forward_hit ? mem_resp_wb_data :
                          mem_wb_rs2_forward_hit ? mem_wb_wb_data :
                          id_ex_rs2_data;
 

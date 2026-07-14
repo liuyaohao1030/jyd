@@ -184,10 +184,10 @@ module KLDJ_top(
     // MEM stage wires
     wire [`KLDJ_DATA]            mem_stage_wb_data;
     wire                         mem_stage_wb_ctl;
-    wire [`KLDJ_DATA]            mem_addr_memstage_unused;
-    wire [`KLDJ_DATA]            mem_wdata_memstage_unused;
-    wire                         mem_we_memstage_unused;
-    wire [3:0]                   mem_be_memstage_unused;
+    wire                         mem_resp_valid;
+    wire [`KLDJ_PC]              mem_resp_pc;
+    wire [`KLDJ_REGADDR]         mem_resp_rd_addr;
+    wire                         mem_resp_forward_valid;
 
     // EX-stage memory request wires
 
@@ -415,6 +415,9 @@ module KLDJ_top(
         ,.ex_mem_rd_addr       (ex2_mem_rd_addr      )
         ,.ex_mem_exu_res       (ex2_mem_exu_res      )
         ,.ex_mem_forward_valid (ex2_mem_forward_valid)
+        ,.mem_resp_rd_addr     (mem_resp_rd_addr     )
+        ,.mem_resp_wb_data     (mem_stage_wb_data    )
+        ,.mem_resp_forward_valid(mem_resp_forward_valid)
         ,.mem_wb_rd_addr       (mem_wb_rd_addr       )
         ,.mem_wb_wb_data       (mem_wb_wb_data       )
         ,.mem_wb_forward_valid (mem_wb_forward_valid )
@@ -594,9 +597,14 @@ module KLDJ_top(
         ,.ex2_mem_forward_valid(ex2_mem_forward_valid)
     );
 
-    // MEM stage (LSU + memory interface + WB data MUX)
+    // MEM-response stage.  It registers the final bridge response and the
+    // matching EX2/MEM metadata before LSU load formatting.
     mem_stage_top u_mem_stage_top(
-         .ex_mem_valid       (ex2_mem_valid       )
+         .clk                (core_clk            )
+        ,.rst                (core_rst            )
+        ,.ex_mem_valid       (ex2_mem_valid       )
+        ,.ex_mem_pc          (ex2_mem_pc          )
+        ,.ex_mem_rd_addr     (ex2_mem_rd_addr     )
         ,.ex_mem_exu_op      (ex2_mem_exu_op      )
         ,.ex_mem_ls_ctl      (ex2_mem_ls_ctl      )
         ,.ex_mem_exu_res     (ex2_mem_exu_res     )
@@ -604,10 +612,10 @@ module KLDJ_top(
         ,.ex_mem_store_wdata (ex2_mem_store_wdata )
         ,.ex_mem_wb_ctl      (ex2_mem_wb_ctl      )
         ,.mem_rdata          (mem_rdata           )
-        ,.mem_addr           (mem_addr_memstage_unused )
-        ,.mem_wdata          (mem_wdata_memstage_unused)
-        ,.mem_we             (mem_we_memstage_unused   )
-        ,.mem_be             (mem_be_memstage_unused   )
+        ,.mem_resp_valid     (mem_resp_valid      )
+        ,.mem_resp_pc        (mem_resp_pc         )
+        ,.mem_resp_rd_addr   (mem_resp_rd_addr    )
+        ,.mem_resp_forward_valid(mem_resp_forward_valid)
         ,.mem_stage_wb_data  (mem_stage_wb_data   )
         ,.mem_stage_wb_ctl   (mem_stage_wb_ctl    )
     );
@@ -616,9 +624,9 @@ module KLDJ_top(
     pipe_mem_wb u_pipe_mem_wb(
          .clk               (core_clk            )
         ,.rst               (core_rst            )
-        ,.ex_mem_valid      (ex2_mem_valid       )
-        ,.ex_mem_pc         (ex2_mem_pc          )
-        ,.ex_mem_rd_addr    (ex2_mem_rd_addr     )
+        ,.ex_mem_valid      (mem_resp_valid      )
+        ,.ex_mem_pc         (mem_resp_pc         )
+        ,.ex_mem_rd_addr    (mem_resp_rd_addr    )
         ,.mem_stage_wb_ctl  (mem_stage_wb_ctl    )
         ,.wb_reg_rd_data    (wb_reg_rd_data      )
         ,.mem_wb_valid      (mem_wb_valid        )
