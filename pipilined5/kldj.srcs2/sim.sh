@@ -8,6 +8,7 @@ BUILD_DIR="$SCRIPT_DIR/build"
 
 TEST="${1:-rv32i}"
 MAX_SECONDS="${2:-60}"
+EXTRA_FILES=()
 
 case "$TEST" in
     rv32i|i|KLDJ_top_tb)
@@ -28,8 +29,18 @@ case "$TEST" in
         TB_FILE="$TB_DIR/KLDJ_irom_v2_tb.sv"
         PASS_PATTERN="Done."
         ;;
+    dram|dram-driver|dram_driver_tb)
+        TEST="dram-driver"
+        TOP="dram_driver_tb"
+        TB_FILE="$TB_DIR/dram_driver_tb.sv"
+        EXTRA_FILES=(
+            "$SCRIPT_DIR/../new/DRAM_TDP.sv"
+            "$SCRIPT_DIR/../new/dram_driver.sv"
+        )
+        PASS_PATTERN="DRAM DRIVER TEST PASSED"
+        ;;
     -h|--help|help)
-        echo "Usage: $0 [rv32i|rv32m|irom-v2] [timeout_seconds]"
+        echo "Usage: $0 [rv32i|rv32m|irom-v2|dram-driver] [timeout_seconds]"
         echo "Examples:"
         echo "  $0 rv32i"
         echo "  $0 rv32m 120"
@@ -37,7 +48,7 @@ case "$TEST" in
         ;;
     *)
         echo "Unknown test: $TEST"
-        echo "Usage: $0 [rv32i|rv32m] [timeout_seconds]"
+        echo "Usage: $0 [rv32i|rv32m|irom-v2|dram-driver] [timeout_seconds]"
         exit 2
         ;;
 esac
@@ -61,6 +72,7 @@ iverilog -g2012 \
     "$RTL_DIR"/pipe/*.v \
     "$RTL_DIR"/stage/*.v \
     "$RTL_DIR"/util/*.v \
+    "${EXTRA_FILES[@]}" \
     "$TB_FILE"
 
 echo "=== Simulate ${TEST} (timeout ${MAX_SECONDS}s) ==="

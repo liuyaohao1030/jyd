@@ -137,13 +137,16 @@ module KLDJ_top_tb;
                   ((u_dut.id_ex_exu_op >= 18'h25) && (u_dut.id_ex_exu_op <= 18'h2c)))))
                 $fatal(1, "id_ex_rs2_to_data2 predecode mismatch");
             if (u_dut.ex_mem_load_op !==
-                (u_dut.ex_mem_valid && (u_dut.ex_mem_exu_op >= 18'h1d) &&
-                 (u_dut.ex_mem_exu_op <= 18'h21)))
+                (u_dut.ex_mem_valid && u_dut.ex_mem_ls_ctl[3]))
                 $fatal(1, "ex_mem_load_op predecode mismatch");
             if (u_dut.ex_mem_forward_valid !==
                 (u_dut.ex_mem_valid && u_dut.ex_mem_wb_ctl &&
                  !u_dut.ex_mem_load_op && (u_dut.ex_mem_rd_addr != 5'd0)))
                 $fatal(1, "ex_mem_forward_valid registered control mismatch");
+            if (u_dut.mem2_forward_valid !==
+                (u_dut.mem2_valid && u_dut.mem2_wb_ctl &&
+                 (u_dut.mem2_rd_addr != 5'd0)))
+                $fatal(1, "mem2_forward_valid registered control mismatch");
         end
     end
 
@@ -153,7 +156,7 @@ module KLDJ_top_tb;
     integer pass_count = 0;
     integer fail_count = 0;
 
-    task check_reg(input [4:0] raddr, input [31:0] expected, input [255:0] test_name);
+    task check_reg(input [4:0] raddr, input [31:0] expected, input [511:0] test_name);
         reg [31:0] actual;
         begin
             actual = u_dut.reg5.regs[raddr];
@@ -162,6 +165,21 @@ module KLDJ_top_tb;
                 pass_count = pass_count + 1;
             end else begin
                 $display("[FAIL] %0s: x%0d = 0x%08x (expected 0x%08x)", test_name, raddr, actual, expected);
+                fail_count = fail_count + 1;
+            end
+        end
+    endtask
+
+    task check_mem(input [31:0] byte_addr, input [31:0] expected, input [511:0] test_name);
+        reg [31:0] actual;
+        begin
+            actual = data_mem[byte_addr[14:2]];
+            if (actual === expected) begin
+                $display("[PASS] %0s: mem[0x%08x] = 0x%08x", test_name, byte_addr, actual);
+                pass_count = pass_count + 1;
+            end else begin
+                $display("[FAIL] %0s: mem[0x%08x] = 0x%08x (expected 0x%08x)",
+                         test_name, byte_addr, actual, expected);
                 fail_count = fail_count + 1;
             end
         end
@@ -239,7 +257,8 @@ module KLDJ_top_tb;
     localparam [2:0] F3_BEQ = 3'b000, F3_BNE = 3'b001, F3_BLT = 3'b100;
     localparam [2:0] F3_BGE = 3'b101, F3_BLTU = 3'b110, F3_BGEU = 3'b111;
     localparam [2:0] F3_LB = 3'b000, F3_LH = 3'b001, F3_LW = 3'b010;
-    localparam [2:0] F3_LBU = 3'b100, F3_SB = 3'b000, F3_SH = 3'b001, F3_SW = 3'b010;
+    localparam [2:0] F3_LBU = 3'b100, F3_LHU = 3'b101;
+    localparam [2:0] F3_SB = 3'b000, F3_SH = 3'b001, F3_SW = 3'b010;
     localparam [2:0] F3_CSRRW = 3'b001, F3_CSRRS = 3'b010, F3_CSRRC = 3'b011;
 
     localparam [6:0] F7_NORMAL = 7'b0000000, F7_SUB = 7'b0100000, F7_SRA = 7'b0100000;
@@ -609,6 +628,86 @@ module KLDJ_top_tb;
         emit(rv_itype(12'h003, 5'd0, F3_ADD_SUB, 5'd8, OP_ITYPE));
         emit(rv_rtype(F7_MULDIV, 5'd8, 5'd7, F3_REMU, 5'd28, OP_RTYPE));
 
+        // ==========================================
+        // GROUP 13: MEM1/MEM2 directed hazards
+        // ==========================================
+        // Pattern at 0x80001020: bytes [01, 7f, ff, 80].  Every load below
+        // is immediately consumed by a store or ALU/branch instruction so
+        // the test exercises the new MEM2 result-forwarding source.
+        emit(rv_utype(20'h80ff8, 5'd7, OP_LUI));
+        emit(rv_itype(12'hF01, 5'd7, F3_ADD_SUB, 5'd7, OP_ITYPE)); // x7=0x80ff7f01
+        emit(rv_stype(12'h020, 5'd7, 5'd25, F3_SW, OP_STORE));
+
+        emit(rv_itype(12'h020, 5'd25, F3_LB,  5'd8, OP_LOAD));
+        emit(rv_stype(12'h040, 5'd8,  5'd25, F3_SW, OP_STORE));   // load -> store data
+        emit(rv_itype(12'h022, 5'd25, F3_LB,  5'd8, OP_LOAD));
+        emit(rv_stype(12'h044, 5'd8,  5'd25, F3_SW, OP_STORE));
+        emit(rv_itype(12'h022, 5'd25, F3_LBU, 5'd8, OP_LOAD));
+        emit(rv_stype(12'h048, 5'd8,  5'd25, F3_SW, OP_STORE));
+        emit(rv_itype(12'h022, 5'd25, F3_LH,  5'd8, OP_LOAD));
+        emit(rv_stype(12'h04C, 5'd8,  5'd25, F3_SW, OP_STORE));
+        emit(rv_itype(12'h022, 5'd25, F3_LHU, 5'd8, OP_LOAD));
+        emit(rv_stype(12'h050, 5'd8,  5'd25, F3_SW, OP_STORE));
+
+        emit(rv_itype(12'h020, 5'd25, F3_LW, 5'd8, OP_LOAD));
+        emit(rv_itype(12'h001, 5'd8, F3_ADD_SUB, 5'd8, OP_ITYPE)); // load -> ALU
+        emit(rv_stype(12'h054, 5'd8, 5'd25, F3_SW, OP_STORE));
+
+        // ALU producer separated by one independent instruction: producer
+        // is in MEM2 when its consumer reaches EX.
+        emit(rv_itype(12'h02A, 5'd0, F3_ADD_SUB, 5'd7, OP_ITYPE));
+        emit(rv_itype(12'h007, 5'd0, F3_ADD_SUB, 5'd8, OP_ITYPE));
+        emit(rv_itype(12'h001, 5'd7, F3_ADD_SUB, 5'd7, OP_ITYPE));
+        emit(rv_stype(12'h058, 5'd7, 5'd25, F3_SW, OP_STORE));
+
+        // Immediate load -> branch dependency.  A stale operand takes the
+        // bad path and leaves 0xfffffbad; the correct path stores 0x55.
+        emit(rv_itype(12'h001, 5'd0, F3_ADD_SUB, 5'd7, OP_ITYPE));
+        emit(rv_itype(12'h020, 5'd25, F3_LB, 5'd8, OP_LOAD));
+        emit(rv_btype(13'h00C, 5'd7, 5'd8, F3_BEQ, OP_BRANCH));
+        emit(rv_itype(12'hBAD, 5'd0, F3_ADD_SUB, 5'd8, OP_ITYPE));
+        emit(rv_jtype(21'h008, 5'd0, OP_JAL));
+        emit(rv_itype(12'h055, 5'd0, F3_ADD_SUB, 5'd8, OP_ITYPE));
+        emit(rv_stype(12'h05C, 5'd8, 5'd25, F3_SW, OP_STORE));
+
+        // Load result used as the very next store address (rs1 forwarding).
+        emit(rv_stype(12'h060, 5'd25, 5'd25, F3_SW, OP_STORE));
+        emit(rv_itype(12'h066, 5'd0, F3_ADD_SUB, 5'd8, OP_ITYPE));
+        emit(rv_itype(12'h060, 5'd25, F3_LW, 5'd7, OP_LOAD));
+        emit(rv_stype(12'h064, 5'd8, 5'd7, F3_SW, OP_STORE));
+
+        // Two consecutive writers to the same rd: the younger EX/MEM value
+        // must win over the older MEM2 value.
+        emit(rv_itype(12'h001, 5'd0, F3_ADD_SUB, 5'd7, OP_ITYPE));
+        emit(rv_itype(12'h002, 5'd0, F3_ADD_SUB, 5'd7, OP_ITYPE));
+        emit(rv_itype(12'h001, 5'd7, F3_ADD_SUB, 5'd8, OP_ITYPE));
+        emit(rv_stype(12'h068, 5'd8, 5'd25, F3_SW, OP_STORE));
+
+        // ==========================================
+        // GROUP 14: registered forwarding selectors
+        // ==========================================
+        // MUL/DIV hold ID/EX for several cycles.  The immediately following
+        // consumer must receive the completed result from the next EX/MEM stage.
+        emit(rv_itype(12'h006, 5'd0, F3_ADD_SUB, 5'd7, OP_ITYPE));
+        emit(rv_itype(12'h007, 5'd0, F3_ADD_SUB, 5'd8, OP_ITYPE));
+        emit(rv_rtype(F7_MULDIV, 5'd8, 5'd7, F3_MUL, 5'd7, OP_RTYPE));
+        emit(rv_itype(12'h001, 5'd7, F3_ADD_SUB, 5'd8, OP_ITYPE));
+        emit(rv_stype(12'h06C, 5'd8, 5'd25, F3_SW, OP_STORE));
+
+        emit(rv_itype(12'h054, 5'd0, F3_ADD_SUB, 5'd7, OP_ITYPE));
+        emit(rv_itype(12'h002, 5'd0, F3_ADD_SUB, 5'd8, OP_ITYPE));
+        emit(rv_rtype(F7_MULDIV, 5'd8, 5'd7, F3_DIV, 5'd7, OP_RTYPE));
+        emit(rv_itype(12'h002, 5'd7, F3_ADD_SUB, 5'd8, OP_ITYPE));
+        emit(rv_stype(12'h070, 5'd8, 5'd25, F3_SW, OP_STORE));
+
+        // With two independent instructions in between, the producer is in
+        // MEM2 while this consumer is decoded, so it must select next MEM/WB.
+        emit(rv_itype(12'h032, 5'd0, F3_ADD_SUB, 5'd7, OP_ITYPE));
+        emit(rv_itype(12'h001, 5'd0, F3_ADD_SUB, 5'd8, OP_ITYPE));
+        emit(rv_itype(12'h001, 5'd8, F3_ADD_SUB, 5'd8, OP_ITYPE));
+        emit(rv_itype(12'h001, 5'd7, F3_ADD_SUB, 5'd7, OP_ITYPE));
+        emit(rv_stype(12'h074, 5'd7, 5'd25, F3_SW, OP_STORE));
+
         // EBREAK
         emit({12'h001, 5'd0, 3'b000, 5'd0, OP_SYSTEM});
 
@@ -744,6 +843,23 @@ module KLDJ_top_tb;
             check_reg(27, rem_exp,  "REM  x27=REM(-7,3)=-1");
             check_reg(28, remu_exp, "REMU x28=REMU(7,3)=1");
         end
+
+        $display("--- Group 13: MEM1/MEM2 / load formatting / hazards ---");
+        check_mem(32'h80001040, 32'h00000001, "LB byte0 + load-to-store forward");
+        check_mem(32'h80001044, 32'hFFFFFFFF, "LB byte2 sign extension");
+        check_mem(32'h80001048, 32'h000000FF, "LBU byte2 zero extension");
+        check_mem(32'h8000104C, 32'hFFFF80FF, "LH upper half sign extension");
+        check_mem(32'h80001050, 32'h000080FF, "LHU upper half zero extension");
+        check_mem(32'h80001054, 32'h80FF7F02, "LW immediate load-to-ALU forward");
+        check_mem(32'h80001058, 32'h0000002B, "MEM2 ALU forward across one gap");
+        check_mem(32'h8000105C, 32'h00000055, "LB immediate load-to-branch forward");
+        check_mem(32'h80001064, 32'h00000066, "LW immediate load-to-store-address forward");
+        check_mem(32'h80001068, 32'h00000003, "EX/MEM priority over older MEM2 writer");
+
+        $display("--- Group 14: registered forwarding selectors ---");
+        check_mem(32'h8000106C, 32'h0000002B, "MUL result -> immediate consumer");
+        check_mem(32'h80001070, 32'h0000002C, "DIV result -> immediate consumer");
+        check_mem(32'h80001074, 32'h00000033, "MEM2 predecode -> next MEM/WB forward");
 
         // ---- Summary ----
         $display("");

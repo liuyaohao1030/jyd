@@ -27,6 +27,14 @@ module pipe_id_ex #(
     ,input wire [`KLDJ_DATA]     id_data4
     ,input wire [`KLDJ_DATA]     reg_id_rs1_data
     ,input wire [`KLDJ_DATA]     reg_id_rs2_data
+    // Current downstream metadata.  These comparisons are performed in ID
+    // and the resulting selectors are registered for the following EX cycle.
+    ,input wire                  ex_mem_valid
+    ,input wire [`KLDJ_REGADDR]  ex_mem_rd_addr
+    ,input wire                  ex_mem_wb_ctl
+    ,input wire                  mem2_valid
+    ,input wire [`KLDJ_REGADDR]  mem2_rd_addr
+    ,input wire                  mem2_wb_ctl
     // CSR signals from ID
     ,input wire [11:0]           id_csr_addr
     ,input wire                  id_csr_op
@@ -65,12 +73,59 @@ module pipe_id_ex #(
     ,output reg                  id_ex_load_op
     ,output reg                  id_ex_store_op
     ,output reg                  id_ex_rs2_to_data2
+    ,output reg [1:0]            id_ex_rs1_fwd_sel
+    ,output reg [1:0]            id_ex_rs2_fwd_sel
 );
+
+    localparam [1:0] FWD_NONE   = 2'b00;
+    localparam [1:0] FWD_EX_MEM = 2'b01;
+    localparam [1:0] FWD_MEM2   = 2'b10;
+    localparam [1:0] FWD_MEM_WB = 2'b11;
 
     wire id_load_op = (id_exu_op >= 18'h1d) && (id_exu_op <= 18'h21);
     wire id_store_op = (id_exu_op >= 18'h22) && (id_exu_op <= 18'h24);
     wire id_rs2_to_data2 = ((id_exu_op >= 18'ha) && (id_exu_op <= 18'h19)) ||
                            ((id_exu_op >= 18'h25) && (id_exu_op <= 18'h2c));
+
+    // Stage mapping across the ID/EX edge:
+    //   current ID/EX (non-load) -> next EX/MEM
+    //   current EX/MEM            -> next MEM2 (loads are ready there)
+    //   current MEM2              -> next MEM/WB
+    // A value currently in MEM/WB is already covered by regfile write-through.
+    wire id_ex_fwd_candidate = id_ex_valid && id_ex_wb_ctl && !id_ex_load_op &&
+                               (id_ex_rd_addr != 5'd0);
+    wire ex_mem_fwd_candidate = ex_mem_valid && ex_mem_wb_ctl &&
+                                (ex_mem_rd_addr != 5'd0);
+    wire mem2_fwd_candidate = mem2_valid && mem2_wb_ctl &&
+                              (mem2_rd_addr != 5'd0);
+
+    wire id_rs1_from_ex_mem = if_id_valid && id_reg_rs1_ren &&
+                              id_ex_fwd_candidate &&
+                              (id_reg_rs1_addr == id_ex_rd_addr);
+    wire id_rs1_from_mem2 = if_id_valid && id_reg_rs1_ren &&
+                            ex_mem_fwd_candidate &&
+                            (id_reg_rs1_addr == ex_mem_rd_addr);
+    wire id_rs1_from_mem_wb = if_id_valid && id_reg_rs1_ren &&
+                              mem2_fwd_candidate &&
+                              (id_reg_rs1_addr == mem2_rd_addr);
+    wire id_rs2_from_ex_mem = if_id_valid && id_reg_rs2_ren &&
+                              id_ex_fwd_candidate &&
+                              (id_reg_rs2_addr == id_ex_rd_addr);
+    wire id_rs2_from_mem2 = if_id_valid && id_reg_rs2_ren &&
+                            ex_mem_fwd_candidate &&
+                            (id_reg_rs2_addr == ex_mem_rd_addr);
+    wire id_rs2_from_mem_wb = if_id_valid && id_reg_rs2_ren &&
+                              mem2_fwd_candidate &&
+                              (id_reg_rs2_addr == mem2_rd_addr);
+
+    wire [1:0] id_rs1_fwd_sel_next = id_rs1_from_ex_mem ? FWD_EX_MEM :
+                                      id_rs1_from_mem2   ? FWD_MEM2 :
+                                      id_rs1_from_mem_wb ? FWD_MEM_WB :
+                                                           FWD_NONE;
+    wire [1:0] id_rs2_fwd_sel_next = id_rs2_from_ex_mem ? FWD_EX_MEM :
+                                      id_rs2_from_mem2   ? FWD_MEM2 :
+                                      id_rs2_from_mem_wb ? FWD_MEM_WB :
+                                                           FWD_NONE;
 
     always@(posedge clk) begin
         if(rst == `KLDJ_RSTABLE) begin
@@ -83,6 +138,8 @@ module pipe_id_ex #(
             id_ex_load_op  <= 1'b0;
             id_ex_store_op <= 1'b0;
             id_ex_rs2_to_data2 <= 1'b0;
+            id_ex_rs1_fwd_sel <= FWD_NONE;
+            id_ex_rs2_fwd_sel <= FWD_NONE;
         end else if(ex_redirect || load_use_stall) begin
             id_ex_valid    <= 1'b0;
             id_ex_pred_taken  <= 1'b0;
@@ -93,6 +150,8 @@ module pipe_id_ex #(
             id_ex_load_op  <= 1'b0;
             id_ex_store_op <= 1'b0;
             id_ex_rs2_to_data2 <= 1'b0;
+            id_ex_rs1_fwd_sel <= FWD_NONE;
+            id_ex_rs2_fwd_sel <= FWD_NONE;
         end else if(!ex_stall) begin
             id_ex_valid    <= if_id_valid;
             id_ex_pred_taken  <= if_id_valid && if_id_pred_taken;
@@ -103,6 +162,8 @@ module pipe_id_ex #(
             id_ex_load_op  <= if_id_valid && id_load_op;
             id_ex_store_op <= if_id_valid && id_store_op;
             id_ex_rs2_to_data2 <= if_id_valid && id_rs2_to_data2;
+            id_ex_rs1_fwd_sel <= id_rs1_fwd_sel_next;
+            id_ex_rs2_fwd_sel <= id_rs2_fwd_sel_next;
         end
     end
 

@@ -106,6 +106,8 @@ module KLDJ_top(
     wire                         id_ex_load_op;
     wire                         id_ex_store_op;
     wire                         id_ex_rs2_to_data2;
+    wire [1:0]                   id_ex_rs1_fwd_sel;
+    wire [1:0]                   id_ex_rs2_fwd_sel;
     // CSR signals from ID/EX
     wire [11:0]                  id_ex_csr_addr;
     wire                         id_ex_csr_op;
@@ -149,21 +151,27 @@ module KLDJ_top(
     wire [`KLDJ_PC]              ex_mem_pc;
     wire [`KLDJ_REGADDR]         ex_mem_rd_addr;
     wire                         ex_mem_wb_ctl;
-    wire [17:0]                  ex_mem_exu_op;
     wire [3:0]                   ex_mem_ls_ctl;
     wire [`KLDJ_DATA]            ex_mem_exu_res;
-    wire [`KLDJ_DATA]            ex_mem_mem_addr;
-    wire [`KLDJ_DATA]            ex_mem_store_wdata;
+    wire [1:0]                   ex_mem_addr_low;
     wire                         ex_mem_load_op;
     wire                         ex_mem_forward_valid;
 
-    // MEM stage wires
+    // MEM1/MEM2 pipeline register outputs
+    wire                         mem2_valid;
+    wire [`KLDJ_PC]              mem2_pc;
+    wire [`KLDJ_REGADDR]         mem2_rd_addr;
+    wire                         mem2_wb_ctl;
+    wire                         mem2_load_op;
+    wire [3:0]                   mem2_ls_ctl;
+    wire [`KLDJ_DATA]            mem2_exu_res;
+    wire [1:0]                   mem2_addr_low;
+    wire [`KLDJ_DATA]            mem2_mem_rdata;
+    wire                         mem2_forward_valid;
+
+    // MEM2 stage wires
     wire [`KLDJ_DATA]            mem_stage_wb_data;
     wire                         mem_stage_wb_ctl;
-    wire [`KLDJ_DATA]            mem_addr_memstage_unused;
-    wire [`KLDJ_DATA]            mem_wdata_memstage_unused;
-    wire                         mem_we_memstage_unused;
-    wire [3:0]                   mem_be_memstage_unused;
 
     // EX-stage memory request wires
     wire                         ex_req_load;
@@ -319,6 +327,12 @@ module KLDJ_top(
         ,.id_data4        (id_data4          )
         ,.reg_id_rs1_data (reg_id_rs1_data   )
         ,.reg_id_rs2_data (reg_id_rs2_data   )
+        ,.ex_mem_valid     (ex_mem_valid       )
+        ,.ex_mem_rd_addr   (ex_mem_rd_addr     )
+        ,.ex_mem_wb_ctl    (ex_mem_wb_ctl      )
+        ,.mem2_valid       (mem2_valid         )
+        ,.mem2_rd_addr     (mem2_rd_addr       )
+        ,.mem2_wb_ctl      (mem2_wb_ctl        )
         ,.id_csr_addr     (id_csr_addr       )
         ,.id_csr_op       (id_csr_op         )
         ,.id_csr_zimm     (id_csr_zimm       )
@@ -349,6 +363,8 @@ module KLDJ_top(
         ,.id_ex_load_op   (id_ex_load_op     )
         ,.id_ex_store_op  (id_ex_store_op    )
         ,.id_ex_rs2_to_data2(id_ex_rs2_to_data2)
+        ,.id_ex_rs1_fwd_sel(id_ex_rs1_fwd_sel)
+        ,.id_ex_rs2_fwd_sel(id_ex_rs2_fwd_sel)
         ,.id_ex_csr_addr  (id_ex_csr_addr    )
         ,.id_ex_csr_op    (id_ex_csr_op      )
         ,.id_ex_csr_zimm  (id_ex_csr_zimm    )
@@ -357,26 +373,17 @@ module KLDJ_top(
     // EX forwarding and MUX
     ex_forward u_ex_forward(
          .id_ex_valid          (id_ex_valid          )
-        ,.id_ex_rs1_addr       (id_ex_rs1_addr       )
-        ,.id_ex_rs2_addr       (id_ex_rs2_addr       )
         ,.id_ex_rd_addr        (id_ex_rd_addr        )
-        ,.id_ex_rs1_ren        (id_ex_rs1_ren        )
-        ,.id_ex_rs2_ren        (id_ex_rs2_ren        )
         ,.id_ex_load_op        (id_ex_load_op        )
-        ,.id_ex_store_op       (id_ex_store_op       )
-        ,.id_ex_rs2_to_data2   (id_ex_rs2_to_data2   )
+        ,.id_ex_rs1_fwd_sel    (id_ex_rs1_fwd_sel    )
+        ,.id_ex_rs2_fwd_sel    (id_ex_rs2_fwd_sel    )
         ,.id_ex_data1          (id_ex_data1          )
         ,.id_ex_data2          (id_ex_data2          )
         ,.id_ex_data3          (id_ex_data3          )
         ,.id_ex_data4          (id_ex_data4          )
-        ,.id_ex_rs1_data       (id_ex_rs1_data       )
-        ,.id_ex_rs2_data       (id_ex_rs2_data       )
-        ,.ex_mem_rd_addr       (ex_mem_rd_addr       )
         ,.ex_mem_exu_res       (ex_mem_exu_res       )
-        ,.ex_mem_forward_valid (ex_mem_forward_valid )
-        ,.mem_wb_rd_addr       (mem_wb_rd_addr       )
+        ,.mem2_wb_data         (mem_stage_wb_data    )
         ,.mem_wb_wb_data       (mem_wb_wb_data       )
-        ,.mem_wb_forward_valid (mem_wb_forward_valid )
         ,.if_id_valid          (if_id_valid          )
         ,.id_reg_rs1_addr      (id_reg_rs1_addr      )
         ,.id_reg_rs2_addr      (id_reg_rs2_addr      )
@@ -399,6 +406,7 @@ module KLDJ_top(
         ,.data2       (ex_data2              )
         ,.data3       (ex_data3              )
         ,.data4       (ex_data4              )
+        ,.ls_imm      (id_ex_data2           )
         ,.exu_op      (id_ex_exu_op          )
         ,.alu_ctrl    (id_ex_alu_ctrl        )
         // CSR interface
@@ -489,51 +497,68 @@ module KLDJ_top(
         ,.id_ex_pc          (id_ex_pc            )
         ,.id_ex_rd_addr     (id_ex_rd_addr       )
         ,.id_ex_wb_ctl      (id_ex_wb_ctl        )
-        ,.id_ex_exu_op      (id_ex_exu_op        )
         ,.id_ex_load_op     (id_ex_load_op       )
         ,.id_ex_ls_ctl      (id_ex_ls_ctl        )
         ,.exu_data          (exu_data            )
         ,.ex_mem_addr_i     (ex_mem_addr_pre     )
-        ,.ex_store_wdata    (ex_store_wdata      )
         ,.ex_stall          (ex_stall            )
         ,.ex_mem_valid      (ex_mem_valid        )
         ,.ex_mem_pc         (ex_mem_pc           )
         ,.ex_mem_rd_addr    (ex_mem_rd_addr      )
         ,.ex_mem_wb_ctl     (ex_mem_wb_ctl       )
-        ,.ex_mem_exu_op     (ex_mem_exu_op       )
         ,.ex_mem_ls_ctl     (ex_mem_ls_ctl       )
         ,.ex_mem_exu_res    (ex_mem_exu_res      )
-        ,.ex_mem_mem_addr   (ex_mem_mem_addr     )
-        ,.ex_mem_store_wdata(ex_mem_store_wdata  )
+        ,.ex_mem_addr_low   (ex_mem_addr_low     )
         ,.ex_mem_load_op    (ex_mem_load_op      )
         ,.ex_mem_forward_valid(ex_mem_forward_valid)
     );
 
-    // MEM stage (LSU + memory interface + WB data MUX)
-    mem_stage_top u_mem_stage_top(
-         .ex_mem_valid       (ex_mem_valid        )
-        ,.ex_mem_exu_op      (ex_mem_exu_op       )
-        ,.ex_mem_ls_ctl      (ex_mem_ls_ctl       )
-        ,.ex_mem_exu_res     (ex_mem_exu_res      )
-        ,.ex_mem_mem_addr    (ex_mem_mem_addr     )
-        ,.ex_mem_store_wdata (ex_mem_store_wdata  )
-        ,.ex_mem_wb_ctl      (ex_mem_wb_ctl       )
-        ,.mem_rdata          (mem_rdata           )
-        ,.mem_addr           (mem_addr_memstage_unused )
-        ,.mem_wdata          (mem_wdata_memstage_unused)
-        ,.mem_we             (mem_we_memstage_unused   )
-        ,.mem_be             (mem_be_memstage_unused   )
-        ,.mem_stage_wb_data  (mem_stage_wb_data   )
-        ,.mem_stage_wb_ctl   (mem_stage_wb_ctl    )
-    );
-
-    // MEM/WB pipeline register
-    pipe_mem_wb u_pipe_mem_wb(
+    // MEM1/MEM2 response register.  mem_rdata is synchronous and is aligned
+    // with the EX/MEM metadata at this edge.
+    pipe_mem1_mem2 u_pipe_mem1_mem2(
          .clk               (core_clk            )
         ,.rst               (core_rst            )
         ,.ex_mem_valid      (ex_mem_valid        )
         ,.ex_mem_pc         (ex_mem_pc           )
         ,.ex_mem_rd_addr    (ex_mem_rd_addr      )
+        ,.ex_mem_wb_ctl     (ex_mem_wb_ctl       )
+        ,.ex_mem_load_op    (ex_mem_load_op      )
+        ,.ex_mem_ls_ctl     (ex_mem_ls_ctl       )
+        ,.ex_mem_exu_res    (ex_mem_exu_res      )
+        ,.ex_mem_addr_low   (ex_mem_addr_low     )
+        ,.mem_rdata         (mem_rdata           )
+        ,.mem2_valid        (mem2_valid          )
+        ,.mem2_pc           (mem2_pc             )
+        ,.mem2_rd_addr      (mem2_rd_addr        )
+        ,.mem2_wb_ctl       (mem2_wb_ctl         )
+        ,.mem2_load_op      (mem2_load_op        )
+        ,.mem2_ls_ctl       (mem2_ls_ctl         )
+        ,.mem2_exu_res      (mem2_exu_res        )
+        ,.mem2_addr_low     (mem2_addr_low       )
+        ,.mem2_mem_rdata    (mem2_mem_rdata      )
+        ,.mem2_forward_valid(mem2_forward_valid  )
+    );
+
+    // MEM2 stage (registered raw response + load formatter + WB data MUX)
+    mem_stage_top u_mem_stage_top(
+         .mem2_valid          (mem2_valid          )
+        ,.mem2_load_op        (mem2_load_op        )
+        ,.mem2_ls_ctl         (mem2_ls_ctl         )
+        ,.mem2_exu_res        (mem2_exu_res        )
+        ,.mem2_addr_low       (mem2_addr_low       )
+        ,.mem2_mem_rdata      (mem2_mem_rdata      )
+        ,.mem2_wb_ctl         (mem2_wb_ctl         )
+        ,.mem_stage_wb_data  (mem_stage_wb_data   )
+        ,.mem_stage_wb_ctl   (mem_stage_wb_ctl    )
+    );
+
+    // MEM2/WB pipeline register
+    pipe_mem_wb u_pipe_mem_wb(
+         .clk               (core_clk            )
+        ,.rst               (core_rst            )
+        ,.mem2_valid        (mem2_valid          )
+        ,.mem2_pc           (mem2_pc             )
+        ,.mem2_rd_addr      (mem2_rd_addr        )
         ,.mem_stage_wb_ctl  (mem_stage_wb_ctl    )
         ,.wb_reg_rd_data    (wb_reg_rd_data      )
         ,.mem_wb_valid      (mem_wb_valid        )

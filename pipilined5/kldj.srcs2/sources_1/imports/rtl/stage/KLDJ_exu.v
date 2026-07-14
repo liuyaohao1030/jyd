@@ -8,6 +8,10 @@ module KLDJ_exu(
     ,input  wire [`KLDJ_DATA]   data2
     ,input  wire [`KLDJ_DATA]   data3
     ,input  wire [`KLDJ_DATA]   data4
+    // The load/store immediate bypasses the rs2 forwarding MUX.  Keeping
+    // this operand separate prevents store-data forwarding from becoming a
+    // false dependency of the address-generation path.
+    ,input  wire [`KLDJ_DATA]   ls_imm
     ,input  wire [17:0]         exu_op
     ,input  wire [9:0]          alu_ctrl
     // CSR interface
@@ -111,7 +115,7 @@ module KLDJ_exu(
     
     wire is_load_or_store = (exu_op >= 18'h1d) && (exu_op <= 18'h24);
 
-    wire [`KLDJ_DATA] load_store_addr = data1 + data2;
+    wire [`KLDJ_DATA] load_store_addr = data1 + ls_imm;
     wire [`KLDJ_DATA] branch_target   = data3 + data4;
     wire [`KLDJ_DATA] jal_target      = data1 + data2;
     wire [`KLDJ_DATA] jalr_sum        = data1 + data2;
