@@ -29,6 +29,8 @@ module ex_forward(
     ,output wire [`KLDJ_DATA]    ex1_data3
     ,output wire [`KLDJ_DATA]    ex1_data4
     ,output wire [`KLDJ_DATA]    ex1_store_wdata
+    ,output wire [`KLDJ_DATA]    ex1_rs1_data
+    ,output wire [`KLDJ_DATA]    ex1_rs2_data
 );
 
     wire                         ex_mem_rs1_forward_hit;
@@ -69,5 +71,7 @@ module ex_forward(
     assign ex1_data3 = id_ex_data3;
     assign ex1_data4 = id_ex_data4;
     assign ex1_store_wdata = id_ex_store_op ? ex_rs2_data : id_ex_data3;
+    assign ex1_rs1_data = ex_rs1_data;
+    assign ex1_rs2_data = ex_rs2_data;
 
 endmodule

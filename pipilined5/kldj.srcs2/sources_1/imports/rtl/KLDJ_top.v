@@ -115,6 +115,8 @@ module KLDJ_top(
     wire [`KLDJ_DATA]            ex1_data3;
     wire [`KLDJ_DATA]            ex1_data4;
     wire [`KLDJ_DATA]            ex1_store_wdata;
+    wire [`KLDJ_DATA]            ex1_rs1_data;
+    wire [`KLDJ_DATA]            ex1_rs2_data;
     (* mark_debug = "true" *) wire                         ex1_dependency_stall;
 
     // EX1/EX2 pipeline register outputs
@@ -343,11 +345,13 @@ module KLDJ_top(
         ,.id_data4        (id_data4          )
         ,.reg_id_rs1_data (reg_id_rs1_data   )
         ,.reg_id_rs2_data (reg_id_rs2_data   )
+        ,.ex1_rs1_data    (ex1_rs1_data      )
+        ,.ex1_rs2_data    (ex1_rs2_data      )
         ,.id_csr_addr     (id_csr_addr       )
         ,.id_csr_op       (id_csr_op         )
         ,.id_csr_zimm     (id_csr_zimm       )
         ,.ex_redirect     (ex_redirect       )
-        ,.load_use_stall  (ex1_dependency_stall || ex2_stall)
+        ,.load_use_stall  (ex1_dependency_stall)
         ,.ex_stall        (ex2_stall         )
         ,.id_ex_valid     (id_ex_valid       )
         ,.id_ex_pc        (id_ex_pc          )
@@ -419,6 +423,8 @@ module KLDJ_top(
         ,.ex1_data3            (ex1_data3            )
         ,.ex1_data4            (ex1_data4            )
         ,.ex1_store_wdata      (ex1_store_wdata      )
+        ,.ex1_rs1_data         (ex1_rs1_data         )
+        ,.ex1_rs2_data         (ex1_rs2_data         )
     );
 
     // EX1/EX2 pipeline register

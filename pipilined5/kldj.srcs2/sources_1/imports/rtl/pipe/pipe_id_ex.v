@@ -27,6 +27,8 @@ module pipe_id_ex #(
     ,input wire [`KLDJ_DATA]     id_data4
     ,input wire [`KLDJ_DATA]     reg_id_rs1_data
     ,input wire [`KLDJ_DATA]     reg_id_rs2_data
+    ,input wire [`KLDJ_DATA]     ex1_rs1_data
+    ,input wire [`KLDJ_DATA]     ex1_rs2_data
     // CSR signals from ID
     ,input wire [11:0]           id_csr_addr
     ,input wire                  id_csr_op
@@ -75,14 +77,14 @@ module pipe_id_ex #(
             id_ex_rs2_ren  <= 1'b0;
             id_ex_wb_ctl   <= 1'b0;
             id_ex_csr_op   <= 1'b0;
-        end else if(ex_redirect || load_use_stall) begin
+        end else if(ex_redirect) begin
             id_ex_valid    <= 1'b0;
             id_ex_pred_taken  <= 1'b0;
             id_ex_rs1_ren  <= 1'b0;
             id_ex_rs2_ren  <= 1'b0;
             id_ex_wb_ctl   <= 1'b0;
             id_ex_csr_op   <= 1'b0;
-        end else if(!ex_stall) begin
+        end else if(!load_use_stall && !ex_stall) begin
             id_ex_valid    <= if_id_valid;
             id_ex_pred_taken  <= if_id_valid && if_id_pred_taken;
             id_ex_rs1_ren  <= if_id_valid && id_reg_rs1_ren;
@@ -112,11 +114,12 @@ module pipe_id_ex #(
             id_ex_rs2_data <= `KLDJ_ZERO32;
             id_ex_csr_addr <= 12'b0;
             id_ex_csr_zimm <= 5'b0;
-        end else if(load_use_stall) begin
-            id_ex_exu_op   <= 18'd0;
-            id_ex_alu_ctrl <= 10'd0;
-            id_ex_ls_ctl   <= 4'd0;
-        end else if(!ex_stall) begin
+        end else if(load_use_stall || ex_stall) begin
+            // Preserve values that may only be available from a transient
+            // forwarding source while this instruction is held in EX1.
+            id_ex_rs1_data <= ex1_rs1_data;
+            id_ex_rs2_data <= ex1_rs2_data;
+        end else begin
             id_ex_pc       <= if_id_pc;
             id_ex_snpc     <= if_id_snpc;
             id_ex_pred_target <= if_id_valid ? if_id_pred_target : `KLDJ_ZERO32;

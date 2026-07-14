@@ -72,15 +72,14 @@ module pipe_ex1_ex2 #(
             ex1_ex2_pred_taken  <= 1'b0;
             ex1_ex2_wb_ctl      <= 1'b0;
             ex1_ex2_csr_op      <= 1'b0;
+        end else if (ex2_stall) begin
+            // Hold the in-flight multi-cycle operation until it completes.
         end else if (ex1_dependency_stall) begin
             // insert bubble when dependency stall
             ex1_ex2_valid       <= 1'b0;
             ex1_ex2_pred_taken  <= 1'b0;
             ex1_ex2_wb_ctl      <= 1'b0;
             ex1_ex2_csr_op      <= 1'b0;
-        end else if (ex2_stall) begin
-            // hold when ex2_stall (keep current values, do nothing)
-            // This is critical for MUL/DIV multi-cycle operations
         end else begin
             // normal advancement (when !ex2_stall and !ex1_dependency_stall)
             ex1_ex2_valid       <= id_ex_valid;
@@ -107,14 +106,13 @@ module pipe_ex1_ex2 #(
             ex1_ex2_store_wdata <= `KLDJ_ZERO32;
             ex1_ex2_csr_addr    <= 12'b0;
             ex1_ex2_csr_zimm    <= 5'b0;
+        end else if (ex2_stall) begin
+            // Hold all operands and controls for the multi-cycle operation.
         end else if (ex1_dependency_stall) begin
             // insert bubble: clear operation-related fields
             ex1_ex2_exu_op      <= 18'd0;
             ex1_ex2_alu_ctrl    <= 10'd0;
             ex1_ex2_ls_ctl      <= 4'd0;
-        end else if (ex2_stall) begin
-            // hold when ex2_stall (keep all data fields, do nothing)
-            // This is critical for MUL/DIV multi-cycle operations
         end else begin
             // normal advancement (when !ex2_stall and !ex1_dependency_stall)
             ex1_ex2_pc          <= id_ex_pc;
