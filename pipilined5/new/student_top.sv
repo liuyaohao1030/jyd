@@ -36,24 +36,21 @@ module student_top#(
     output [P_SEG_CNT - 1:0]                    virtual_seg
 );
 
-    // Power-on reset: shift register generates reset pulse for 16 cycles
-    // This works regardless of PLL lock timing
-    (* mark_debug = "true" *) logic [15:0] rst_shift = 16'hFFFF;
-    (* mark_debug = "true" *) logic        rst_sync;
-    (* mark_debug = "true" *) logic        dbg_w_clk_rst;
-    assign dbg_w_clk_rst = w_clk_rst;
+    // Power-on reset generation: counter to ensure reset pulse
+    (* mark_debug = "true" *) logic [3:0] rst_counter = 4'hF;
+    (* mark_debug = "true" *) logic       cpu_rst;
 
     always_ff @(posedge w_cpu_clk) begin
         if (w_clk_rst) begin
-            // PLL not locked, hold reset
-            rst_shift <= 16'hFFFF;
-        end else begin
-            // PLL locked, shift out the reset
-            rst_shift <= {rst_shift[14:0], 1'b0};
+            // External reset active (PLL not locked)
+            rst_counter <= 4'hF;
+        end else if (rst_counter != 4'h0) begin
+            // Count down to generate reset pulse
+            rst_counter <= rst_counter - 4'h1;
         end
     end
 
-    assign rst_sync = rst_shift[15] | w_clk_rst;
+    assign cpu_rst = (rst_counter != 4'h0) | w_clk_rst;
 
     // IROM
     logic [31:0] pc;
@@ -70,7 +67,7 @@ module student_top#(
 
     KLDJ_top u_KLDJ_top (
         .clk            (w_cpu_clk),
-        .rst            (rst_sync),
+        .rst            (cpu_rst),
 
         .tb_if_inst     (instruction),
         .tb_if_pc       (pc),
