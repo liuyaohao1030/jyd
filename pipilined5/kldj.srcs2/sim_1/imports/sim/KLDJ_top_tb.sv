@@ -93,7 +93,7 @@ module KLDJ_top_tb;
     wire [31:0] perf_redirect_count;
     wire [31:0] perf_load_count;
     wire [31:0] perf_store_count;
-    wire [31:0] jalr_expected_sum = u_dut.ex_data1 + u_dut.id_ex_data2;
+    wire [31:0] jalr_expected_sum = u_dut.ex_cf_rs1_data + u_dut.id_ex_data4;
 
     KLDJ_top u_dut (
          .clk          (clk           )
@@ -153,6 +153,22 @@ module KLDJ_top_tb;
             if (u_dut.id_ex_valid && u_dut.id_ex_jalr_op &&
                 (u_dut.exu_jump_pc_raw !== {jalr_expected_sum[31:1], 1'b0}))
                 $fatal(1, "JALR dedicated target path mismatch");
+            if (u_dut.id_ex_valid && u_dut.id_ex_jalr_op &&
+                (u_dut.ex_cf_rs1_data !== u_dut.ex_data1))
+                $fatal(1, "JALR control-flow forwarding mismatch");
+            if (u_dut.id_ex_valid && u_dut.id_ex_jalr_op &&
+                (u_dut.id_ex_data2 !== 32'b0))
+                $fatal(1, "JALR generic operand-2 must be zero");
+            if (u_dut.id_ex_valid && u_dut.id_ex_branch_op &&
+                ((u_dut.ex_cf_rs1_data !== u_dut.ex_data1) ||
+                 (u_dut.ex_cf_rs2_data !== u_dut.ex_data2)))
+                $fatal(1, "branch control-flow forwarding mismatch");
+            if (u_dut.id_ex_valid && (u_dut.id_ex_branch_op || u_dut.id_ex_jalr_op) &&
+                (u_dut.id_ex_cf_rs1_fwd_sel == 2'b11))
+                $fatal(1, "reserved control-flow rs1 forwarding select");
+            if (u_dut.id_ex_valid && u_dut.id_ex_branch_op &&
+                (u_dut.id_ex_cf_rs2_fwd_sel == 2'b11))
+                $fatal(1, "reserved control-flow rs2 forwarding select");
             if (u_dut.id_ex_pred_is_jalr && !u_dut.id_ex_pred_taken)
                 $fatal(1, "indirect prediction metadata without taken prediction");
             if (u_dut.ex_mem_load_op !==

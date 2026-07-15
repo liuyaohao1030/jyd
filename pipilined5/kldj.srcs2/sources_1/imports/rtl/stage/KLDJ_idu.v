@@ -283,8 +283,12 @@ always @(*) begin
             exu_op_r   = 18'h9;
             alu_ctrl_r = 10'h008;
             data1_r    = rs1_data;
-            data2_r    = imm;
+            // Keep the generic ALU operand-2 path independent from the
+            // JALR immediate.  EX consumes data4 through its dedicated JALR
+            // target adder; data2 is architecturally unused by JALR.
+            data2_r    = `KLDJ_ZERO32;
             data3_r    = snpc;
+            data4_r    = imm;
         end
 
         //---------- R-type ALU ----------//

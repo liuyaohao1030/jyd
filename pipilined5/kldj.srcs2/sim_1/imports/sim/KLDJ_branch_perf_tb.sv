@@ -50,12 +50,18 @@ module KLDJ_branch_perf_tb;
             data_mem[init_i] = 32'h0000_0000;
 
         use_jalr_baseline = $test$plusargs("JALR_BASELINE");
-        if (use_jalr_baseline)
-            irom_path = "../../Program/jalr_baseline_irom.txt";
-        else if (!$value$plusargs("IROM_COE=%s", irom_path))
-            irom_path = "../../Program/irom-v2.txt";
-        if (use_jalr_baseline)
-            dram_path = "../../Program/jalr_baseline_dram.txt";
+        if (!$value$plusargs("IROM_COE=%s", irom_path)) begin
+            if (use_jalr_baseline)
+                irom_path = "../../Program/jalr_baseline_irom.txt";
+            else
+                irom_path = "../../Program/irom-v2.txt";
+        end
+        if (!$value$plusargs("DRAM_COE=%s", dram_path)) begin
+            if (use_jalr_baseline)
+                dram_path = "../../Program/jalr_baseline_dram.txt";
+            else
+                dram_path = "../../Program/dram.txt";
+        end
         irom_fd = $fopen(irom_path, "r");
         if (irom_fd == 0) begin
             if (use_jalr_baseline)
@@ -83,9 +89,6 @@ module KLDJ_branch_perf_tb;
         end
         $fclose(irom_fd);
 
-        if (!use_jalr_baseline &&
-            !$value$plusargs("DRAM_COE=%s", dram_path))
-            dram_path = "../../Program/dram.txt";
         dram_fd = $fopen(dram_path, "r");
         if (dram_fd == 0) begin
             if (use_jalr_baseline)
@@ -456,7 +459,7 @@ module KLDJ_branch_perf_tb;
                     jalr_is_ret = (u_dut.id_ex_rd_addr == 5'd0) &&
                                   ((u_dut.id_ex_rs1_addr == 5'd1) ||
                                    (u_dut.id_ex_rs1_addr == 5'd5)) &&
-                                  (u_dut.id_ex_data2 == 32'd0);
+                                  (u_dut.id_ex_data4 == 32'd0);
 
                     if (u_dut.id_ex_pred_taken && u_dut.id_ex_pred_is_jalr)
                         jalr_predicted_count = jalr_predicted_count + 1;

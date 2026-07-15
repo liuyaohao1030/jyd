@@ -4,10 +4,14 @@ module KLDJ_exu(
      input  wire                clk
     ,input  wire                rst
     ,input  wire                valid
-    ,input  wire [`KLDJ_DATA]   data1
+     ,input  wire [`KLDJ_DATA]   data1
     ,input  wire [`KLDJ_DATA]   data2
     ,input  wire [`KLDJ_DATA]   data3
     ,input  wire [`KLDJ_DATA]   data4
+    // Registered control-flow operand paths.  These use ID-predecoded
+    // forwarding selects and intentionally bypass the generic EX mux cone.
+    ,input  wire [`KLDJ_DATA]   ctrl_rs1_data
+    ,input  wire [`KLDJ_DATA]   ctrl_rs2_data
     // JALR immediate bypasses the generic EX operand-2 forwarding mux.
     ,input  wire [`KLDJ_DATA]   jalr_imm
     ,input  wire [17:0]         exu_op
@@ -32,15 +36,22 @@ module KLDJ_exu(
     ,output wire                mul_stall
 );
 
+    wire is_branch_op = (exu_op >= 18'h14) && (exu_op <= 18'h19);
+    wire is_jalr_op   = (exu_op == 18'h9);
+    wire controlflow_uses_dedicated_operands = is_branch_op || is_jalr_op;
+    wire [`KLDJ_DATA] generic_alu_data1 = controlflow_uses_dedicated_operands ?
+                                             `KLDJ_ZERO32 : data1;
+    wire [`KLDJ_DATA] generic_alu_data2 = controlflow_uses_dedicated_operands ?
+                                             `KLDJ_ZERO32 : data2;
     wire [`KLDJ_DATA] alu_res;
-    wire [3:0] cmp_res;
+    wire [3:0] generic_cmp_res;
 
     KLDJ_alu u_KLDJ_alu(
-         .op1    (data1)
-        ,.op2    (data2)
+         .op1    (generic_alu_data1)
+        ,.op2    (generic_alu_data2)
         ,.alu_op (alu_ctrl)
         ,.alu_res(alu_res)
-        ,.cmp_res(cmp_res)
+        ,.cmp_res(generic_cmp_res)
     );
 
     wire is_mul_op = (exu_op == 18'h25) ||
@@ -98,26 +109,43 @@ module KLDJ_exu(
     assign mul_stall = valid && is_mul_op && !mul_done;
     assign div_stall = valid && is_div_op && !div_done;  
     
-    wire is_ge_res  = cmp_res[3];
-    wire is_ne_res  = cmp_res[2];
-    wire is_equ_res = cmp_res[1];
-    wire is_lt_res  = cmp_res[0];
+    // Keep conditional-branch resolution off the generic forwarding and ALU
+    // result cone.  The select bits for ctrl_rs*_data were captured in ID/EX.
+    wire branch_unsigned = (exu_op == 18'h18) || (exu_op == 18'h19);
+    wire [`KLDJ_DATA] branch_cmp_unused;
+    wire branch_is_lt;
+    wire branch_is_equ;
+    wire branch_is_ne;
+    wire branch_is_ge;
+
+    alu_add u_branch_cmp(
+         .a          (ctrl_rs1_data)
+        ,.b          (ctrl_rs2_data)
+        ,.is_sub     (1'b1)
+        ,.is_unsigned(branch_unsigned)
+        ,.out        (branch_cmp_unused)
+        ,.lt         (branch_is_lt)
+        ,.equ        (branch_is_equ)
+        ,.ne         (branch_is_ne)
+        ,.ge         (branch_is_ge)
+    );
 
     wire branch_taken =
-        (exu_op == 18'h14 && is_equ_res) | // beq
-        (exu_op == 18'h15 && is_ne_res)  | // bne
-        (exu_op == 18'h16 && is_lt_res)  | // blt
-        (exu_op == 18'h17 && is_ge_res)  | // bge
-        (exu_op == 18'h18 && is_lt_res)  | // bltu
-        (exu_op == 18'h19 && is_ge_res)  ; // bgeu
+        (exu_op == 18'h14 && branch_is_equ) | // beq
+        (exu_op == 18'h15 && branch_is_ne)  | // bne
+        (exu_op == 18'h16 && branch_is_lt)  | // blt
+        (exu_op == 18'h17 && branch_is_ge)  | // bge
+        (exu_op == 18'h18 && branch_is_lt)  | // bltu
+        (exu_op == 18'h19 && branch_is_ge)  ; // bgeu
     
     wire is_load_or_store = (exu_op >= 18'h1d) && (exu_op <= 18'h24);
 
     wire [`KLDJ_DATA] load_store_addr = data1 + data2;
     wire [`KLDJ_DATA] branch_target   = data3 + data4;
     wire [`KLDJ_DATA] jal_target      = data1 + data2;
-    // JALR uses the registered immediate, not the rs2 forwarding operand.
-    wire [`KLDJ_DATA] jalr_sum        = data1 + jalr_imm;
+    // JALR uses the registered immediate and the independently selected
+    // control-flow rs1 operand, not either generic EX forwarding operand.
+    wire [`KLDJ_DATA] jalr_sum        = ctrl_rs1_data + jalr_imm;
     wire [`KLDJ_DATA] jalr_target     = {jalr_sum[31:1], 1'b0};
 
     assign ex_mem_addr = is_load_or_store ? load_store_addr : `KLDJ_ZERO32;
@@ -149,14 +177,14 @@ module KLDJ_exu(
     // 对于 CSR 指令，输出旧 CSR 值 (写入 rd)
     assign exu_res = is_mul_op ? mul_result : 
                      is_div_op ? div_result : 
-                     (exu_op == 18'h9 | exu_op == 18'h1c) ? data3 :
+                     (is_jalr_op | exu_op == 18'h1c) ? data3 :
                      csr_op ? csr_rdata :
                      is_load_or_store ? load_store_addr : 
                      alu_res;
 
     // mret also triggers a jump
-    assign exu_jump = (exu_op == 18'h9 | exu_op == 18'h1c) | branch_taken | is_mret;
-    assign exu_jump_pc = (exu_op == 18'h9) ? jalr_target :
+    assign exu_jump = (is_jalr_op | exu_op == 18'h1c) | branch_taken | is_mret;
+    assign exu_jump_pc = is_jalr_op ? jalr_target :
                          (exu_op == 18'h1c) ? alu_res :
                          (branch_taken) ? branch_target :
                          is_mret ? mret_pc :

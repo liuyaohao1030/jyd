@@ -10,6 +10,8 @@ module KLDJ_exu_jalr_tb;
     reg  [31:0] data2;
     reg  [31:0] data3;
     reg  [31:0] data4;
+    reg  [31:0] ctrl_rs1_data;
+    reg  [31:0] ctrl_rs2_data;
     reg  [31:0] jalr_imm;
     reg  [17:0] exu_op;
     reg  [9:0]  alu_ctrl;
@@ -33,6 +35,7 @@ module KLDJ_exu_jalr_tb;
     KLDJ_exu dut(
          .clk(clk), .rst(rst), .valid(valid)
         ,.data1(data1), .data2(data2), .data3(data3), .data4(data4)
+        ,.ctrl_rs1_data(ctrl_rs1_data), .ctrl_rs2_data(ctrl_rs2_data)
         ,.jalr_imm(jalr_imm), .exu_op(exu_op), .alu_ctrl(alu_ctrl)
         ,.csr_addr(csr_addr), .csr_op(csr_op), .csr_zimm(csr_zimm)
         ,.csr_rdata(csr_rdata), .csr_we(csr_we), .csr_wdata(csr_wdata)
@@ -61,10 +64,14 @@ module KLDJ_exu_jalr_tb;
         clk = 1'b0;
         rst = 1'b0;
         valid = 1'b1;
-        data1 = 32'h8000_0103;
+        // data1 deliberately differs from ctrl_rs1_data.  A JALR target must
+        // use the registered control-flow path, not the generic ALU input.
+        data1 = 32'hdead_beef;
         data2 = 32'hdead_beef;
         data3 = 32'h0000_0123;
         data4 = 32'h0000_0000;
+        ctrl_rs1_data = 32'h8000_0103;
+        ctrl_rs2_data = 32'h1234_5678;
         jalr_imm = 32'h0000_0005;
         exu_op = 18'h9;
         alu_ctrl = 10'h008;
@@ -77,7 +84,7 @@ module KLDJ_exu_jalr_tb;
         // (0x80000103 + 5) & ~1 = 0x80000108.
         check_target(32'h8000_0108, "positive immediate");
 
-        data1 = 32'h8000_0100;
+        ctrl_rs1_data = 32'h8000_0100;
         jalr_imm = 32'hffff_fffc;
         // (0x80000100 - 4) & ~1 = 0x800000fc.
         check_target(32'h8000_00fc, "negative immediate");
@@ -86,6 +93,7 @@ module KLDJ_exu_jalr_tb;
         exu_op = 18'h1c;
         data1 = 32'h8000_0100;
         data2 = 32'h0000_0020;
+        ctrl_rs1_data = 32'hdead_beef;
         jalr_imm = 32'hdead_beef;
         check_target(32'h8000_0120, "direct JAL path");
 
