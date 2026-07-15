@@ -119,6 +119,17 @@ module KLDJ_top_tb;
         ,.perf_store_count         (perf_store_count          )
     );
 
+    // Directed timing-fix observability.  The program builder fills these
+    // PCs before reset is released.
+    reg [31:0] load_jalr_load_pc;
+    reg [31:0] load_jalr_consumer_pc;
+    reg [31:0] load_div_pc;
+    integer ex_mem_load_interlock_seen = 0;
+    integer load_jalr_stall_count = 0;
+    integer load_jalr_memwb_select_seen = 0;
+    integer ex_stall_load_interlock_seen = 0;
+    integer static_jal_prediction_seen = 0;
+
     // Fix_Timing5 structural equivalence checks. These compare the new
     // registered one-bit controls against the original exu_op definitions.
     always @(negedge clk) begin
@@ -147,6 +158,58 @@ module KLDJ_top_tb;
                 (u_dut.mem2_valid && u_dut.mem2_wb_ctl &&
                  (u_dut.mem2_rd_addr != 5'd0)))
                 $fatal(1, "mem2_forward_valid registered control mismatch");
+
+            // FWD_MEM2 is intentionally a raw non-load EX result.  A load
+            // dependency must have been held until FWD_MEM_WB is selected.
+            if (!u_dut.ex_stall && u_dut.id_ex_valid && u_dut.mem2_valid &&
+                u_dut.mem2_load_op &&
+                ((u_dut.id_ex_rs1_ren && (u_dut.id_ex_rs1_fwd_sel == 2'b10)) ||
+                 (u_dut.id_ex_rs2_ren && (u_dut.id_ex_rs2_fwd_sel == 2'b10))))
+                $fatal(1, "a MEM2 load reached the raw FWD_MEM2 data path");
+
+            // A dependency while the producer is in EX/MEM must be held so
+            // the consumer cannot use the raw MEM2 load response in EX.
+            if (u_dut.ex_mem_valid && u_dut.ex_mem_load_op &&
+                (u_dut.ex_mem_rd_addr != 5'd0) && u_dut.if_id_valid &&
+                ((u_dut.id_reg_rs1_ren &&
+                  (u_dut.id_reg_rs1_addr == u_dut.ex_mem_rd_addr)) ||
+                 (u_dut.id_reg_rs2_ren &&
+                  (u_dut.id_reg_rs2_addr == u_dut.ex_mem_rd_addr)))) begin
+                ex_mem_load_interlock_seen = ex_mem_load_interlock_seen + 1;
+                if (u_dut.load_use_stall !== 1'b1)
+                    $fatal(1, "EX/MEM load dependency was not interlocked");
+            end
+
+            // Static JAL must not override the BPU result in the 200 MHz
+            // default configuration; JAL then resolves through EX redirect.
+            if (u_dut.if_static_jal === 1'b1) begin
+                static_jal_prediction_seen = static_jal_prediction_seen + 1;
+                if (u_dut.if_pred_taken !== u_dut.bpu_pred_taken)
+                    $fatal(1, "static JAL still drives if_pred_taken");
+                if (u_dut.if_pred_target !== u_dut.bpu_pred_target)
+                    $fatal(1, "static JAL still drives if_pred_target");
+            end
+
+            // The directed load->JALR case must stall once with the producer
+            // in ID/EX and once in EX/MEM, then use MEM/WB forwarding.
+            if (u_dut.load_use_stall && u_dut.if_id_valid &&
+                (u_dut.if_id_pc == load_jalr_consumer_pc) &&
+                ((u_dut.id_ex_valid && (u_dut.id_ex_pc == load_jalr_load_pc)) ||
+                 (u_dut.ex_mem_valid && (u_dut.ex_mem_pc == load_jalr_load_pc))))
+                load_jalr_stall_count = load_jalr_stall_count + 1;
+
+            if (u_dut.id_ex_valid && (u_dut.id_ex_pc == load_jalr_consumer_pc)) begin
+                load_jalr_memwb_select_seen = load_jalr_memwb_select_seen + 1;
+                if (u_dut.id_ex_rs1_fwd_sel !== 2'b11)
+                    $fatal(1, "load->JALR did not select MEM/WB forwarding");
+            end
+
+            // A second-stage load interlock may coexist with a long-latency
+            // EX operation.  In that case ID/EX must retain the mul/div until
+            // ex_stall drops; Group 16 checks the resulting divide value.
+            if (u_dut.ex_stall && u_dut.load_use_stall &&
+                u_dut.id_ex_valid && (u_dut.id_ex_pc == load_div_pc))
+                ex_stall_load_interlock_seen = ex_stall_load_interlock_seen + 1;
         end
     end
 
@@ -708,6 +771,67 @@ module KLDJ_top_tb;
         emit(rv_itype(12'h001, 5'd7, F3_ADD_SUB, 5'd7, OP_ITYPE));
         emit(rv_stype(12'h074, 5'd7, 5'd25, F3_SW, OP_STORE));
 
+        // ==========================================
+        // GROUP 15: load -> JALR timing interlock
+        // ==========================================
+        // Preload x8 with the wrong path address, then overwrite it with a
+        // just-loaded correct target.  A stale/raw load value either takes the
+        // wrong store or fails the MEM/WB selector assertion above.
+        begin : load_jalr_hazard_blk
+            integer target;
+            integer wrong_target;
+            reg [19:0] target_upper;
+            reg [11:0] target_lower;
+            reg [19:0] wrong_upper;
+            reg [11:0] wrong_lower;
+
+            // Layout from the current idx:
+            //   0..1 target in x7, 2..3 wrong target in x8, 4 store target,
+            //   5 load x8, 6 JALR, 7 wrong store, 8 skip-good JAL,
+            //   9 correct store, 10 next instruction.
+            target       = 32'h80000000 + (idx + 9) * 4;
+            wrong_target = 32'h80000000 + (idx + 7) * 4;
+            target_lower = target[11:0];
+            target_upper = target[31:12];
+            wrong_lower  = wrong_target[11:0];
+            wrong_upper  = wrong_target[31:12];
+            if (target[11])       target_upper = target_upper + 1'b1;
+            if (wrong_target[11]) wrong_upper  = wrong_upper + 1'b1;
+
+            emit(rv_utype(target_upper, 5'd7, OP_LUI));
+            emit(rv_itype(target_lower, 5'd7, F3_ADD_SUB, 5'd7, OP_ITYPE));
+            emit(rv_utype(wrong_upper, 5'd8, OP_LUI));
+            emit(rv_itype(wrong_lower, 5'd8, F3_ADD_SUB, 5'd8, OP_ITYPE));
+            emit(rv_stype(12'h078, 5'd7, 5'd25, F3_SW, OP_STORE));
+            load_jalr_load_pc = 32'h80000000 + idx * 4;
+            emit(rv_itype(12'h078, 5'd25, F3_LW, 5'd8, OP_LOAD));
+            load_jalr_consumer_pc = 32'h80000000 + idx * 4;
+            emit(rv_itype(12'h000, 5'd8, 3'b000, 5'd0, OP_JALR));
+            emit(rv_stype(12'h07C, 5'd1, 5'd25, F3_SW, OP_STORE)); // wrong: 100
+            emit(rv_jtype(21'h008, 5'd0, OP_JAL));
+            emit(rv_stype(12'h07C, 5'd2, 5'd25, F3_SW, OP_STORE)); // correct: 101
+        end
+
+        // ==========================================
+        // GROUP 16: load interlock during DIV stall
+        // ==========================================
+        // With the load in EX/MEM, DIV occupies ID/EX while the following
+        // ADDI consumes the load result.  The load interlock must hold IF/ID
+        // without clearing the in-flight DIV.
+        emit(rv_itype(12'h00C, 5'd0, F3_ADD_SUB, 5'd10, OP_ITYPE));
+        emit(rv_itype(12'h003, 5'd0, F3_ADD_SUB, 5'd11, OP_ITYPE));
+        emit(rv_itype(12'h007, 5'd0, F3_ADD_SUB, 5'd7,  OP_ITYPE));
+        emit(rv_stype(12'h080, 5'd7, 5'd25, F3_SW, OP_STORE));
+        emit(rv_itype(12'h080, 5'd25, F3_LW, 5'd8, OP_LOAD));
+        load_div_pc = 32'h80000000 + idx * 4;
+        emit(rv_rtype(F7_MULDIV, 5'd11, 5'd10, F3_DIV, 5'd7, OP_RTYPE));
+        emit(rv_itype(12'h001, 5'd8, F3_ADD_SUB, 5'd8, OP_ITYPE));
+        emit(rv_stype(12'h084, 5'd8, 5'd25, F3_SW, OP_STORE));
+        emit(rv_stype(12'h088, 5'd7, 5'd25, F3_SW, OP_STORE));
+        // Restore architectural values checked by Group 5.
+        emit(rv_itype(12'h0AA, 5'd0, F3_ADD_SUB, 5'd10, OP_ITYPE));
+        emit(rv_itype(12'h0BB, 5'd0, F3_ADD_SUB, 5'd11, OP_ITYPE));
+
         // EBREAK
         emit({12'h001, 5'd0, 3'b000, 5'd0, OP_SYSTEM});
 
@@ -860,6 +984,55 @@ module KLDJ_top_tb;
         check_mem(32'h8000106C, 32'h0000002B, "MUL result -> immediate consumer");
         check_mem(32'h80001070, 32'h0000002C, "DIV result -> immediate consumer");
         check_mem(32'h80001074, 32'h00000033, "MEM2 predecode -> next MEM/WB forward");
+
+        $display("--- Group 15: load -> JALR interlock ---");
+        check_mem(32'h8000107C, 32'h00000065, "load->JALR reached correct target");
+        if (ex_mem_load_interlock_seen == 0) begin
+            $display("[FAIL] EX/MEM load interlock was never exercised");
+            fail_count = fail_count + 1;
+        end else begin
+            $display("[PASS] EX/MEM load interlock observed %0d time(s)",
+                     ex_mem_load_interlock_seen);
+            pass_count = pass_count + 1;
+        end
+        if (load_jalr_stall_count != 2) begin
+            $display("[FAIL] load->JALR stall count = %0d (expected 2)",
+                     load_jalr_stall_count);
+            fail_count = fail_count + 1;
+        end else begin
+            $display("[PASS] load->JALR stalled exactly twice");
+            pass_count = pass_count + 1;
+        end
+        if (load_jalr_memwb_select_seen != 1) begin
+            $display("[FAIL] load->JALR MEM/WB selector observation count = %0d (expected 1)",
+                     load_jalr_memwb_select_seen);
+            fail_count = fail_count + 1;
+        end else begin
+            $display("[PASS] load->JALR selected MEM/WB forwarding");
+            pass_count = pass_count + 1;
+        end
+        if (static_jal_prediction_seen == 0) begin
+            $display("[FAIL] static-JAL timing-safe prediction check was not exercised");
+            fail_count = fail_count + 1;
+        end else begin
+            $display("[PASS] static-JAL timing-safe prediction check observed %0d time(s)",
+                     static_jal_prediction_seen);
+            pass_count = pass_count + 1;
+        end
+
+        $display("--- Group 16: load interlock during DIV stall ---");
+        check_mem(32'h80001084, 32'h00000008,
+                  "load consumer survives concurrent DIV stall");
+        check_mem(32'h80001088, 32'h00000004,
+                  "DIV survives concurrent load interlock");
+        if (ex_stall_load_interlock_seen == 0) begin
+            $display("[FAIL] concurrent EX-stall/load-interlock case was not exercised");
+            fail_count = fail_count + 1;
+        end else begin
+            $display("[PASS] concurrent EX-stall/load-interlock observed %0d time(s)",
+                     ex_stall_load_interlock_seen);
+            pass_count = pass_count + 1;
+        end
 
         // ---- Summary ----
         $display("");

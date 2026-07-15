@@ -9,7 +9,9 @@
 # ----------------------------
 # User config
 # ----------------------------
-set BASE_REPORT_DIR "D:/System/desktop/jyd-feature/pipilined5/reports"
+# Keep exported reports next to this script.  This makes the flow portable
+# across the build machine and the board-development machine.
+set BASE_REPORT_DIR [file dirname [file normalize [info script]]]
 
 # 每次修改这里，方便区分实验
 # 例如：
@@ -20,7 +22,7 @@ set RUN_TAG "agu_fwd_predecode_200mhz"
 
 # 如果你主要关注某个 clock，可以填 clock 名字
 # 不确定 clock 名字时，先留空，脚本会导出全局 timing
-set TARGET_CLOCK "cpu_clk_out2"
+set TARGET_CLOCK "clk_out2_pll"
 
 # ----------------------------
 # Create timestamped directory

@@ -89,8 +89,8 @@ module pipe_id_ex #(
 
     // Stage mapping across the ID/EX edge:
     //   current ID/EX (non-load) -> next EX/MEM
-    //   current EX/MEM            -> next MEM2 (loads are ready there)
-    //   current MEM2              -> next MEM/WB
+    //   current EX/MEM            -> next MEM2 (non-load values may forward)
+    //   current MEM2              -> next MEM/WB (loads forward only here)
     // A value currently in MEM/WB is already covered by regfile write-through.
     wire id_ex_fwd_candidate = id_ex_valid && id_ex_wb_ctl && !id_ex_load_op &&
                                (id_ex_rd_addr != 5'd0);
@@ -140,7 +140,11 @@ module pipe_id_ex #(
             id_ex_rs2_to_data2 <= 1'b0;
             id_ex_rs1_fwd_sel <= FWD_NONE;
             id_ex_rs2_fwd_sel <= FWD_NONE;
-        end else if(ex_redirect || load_use_stall) begin
+        // A mul/div stall owns ID/EX: do not let the second-stage load-use
+        // interlock turn an in-flight long-latency operation into a bubble.
+        // Redirect remains highest priority so a resolved control transfer can
+        // always flush the stage.
+        end else if(ex_redirect || (!ex_stall && load_use_stall)) begin
             id_ex_valid    <= 1'b0;
             id_ex_pred_taken  <= 1'b0;
             id_ex_rs1_ren  <= 1'b0;
@@ -187,7 +191,10 @@ module pipe_id_ex #(
             id_ex_rs2_data <= `KLDJ_ZERO32;
             id_ex_csr_addr <= 12'b0;
             id_ex_csr_zimm <= 5'b0;
-        end else if(load_use_stall) begin
+        // Keep all ID/EX payload state intact while EX is stalled.  The
+        // load-use bubble is injected only once the long-latency EX operation
+        // has completed.
+        end else if(!ex_stall && load_use_stall) begin
             id_ex_exu_op   <= 18'd0;
             id_ex_alu_ctrl <= 10'd0;
             id_ex_ls_ctl   <= 4'd0;

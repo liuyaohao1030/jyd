@@ -1,6 +1,13 @@
 `include "define.v"
 
-module KLDJ_top(
+module KLDJ_top #(
+    // A combinational IROM -> static-JAL -> PC feedback path does not close
+    // at 200 MHz.  Keep the predictor state/update logic, but default to EX
+    // resolution for JAL so the feedback path is cut.  Lower-frequency builds
+    // may explicitly override this parameter when that performance trade-off
+    // is desired.
+    parameter ENABLE_STATIC_JAL_PRED = 1'b0
+)(
      input wire                  clk
     ,input wire                  rst
     ,input wire [`KLDJ_INST]     tb_if_inst
@@ -204,13 +211,16 @@ module KLDJ_top(
     wire [`KLDJ_REG]             reg_id_rs1_data;
     wire [`KLDJ_REG]             reg_id_rs2_data;
 
-    // IF-stage static JAL prediction.  JAL is unconditional, so the
-    // instruction-encoded target is more reliable than a possibly stale BTB.
+    // IF-stage static JAL prediction is optional.  At 200 MHz it is disabled
+    // by default because the asynchronous IROM decode otherwise feeds the PC
+    // back in the same cycle.  JAL remains architecturally correct: EX
+    // resolves it and redirects the frontend on a predictor miss.
     assign if_static_jal        = (if_inst[6:2] == `KLDJ_JAL) && (if_inst[1:0] == 2'b11);
     assign if_static_jal_imm    = {{12{if_inst[31]}}, if_inst[19:12], if_inst[20], if_inst[30:21], 1'b0};
     assign if_static_jal_target = if_pc + if_static_jal_imm;
-    assign if_pred_taken        = if_static_jal || bpu_pred_taken;
-    assign if_pred_target       = if_static_jal ? if_static_jal_target : bpu_pred_target;
+    assign if_pred_taken        = (ENABLE_STATIC_JAL_PRED && if_static_jal) || bpu_pred_taken;
+    assign if_pred_target       = (ENABLE_STATIC_JAL_PRED && if_static_jal) ?
+                                  if_static_jal_target : bpu_pred_target;
 
     // ========================================================
     // Module instantiations
@@ -375,6 +385,9 @@ module KLDJ_top(
          .id_ex_valid          (id_ex_valid          )
         ,.id_ex_rd_addr        (id_ex_rd_addr        )
         ,.id_ex_load_op        (id_ex_load_op        )
+        ,.ex_mem_valid         (ex_mem_valid         )
+        ,.ex_mem_rd_addr       (ex_mem_rd_addr       )
+        ,.ex_mem_load_op       (ex_mem_load_op       )
         ,.id_ex_rs1_fwd_sel    (id_ex_rs1_fwd_sel    )
         ,.id_ex_rs2_fwd_sel    (id_ex_rs2_fwd_sel    )
         ,.id_ex_data1          (id_ex_data1          )
@@ -382,7 +395,7 @@ module KLDJ_top(
         ,.id_ex_data3          (id_ex_data3          )
         ,.id_ex_data4          (id_ex_data4          )
         ,.ex_mem_exu_res       (ex_mem_exu_res       )
-        ,.mem2_wb_data         (mem_stage_wb_data    )
+        ,.mem2_exu_res         (mem2_exu_res         )
         ,.mem_wb_wb_data       (mem_wb_wb_data       )
         ,.if_id_valid          (if_id_valid          )
         ,.id_reg_rs1_addr      (id_reg_rs1_addr      )
