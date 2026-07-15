@@ -119,7 +119,7 @@ module KLDJ_top_tb;
         ,.perf_store_count         (perf_store_count          )
     );
 
-    // Fix_Timing5 structural equivalence checks. These compare the new
+    // Registered-control structural equivalence checks. These compare the
     // registered one-bit controls against the original exu_op definitions.
     always @(negedge clk) begin
         if (!rst) begin
@@ -136,6 +136,18 @@ module KLDJ_top_tb;
                  (((u_dut.id_ex_exu_op >= 18'ha) && (u_dut.id_ex_exu_op <= 18'h19)) ||
                   ((u_dut.id_ex_exu_op >= 18'h25) && (u_dut.id_ex_exu_op <= 18'h2c)))))
                 $fatal(1, "id_ex_rs2_to_data2 predecode mismatch");
+            if (u_dut.id_ex_branch_op !==
+                (u_dut.id_ex_valid && (u_dut.id_ex_exu_op >= 18'h14) &&
+                 (u_dut.id_ex_exu_op <= 18'h19)))
+                $fatal(1, "id_ex_branch_op predecode mismatch");
+            if (u_dut.id_ex_jal_op !==
+                (u_dut.id_ex_valid && (u_dut.id_ex_exu_op == 18'h1c)))
+                $fatal(1, "id_ex_jal_op predecode mismatch");
+            if (u_dut.id_ex_jalr_op !==
+                (u_dut.id_ex_valid && (u_dut.id_ex_exu_op == 18'h9)))
+                $fatal(1, "id_ex_jalr_op predecode mismatch");
+            if (u_dut.id_ex_pred_is_jalr && !u_dut.id_ex_pred_taken)
+                $fatal(1, "indirect prediction metadata without taken prediction");
             if (u_dut.ex_mem_load_op !==
                 (u_dut.ex_mem_valid && (u_dut.ex_mem_exu_op >= 18'h1d) &&
                  (u_dut.ex_mem_exu_op <= 18'h21)))

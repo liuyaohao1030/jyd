@@ -1,0 +1,153 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2023.2 (win64) Build 4029153 Fri Oct 13 20:14:34 MDT 2023
+| Date         : Tue Jul 14 20:53:47 2026
+| Host         : DESKTOP-MO7L2KR running 64-bit major release  (build 9200)
+| Command      : report_control_sets -verbose -file top_control_sets_placed.rpt
+| Design       : top
+| Device       : xc7k325t
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Control Set Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Histogram
+3. Flip-Flop Distribution
+4. Detailed Control Set Information
+
+1. Summary
+----------
+
++----------------------------------------------------------+-------+
+|                          Status                          | Count |
++----------------------------------------------------------+-------+
+| Total control sets                                       |    75 |
+|    Minimum number of control sets                        |    75 |
+|    Addition due to synthesis replication                 |     0 |
+|    Addition due to physical synthesis replication        |     0 |
+| Unused register locations in slices containing registers |    94 |
++----------------------------------------------------------+-------+
+* Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
+** Run report_qor_suggestions for automated merging and remapping suggestions
+
+
+2. Histogram
+------------
+
++--------------------+-------+
+|       Fanout       | Count |
++--------------------+-------+
+| Total control sets |    75 |
+| >= 0 to < 4        |     3 |
+| >= 4 to < 6        |     5 |
+| >= 6 to < 8        |     1 |
+| >= 8 to < 10       |     5 |
+| >= 10 to < 12      |     0 |
+| >= 12 to < 14      |     4 |
+| >= 14 to < 16      |     0 |
+| >= 16              |    57 |
++--------------------+-------+
+* Control sets can be remapped at either synth_design or opt_design
+
+
+3. Flip-Flop Distribution
+-------------------------
+
++--------------+-----------------------+------------------------+-----------------+--------------+
+| Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
++--------------+-----------------------+------------------------+-----------------+--------------+
+| No           | No                    | No                     |            3300 |          606 |
+| No           | No                    | Yes                    |              89 |           35 |
+| No           | Yes                   | No                     |             453 |          183 |
+| Yes          | No                    | No                     |             101 |           44 |
+| Yes          | No                    | Yes                    |             220 |           60 |
+| Yes          | Yes                   | No                     |            1991 |          851 |
++--------------+-----------------------+------------------------+-----------------+--------------+
+
+
+4. Detailed Control Set Information
+-----------------------------------
+
++-------------------------+--------------------------------------------------------------------------------------+--------------------------------------------------------------------------+------------------+----------------+--------------+
+|       Clock Signal      |                                     Enable Signal                                    |                             Set/Reset Signal                             | Slice Load Count | Bel Load Count | Bels / Slice |
++-------------------------+--------------------------------------------------------------------------------------+--------------------------------------------------------------------------+------------------+----------------+--------------+
+|  pll_inst/inst/clk_out1 | uart_inst/tx_i_1_n_0                                                                 | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |                1 |              1 |         1.00 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_bpu/u_gshare_btb_core/btb_is_jalr_reg_0_63_0_0_i_1_n_0 |                                                                          |                1 |              2 |         2.00 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_bpu/u_gshare_btb_core/pht_reg_0_63_0_0_i_2_n_0         |                                                                          |                1 |              3 |         3.00 |
+|  pll_inst/inst/clk_out1 | uart_inst/rx_bit_cnt                                                                 | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |                1 |              4 |         4.00 |
+|  pll_inst/inst/clk_out1 | uart_inst/tx_bit_cnt                                                                 | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |                1 |              4 |         4.00 |
+|  pll_inst/inst/clk_out2 |                                                                                      | student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_valid_reg_9               |                2 |              4 |         2.00 |
+|  pll_inst/inst/clk_out2 |                                                                                      | student_top_inst/u_KLDJ_top/u_pipe_id_ex/buf_valid_sr_reg[0][0]          |                1 |              4 |         4.00 |
+|  pll_inst/inst/clk_out1 | twin_controller_inst/send_cnt[4]_i_1_n_0                                             | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |                1 |              5 |         5.00 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_jal_op_reg_1[0]                       | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |                2 |              6 |         3.00 |
+|  pll_inst/inst/clk_out1 | twin_controller_inst/tx_start_next                                                   | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |                3 |              8 |         2.67 |
+|  pll_inst/inst/clk_out1 | uart_inst/rx_data[7]_i_1_n_0                                                         | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |                2 |              8 |         4.00 |
+|  pll_inst/inst/clk_out1 | uart_inst/rx_shift_1                                                                 | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |                1 |              8 |         8.00 |
+|  pll_inst/inst/clk_out2 |                                                                                      | student_top_inst/u_KLDJ_top/u_pipe_id_ex/bbstub_locked[0]                |                5 |              8 |         1.60 |
+|  pll_inst/inst/clk_out1 | uart_inst/tx_shift                                                                   | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |                2 |              9 |         4.50 |
+|  pll_inst/inst/clk_out1 | uart_inst/tx_cnt_0                                                                   | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |                4 |             13 |         3.25 |
+|  pll_inst/inst/clk_out1 | uart_inst/rx_cnt_2                                                                   | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |                3 |             13 |         4.33 |
+|  pll_inst/inst/clk_out1 | uart_inst/rx_ready_cnt[12]_i_1_n_0                                                   | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |                3 |             13 |         4.33 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_valid_i_2_n_0                         | student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_valid_i_1_n_0             |                3 |             13 |         4.33 |
+|  pll_inst/inst/clk_out1 |                                                                                      | student_top_inst/bridge_inst/counter_inst/cnt_1ms[0]_i_1_n_0             |                4 |             16 |         4.00 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_valid_i_2_n_0                         | student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_exu_op[5]_i_1_n_0         |               13 |             19 |         1.46 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_id_ex/dram_wen0                                   | student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_valid_reg_8               |                6 |             20 |         3.33 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_valid_reg_7                           | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               11 |             28 |         2.55 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_csr_addr_reg[2]_0                     | student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_valid_reg_13              |               16 |             29 |         1.81 |
+|  pll_inst/inst/clk_out2 |                                                                                      | student_top_inst/u_KLDJ_top/exu2/u_mul_ip_wrapper/wait_count[31]_i_1_n_0 |                7 |             31 |         4.43 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/E[0]                                       | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               13 |             32 |         2.46 |
+|  pll_inst/inst/clk_out1 | student_top_inst/bridge_inst/counter_inst/cnt_ms_bin[0]_i_1_n_0                      | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |                8 |             32 |         4.00 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_ctl_reg_14[0]                    | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               13 |             32 |         2.46 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_csr_addr_reg[1]_0[0]                  | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               13 |             32 |         2.46 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_csr_addr_reg[2]_1[0]                  | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               11 |             32 |         2.91 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_ctl_reg_20[0]                    | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               18 |             32 |         1.78 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_ctl_reg_2[0]                     | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               17 |             32 |         1.88 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/exu2/u_mul_ip_wrapper/result[31]_i_1_n_0                 | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               10 |             32 |         3.20 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_id_ex/dram_wen0                                   |                                                                          |               15 |             32 |         2.13 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/result_q[31]_i_1_n_0               | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               13 |             32 |         2.46 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_ctl_reg_5[0]                     | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               22 |             32 |         1.45 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_ctl_reg_23[0]                    | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               15 |             32 |         2.13 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_ctl_reg_24[0]                    | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               19 |             32 |         1.68 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_ctl_reg_25[0]                    | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               23 |             32 |         1.39 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_ctl_reg_28[0]                    | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               24 |             32 |         1.33 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_ctl_reg_29[0]                    | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               24 |             32 |         1.33 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_ctl_reg_15[0]                    | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               16 |             32 |         2.00 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_ctl_reg_4[0]                     | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               14 |             32 |         2.29 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_ctl_reg_7[0]                     | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               24 |             32 |         1.33 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_ctl_reg_19[0]                    | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               11 |             32 |         2.91 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_ctl_reg_21[0]                    | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               14 |             32 |         2.29 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_ctl_reg_8[0]                     | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               11 |             32 |         2.91 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_ctl_reg_10[0]                    | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               12 |             32 |         2.67 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_ctl_reg_9[0]                     | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |                9 |             32 |         3.56 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_ctl_reg_11[0]                    | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |                9 |             32 |         3.56 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_csr_addr_reg[2]_2[0]                  | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               17 |             32 |         1.88 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_ctl_reg_6[0]                     | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               21 |             32 |         1.52 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_ctl_reg_22[0]                    | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |                7 |             32 |         4.57 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_ctl_reg_26[0]                    | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               21 |             32 |         1.52 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_ctl_reg_1[0]                     | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               11 |             32 |         2.91 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_ctl_reg_13[0]                    | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               13 |             32 |         2.46 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_ctl_reg_18[0]                    | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               14 |             32 |         2.29 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_ctl_reg_12[0]                    | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               12 |             32 |         2.67 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_ctl_reg_0[0]                     | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               16 |             32 |         2.00 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_ctl_reg_16[0]                    | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               12 |             32 |         2.67 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_ctl_reg_17[0]                    | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               10 |             32 |         3.20 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_valid_reg_11[0]                       | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               15 |             32 |         2.13 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_valid_reg_1[0]                        | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |                9 |             32 |         3.56 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_ctl_reg_27[0]                    | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               19 |             32 |         1.68 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_ctl_reg_3[0]                     | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               16 |             32 |         2.00 |
+|  pll_inst/inst/clk_out2 |                                                                                      | student_top_inst/u_KLDJ_top/u_pipe_id_ex/SR[0]                           |               34 |             51 |         1.50 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_valid_reg_0[0]                        | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               20 |             64 |         3.20 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/exu2/u_mul_ip_wrapper/op_q[1]_i_1_n_0                    | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               20 |             66 |         3.30 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/op_q                               | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               19 |             67 |         3.53 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_jal_op_reg_0[0]                       |                                                                          |               29 |             69 |         2.38 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_bpu/u_gshare_btb_core/btb_data_reg_0_63_0_2_i_1_n_0    |                                                                          |               19 |             76 |         4.00 |
+|  pll_inst/inst/clk_out1 |                                                                                      | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               42 |            118 |         2.81 |
+|  pll_inst/inst/clk_out1 | uart_inst/E[0]                                                                       | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |               38 |            134 |         3.53 |
+|  pll_inst/inst/clk_out2 |                                                                                      | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |              123 |            310 |         2.52 |
+|  pll_inst/inst/clk_out2 | student_top_inst/u_KLDJ_top/u_pipe_id_ex/E[0]                                        | student_top_inst/u_KLDJ_top/reg5/bbstub_locked                           |              165 |            431 |         2.61 |
+|  pll_inst/inst/clk_out2 |                                                                                      |                                                                          |              606 |           3318 |         5.48 |
++-------------------------+--------------------------------------------------------------------------------------+--------------------------------------------------------------------------+------------------+----------------+--------------+
+
+

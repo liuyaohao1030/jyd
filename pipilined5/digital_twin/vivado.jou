@@ -13,3 +13,261 @@
 #-----------------------------------------------------------
 start_gui
 open_project D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.xpr
+update_compile_order -fileset sources_1
+remove_files [get_files *.v]
+update_compile_order -fileset sources_1
+remove_files [get_files *.sv]
+update_compile_order -fileset sources_1
+add_files -norecurse -scan_for_includes {D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/mul_ip_wrapper.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_if_id.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_exu.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/seg7.sv D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/mem_stage_top.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/student_top.sv D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_top.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_or.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/define.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_div.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_regfile.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/counter.sv D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_wb_commit.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_slt.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/ex_mem_req_ctrl.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_wbu.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/perip_bridge.sv D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_id_ex.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_ex_mem.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/DRAM_TDP.sv D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_mem_wb.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/twin_controller.sv D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_shifter.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/ex_bpu_ctrl.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/bpu.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/dram_driver.sv D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_and.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_mul.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/ex_forward.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/KLDJ_alu.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/top.sv D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/IROM_BHV.sv D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/div_ip_wrapper.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_lsu.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_add.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_idu.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_xor.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/display_seg.sv D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/uart.sv D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_ifu.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_csr.v}
+update_compile_order -fileset sources_1
+export_ip_user_files -of_objects  [get_files d:/Desktop/JYD/DESKTOP/JYD/src2/dram.coe] -no_script -reset -force -quiet
+remove_files  d:/Desktop/JYD/DESKTOP/JYD/src2/dram.coe
+set_property -dict [list \
+  CONFIG.CLKOUT1_JITTER {173.722} \
+  CONFIG.CLKOUT1_PHASE_ERROR {164.344} \
+  CONFIG.CLKOUT2_JITTER {136.649} \
+  CONFIG.CLKOUT2_PHASE_ERROR {164.344} \
+  CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {175} \
+  CONFIG.MMCM_CLKFBOUT_MULT_F {21} \
+  CONFIG.MMCM_CLKOUT0_DIVIDE_F {21} \
+  CONFIG.MMCM_DIVCLK_DIVIDE {4} \
+] [get_ips pll]
+generate_target all [get_files  D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci]
+catch { config_ip_cache -export [get_ips -all pll] }
+export_ip_user_files -of_objects [get_files D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci]
+export_simulation -of_objects [get_files D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci] -directory D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.ip_user_files -ipstatic_source_dir D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/modelsim} {questa=D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/questa} {riviera=D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/riviera} {activehdl=D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+create_run Try_175mhz -flow {Vivado Synthesis 2023}
+create_run impl_9 -parent_run Try_175mhz -flow {Vivado Implementation 2023}
+launch_runs impl_9 -jobs 8
+wait_on_run impl_9
+current_run [get_runs Try_175mhz]
+open_run impl_9
+source D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/reports/export_impl_reports.tcl
+source D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/reports/export_impl_reports.tcl
+source D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/reports/timing_info.tcl
+create_run fixtiming_5 -flow {Vivado Synthesis 2023}
+create_run impl_10 -parent_run fixtiming_5 -flow {Vivado Implementation 2023}
+launch_runs impl_10 -jobs 8
+wait_on_run impl_10
+current_run [get_runs fixtiming_5]
+open_run impl_10
+launch_runs impl_10 -to_step write_bitstream -jobs 8
+wait_on_run impl_10
+open_hw_manager
+connect_hw_server -allow_non_jtag
+open_hw_target
+set_property PROGRAM.FILE {D:\DESKTOP\JYD\Source_code\merge_dualport_bpu\jyd\pipilined5\digital_twin\digital_twin.runs\impl_8\top.bit} [get_hw_devices xc7k325t_0]
+current_hw_device [get_hw_devices xc7k325t_0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7k325t_0] 0]
+disconnect_hw_server localhost:3121
+connect_hw_server -allow_non_jtag
+open_hw_target
+set_property PROBES.FILE {} [get_hw_devices xc7k325t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7k325t_0]
+set_property PROGRAM.FILE {D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_10/top.bit} [get_hw_devices xc7k325t_0]
+program_hw_devices [get_hw_devices xc7k325t_0]
+refresh_hw_device [lindex [get_hw_devices xc7k325t_0] 0]
+reset_run impl_10 -prev_step 
+launch_runs impl_10 -to_step write_bitstream -jobs 8
+wait_on_run impl_10
+source D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/reports/timing_info.tcl
+close_hw_manager
+create_run fuck -flow {Vivado Synthesis 2023}
+launch_runs fuck -jobs 8
+wait_on_run fuck
+current_run [get_runs fuck]
+current_design impl_9
+close_design
+close_design
+reset_run fuck
+launch_runs fuck -jobs 8
+wait_on_run fuck
+open_run fuck -name fuck
+reset_run fuck
+launch_runs fuck -jobs 8
+wait_on_run fuck
+reset_run fuck
+launch_runs fuck -jobs 8
+wait_on_run fuck
+create_ip_run [get_files -of_objects [get_fileset sources_1] D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci]
+refresh_design
+create_debug_core u_ila_0 ila
+set_property C_DATA_DEPTH 65536 [get_debug_cores u_ila_0]
+set_property C_TRIGIN_EN false [get_debug_cores u_ila_0]
+set_property C_TRIGOUT_EN false [get_debug_cores u_ila_0]
+set_property C_ADV_TRIGGER false [get_debug_cores u_ila_0]
+set_property C_INPUT_PIPE_STAGES 0 [get_debug_cores u_ila_0]
+set_property C_EN_STRG_QUAL false [get_debug_cores u_ila_0]
+set_property ALL_PROBE_SAME_MU true [get_debug_cores u_ila_0]
+set_property ALL_PROBE_SAME_MU_CNT 1 [get_debug_cores u_ila_0]
+connect_debug_port u_ila_0/clk [get_nets [list pll_inst/inst/clk_out2 ]]
+set_property port_width 32 [get_debug_ports u_ila_0/probe0]
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe0]
+connect_debug_port u_ila_0/probe0 [get_nets [list {student_top_inst/u_KLDJ_top/if_pc[0]} {student_top_inst/u_KLDJ_top/if_pc[1]} {student_top_inst/u_KLDJ_top/if_pc[2]} {student_top_inst/u_KLDJ_top/if_pc[3]} {student_top_inst/u_KLDJ_top/if_pc[4]} {student_top_inst/u_KLDJ_top/if_pc[5]} {student_top_inst/u_KLDJ_top/if_pc[6]} {student_top_inst/u_KLDJ_top/if_pc[7]} {student_top_inst/u_KLDJ_top/if_pc[8]} {student_top_inst/u_KLDJ_top/if_pc[9]} {student_top_inst/u_KLDJ_top/if_pc[10]} {student_top_inst/u_KLDJ_top/if_pc[11]} {student_top_inst/u_KLDJ_top/if_pc[12]} {student_top_inst/u_KLDJ_top/if_pc[13]} {student_top_inst/u_KLDJ_top/if_pc[14]} {student_top_inst/u_KLDJ_top/if_pc[15]} {student_top_inst/u_KLDJ_top/if_pc[16]} {student_top_inst/u_KLDJ_top/if_pc[17]} {student_top_inst/u_KLDJ_top/if_pc[18]} {student_top_inst/u_KLDJ_top/if_pc[19]} {student_top_inst/u_KLDJ_top/if_pc[20]} {student_top_inst/u_KLDJ_top/if_pc[21]} {student_top_inst/u_KLDJ_top/if_pc[22]} {student_top_inst/u_KLDJ_top/if_pc[23]} {student_top_inst/u_KLDJ_top/if_pc[24]} {student_top_inst/u_KLDJ_top/if_pc[25]} {student_top_inst/u_KLDJ_top/if_pc[26]} {student_top_inst/u_KLDJ_top/if_pc[27]} {student_top_inst/u_KLDJ_top/if_pc[28]} {student_top_inst/u_KLDJ_top/if_pc[29]} {student_top_inst/u_KLDJ_top/if_pc[30]} {student_top_inst/u_KLDJ_top/if_pc[31]} ]]
+close [ open D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc w ]
+add_files -fileset constrs_1 D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc
+set_property target_constrs_file D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc [current_fileset -constrset]
+save_constraints -force
+reset_run fuck
+launch_runs impl_11 -jobs 8
+wait_on_run impl_11
+create_ip_run [get_files -of_objects [get_fileset sources_1] D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci]
+refresh_design
+launch_runs impl_11 -to_step write_bitstream -jobs 8
+wait_on_run impl_11
+open_hw_manager
+connect_hw_server -allow_non_jtag
+open_hw_target
+set_property PROGRAM.FILE {D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_10/top.bit} [get_hw_devices xc7k325t_0]
+current_hw_device [get_hw_devices xc7k325t_0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7k325t_0] 0]
+set_property PROBES.FILE {D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/top.ltx} [get_hw_devices xc7k325t_0]
+set_property FULL_PROBES.FILE {D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/top.ltx} [get_hw_devices xc7k325t_0]
+set_property PROGRAM.FILE {D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/top.bit} [get_hw_devices xc7k325t_0]
+program_hw_devices [get_hw_devices xc7k325t_0]
+refresh_hw_device [lindex [get_hw_devices xc7k325t_0] 0]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+set_property TRIGGER_COMPARE_VALUE eq32'hXXXX_XXX0 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+set_property TRIGGER_COMPARE_VALUE eq32'hXXXX_XXX9 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+set_property TRIGGER_COMPARE_VALUE eq32'h0000_14X9 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+set_property TRIGGER_COMPARE_VALUE eq32'h0000_0149 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+set_property TRIGGER_COMPARE_VALUE eq32'h0000_0014 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
+wait_on_hw_ila -timeout 0 [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
+upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
+set_property TRIGGER_COMPARE_VALUE eq32'b0000_0000_0000_0000_0000_0000_0001_0100 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+set_property TRIGGER_COMPARE_VALUE eq32'h0000_0014 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+set_property TRIGGER_COMPARE_VALUE eq32'b0000_0000_0000_0000_0000_0000_0001_0100 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+set_property TRIGGER_COMPARE_VALUE gt32'b0000_0000_0000_0000_0000_0000_0001_0100 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+set_property TRIGGER_COMPARE_VALUE gt32'h0000_0014 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+set_property TRIGGER_COMPARE_VALUE gt32'h8000_0000 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+set_property TRIGGER_COMPARE_VALUE eq32'h8000_0000 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+close_hw_manager
+open_hw_manager
+connect_hw_server -allow_non_jtag
+open_hw_target
+set_property PROGRAM.FILE {D:\DESKTOP\JYD\Source_code\BPU_FixTiming3\jyd\pipilined5\digital_twin\digital_twin.runs\impl_11\top.bit} [get_hw_devices xc7k325t_0]
+set_property PROBES.FILE {D:\DESKTOP\JYD\Source_code\BPU_FixTiming3\jyd\pipilined5\digital_twin\digital_twin.runs\impl_11\top.ltx} [get_hw_devices xc7k325t_0]
+set_property FULL_PROBES.FILE {D:\DESKTOP\JYD\Source_code\BPU_FixTiming3\jyd\pipilined5\digital_twin\digital_twin.runs\impl_11\top.ltx} [get_hw_devices xc7k325t_0]
+current_hw_device [get_hw_devices xc7k325t_0]
+refresh_hw_device [lindex [get_hw_devices xc7k325t_0] 0]
+set_property PROBES.FILE {D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/top.ltx} [get_hw_devices xc7k325t_0]
+set_property FULL_PROBES.FILE {D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/top.ltx} [get_hw_devices xc7k325t_0]
+set_property PROGRAM.FILE {D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/top.bit} [get_hw_devices xc7k325t_0]
+program_hw_devices [get_hw_devices xc7k325t_0]
+refresh_hw_device [lindex [get_hw_devices xc7k325t_0] 0]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+set_property TRIGGER_COMPARE_VALUE neq32'h8000_0000 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+set_property TRIGGER_COMPARE_VALUE neq32'h0000_0001 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+set_property TRIGGER_COMPARE_VALUE neq32'h0000_0000 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+set_property TRIGGER_COMPARE_VALUE neq32'h0000_0001 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+set_property TRIGGER_COMPARE_VALUE neq32'h0000_0014 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+set_property TRIGGER_COMPARE_VALUE neq32'h8000_0014 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
+wait_on_hw_ila -timeout 0 [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
+upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
+set_property TRIGGER_COMPARE_VALUE neq32'h0000_0014 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+set_property TRIGGER_COMPARE_VALUE eq32'h0000_0014 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
+wait_on_hw_ila -timeout 0 [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
+upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
+set_property TRIGGER_COMPARE_VALUE neq32'h0000_0014 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+close_hw_manager
+reset_run fuck
+launch_runs fuck -jobs 8
+wait_on_run fuck
+close_design
+open_run fuck -name fuck
+delete_debug_core [get_debug_cores {u_ila_0 }]
+create_debug_core u_ila_0 ila
+set_property C_DATA_DEPTH 65536 [get_debug_cores u_ila_0]
+set_property C_TRIGIN_EN false [get_debug_cores u_ila_0]
+set_property C_TRIGOUT_EN false [get_debug_cores u_ila_0]
+set_property C_ADV_TRIGGER false [get_debug_cores u_ila_0]
+set_property C_INPUT_PIPE_STAGES 0 [get_debug_cores u_ila_0]
+set_property C_EN_STRG_QUAL false [get_debug_cores u_ila_0]
+set_property ALL_PROBE_SAME_MU true [get_debug_cores u_ila_0]
+set_property ALL_PROBE_SAME_MU_CNT 1 [get_debug_cores u_ila_0]
+connect_debug_port u_ila_0/clk [get_nets [list pll_inst/inst/clk_out2 ]]
+set_property port_width 32 [get_debug_ports u_ila_0/probe0]
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe0]
+connect_debug_port u_ila_0/probe0 [get_nets [list {student_top_inst/u_KLDJ_top/if_pc[0]} {student_top_inst/u_KLDJ_top/if_pc[1]} {student_top_inst/u_KLDJ_top/if_pc[2]} {student_top_inst/u_KLDJ_top/if_pc[3]} {student_top_inst/u_KLDJ_top/if_pc[4]} {student_top_inst/u_KLDJ_top/if_pc[5]} {student_top_inst/u_KLDJ_top/if_pc[6]} {student_top_inst/u_KLDJ_top/if_pc[7]} {student_top_inst/u_KLDJ_top/if_pc[8]} {student_top_inst/u_KLDJ_top/if_pc[9]} {student_top_inst/u_KLDJ_top/if_pc[10]} {student_top_inst/u_KLDJ_top/if_pc[11]} {student_top_inst/u_KLDJ_top/if_pc[12]} {student_top_inst/u_KLDJ_top/if_pc[13]} {student_top_inst/u_KLDJ_top/if_pc[14]} {student_top_inst/u_KLDJ_top/if_pc[15]} {student_top_inst/u_KLDJ_top/if_pc[16]} {student_top_inst/u_KLDJ_top/if_pc[17]} {student_top_inst/u_KLDJ_top/if_pc[18]} {student_top_inst/u_KLDJ_top/if_pc[19]} {student_top_inst/u_KLDJ_top/if_pc[20]} {student_top_inst/u_KLDJ_top/if_pc[21]} {student_top_inst/u_KLDJ_top/if_pc[22]} {student_top_inst/u_KLDJ_top/if_pc[23]} {student_top_inst/u_KLDJ_top/if_pc[24]} {student_top_inst/u_KLDJ_top/if_pc[25]} {student_top_inst/u_KLDJ_top/if_pc[26]} {student_top_inst/u_KLDJ_top/if_pc[27]} {student_top_inst/u_KLDJ_top/if_pc[28]} {student_top_inst/u_KLDJ_top/if_pc[29]} {student_top_inst/u_KLDJ_top/if_pc[30]} {student_top_inst/u_KLDJ_top/if_pc[31]} ]]
+create_debug_port u_ila_0 probe
+set_property port_width 1 [get_debug_ports u_ila_0/probe1]
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe1]
+connect_debug_port u_ila_0/probe1 [get_nets [list student_top_inst/u_KLDJ_top/ex_mem_valid ]]
+create_debug_port u_ila_0 probe
+set_property port_width 1 [get_debug_ports u_ila_0/probe2]
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe2]
+connect_debug_port u_ila_0/probe2 [get_nets [list student_top_inst/u_KLDJ_top/ex_redirect ]]
+create_debug_port u_ila_0 probe
+set_property port_width 1 [get_debug_ports u_ila_0/probe3]
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe3]
+connect_debug_port u_ila_0/probe3 [get_nets [list student_top_inst/u_KLDJ_top/ex_stall ]]
+create_debug_port u_ila_0 probe
+set_property port_width 1 [get_debug_ports u_ila_0/probe4]
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe4]
+connect_debug_port u_ila_0/probe4 [get_nets [list student_top_inst/u_KLDJ_top/load_use_stall ]]
+create_debug_port u_ila_0 probe
+set_property port_width 1 [get_debug_ports u_ila_0/probe5]
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe5]
+connect_debug_port u_ila_0/probe5 [get_nets [list student_top_inst/u_KLDJ_top/mem_wb_valid ]]
+save_constraints
+launch_runs impl_11 -jobs 8
+wait_on_run impl_11
+launch_runs impl_11 -to_step write_bitstream -jobs 8
+wait_on_run impl_11
+open_hw_manager
+connect_hw_server -allow_non_jtag
+open_hw_target
+set_property PROBES.FILE {D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/top.ltx} [get_hw_devices xc7k325t_0]
+set_property FULL_PROBES.FILE {D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/top.ltx} [get_hw_devices xc7k325t_0]
+set_property PROGRAM.FILE {D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/top.bit} [get_hw_devices xc7k325t_0]
+program_hw_devices [get_hw_devices xc7k325t_0]
+refresh_hw_device [lindex [get_hw_devices xc7k325t_0] 0]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+set_property TRIGGER_COMPARE_VALUE neq32'h16F8_0014 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+set_property TRIGGER_COMPARE_VALUE neq32'h0000_16F8 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+set_property TRIGGER_COMPARE_VALUE eq32'h0000_16F8 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
+wait_on_hw_ila -timeout 0 [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
+upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
+set_property TRIGGER_COMPARE_VALUE eq1'b1 [get_hw_probes student_top_inst/u_KLDJ_top/load_use_stall -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
+wait_on_hw_ila -timeout 0 [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
+upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
+set_property TRIGGER_COMPARE_VALUE eq32'hXXXX_XXXX [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
+wait_on_hw_ila -timeout 0 [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
+upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
+set_property TRIGGER_COMPARE_VALUE eq1'b0 [get_hw_probes student_top_inst/u_KLDJ_top/load_use_stall -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+set_property TRIGGER_COMPARE_VALUE neq1'b0 [get_hw_probes student_top_inst/u_KLDJ_top/load_use_stall -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
+wait_on_hw_ila -timeout 0 [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
+upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
+set_property TRIGGER_COMPARE_VALUE eq1'bX [get_hw_probes student_top_inst/u_KLDJ_top/load_use_stall -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+set_property TRIGGER_COMPARE_VALUE eq1'b0 [get_hw_probes student_top_inst/u_KLDJ_top/ex_redirect -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
+close_hw_manager

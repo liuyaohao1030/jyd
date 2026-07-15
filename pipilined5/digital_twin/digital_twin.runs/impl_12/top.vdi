@@ -3,8 +3,8 @@
 # SW Build 4029153 on Fri Oct 13 20:14:34 MDT 2023
 # IP Build 4028589 on Sat Oct 14 00:45:43 MDT 2023
 # SharedData Build 4025554 on Tue Oct 10 17:18:54 MDT 2023
-# Start of session at: Mon Jul 13 15:01:19 2026
-# Process ID: 32648
+# Start of session at: Tue Jul 14 17:31:38 2026
+# Process ID: 41852
 # Current directory: D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_12
 # Command line: vivado.exe -log top.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source top.tcl -notrace
 # Log file: D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_12/top.vdi
@@ -12,7 +12,7 @@
 # Running On: DESKTOP-MO7L2KR, OS: Windows, CPU Frequency: 3793 MHz, CPU Physical cores: 16, Host memory: 33618 MB
 #-----------------------------------------------------------
 source top.tcl -notrace
-create_project: Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 565.789 ; gain = 182.902
+create_project: Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 565.359 ; gain = 181.766
 Command: link_design -top top -part xc7k325tffg900-2
 Design is defaulting to srcset: sources_1
 Design is defaulting to constrset: constrs_1
@@ -22,8 +22,8 @@ INFO: [Project 1-454] Reading design checkpoint 'd:/Desktop/JYD/Source_code/BPU_
 INFO: [Project 1-454] Reading design checkpoint 'd:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/DRAM_TDP_1/DRAM_TDP.dcp' for cell 'student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp'
 INFO: [Project 1-454] Reading design checkpoint 'd:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/div_gen_u32_1/div_gen_u32.dcp' for cell 'student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32'
 INFO: [Project 1-454] Reading design checkpoint 'd:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/mult_gen_u33_1/mult_gen_u33.dcp' for cell 'student_top_inst/u_KLDJ_top/exu2/u_mul_ip_wrapper/u_mult_gen_u33'
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.251 . Memory (MB): peak = 1089.590 ; gain = 0.000
-INFO: [Netlist 29-17] Analyzing 1608 Unisim elements for replacement
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.249 . Memory (MB): peak = 1089.090 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 1609 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-479] Netlist was created with Vivado 2023.2
 INFO: [Project 1-570] Preparing netlist for logic optimization
@@ -32,20 +32,63 @@ Finished Parsing XDC File [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilin
 Parsing XDC File [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll.xdc] for cell 'pll_inst/inst'
 INFO: [Timing 38-35] Done setting XDC timing constraints. [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll.xdc:54]
 INFO: [Timing 38-2] Deriving generated clocks [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll.xdc:54]
-get_clocks: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1826.355 ; gain = 603.105
+get_clocks: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1825.422 ; gain = 603.508
 Finished Parsing XDC File [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll.xdc] for cell 'pll_inst/inst'
 Parsing XDC File [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/digital_twin.xdc]
 Finished Parsing XDC File [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/digital_twin.xdc]
+Parsing XDC File [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc]
+WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[0]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:2]
+WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[1]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:2]
+WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[2]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:2]
+WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[3]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:2]
+WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[4]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:2]
+WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[5]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:2]
+WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[6]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:2]
+WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[7]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:2]
+WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[8]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:2]
+WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[9]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:2]
+WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[10]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:2]
+WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[11]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:2]
+WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[12]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:2]
+WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[13]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:2]
+WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[14]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:2]
+WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[15]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:2]
+WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[16]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:2]
+WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[17]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:2]
+WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[18]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:2]
+WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[19]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:2]
+WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[20]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:2]
+WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[21]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:2]
+WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[22]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:2]
+WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[23]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:2]
+WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[24]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:2]
+WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[25]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:2]
+WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[26]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:2]
+WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[27]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:2]
+WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[28]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:2]
+WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[29]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:2]
+WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[30]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:2]
+WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[31]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:2]
+CRITICAL WARNING: [Vivado 12-1419] Debug core 'u_ila_0' was not found. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:2]
+WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/ex_redirect'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:3]
+CRITICAL WARNING: [Vivado 12-1419] Debug core 'u_ila_0' was not found. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:3]
+WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/ex_stall'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:4]
+CRITICAL WARNING: [Vivado 12-1419] Debug core 'u_ila_0' was not found. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:4]
+WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/load_use_stall'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:5]
+CRITICAL WARNING: [Vivado 12-1419] Debug core 'u_ila_0' was not found. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:5]
+WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/mem_wb_valid'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:6]
+CRITICAL WARNING: [Vivado 12-1419] Debug core 'u_ila_0' was not found. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:6]
+Finished Parsing XDC File [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc]
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 1826.355 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 1825.422 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
   A total of 21 instances were transformed.
   RAM64M => RAM64M (RAMD64E(x4)): 19 instances
   RAM64X1D => RAM64X1D (RAMD64E(x2)): 2 instances
 
-14 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
+14 Infos, 36 Warnings, 5 Critical Warnings and 0 Errors encountered.
 link_design completed successfully
-link_design: Time (s): cpu = 00:00:14 ; elapsed = 00:00:15 . Memory (MB): peak = 1826.355 ; gain = 1245.863
+link_design: Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 1825.422 ; gain = 1246.738
 Command: opt_design
 Attempting to get a license for feature 'Implementation' and/or device 'xc7k325t'
 INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7k325t'
@@ -56,76 +99,76 @@ INFO: [DRC 23-27] Running DRC with 2 threads
 INFO: [Project 1-461] DRC finished with 0 Errors
 INFO: [Project 1-462] Please refer to the DRC report (report_drc) for more information.
 
-Time (s): cpu = 00:00:02 ; elapsed = 00:00:00.991 . Memory (MB): peak = 1826.355 ; gain = 0.000
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:00.859 . Memory (MB): peak = 1825.422 ; gain = 0.000
 
 Starting Cache Timing Information Task
 INFO: [Timing 38-35] Done setting XDC timing constraints.
-Ending Cache Timing Information Task | Checksum: 1ba650432
+Ending Cache Timing Information Task | Checksum: 59742571
 
-Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.610 . Memory (MB): peak = 1843.352 ; gain = 16.996
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.442 . Memory (MB): peak = 1843.430 ; gain = 18.008
 
 Starting Logic Optimization Task
 
 Phase 1 Initialization
 
 Phase 1.1 Core Generation And Design Setup
-Phase 1.1 Core Generation And Design Setup | Checksum: 1ba650432
+Phase 1.1 Core Generation And Design Setup | Checksum: 59742571
 
-Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.003 . Memory (MB): peak = 2210.570 ; gain = 0.000
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.002 . Memory (MB): peak = 2208.629 ; gain = 0.000
 
 Phase 1.2 Setup Constraints And Sort Netlist
-Phase 1.2 Setup Constraints And Sort Netlist | Checksum: 1ba650432
+Phase 1.2 Setup Constraints And Sort Netlist | Checksum: 59742571
 
-Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.013 . Memory (MB): peak = 2210.570 ; gain = 0.000
-Phase 1 Initialization | Checksum: 1ba650432
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.011 . Memory (MB): peak = 2208.629 ; gain = 0.000
+Phase 1 Initialization | Checksum: 59742571
 
-Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.014 . Memory (MB): peak = 2210.570 ; gain = 0.000
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.012 . Memory (MB): peak = 2208.629 ; gain = 0.000
 
 Phase 2 Timer Update And Timing Data Collection
 
 Phase 2.1 Timer Update
-Phase 2.1 Timer Update | Checksum: 1ba650432
+Phase 2.1 Timer Update | Checksum: 59742571
 
-Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.257 . Memory (MB): peak = 2210.570 ; gain = 0.000
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.282 . Memory (MB): peak = 2208.629 ; gain = 0.000
 
 Phase 2.2 Timing Data Collection
-Phase 2.2 Timing Data Collection | Checksum: 1ba650432
+Phase 2.2 Timing Data Collection | Checksum: 59742571
 
-Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.289 . Memory (MB): peak = 2210.570 ; gain = 0.000
-Phase 2 Timer Update And Timing Data Collection | Checksum: 1ba650432
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.314 . Memory (MB): peak = 2208.629 ; gain = 0.000
+Phase 2 Timer Update And Timing Data Collection | Checksum: 59742571
 
-Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.291 . Memory (MB): peak = 2210.570 ; gain = 0.000
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.316 . Memory (MB): peak = 2208.629 ; gain = 0.000
 
 Phase 3 Retarget
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
 INFO: [Opt 31-49] Retargeted 0 cell(s).
-Phase 3 Retarget | Checksum: ee81cc0d
+Phase 3 Retarget | Checksum: 205b3a289
 
-Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.483 . Memory (MB): peak = 2210.570 ; gain = 0.000
-Retarget | Checksum: ee81cc0d
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.500 . Memory (MB): peak = 2208.629 ; gain = 0.000
+Retarget | Checksum: 205b3a289
 INFO: [Opt 31-389] Phase Retarget created 1 cells and removed 3 cells
 INFO: [Opt 31-1021] In phase Retarget, 1 netlist objects are constrained preventing optimization. Please run opt_design with -debug_log to get more detail. 
 
 Phase 4 Constant propagation
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Phase 4 Constant propagation | Checksum: c18e5bbd
+Phase 4 Constant propagation | Checksum: 1b4561835
 
-Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.564 . Memory (MB): peak = 2210.570 ; gain = 0.000
-Constant propagation | Checksum: c18e5bbd
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.579 . Memory (MB): peak = 2208.629 ; gain = 0.000
+Constant propagation | Checksum: 1b4561835
 INFO: [Opt 31-389] Phase Constant propagation created 0 cells and removed 2 cells
 
 Phase 5 Sweep
-Phase 5 Sweep | Checksum: 183560ecb
+Phase 5 Sweep | Checksum: 137d37985
 
-Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.859 . Memory (MB): peak = 2210.570 ; gain = 0.000
-Sweep | Checksum: 183560ecb
+Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.870 . Memory (MB): peak = 2208.629 ; gain = 0.000
+Sweep | Checksum: 137d37985
 INFO: [Opt 31-389] Phase Sweep created 33 cells and removed 440 cells
 
 Phase 6 BUFG optimization
-Phase 6 BUFG optimization | Checksum: 183560ecb
+Phase 6 BUFG optimization | Checksum: 137d37985
 
-Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.984 . Memory (MB): peak = 2210.570 ; gain = 0.000
-BUFG optimization | Checksum: 183560ecb
+Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.983 . Memory (MB): peak = 2208.629 ; gain = 0.000
+BUFG optimization | Checksum: 137d37985
 INFO: [Opt 31-662] Phase BUFG optimization created 0 cells of which 0 are BUFGs and removed 0 cells.
 
 Phase 7 Shift Register Optimization
@@ -146,37 +189,37 @@ WARNING: [Opt 31-1131] Can not pull register out from student_top_inst/u_KLDJ_to
 WARNING: [Opt 31-1131] Can not pull register out from student_top_inst/u_KLDJ_top/exu2/u_mul_ip_wrapper/u_mult_gen_u33/U0/i_mult/gDSP.gDSP_only.iDSP/use_prim.appDSP[0].bppDSP[0].need_output_delay.output_delay/dN_hlutnm.srl_loop[7].i_srl16e0 due to physical constraint on it
 WARNING: [Opt 31-1131] Can not pull register out from student_top_inst/u_KLDJ_top/exu2/u_mul_ip_wrapper/u_mult_gen_u33/U0/i_mult/gDSP.gDSP_only.iDSP/use_prim.appDSP[0].bppDSP[0].need_output_delay.output_delay/dN_hlutnm.srl_loop[7].i_srl16e1 due to physical constraint on it
 INFO: [Opt 31-1064] SRL Remap converted 0 SRLs to 0 registers and converted 0 registers of register chains to 0 SRLs
-Phase 7 Shift Register Optimization | Checksum: 183560ecb
+Phase 7 Shift Register Optimization | Checksum: 137d37985
 
-Time (s): cpu = 00:00:01 ; elapsed = 00:00:01 . Memory (MB): peak = 2210.570 ; gain = 0.000
-Shift Register Optimization | Checksum: 183560ecb
+Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.996 . Memory (MB): peak = 2208.629 ; gain = 0.000
+Shift Register Optimization | Checksum: 137d37985
 INFO: [Opt 31-389] Phase Shift Register Optimization created 0 cells and removed 0 cells
 
 Phase 8 Post Processing Netlist
-Phase 8 Post Processing Netlist | Checksum: 183560ecb
+Phase 8 Post Processing Netlist | Checksum: 137d37985
 
-Time (s): cpu = 00:00:01 ; elapsed = 00:00:01 . Memory (MB): peak = 2210.570 ; gain = 0.000
-Post Processing Netlist | Checksum: 183560ecb
+Time (s): cpu = 00:00:01 ; elapsed = 00:00:01 . Memory (MB): peak = 2208.629 ; gain = 0.000
+Post Processing Netlist | Checksum: 137d37985
 INFO: [Opt 31-389] Phase Post Processing Netlist created 0 cells and removed 0 cells
 
 Phase 9 Finalization
 
 Phase 9.1 Finalizing Design Cores and Updating Shapes
-Phase 9.1 Finalizing Design Cores and Updating Shapes | Checksum: 1cdfd9b67
+Phase 9.1 Finalizing Design Cores and Updating Shapes | Checksum: f16039b3
 
-Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 2210.570 ; gain = 0.000
+Time (s): cpu = 00:00:01 ; elapsed = 00:00:01 . Memory (MB): peak = 2208.629 ; gain = 0.000
 
 Phase 9.2 Verifying Netlist Connectivity
 
 Starting Connectivity Check Task
 
-Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.029 . Memory (MB): peak = 2210.570 ; gain = 0.000
-Phase 9.2 Verifying Netlist Connectivity | Checksum: 1cdfd9b67
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.017 . Memory (MB): peak = 2208.629 ; gain = 0.000
+Phase 9.2 Verifying Netlist Connectivity | Checksum: f16039b3
 
-Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 2210.570 ; gain = 0.000
-Phase 9 Finalization | Checksum: 1cdfd9b67
+Time (s): cpu = 00:00:01 ; elapsed = 00:00:01 . Memory (MB): peak = 2208.629 ; gain = 0.000
+Phase 9 Finalization | Checksum: f16039b3
 
-Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 2210.570 ; gain = 0.000
+Time (s): cpu = 00:00:01 ; elapsed = 00:00:01 . Memory (MB): peak = 2208.629 ; gain = 0.000
 Opt_design Change Summary
 =========================
 
@@ -193,11 +236,11 @@ Opt_design Change Summary
 -------------------------------------------------------------------------------------------------------------------------
 
 
-Ending Logic Optimization Task | Checksum: 1cdfd9b67
+Ending Logic Optimization Task | Checksum: f16039b3
 
-Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 2210.570 ; gain = 0.000
+Time (s): cpu = 00:00:01 ; elapsed = 00:00:01 . Memory (MB): peak = 2208.629 ; gain = 0.000
 INFO: [Constraints 18-11670] Building netlist checker database with flags, 0x8
-Done building netlist checker database: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 2210.570 ; gain = 0.000
+Done building netlist checker database: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 2208.629 ; gain = 0.000
 
 Starting Power Optimization Task
 INFO: [Pwropt 34-132] Skipping clock gating for clocks with a period < 2.00 ns.
@@ -213,35 +256,35 @@ Starting PowerOpt Patch Enables Task
 INFO: [Pwropt 34-162] WRITE_MODE attribute of 64 BRAM(s) out of a total of 64 has been updated to save power. Run report_power_opt to get a complete listing of the BRAMs updated.
 INFO: [Pwropt 34-201] Structural ODC has moved 0 WE to EN ports
 Number of BRAM Ports augmented: 64 newly gated: 0 Total Ports: 128
-Ending PowerOpt Patch Enables Task | Checksum: 17b0d3eb5
+Ending PowerOpt Patch Enables Task | Checksum: 16eece74a
 
-Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.307 . Memory (MB): peak = 2335.984 ; gain = 0.000
-Ending Power Optimization Task | Checksum: 17b0d3eb5
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.288 . Memory (MB): peak = 2332.520 ; gain = 0.000
+Ending Power Optimization Task | Checksum: 16eece74a
 
-Time (s): cpu = 00:00:08 ; elapsed = 00:00:06 . Memory (MB): peak = 2335.984 ; gain = 125.414
+Time (s): cpu = 00:00:08 ; elapsed = 00:00:05 . Memory (MB): peak = 2332.520 ; gain = 123.891
 
 Starting Final Cleanup Task
 
 Starting Logic Optimization Task
 INFO: [Timing 38-35] Done setting XDC timing constraints.
-Ending Logic Optimization Task | Checksum: a8603340
+Ending Logic Optimization Task | Checksum: 1890ceeec
 
-Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 2335.984 ; gain = 0.000
+Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.927 . Memory (MB): peak = 2332.520 ; gain = 0.000
 INFO: [Constraints 18-11670] Building netlist checker database with flags, 0x8
-Done building netlist checker database: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.010 . Memory (MB): peak = 2335.984 ; gain = 0.000
-Ending Final Cleanup Task | Checksum: a8603340
+Done building netlist checker database: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 2332.520 ; gain = 0.000
+Ending Final Cleanup Task | Checksum: 1890ceeec
 
-Time (s): cpu = 00:00:05 ; elapsed = 00:00:04 . Memory (MB): peak = 2335.984 ; gain = 0.000
+Time (s): cpu = 00:00:04 ; elapsed = 00:00:03 . Memory (MB): peak = 2332.520 ; gain = 0.000
 
 Starting Netlist Obfuscation Task
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 2335.984 ; gain = 0.000
-Ending Netlist Obfuscation Task | Checksum: a8603340
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 2332.520 ; gain = 0.000
+Ending Netlist Obfuscation Task | Checksum: 1890ceeec
 
-Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 2335.984 ; gain = 0.000
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.008 . Memory (MB): peak = 2332.520 ; gain = 0.000
 INFO: [Common 17-83] Releasing license: Implementation
-40 Infos, 16 Warnings, 0 Critical Warnings and 0 Errors encountered.
+40 Infos, 52 Warnings, 5 Critical Warnings and 0 Errors encountered.
 opt_design completed successfully
-opt_design: Time (s): cpu = 00:00:21 ; elapsed = 00:00:16 . Memory (MB): peak = 2335.984 ; gain = 509.629
+opt_design: Time (s): cpu = 00:00:18 ; elapsed = 00:00:14 . Memory (MB): peak = 2332.520 ; gain = 507.098
 INFO: [runtcl-4] Executing : report_drc -file top_drc_opted.rpt -pb top_drc_opted.pb -rpx top_drc_opted.rpx
 Command: report_drc -file top_drc_opted.rpt -pb top_drc_opted.pb -rpx top_drc_opted.rpx
 INFO: [IP_Flow 19-1839] IP Catalog is up to date.
@@ -250,16 +293,16 @@ INFO: [Vivado_Tcl 2-168] The results of DRC are in file D:/DESKTOP/JYD/Source_co
 report_drc completed successfully
 INFO: [Timing 38-35] Done setting XDC timing constraints.
 INFO: [Timing 38-480] Writing timing data to binary archive.
-Wrote PlaceDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 2335.984 ; gain = 0.000
-Wrote PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 2335.984 ; gain = 0.000
+Wrote PlaceDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 2332.520 ; gain = 0.000
+Wrote PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2332.520 ; gain = 0.000
 Writing XDEF routing.
 Writing XDEF routing logical nets.
-Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.027 . Memory (MB): peak = 2335.984 ; gain = 0.000
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.030 . Memory (MB): peak = 2332.520 ; gain = 0.000
 Writing XDEF routing special nets.
-Wrote RouteStorage: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.029 . Memory (MB): peak = 2335.984 ; gain = 0.000
-Wrote Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 2335.984 ; gain = 0.000
-Wrote Device Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 2335.984 ; gain = 0.000
-Write Physdb Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.049 . Memory (MB): peak = 2335.984 ; gain = 0.000
+Wrote RouteStorage: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.026 . Memory (MB): peak = 2332.520 ; gain = 0.000
+Wrote Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2332.520 ; gain = 0.000
+Wrote Device Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 2332.520 ; gain = 0.000
+Write Physdb Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.043 . Memory (MB): peak = 2332.520 ; gain = 0.000
 INFO: [Common 17-1381] The checkpoint 'D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_12/top_opt.dcp' has been generated.
 Command: place_design
 Attempting to get a license for feature 'Implementation' and/or device 'xc7k325t'
@@ -279,68 +322,62 @@ Starting Placer Task
 Phase 1 Placer Initialization
 
 Phase 1.1 Placer Initialization Netlist Sorting
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 2335.984 ; gain = 0.000
-Phase 1.1 Placer Initialization Netlist Sorting | Checksum: a279de79
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 2332.520 ; gain = 0.000
+Phase 1.1 Placer Initialization Netlist Sorting | Checksum: d04fc9f5
 
-Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.012 . Memory (MB): peak = 2335.984 ; gain = 0.000
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 2335.984 ; gain = 0.000
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.008 . Memory (MB): peak = 2332.520 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 2332.520 ; gain = 0.000
 
 Phase 1.2 IO Placement/ Clock Placement/ Build Placer Device
-Phase 1.2 IO Placement/ Clock Placement/ Build Placer Device | Checksum: d5a2c280
+Phase 1.2 IO Placement/ Clock Placement/ Build Placer Device | Checksum: 0fe35f6e
 
-Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.640 . Memory (MB): peak = 2335.984 ; gain = 0.000
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.559 . Memory (MB): peak = 2332.520 ; gain = 0.000
 
 Phase 1.3 Build Placer Netlist Model
-Phase 1.3 Build Placer Netlist Model | Checksum: 13f0525e1
+Phase 1.3 Build Placer Netlist Model | Checksum: fbfff76a
 
-Time (s): cpu = 00:00:04 ; elapsed = 00:00:03 . Memory (MB): peak = 2335.984 ; gain = 0.000
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:02 . Memory (MB): peak = 2332.520 ; gain = 0.000
 
 Phase 1.4 Constrain Clocks/Macros
-Phase 1.4 Constrain Clocks/Macros | Checksum: 13f0525e1
+Phase 1.4 Constrain Clocks/Macros | Checksum: fbfff76a
 
-Time (s): cpu = 00:00:04 ; elapsed = 00:00:03 . Memory (MB): peak = 2335.984 ; gain = 0.000
-Phase 1 Placer Initialization | Checksum: 13f0525e1
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:02 . Memory (MB): peak = 2332.520 ; gain = 0.000
+Phase 1 Placer Initialization | Checksum: fbfff76a
 
-Time (s): cpu = 00:00:04 ; elapsed = 00:00:03 . Memory (MB): peak = 2335.984 ; gain = 0.000
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 2332.520 ; gain = 0.000
 
 Phase 2 Global Placement
 
 Phase 2.1 Floorplanning
-Phase 2.1 Floorplanning | Checksum: 137c848e2
+Phase 2.1 Floorplanning | Checksum: f74aef18
 
-Time (s): cpu = 00:00:05 ; elapsed = 00:00:03 . Memory (MB): peak = 2335.984 ; gain = 0.000
+Time (s): cpu = 00:00:04 ; elapsed = 00:00:03 . Memory (MB): peak = 2332.520 ; gain = 0.000
 
 Phase 2.2 Update Timing before SLR Path Opt
-Phase 2.2 Update Timing before SLR Path Opt | Checksum: 143937b6d
+Phase 2.2 Update Timing before SLR Path Opt | Checksum: ffb34e71
 
-Time (s): cpu = 00:00:06 ; elapsed = 00:00:04 . Memory (MB): peak = 2335.984 ; gain = 0.000
+Time (s): cpu = 00:00:05 ; elapsed = 00:00:04 . Memory (MB): peak = 2332.520 ; gain = 0.000
 
 Phase 2.3 Post-Processing in Floorplanning
-Phase 2.3 Post-Processing in Floorplanning | Checksum: 143937b6d
+Phase 2.3 Post-Processing in Floorplanning | Checksum: ffb34e71
 
-Time (s): cpu = 00:00:06 ; elapsed = 00:00:04 . Memory (MB): peak = 2335.984 ; gain = 0.000
+Time (s): cpu = 00:00:05 ; elapsed = 00:00:04 . Memory (MB): peak = 2332.520 ; gain = 0.000
 
 Phase 2.4 Global Placement Core
 
 Phase 2.4.1 UpdateTiming Before Physical Synthesis
-Phase 2.4.1 UpdateTiming Before Physical Synthesis | Checksum: 2252e4f29
+Phase 2.4.1 UpdateTiming Before Physical Synthesis | Checksum: de2a4242
 
-Time (s): cpu = 00:00:23 ; elapsed = 00:00:13 . Memory (MB): peak = 2335.984 ; gain = 0.000
+Time (s): cpu = 00:00:20 ; elapsed = 00:00:12 . Memory (MB): peak = 2332.520 ; gain = 0.000
 
 Phase 2.4.2 Physical Synthesis In Placer
-INFO: [Physopt 32-1035] Found 88 LUTNM shape to break, 124 LUT instances to create LUTNM shape
-INFO: [Physopt 32-1044] Break lutnm for timing: one critical 28, two critical 60, total 88, new lutff created 1
-INFO: [Physopt 32-1138] End 1 Pass. Optimized 140 nets or LUTs. Breaked 88 LUTs, combined 52 existing LUTs and moved 0 existing LUT
+INFO: [Physopt 32-1035] Found 77 LUTNM shape to break, 119 LUT instances to create LUTNM shape
+INFO: [Physopt 32-1044] Break lutnm for timing: one critical 13, two critical 64, total 77, new lutff created 3
+INFO: [Physopt 32-1138] End 1 Pass. Optimized 131 nets or LUTs. Breaked 77 LUTs, combined 54 existing LUTs and moved 0 existing LUT
 INFO: [Physopt 32-76] Pass 1. Identified 6 candidate nets for fanout optimization.
-INFO: [Physopt 32-81] Processed net student_top_inst/u_KLDJ_top/ifu0/Q[3]. Replicated 5 times.
-INFO: [Physopt 32-81] Processed net student_top_inst/u_KLDJ_top/ifu0/Q[5]. Replicated 5 times.
-INFO: [Physopt 32-81] Processed net student_top_inst/u_KLDJ_top/ifu0/Q[2]. Replicated 5 times.
-INFO: [Physopt 32-81] Processed net student_top_inst/u_KLDJ_top/ifu0/Q[7]. Replicated 4 times.
-INFO: [Physopt 32-81] Processed net student_top_inst/u_KLDJ_top/ifu0/Q[6]. Replicated 4 times.
-INFO: [Physopt 32-81] Processed net student_top_inst/u_KLDJ_top/ifu0/Q[4]. Replicated 5 times.
-INFO: [Physopt 32-232] Optimized 6 nets. Created 28 new instances.
-INFO: [Physopt 32-775] End 1 Pass. Optimized 6 nets or cells. Created 28 new cells, deleted 0 existing cell and moved 0 existing cell
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.029 . Memory (MB): peak = 2335.984 ; gain = 0.000
+INFO: [Physopt 32-232] Optimized 0 net. Created 0 new instance.
+INFO: [Physopt 32-775] End 1 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.012 . Memory (MB): peak = 2332.520 ; gain = 0.000
 INFO: [Physopt 32-456] No candidate cells for DSP register optimization found in the design.
 INFO: [Physopt 32-775] End 2 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
 INFO: [Physopt 32-1123] No candidate cells found for Shift Register to Pipeline optimization
@@ -356,11 +393,7 @@ INFO: [Physopt 32-846] No candidate cells for URAM register optimization found i
 INFO: [Physopt 32-775] End 1 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
 INFO: [Physopt 32-949] No candidate nets found for dynamic/static region interface net replication
 INFO: [Physopt 32-775] End 1 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 2335.984 ; gain = 0.000
-INFO: [Physopt 32-68] No nets found for critical-cell optimization.
-INFO: [Physopt 32-232] Optimized 0 net. Created 0 new instance.
-INFO: [Physopt 32-775] End 1 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 2335.984 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 2332.520 ; gain = 0.000
 
 Summary of Physical Synthesis Optimizations
 ============================================
@@ -369,79 +402,78 @@ Summary of Physical Synthesis Optimizations
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 |  Optimization                                     |  Added Cells  |  Removed Cells  |  Optimized Cells/Nets  |  Dont Touch  |  Iterations  |  Elapsed   |
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
-|  LUT Combining                                    |           88  |             52  |                   140  |           0  |           1  |  00:00:00  |
+|  LUT Combining                                    |           77  |             54  |                   131  |           0  |           1  |  00:00:00  |
 |  Retime                                           |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
-|  Very High Fanout                                 |           28  |              0  |                     6  |           0  |           1  |  00:00:01  |
+|  Very High Fanout                                 |            0  |              0  |                     0  |           0  |           1  |  00:00:01  |
 |  DSP Register                                     |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
 |  Shift Register to Pipeline                       |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
 |  Shift Register                                   |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
 |  BRAM Register                                    |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
 |  URAM Register                                    |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
 |  Dynamic/Static Region Interface Net Replication  |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
-|  Critical Cell                                    |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
-|  Total                                            |          116  |             52  |                   146  |           0  |          10  |  00:00:01  |
+|  Total                                            |           77  |             54  |                   131  |           0  |           9  |  00:00:01  |
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-Phase 2.4.2 Physical Synthesis In Placer | Checksum: 208a00c67
+Phase 2.4.2 Physical Synthesis In Placer | Checksum: 11b72e8c2
 
-Time (s): cpu = 00:00:24 ; elapsed = 00:00:15 . Memory (MB): peak = 2335.984 ; gain = 0.000
-Phase 2.4 Global Placement Core | Checksum: 2347308c8
+Time (s): cpu = 00:00:22 ; elapsed = 00:00:14 . Memory (MB): peak = 2332.520 ; gain = 0.000
+Phase 2.4 Global Placement Core | Checksum: 119a02088
 
-Time (s): cpu = 00:00:25 ; elapsed = 00:00:16 . Memory (MB): peak = 2335.984 ; gain = 0.000
-Phase 2 Global Placement | Checksum: 2347308c8
+Time (s): cpu = 00:00:23 ; elapsed = 00:00:15 . Memory (MB): peak = 2332.520 ; gain = 0.000
+Phase 2 Global Placement | Checksum: 119a02088
 
-Time (s): cpu = 00:00:25 ; elapsed = 00:00:16 . Memory (MB): peak = 2335.984 ; gain = 0.000
+Time (s): cpu = 00:00:23 ; elapsed = 00:00:15 . Memory (MB): peak = 2332.520 ; gain = 0.000
 
 Phase 3 Detail Placement
 
 Phase 3.1 Commit Multi Column Macros
-Phase 3.1 Commit Multi Column Macros | Checksum: 2607c0d02
+Phase 3.1 Commit Multi Column Macros | Checksum: 1649b25c5
 
-Time (s): cpu = 00:00:26 ; elapsed = 00:00:16 . Memory (MB): peak = 2335.984 ; gain = 0.000
+Time (s): cpu = 00:00:24 ; elapsed = 00:00:15 . Memory (MB): peak = 2332.520 ; gain = 0.000
 
 Phase 3.2 Commit Most Macros & LUTRAMs
-Phase 3.2 Commit Most Macros & LUTRAMs | Checksum: 1c186e7dd
+Phase 3.2 Commit Most Macros & LUTRAMs | Checksum: 18b9a50ba
 
-Time (s): cpu = 00:00:28 ; elapsed = 00:00:17 . Memory (MB): peak = 2335.984 ; gain = 0.000
+Time (s): cpu = 00:00:25 ; elapsed = 00:00:16 . Memory (MB): peak = 2332.520 ; gain = 0.000
 
 Phase 3.3 Area Swap Optimization
-Phase 3.3 Area Swap Optimization | Checksum: 19e6dc629
+Phase 3.3 Area Swap Optimization | Checksum: 14ed51e24
 
-Time (s): cpu = 00:00:28 ; elapsed = 00:00:18 . Memory (MB): peak = 2335.984 ; gain = 0.000
+Time (s): cpu = 00:00:25 ; elapsed = 00:00:16 . Memory (MB): peak = 2332.520 ; gain = 0.000
 
 Phase 3.4 Pipeline Register Optimization
-Phase 3.4 Pipeline Register Optimization | Checksum: 18e4b109c
+Phase 3.4 Pipeline Register Optimization | Checksum: 13608df44
 
-Time (s): cpu = 00:00:28 ; elapsed = 00:00:18 . Memory (MB): peak = 2335.984 ; gain = 0.000
+Time (s): cpu = 00:00:25 ; elapsed = 00:00:16 . Memory (MB): peak = 2332.520 ; gain = 0.000
 
 Phase 3.5 Fast Optimization
-Phase 3.5 Fast Optimization | Checksum: 200a91e31
+Phase 3.5 Fast Optimization | Checksum: f2ca3228
 
-Time (s): cpu = 00:00:33 ; elapsed = 00:00:22 . Memory (MB): peak = 2335.984 ; gain = 0.000
+Time (s): cpu = 00:00:30 ; elapsed = 00:00:20 . Memory (MB): peak = 2332.520 ; gain = 0.000
 
 Phase 3.6 Small Shape Detail Placement
-Phase 3.6 Small Shape Detail Placement | Checksum: 2205b7181
+Phase 3.6 Small Shape Detail Placement | Checksum: 17091a954
 
-Time (s): cpu = 00:00:36 ; elapsed = 00:00:25 . Memory (MB): peak = 2335.984 ; gain = 0.000
+Time (s): cpu = 00:00:33 ; elapsed = 00:00:23 . Memory (MB): peak = 2332.520 ; gain = 0.000
 
 Phase 3.7 Re-assign LUT pins
-Phase 3.7 Re-assign LUT pins | Checksum: 16a5ac12a
+Phase 3.7 Re-assign LUT pins | Checksum: 14c5de461
 
-Time (s): cpu = 00:00:37 ; elapsed = 00:00:25 . Memory (MB): peak = 2335.984 ; gain = 0.000
+Time (s): cpu = 00:00:33 ; elapsed = 00:00:23 . Memory (MB): peak = 2332.520 ; gain = 0.000
 
 Phase 3.8 Pipeline Register Optimization
-Phase 3.8 Pipeline Register Optimization | Checksum: 29b664ce1
+Phase 3.8 Pipeline Register Optimization | Checksum: 10c2907ca
 
-Time (s): cpu = 00:00:37 ; elapsed = 00:00:25 . Memory (MB): peak = 2335.984 ; gain = 0.000
+Time (s): cpu = 00:00:33 ; elapsed = 00:00:23 . Memory (MB): peak = 2332.520 ; gain = 0.000
 
 Phase 3.9 Fast Optimization
-Phase 3.9 Fast Optimization | Checksum: 27fd961c1
+Phase 3.9 Fast Optimization | Checksum: 1887ac785
 
-Time (s): cpu = 00:00:46 ; elapsed = 00:00:34 . Memory (MB): peak = 2335.984 ; gain = 0.000
-Phase 3 Detail Placement | Checksum: 27fd961c1
+Time (s): cpu = 00:00:39 ; elapsed = 00:00:28 . Memory (MB): peak = 2332.520 ; gain = 0.000
+Phase 3 Detail Placement | Checksum: 1887ac785
 
-Time (s): cpu = 00:00:46 ; elapsed = 00:00:34 . Memory (MB): peak = 2335.984 ; gain = 0.000
+Time (s): cpu = 00:00:39 ; elapsed = 00:00:28 . Memory (MB): peak = 2332.520 ; gain = 0.000
 
 Phase 4 Post Placement Optimization and Clean-Up
 
@@ -449,7 +481,7 @@ Phase 4.1 Post Commit Optimization
 INFO: [Timing 38-35] Done setting XDC timing constraints.
 
 Phase 4.1.1 Post Placement Optimization
-Post Placement Optimization Initialization | Checksum: 1bb102ef3
+Post Placement Optimization Initialization | Checksum: 2955b7a74
 
 Phase 4.1.1.1 BUFG Insertion
 
@@ -457,34 +489,34 @@ Starting Physical Synthesis Task
 
 Phase 1 Physical Synthesis Initialization
 INFO: [Physopt 32-721] Multithreading enabled for phys_opt_design using a maximum of 2 CPUs
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-1.317 | TNS=-212.395 |
-Phase 1 Physical Synthesis Initialization | Checksum: 152a9b48d
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-1.540 | TNS=-126.798 |
+Phase 1 Physical Synthesis Initialization | Checksum: 27cda1672
 
-Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.505 . Memory (MB): peak = 2335.984 ; gain = 0.000
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.467 . Memory (MB): peak = 2332.520 ; gain = 0.000
 INFO: [Place 46-33] Processed net student_top_inst/u_KLDJ_top/reg5/bbstub_locked, BUFG insertion was skipped due to placement/routing conflicts.
 INFO: [Place 46-56] BUFG insertion identified 1 candidate nets. Inserted BUFG: 0, Replicated BUFG Driver: 0, Skipped due to Placement/Routing Conflicts: 1, Skipped due to Timing Degradation: 0, Skipped due to netlist editing failed: 0.
-Ending Physical Synthesis Task | Checksum: 152a9b48d
+Ending Physical Synthesis Task | Checksum: 27cda1672
 
-Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.853 . Memory (MB): peak = 2335.984 ; gain = 0.000
-Phase 4.1.1.1 BUFG Insertion | Checksum: 1bb102ef3
+Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.800 . Memory (MB): peak = 2332.520 ; gain = 0.000
+Phase 4.1.1.1 BUFG Insertion | Checksum: 2955b7a74
 
-Time (s): cpu = 00:00:51 ; elapsed = 00:00:37 . Memory (MB): peak = 2335.984 ; gain = 0.000
+Time (s): cpu = 00:00:44 ; elapsed = 00:00:31 . Memory (MB): peak = 2332.520 ; gain = 0.000
 
 Phase 4.1.1.2 Post Placement Timing Optimization
-INFO: [Place 30-746] Post Placement Timing Summary WNS=-0.708. For the most accurate timing information please run report_timing.
-Phase 4.1.1.2 Post Placement Timing Optimization | Checksum: 146d3cab6
+INFO: [Place 30-746] Post Placement Timing Summary WNS=-0.744. For the most accurate timing information please run report_timing.
+Phase 4.1.1.2 Post Placement Timing Optimization | Checksum: 19e266ca3
 
-Time (s): cpu = 00:01:16 ; elapsed = 00:01:01 . Memory (MB): peak = 2337.883 ; gain = 1.898
+Time (s): cpu = 00:01:02 ; elapsed = 00:00:50 . Memory (MB): peak = 2332.566 ; gain = 0.047
 
-Time (s): cpu = 00:01:16 ; elapsed = 00:01:01 . Memory (MB): peak = 2337.883 ; gain = 1.898
-Phase 4.1 Post Commit Optimization | Checksum: 146d3cab6
+Time (s): cpu = 00:01:02 ; elapsed = 00:00:50 . Memory (MB): peak = 2332.566 ; gain = 0.047
+Phase 4.1 Post Commit Optimization | Checksum: 19e266ca3
 
-Time (s): cpu = 00:01:16 ; elapsed = 00:01:01 . Memory (MB): peak = 2337.883 ; gain = 1.898
+Time (s): cpu = 00:01:02 ; elapsed = 00:00:50 . Memory (MB): peak = 2332.566 ; gain = 0.047
 
 Phase 4.2 Post Placement Cleanup
-Phase 4.2 Post Placement Cleanup | Checksum: 146d3cab6
+Phase 4.2 Post Placement Cleanup | Checksum: 19e266ca3
 
-Time (s): cpu = 00:01:16 ; elapsed = 00:01:01 . Memory (MB): peak = 2337.883 ; gain = 1.898
+Time (s): cpu = 00:01:02 ; elapsed = 00:00:50 . Memory (MB): peak = 2332.566 ; gain = 0.047
 
 Phase 4.3 Placer Reporting
 
@@ -494,51 +526,51 @@ INFO: [Place 30-612] Post-Placement Estimated Congestion
 |           | Global Congestion | Short Congestion  |
 | Direction | Region Size       | Region Size       |
 |___________|___________________|___________________|
-|      North|                4x4|                8x8|
+|      North|                2x2|                8x8|
 |___________|___________________|___________________|
-|      South|                1x1|                2x2|
+|      South|                1x1|                4x4|
 |___________|___________________|___________________|
-|       East|                1x1|                1x1|
+|       East|                2x2|                4x4|
 |___________|___________________|___________________|
-|       West|                2x2|                4x4|
+|       West|                2x2|                1x1|
 |___________|___________________|___________________|
 
-Phase 4.3.1 Print Estimated Congestion | Checksum: 146d3cab6
+Phase 4.3.1 Print Estimated Congestion | Checksum: 19e266ca3
 
-Time (s): cpu = 00:01:16 ; elapsed = 00:01:01 . Memory (MB): peak = 2337.883 ; gain = 1.898
-Phase 4.3 Placer Reporting | Checksum: 146d3cab6
+Time (s): cpu = 00:01:02 ; elapsed = 00:00:50 . Memory (MB): peak = 2332.566 ; gain = 0.047
+Phase 4.3 Placer Reporting | Checksum: 19e266ca3
 
-Time (s): cpu = 00:01:16 ; elapsed = 00:01:01 . Memory (MB): peak = 2337.883 ; gain = 1.898
+Time (s): cpu = 00:01:02 ; elapsed = 00:00:50 . Memory (MB): peak = 2332.566 ; gain = 0.047
 
 Phase 4.4 Final Placement Cleanup
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 2337.883 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.011 . Memory (MB): peak = 2332.566 ; gain = 0.000
 
-Time (s): cpu = 00:01:16 ; elapsed = 00:01:01 . Memory (MB): peak = 2337.883 ; gain = 1.898
-Phase 4 Post Placement Optimization and Clean-Up | Checksum: 179664e46
+Time (s): cpu = 00:01:02 ; elapsed = 00:00:50 . Memory (MB): peak = 2332.566 ; gain = 0.047
+Phase 4 Post Placement Optimization and Clean-Up | Checksum: d254b6e8
 
-Time (s): cpu = 00:01:16 ; elapsed = 00:01:01 . Memory (MB): peak = 2337.883 ; gain = 1.898
-Ending Placer Task | Checksum: 136583459
+Time (s): cpu = 00:01:02 ; elapsed = 00:00:50 . Memory (MB): peak = 2332.566 ; gain = 0.047
+Ending Placer Task | Checksum: a5178388
 
-Time (s): cpu = 00:01:16 ; elapsed = 00:01:01 . Memory (MB): peak = 2337.883 ; gain = 1.898
-93 Infos, 16 Warnings, 0 Critical Warnings and 0 Errors encountered.
+Time (s): cpu = 00:01:02 ; elapsed = 00:00:50 . Memory (MB): peak = 2332.566 ; gain = 0.047
+84 Infos, 52 Warnings, 5 Critical Warnings and 0 Errors encountered.
 place_design completed successfully
-place_design: Time (s): cpu = 00:01:18 ; elapsed = 00:01:02 . Memory (MB): peak = 2337.883 ; gain = 1.898
+place_design: Time (s): cpu = 00:01:05 ; elapsed = 00:00:51 . Memory (MB): peak = 2332.566 ; gain = 0.047
 INFO: [runtcl-4] Executing : report_io -file top_io_placed.rpt
-report_io: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.096 . Memory (MB): peak = 2337.883 ; gain = 0.000
+report_io: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.097 . Memory (MB): peak = 2332.566 ; gain = 0.000
 INFO: [runtcl-4] Executing : report_utilization -file top_utilization_placed.rpt -pb top_utilization_placed.pb
 INFO: [runtcl-4] Executing : report_control_sets -verbose -file top_control_sets_placed.rpt
-report_control_sets: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.024 . Memory (MB): peak = 2337.883 ; gain = 0.000
+report_control_sets: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.027 . Memory (MB): peak = 2332.566 ; gain = 0.000
 INFO: [Timing 38-480] Writing timing data to binary archive.
-Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.037 . Memory (MB): peak = 2348.617 ; gain = 8.902
-Wrote PlaceDB: Time (s): cpu = 00:00:02 ; elapsed = 00:00:00.632 . Memory (MB): peak = 2348.617 ; gain = 8.902
-Wrote PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2348.617 ; gain = 0.000
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.026 . Memory (MB): peak = 2348.887 ; gain = 8.930
+Wrote PlaceDB: Time (s): cpu = 00:00:02 ; elapsed = 00:00:00.635 . Memory (MB): peak = 2348.887 ; gain = 8.926
+Wrote PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2348.887 ; gain = 0.000
 Writing XDEF routing.
 Writing XDEF routing logical nets.
 Writing XDEF routing special nets.
-Wrote RouteStorage: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.033 . Memory (MB): peak = 2348.617 ; gain = 0.000
-Wrote Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.021 . Memory (MB): peak = 2348.617 ; gain = 0.000
-Wrote Device Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 2348.617 ; gain = 0.000
-Write Physdb Complete: Time (s): cpu = 00:00:02 ; elapsed = 00:00:00.708 . Memory (MB): peak = 2348.617 ; gain = 8.902
+Wrote RouteStorage: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.028 . Memory (MB): peak = 2348.887 ; gain = 0.000
+Wrote Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.020 . Memory (MB): peak = 2348.887 ; gain = 0.000
+Wrote Device Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 2348.887 ; gain = 0.000
+Write Physdb Complete: Time (s): cpu = 00:00:02 ; elapsed = 00:00:00.707 . Memory (MB): peak = 2348.887 ; gain = 8.930
 INFO: [Common 17-1381] The checkpoint 'D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_12/top_placed.dcp' has been generated.
 Command: phys_opt_design
 Attempting to get a license for feature 'Implementation' and/or device 'xc7k325t'
@@ -546,357 +578,190 @@ INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc
 
 Starting Initial Update Timing Task
 
-Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 2348.617 ; gain = 0.000
-INFO: [Vivado_Tcl 4-1435] PhysOpt_Tcl_Interface Runtime Before Starting Physical Synthesis Task | CPU: 3.00s |  WALL: 1.51s
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 2348.617 ; gain = 0.000
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 2348.887 ; gain = 0.000
+INFO: [Vivado_Tcl 4-1435] PhysOpt_Tcl_Interface Runtime Before Starting Physical Synthesis Task | CPU: 2.00s |  WALL: 1.54s
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 2348.887 ; gain = 0.000
 
 Starting Physical Synthesis Task
 
 Phase 1 Physical Synthesis Initialization
 INFO: [Physopt 32-721] Multithreading enabled for phys_opt_design using a maximum of 2 CPUs
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.708 | TNS=-35.766 |
-Phase 1 Physical Synthesis Initialization | Checksum: 1e9c07e36
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.744 | TNS=-23.881 |
+Phase 1 Physical Synthesis Initialization | Checksum: 1d69d3d01
 
-Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 2353.270 ; gain = 4.652
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.708 | TNS=-35.766 |
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 2353.473 ; gain = 4.586
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.744 | TNS=-23.881 |
 
 Phase 2 DSP Register Optimization
 INFO: [Physopt 32-456] No candidate cells for DSP register optimization found in the design.
 INFO: [Physopt 32-775] End 2 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
-Phase 2 DSP Register Optimization | Checksum: 1e9c07e36
+Phase 2 DSP Register Optimization | Checksum: 1d69d3d01
 
-Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 2353.270 ; gain = 4.652
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 2353.473 ; gain = 4.586
 
 Phase 3 Critical Path Optimization
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.708 | TNS=-35.766 |
-INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[31]_0[13]. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-702] Processed net pll_inst/inst/clk_out2_pll. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/u_mem_stage_top/lsu_res[13]. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-710] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/u_mem_stage_top/lsu_res[13]. Critical path length was reduced through logic transformation on cell student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[13]_i_2_comp.
-INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[15]_i_2_n_0. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.661 | TNS=-35.528 |
-INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[31]_0[11]. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/u_mem_stage_top/lsu_res[11]. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-710] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/u_mem_stage_top/lsu_res[11]. Critical path length was reduced through logic transformation on cell student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[11]_i_2_comp.
-INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[15]_i_2_n_0. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.626 | TNS=-35.345 |
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.744 | TNS=-23.881 |
 INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[31]_0[9]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net pll_inst/inst/clk_out2_pll. Optimizations did not improve timing on the net.
 INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/u_mem_stage_top/lsu_res[9]. Optimizations did not improve timing on the net.
 INFO: [Physopt 32-710] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/u_mem_stage_top/lsu_res[9]. Critical path length was reduced through logic transformation on cell student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[9]_i_2_comp.
 INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[15]_i_2_n_0. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.566 | TNS=-35.038 |
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.723 | TNS=-23.715 |
 INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[31]_0[10]. Optimizations did not improve timing on the net.
 INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/u_mem_stage_top/lsu_res[10]. Optimizations did not improve timing on the net.
 INFO: [Physopt 32-710] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/u_mem_stage_top/lsu_res[10]. Critical path length was reduced through logic transformation on cell student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[10]_i_2_comp.
 INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[15]_i_2_n_0. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.555 | TNS=-34.743 |
-INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[31]_0[14]. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/u_mem_stage_top/lsu_res[14]. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-710] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/u_mem_stage_top/lsu_res[14]. Critical path length was reduced through logic transformation on cell student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[14]_i_2_comp.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.715 | TNS=-23.531 |
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[31]_0[11]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/u_mem_stage_top/lsu_res[11]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/u_mem_stage_top/lsu_res[11]. Critical path length was reduced through logic transformation on cell student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[11]_i_2_comp.
 INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[15]_i_2_n_0. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.537 | TNS=-34.494 |
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.712 | TNS=-23.301 |
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[31]_0[13]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/u_mem_stage_top/lsu_res[13]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/u_mem_stage_top/lsu_res[13]. Critical path length was reduced through logic transformation on cell student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[13]_i_2_comp.
+INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[15]_i_2_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.698 | TNS=-23.078 |
 INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[31]_0[12]. Optimizations did not improve timing on the net.
 INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/u_mem_stage_top/lsu_res[12]. Optimizations did not improve timing on the net.
 INFO: [Physopt 32-710] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/u_mem_stage_top/lsu_res[12]. Critical path length was reduced through logic transformation on cell student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[12]_i_2_comp.
 INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[15]_i_2_n_0. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.522 | TNS=-34.183 |
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.694 | TNS=-22.734 |
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[31]_0[14]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/u_mem_stage_top/lsu_res[14]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/u_mem_stage_top/lsu_res[14]. Critical path length was reduced through logic transformation on cell student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[14]_i_2_comp.
+INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[15]_i_2_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.597 | TNS=-22.459 |
 INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[31]_0[8]. Optimizations did not improve timing on the net.
 INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/u_mem_stage_top/lsu_res[8]. Optimizations did not improve timing on the net.
 INFO: [Physopt 32-710] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/u_mem_stage_top/lsu_res[8]. Critical path length was reduced through logic transformation on cell student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[8]_i_2_comp.
 INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[15]_i_2_n_0. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.375 | TNS=-33.957 |
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.461 | TNS=-22.234 |
 INFO: [Physopt 32-702] Processed net student_top_inst/bridge_inst/dram_driver_inst/loaded_byte[0]. Optimizations did not improve timing on the net.
 INFO: [Physopt 32-710] Processed net student_top_inst/bridge_inst/dram_driver_inst/loaded_byte[0]. Critical path length was reduced through logic transformation on cell student_top_inst/bridge_inst/dram_driver_inst/mem_wb_wb_data[31]_i_5_comp.
-INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/dram_driver_inst/ex_mem_mem_addr_reg[1]_0. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.334 | TNS=-30.882 |
-INFO: [Physopt 32-702] Processed net student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[10].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.TRUE_DP.SIMPLE_PRIM36.ram_1[0]. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-710] Processed net student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[58].ram.r/prim_init.ram/ramloop[10].ram.ram_enb. Critical path length was reduced through logic transformation on cell student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[58].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.TRUE_DP.SIMPLE_PRIM36.ram_i_2__8_comp.
+INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/dram_driver_inst/ex_mem_mem_addr_reg[1]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.446 | TNS=-20.747 |
+INFO: [Physopt 32-702] Processed net student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[2].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.TRUE_DP.SIMPLE_PRIM36.ram_1[0]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[50].ram.r/prim_init.ram/ramloop[2].ram.ram_enb. Critical path length was reduced through logic transformation on cell student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[50].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.TRUE_DP.SIMPLE_PRIM36.ram_i_2__0_comp.
 INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/addrb[10]. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.321 | TNS=-30.858 |
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.399 | TNS=-20.706 |
+INFO: [Physopt 32-710] Processed net student_top_inst/bridge_inst/dram_driver_inst/loaded_byte[0]. Critical path length was reduced through logic transformation on cell student_top_inst/bridge_inst/dram_driver_inst/mem_wb_wb_data[31]_i_5_comp_1.
+INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/dram_driver_inst/perip_rdata[15]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.387 | TNS=-18.445 |
 INFO: [Physopt 32-702] Processed net student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[9].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.TRUE_DP.SIMPLE_PRIM36.ram_1[0]. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-134] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/addrb[9]. Rewiring did not optimize the net.
+INFO: [Physopt 32-710] Processed net student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[57].ram.r/prim_init.ram/ramloop[9].ram.ram_enb. Critical path length was reduced through logic transformation on cell student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[57].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.TRUE_DP.SIMPLE_PRIM36.ram_i_2__9_comp.
+INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/addrb[10]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.380 | TNS=-18.443 |
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/addrb[9]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_mem_exu_res_reg[15]_i_4_n_5. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_mem_exu_res_reg[11]_i_4_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_mem_exu_res_reg[7]_i_4_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_mem_exu_res_reg[3]_i_4_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_mem_exu_res[3]_i_6_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_mem_exu_res[3]_i_6_n_0. Critical path length was reduced through logic transformation on cell student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_mem_exu_res[3]_i_6_comp.
+INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_data2[3]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.380 | TNS=-18.443 |
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_mem_exu_res[3]_i_9_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-663] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_data1[0].  Re-placed instance student_top_inst/u_KLDJ_top/u_pipe_id_ex/rs1_q[0]_i_1
+INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_data1[0]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.355 | TNS=-15.978 |
+INFO: [Physopt 32-710] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_mem_exu_res[3]_i_9_n_0. Critical path length was reduced through logic transformation on cell student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_mem_exu_res[3]_i_9_comp.
+INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_data1[0]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.352 | TNS=-15.735 |
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_data2[0]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/ex_mem_exu_res_reg[0]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/rs2_q[4]_i_4_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-601] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/rs2_q[31]_i_10_n_0. Net driver student_top_inst/u_KLDJ_top/u_pipe_mem_wb/rs2_q[31]_i_10 was replaced.
+INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/rs2_q[31]_i_10_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.346 | TNS=-15.155 |
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_rs2_addr_reg[2]_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_rs2_addr_reg[2]_0. Critical path length was reduced through logic transformation on cell student_top_inst/u_KLDJ_top/u_pipe_id_ex/rs2_q[31]_i_3_comp.
+INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/rs2_q[31]_i_5_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.339 | TNS=-14.171 |
+INFO: [Physopt 32-702] Processed net student_top_inst/bridge_inst/dram_driver_inst/perip_rdata[27]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net student_top_inst/bridge_inst/dram_driver_inst/dram_rdata[27]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/has_mux_b.B/doutb[27]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/has_mux_b.B/doutb[27]_INST_0_i_1_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/has_mux_b.B/doutb[27]_INST_0_i_3_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.334 | TNS=-13.937 |
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[31]_0[5]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/D[5]. Critical path length was reduced through logic transformation on cell student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[5]_i_1_comp.
+INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/dram_driver_inst/ex_mem_mem_addr_reg[1]_2. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.331 | TNS=-13.704 |
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[31]_0[6]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-663] Processed net student_top_inst/bridge_inst/dram_driver_inst/ex_mem_mem_addr_reg[1]_1.  Re-placed instance student_top_inst/bridge_inst/dram_driver_inst/mem_wb_wb_data[6]_i_2
+INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/dram_driver_inst/ex_mem_mem_addr_reg[1]_1. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.331 | TNS=-13.683 |
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 20 pins.
+INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_data1[0]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.330 | TNS=-13.621 |
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_forward_valid/i__n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[50].ram.r/prim_init.ram/ramloop[2].ram.ram_enb. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-663] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/Q[1].  Re-placed instance student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_rd_addr_reg[1]
+INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/Q[1]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.322 | TNS=-12.814 |
+INFO: [Physopt 32-702] Processed net student_top_inst/bridge_inst/dram_driver_inst/perip_rdata[13]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-710] Processed net student_top_inst/bridge_inst/dram_driver_inst/perip_rdata[13]. Critical path length was reduced through logic transformation on cell student_top_inst/bridge_inst/dram_driver_inst/mem_wb_wb_data[13]_i_3_comp.
+INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/dram_driver_inst/dram_rdata[13]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.317 | TNS=-12.787 |
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[31]_0[1]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-663] Processed net student_top_inst/bridge_inst/dram_driver_inst/ex_mem_mem_addr_reg[1]_6.  Re-placed instance student_top_inst/bridge_inst/dram_driver_inst/mem_wb_wb_data[1]_i_2
+INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/dram_driver_inst/ex_mem_mem_addr_reg[1]_6. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.317 | TNS=-12.768 |
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/rs2_q[31]_i_10_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_rs2_addr_reg[4]_0[0]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[2].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.TRUE_DP.SIMPLE_PRIM36.ram_1[0]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net pll_inst/inst/clk_out2_pll. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/addrb[9]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_mem_exu_res_reg[15]_i_4_n_5. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_mem_exu_res[3]_i_9_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_data2[0]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/ex_mem_exu_res_reg[0]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/rs2_q[4]_i_4_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/rs2_q[31]_i_10_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[50].ram.r/prim_init.ram/ramloop[2].ram.ram_enb. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_rs2_addr_reg[4]_0[0]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.317 | TNS=-12.768 |
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.050 . Memory (MB): peak = 2419.152 ; gain = 0.000
+Phase 3 Critical Path Optimization | Checksum: 1d69d3d01
+
+Time (s): cpu = 00:00:12 ; elapsed = 00:00:07 . Memory (MB): peak = 2419.152 ; gain = 70.266
+
+Phase 4 Critical Path Optimization
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.317 | TNS=-12.768 |
+INFO: [Physopt 32-702] Processed net student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[2].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.TRUE_DP.SIMPLE_PRIM36.ram_1[0]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net pll_inst/inst/clk_out2_pll. Optimizations did not improve timing on the net.
 INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/addrb[9]. Optimizations did not improve timing on the net.
 INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_mem_exu_res_reg[15]_i_4_n_5. Optimizations did not improve timing on the net.
 INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_mem_exu_res_reg[11]_i_4_n_0. Optimizations did not improve timing on the net.
 INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_mem_exu_res_reg[7]_i_4_n_0. Optimizations did not improve timing on the net.
 INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_mem_exu_res_reg[3]_i_4_n_0. Optimizations did not improve timing on the net.
 INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_mem_exu_res[3]_i_9_n_0. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-663] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_data2[0].  Re-placed instance student_top_inst/u_KLDJ_top/u_pipe_id_ex/rs2_q[0]_i_1
-INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_data2[0]. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.310 | TNS=-29.274 |
-INFO: [Physopt 32-663] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_data1[0].  Re-placed instance student_top_inst/u_KLDJ_top/u_pipe_id_ex/rs1_q[0]_i_1
-INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_data1[0]. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.288 | TNS=-23.096 |
-INFO: [Physopt 32-663] Processed net student_top_inst/bridge_inst/dram_driver_inst/perip_rdata[29].  Re-placed instance student_top_inst/bridge_inst/dram_driver_inst/mem_wb_wb_data[29]_i_2
-INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/dram_driver_inst/perip_rdata[29]. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.280 | TNS=-23.034 |
-INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[31]_0[4]. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-663] Processed net student_top_inst/bridge_inst/dram_driver_inst/ex_mem_mem_addr_reg[1]_3.  Re-placed instance student_top_inst/bridge_inst/dram_driver_inst/mem_wb_wb_data[4]_i_2
-INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/dram_driver_inst/ex_mem_mem_addr_reg[1]_3. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.280 | TNS=-22.948 |
-INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[31]_0[0]. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-710] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/D[0]. Critical path length was reduced through logic transformation on cell student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[0]_i_1_comp.
-INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/dram_driver_inst/ex_mem_mem_addr_reg[1]_7. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.279 | TNS=-22.947 |
-INFO: [Physopt 32-663] Processed net student_top_inst/bridge_inst/dram_driver_inst/ex_mem_mem_addr_reg[1]_7.  Re-placed instance student_top_inst/bridge_inst/dram_driver_inst/mem_wb_wb_data[0]_i_2_comp_1
-INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/dram_driver_inst/ex_mem_mem_addr_reg[1]_7. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.276 | TNS=-22.776 |
-INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[31]_0[5]. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-710] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/D[5]. Critical path length was reduced through logic transformation on cell student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[5]_i_1_comp.
-INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/dram_driver_inst/ex_mem_mem_addr_reg[1]_2. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.263 | TNS=-22.755 |
-INFO: [Physopt 32-710] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_mem_exu_res[3]_i_9_n_0. Critical path length was reduced through logic transformation on cell student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_mem_exu_res[3]_i_9_comp.
-INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_data1[0]. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.255 | TNS=-19.225 |
-INFO: [Physopt 32-663] Processed net student_top_inst/bridge_inst/dram_driver_inst/ex_mem_mem_addr_reg[1]_2.  Re-placed instance student_top_inst/bridge_inst/dram_driver_inst/mem_wb_wb_data[5]_i_2_comp_1
-INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/dram_driver_inst/ex_mem_mem_addr_reg[1]_2. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.249 | TNS=-19.111 |
-INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[31]_0[7]. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/u_mem_stage_top/lsu_res[7]. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-710] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/u_mem_stage_top/lsu_res[7]. Critical path length was reduced through logic transformation on cell student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[7]_i_2_comp.
-INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/dram_driver_inst/ex_mem_mem_addr_reg[1]_0. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.242 | TNS=-18.948 |
-INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[31]_0[6]. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-663] Processed net student_top_inst/bridge_inst/dram_driver_inst/ex_mem_mem_addr_reg[1]_1.  Re-placed instance student_top_inst/bridge_inst/dram_driver_inst/mem_wb_wb_data[6]_i_2
-INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/dram_driver_inst/ex_mem_mem_addr_reg[1]_1. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.240 | TNS=-18.946 |
-INFO: [Physopt 32-702] Processed net student_top_inst/bridge_inst/dram_driver_inst/ex_mem_mem_addr_reg[1]_1. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-663] Processed net student_top_inst/bridge_inst/dram_driver_inst/mem_wb_wb_data[6]_i_4_n_0.  Re-placed instance student_top_inst/bridge_inst/dram_driver_inst/mem_wb_wb_data[6]_i_4
-INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/dram_driver_inst/mem_wb_wb_data[6]_i_4_n_0. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.237 | TNS=-18.943 |
-INFO: [Physopt 32-710] Processed net student_top_inst/bridge_inst/dram_driver_inst/ex_mem_mem_addr_reg[1]_1. Critical path length was reduced through logic transformation on cell student_top_inst/bridge_inst/dram_driver_inst/mem_wb_wb_data[6]_i_2_comp.
-INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/dram_driver_inst/mem_wb_wb_data[6]_i_4_n_0. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.235 | TNS=-18.905 |
-INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[31]_0[2]. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-710] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/D[2]. Critical path length was reduced through logic transformation on cell student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[2]_i_1_comp.
-INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/dram_driver_inst/ex_mem_mem_addr_reg[1]_5. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.235 | TNS=-18.841 |
-INFO: [Physopt 32-663] Processed net student_top_inst/u_KLDJ_top/ifu0/Q[3]_repN.  Re-placed instance student_top_inst/u_KLDJ_top/ifu0/pc_reg_reg[3]_replica
-INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/ifu0/Q[3]_repN. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.235 | TNS=-18.597 |
-INFO: [Physopt 32-663] Processed net student_top_inst/u_KLDJ_top/ifu0/Q[5]_repN.  Re-placed instance student_top_inst/u_KLDJ_top/ifu0/pc_reg_reg[5]_replica
-INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/ifu0/Q[5]_repN. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.233 | TNS=-18.297 |
-INFO: [Physopt 32-710] Processed net student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[57].ram.r/prim_init.ram/ramloop[9].ram.ram_enb. Critical path length was reduced through logic transformation on cell student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[57].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.TRUE_DP.SIMPLE_PRIM36.ram_i_2__9_comp.
-INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/addrb[12]. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.229 | TNS=-18.289 |
-INFO: [Physopt 32-710] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/u_mem_stage_top/lsu_res[13]. Critical path length was reduced through logic transformation on cell student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[13]_i_2_comp_1.
-INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/dram_driver_inst/perip_rdata[29]. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.224 | TNS=-18.178 |
-INFO: [Physopt 32-710] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/u_mem_stage_top/lsu_res[8]. Critical path length was reduced through logic transformation on cell student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[8]_i_2_comp_1.
-INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/dram_driver_inst/perip_rdata[24]. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.222 | TNS=-17.958 |
-INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_mem_exu_res[11]_i_9_n_0. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-710] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_mem_exu_res[11]_i_9_n_0. Critical path length was reduced through logic transformation on cell student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_mem_exu_res[11]_i_9_comp.
-INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_data2[8]. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.222 | TNS=-17.857 |
-INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_bpu/u_gshare_btb_core/btb_data_reg_0_63_39_41/DOA. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-710] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_exu_op_reg[1]_0. Critical path length was reduced through logic transformation on cell student_top_inst/u_KLDJ_top/u_pipe_id_ex/btb_data_reg_0_63_0_2_i_4_comp.
-INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/bpu_update_taken. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.220 | TNS=-14.789 |
-INFO: [Physopt 32-702] Processed net student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[43].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.TRUE_DP.SIMPLE_PRIM36.ram_1[0]. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-710] Processed net student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[59].ram.r/prim_init.ram/ramloop[11].ram.ram_enb. Critical path length was reduced through logic transformation on cell student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[59].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.TRUE_DP.SIMPLE_PRIM36.ram_i_2__7_comp.
-INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/addrb[12]. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.214 | TNS=-14.771 |
-INFO: [Physopt 32-702] Processed net student_top_inst/bridge_inst/rd_is_key_q. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-608] Optimized 1 net.  Swapped 14 pins.
-INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/rd_is_sw1_q_i_2_n_0. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.214 | TNS=-14.341 |
-INFO: [Physopt 32-663] Processed net student_top_inst/u_KLDJ_top/ifu0/Q[6]_repN.  Re-placed instance student_top_inst/u_KLDJ_top/ifu0/pc_reg_reg[6]_replica
-INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/ifu0/Q[6]_repN. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.213 | TNS=-13.995 |
-INFO: [Physopt 32-710] Processed net student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[58].ram.r/prim_init.ram/ramloop[10].ram.ram_enb. Critical path length was reduced through logic transformation on cell student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[58].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.TRUE_DP.SIMPLE_PRIM36.ram_i_2__8_comp_1.
-INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/addrb[12]. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.212 | TNS=-13.964 |
-INFO: [Physopt 32-608] Optimized 1 net.  Swapped 13 pins.
-INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_mem_exu_res[3]_i_8_n_0. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.205 | TNS=-13.663 |
-INFO: [Physopt 32-702] Processed net student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[44].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.TRUE_DP.SIMPLE_PRIM36.ram_1[0]. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-710] Processed net student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[60].ram.r/prim_init.ram/ramloop[12].ram.ram_enb. Critical path length was reduced through logic transformation on cell student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[60].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.TRUE_DP.SIMPLE_PRIM36.ram_i_2__14_comp.
-INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/addrb[12]. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.203 | TNS=-13.599 |
-INFO: [Physopt 32-663] Processed net student_top_inst/u_KLDJ_top/ifu0/Q[2]_repN.  Re-placed instance student_top_inst/u_KLDJ_top/ifu0/pc_reg_reg[2]_replica
-INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/ifu0/Q[2]_repN. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.202 | TNS=-13.425 |
-INFO: [Physopt 32-710] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/u_mem_stage_top/lsu_res[11]. Critical path length was reduced through logic transformation on cell student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[11]_i_2_comp_1.
-INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/dram_driver_inst/perip_rdata[27]. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.201 | TNS=-13.363 |
-INFO: [Physopt 32-702] Processed net student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[33].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.TRUE_DP.SIMPLE_PRIM36.ram_1[0]. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-710] Processed net student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[49].ram.r/prim_init.ram/ramloop[1].ram.ram_enb. Critical path length was reduced through logic transformation on cell student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[49].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.TRUE_DP.SIMPLE_PRIM36.ram_i_2__1_comp.
-INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/addrb[12]. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.199 | TNS=-13.322 |
-INFO: [Physopt 32-702] Processed net student_top_inst/bridge_inst/dram_driver_inst/perip_rdata[22]. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-663] Processed net student_top_inst/bridge_inst/dram_driver_inst/dram_rdata[22].  Re-placed instance student_top_inst/bridge_inst/dram_driver_inst/mem_wb_wb_data[22]_i_3
-INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/dram_driver_inst/dram_rdata[22]. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.194 | TNS=-13.292 |
-INFO: [Physopt 32-710] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/D[4]. Critical path length was reduced through logic transformation on cell student_top_inst/u_KLDJ_top/u_pipe_ex_mem/mem_wb_wb_data[4]_i_1_comp.
-INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/dram_driver_inst/ex_mem_mem_addr_reg[1]_3. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.194 | TNS=-13.210 |
-INFO: [Physopt 32-702] Processed net student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[9].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.TRUE_DP.SIMPLE_PRIM36.ram_1[0]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_data2[0]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/ex_mem_exu_res_reg[0]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/rs2_q[4]_i_4_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/rs2_q[31]_i_10_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[50].ram.r/prim_init.ram/ramloop[2].ram.ram_enb. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_rs2_addr_reg[4]_0[0]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[2].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.TRUE_DP.SIMPLE_PRIM36.ram_1[0]. Optimizations did not improve timing on the net.
 INFO: [Physopt 32-702] Processed net pll_inst/inst/clk_out2_pll. Optimizations did not improve timing on the net.
 INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/addrb[9]. Optimizations did not improve timing on the net.
 INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_mem_exu_res_reg[15]_i_4_n_5. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_mem_exu_res[7]_i_8_n_0. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-663] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_data1[5].  Re-placed instance student_top_inst/u_KLDJ_top/u_pipe_id_ex/rs1_q[5]_i_1
-INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_data1[5]. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.192 | TNS=-13.178 |
-INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_mem_exu_res[7]_i_7_n_0. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-663] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_data2[6].  Re-placed instance student_top_inst/u_KLDJ_top/u_pipe_id_ex/rs2_q[6]_i_1
-INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_data2[6]. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.190 | TNS=-13.130 |
-INFO: [Physopt 32-663] Processed net student_top_inst/u_KLDJ_top/ifu0/Q[2]_repN_2.  Re-placed instance student_top_inst/u_KLDJ_top/ifu0/pc_reg_reg[2]_replica_2
-INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/ifu0/Q[2]_repN_2. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.189 | TNS=-12.937 |
-INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_mem_exu_res[3]_i_8_n_0. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-663] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_data1[1].  Re-placed instance student_top_inst/u_KLDJ_top/u_pipe_id_ex/rs1_q[1]_i_1
-INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_data1[1]. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.187 | TNS=-12.734 |
-INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[31]_0[1]. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-702] Processed net student_top_inst/bridge_inst/dram_driver_inst/ex_mem_mem_addr_reg[1]_6. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-663] Processed net student_top_inst/bridge_inst/dram_driver_inst/mem_wb_wb_data[1]_i_4_n_0.  Re-placed instance student_top_inst/bridge_inst/dram_driver_inst/mem_wb_wb_data[1]_i_4
-INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/dram_driver_inst/mem_wb_wb_data[1]_i_4_n_0. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.184 | TNS=-12.573 |
-INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_mem_exu_res[15]_i_9_n_0. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-663] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_data2[12].  Re-placed instance student_top_inst/u_KLDJ_top/u_pipe_id_ex/rs2_q[12]_i_1
-INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_data2[12]. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.183 | TNS=-10.954 |
-INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[31]_0[9]. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
-INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/u_mem_stage_top/lsu_res[9]. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.181 | TNS=-10.914 |
-INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_mem_exu_res[11]_i_8_n_0. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_data2[9]. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/ex_mem_exu_res_reg[9]_0. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_rd_addr_reg[2]_1. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/rs2_q[31]_i_5_n_0. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-663] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_forward_valid/i__n_0.  Re-placed instance student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_forward_valid/i_
-INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_forward_valid/i__n_0. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.177 | TNS=-10.806 |
-INFO: [Physopt 32-663] Processed net student_top_inst/u_KLDJ_top/ifu0/Q[4]_repN.  Re-placed instance student_top_inst/u_KLDJ_top/ifu0/pc_reg_reg[4]_replica
-INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/ifu0/Q[4]_repN. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.175 | TNS=-10.550 |
-INFO: [Physopt 32-663] Processed net student_top_inst/u_KLDJ_top/ifu0/Q[7]_repN.  Re-placed instance student_top_inst/u_KLDJ_top/ifu0/pc_reg_reg[7]_replica
-INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/ifu0/Q[7]_repN. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.172 | TNS=-10.248 |
-INFO: [Physopt 32-663] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_data2[5].  Re-placed instance student_top_inst/u_KLDJ_top/u_pipe_id_ex/rs2_q[5]_i_1
-INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_data2[5]. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.171 | TNS=-10.179 |
-INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[31]_0[2]. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-702] Processed net student_top_inst/bridge_inst/dram_driver_inst/ex_mem_mem_addr_reg[1]_5. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-608] Optimized 1 net.  Swapped 15 pins.
-INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/dram_driver_inst/mem_wb_wb_data[2]_i_4_n_0. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.169 | TNS=-10.042 |
-INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[31]_0[6]. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-663] Processed net student_top_inst/bridge_inst/dram_driver_inst/ex_mem_mem_addr_reg[1]_1.  Re-placed instance student_top_inst/bridge_inst/dram_driver_inst/mem_wb_wb_data[6]_i_2_comp
-INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/dram_driver_inst/ex_mem_mem_addr_reg[1]_1. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.167 | TNS=-9.873 |
-INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_data2[5]. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-608] Optimized 1 net.  Swapped 15 pins.
-INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/ex_mem_exu_res_reg[5]_0. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.162 | TNS=-9.574 |
-INFO: [Physopt 32-663] Processed net student_top_inst/bridge_inst/LED_reg[1]_lopt_replica_1.  Re-placed instance student_top_inst/bridge_inst/LED_reg[1]_lopt_replica
-INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/LED_reg[1]_lopt_replica_1. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.162 | TNS=-9.413 |
-INFO: [Physopt 32-663] Processed net student_top_inst/bridge_inst/LED_reg[20]_lopt_replica_1.  Re-placed instance student_top_inst/bridge_inst/LED_reg[20]_lopt_replica
-INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/LED_reg[20]_lopt_replica_1. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.160 | TNS=-9.251 |
-INFO: [Physopt 32-663] Processed net student_top_inst/bridge_inst/LED_reg[31]_0[0].  Re-placed instance student_top_inst/bridge_inst/LED_reg[0]
-INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/LED_reg[31]_0[0]. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.160 | TNS=-9.091 |
-INFO: [Physopt 32-663] Processed net student_top_inst/bridge_inst/LED_reg[0]_lopt_replica_1.  Re-placed instance student_top_inst/bridge_inst/LED_reg[0]_lopt_replica
-INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/LED_reg[0]_lopt_replica_1. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.160 | TNS=-8.967 |
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.160 | TNS=-8.967 |
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.056 . Memory (MB): peak = 2361.316 ; gain = 0.000
-Phase 3 Critical Path Optimization | Checksum: 214f086f0
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_mem_exu_res[3]_i_9_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_data2[0]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/ex_mem_exu_res_reg[0]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/rs2_q[4]_i_4_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/rs2_q[31]_i_10_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[50].ram.r/prim_init.ram/ramloop[2].ram.ram_enb. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_rs2_addr_reg[4]_0[0]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.317 | TNS=-12.768 |
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.019 . Memory (MB): peak = 2468.738 ; gain = 0.000
+Phase 4 Critical Path Optimization | Checksum: 1d69d3d01
 
-Time (s): cpu = 00:00:13 ; elapsed = 00:00:08 . Memory (MB): peak = 2361.316 ; gain = 12.699
-
-Phase 4 Critical Path Optimization
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.160 | TNS=-8.967 |
-INFO: [Physopt 32-663] Processed net student_top_inst/bridge_inst/LED_reg[10]_lopt_replica_1.  Re-placed instance student_top_inst/bridge_inst/LED_reg[10]_lopt_replica
-INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/LED_reg[10]_lopt_replica_1. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.160 | TNS=-8.813 |
-INFO: [Physopt 32-663] Processed net student_top_inst/bridge_inst/LED_reg[31]_0[20].  Re-placed instance student_top_inst/bridge_inst/LED_reg[20]
-INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/LED_reg[31]_0[20]. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.160 | TNS=-8.691 |
-INFO: [Physopt 32-663] Processed net student_top_inst/bridge_inst/LED_reg[31]_0[24].  Re-placed instance student_top_inst/bridge_inst/LED_reg[24]
-INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/LED_reg[31]_0[24]. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.160 | TNS=-8.595 |
-INFO: [Physopt 32-663] Processed net student_top_inst/bridge_inst/LED_reg[31]_0[25].  Re-placed instance student_top_inst/bridge_inst/LED_reg[25]
-INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/LED_reg[31]_0[25]. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.158 | TNS=-8.524 |
-INFO: [Physopt 32-702] Processed net student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[4].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.TRUE_DP.SIMPLE_PRIM36.ram_1[0]. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-702] Processed net pll_inst/inst/clk_out2_pll. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-710] Processed net student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[52].ram.r/prim_init.ram/ramloop[4].ram.ram_enb. Critical path length was reduced through logic transformation on cell student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[52].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.TRUE_DP.SIMPLE_PRIM36.ram_i_2__6_comp.
-INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/addrb[12]. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.156 | TNS=-8.461 |
-INFO: [Physopt 32-702] Processed net student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[37].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.TRUE_DP.SIMPLE_PRIM36.ram_1[0]. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-710] Processed net student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[53].ram.r/prim_init.ram/ramloop[5].ram.ram_enb. Critical path length was reduced through logic transformation on cell student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[53].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.TRUE_DP.SIMPLE_PRIM36.ram_i_2__5_comp.
-INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/addrb[12]. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.152 | TNS=-8.240 |
-INFO: [Physopt 32-702] Processed net student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[6].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.TRUE_DP.SIMPLE_PRIM36.ram_1[0]. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-710] Processed net student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[54].ram.r/prim_init.ram/ramloop[6].ram.ram_enb. Critical path length was reduced through logic transformation on cell student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[54].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.TRUE_DP.SIMPLE_PRIM36.ram_i_2__4_comp.
-INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/addrb[12]. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.150 | TNS=-8.230 |
-INFO: [Physopt 32-663] Processed net student_top_inst/bridge_inst/LED_reg[31]_0[13].  Re-placed instance student_top_inst/bridge_inst/LED_reg[13]
-INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/LED_reg[31]_0[13]. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.150 | TNS=-8.169 |
-INFO: [Physopt 32-663] Processed net student_top_inst/bridge_inst/LED_reg[13]_lopt_replica_1.  Re-placed instance student_top_inst/bridge_inst/LED_reg[13]_lopt_replica
-INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/LED_reg[13]_lopt_replica_1. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.150 | TNS=-8.097 |
-INFO: [Physopt 32-663] Processed net student_top_inst/bridge_inst/LED_reg[31]_0[16].  Re-placed instance student_top_inst/bridge_inst/LED_reg[16]
-INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/LED_reg[31]_0[16]. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.150 | TNS=-7.985 |
-INFO: [Physopt 32-663] Processed net student_top_inst/bridge_inst/LED_reg[28]_lopt_replica_1.  Re-placed instance student_top_inst/bridge_inst/LED_reg[28]_lopt_replica
-INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/LED_reg[28]_lopt_replica_1. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.150 | TNS=-7.913 |
-INFO: [Physopt 32-663] Processed net student_top_inst/bridge_inst/LED_reg[31]_0[7].  Re-placed instance student_top_inst/bridge_inst/LED_reg[7]
-INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/LED_reg[31]_0[7]. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.150 | TNS=-7.852 |
-INFO: [Physopt 32-663] Processed net student_top_inst/bridge_inst/LED_reg[7]_lopt_replica_1.  Re-placed instance student_top_inst/bridge_inst/LED_reg[7]_lopt_replica
-INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/LED_reg[7]_lopt_replica_1. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.147 | TNS=-7.738 |
-INFO: [Physopt 32-702] Processed net student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[10].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.TRUE_DP.SIMPLE_PRIM36.ram_1[0]. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-702] Processed net pll_inst/inst/clk_out2_pll. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-663] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/addrb[11].  Re-placed instance student_top_inst/u_KLDJ_top/u_pipe_id_ex/u_dram_tdp_i_2
-INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/addrb[11]. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.145 | TNS=-7.857 |
-INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[31]_0[5]. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-663] Processed net student_top_inst/bridge_inst/dram_driver_inst/ex_mem_mem_addr_reg[1]_2.  Re-placed instance student_top_inst/bridge_inst/dram_driver_inst/mem_wb_wb_data[5]_i_2_comp_1
-INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/dram_driver_inst/ex_mem_mem_addr_reg[1]_2. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.144 | TNS=-7.853 |
-INFO: [Physopt 32-702] Processed net student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[6].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.TRUE_DP.SIMPLE_PRIM36.ram_1[0]. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/addrb[11]. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_mem_exu_res_reg[19]_i_4_n_7. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-608] Optimized 1 net.  Swapped 10 pins.
-INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_mem_exu_res[15]_i_7_n_0. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.143 | TNS=-6.487 |
-INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[31]_0[9]. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
-INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_ex_mem/u_mem_stage_top/lsu_res[9]. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.143 | TNS=-6.366 |
-INFO: [Physopt 32-702] Processed net student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp/U0/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[9].ram.r/prim_init.ram/DEVICE_7SERIES.NO_BMM_INFO.TRUE_DP.SIMPLE_PRIM36.ram_1[0]. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/addrb[9]. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_mem_exu_res_reg[15]_i_4_n_5. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-702] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_mem_exu_res[3]_i_8_n_0. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-663] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_data1[1].  Re-placed instance student_top_inst/u_KLDJ_top/u_pipe_id_ex/rs1_q[1]_i_1
-INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/u_pipe_id_ex/ex_data1[1]. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.141 | TNS=-6.224 |
-INFO: [Physopt 32-702] Processed net student_top_inst/bridge_inst/dram_driver_inst/ex_mem_mem_addr_reg[1]_2. Optimizations did not improve timing on the net.
-INFO: [Physopt 32-663] Processed net student_top_inst/bridge_inst/dram_driver_inst/mem_wb_wb_data[5]_i_4_n_0.  Re-placed instance student_top_inst/bridge_inst/dram_driver_inst/mem_wb_wb_data[5]_i_4
-INFO: [Physopt 32-735] Processed net student_top_inst/bridge_inst/dram_driver_inst/mem_wb_wb_data[5]_i_4_n_0. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.138 | TNS=-6.198 |
-INFO: [Physopt 32-663] Processed net student_top_inst/u_KLDJ_top/ifu0/Q[4]_repN_2.  Re-placed instance student_top_inst/u_KLDJ_top/ifu0/pc_reg_reg[4]_replica_2
-INFO: [Physopt 32-735] Processed net student_top_inst/u_KLDJ_top/ifu0/Q[4]_repN_2. Optimization improves timing on the net.
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.136 | TNS=-6.060 |
-INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-0.136 | TNS=-6.060 |
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.015 . Memory (MB): peak = 2361.316 ; gain = 0.000
-Phase 4 Critical Path Optimization | Checksum: 2bf2a71a9
-
-Time (s): cpu = 00:00:15 ; elapsed = 00:00:09 . Memory (MB): peak = 2361.316 ; gain = 12.699
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 2361.316 ; gain = 0.000
-INFO: [Physopt 32-603] Post Physical Optimization Timing Summary | WNS=-0.136 | TNS=-6.060 |
+Time (s): cpu = 00:00:16 ; elapsed = 00:00:10 . Memory (MB): peak = 2468.738 ; gain = 119.852
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 2468.738 ; gain = 0.000
+INFO: [Physopt 32-603] Post Physical Optimization Timing Summary | WNS=-0.317 | TNS=-12.768 |
 
 Summary of Physical Synthesis Optimizations
 ============================================
@@ -906,30 +771,30 @@ Summary of Physical Synthesis Optimizations
 |  Optimization   |  WNS Gain (ns)  |  TNS Gain (ns)  |  Added Cells  |  Removed Cells  |  Optimized Cells/Nets  |  Dont Touch  |  Iterations  |  Elapsed   |
 -------------------------------------------------------------------------------------------------------------------------------------------------------------
 |  DSP Register   |          0.000  |          0.000  |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
-|  Critical Path  |          0.572  |         29.706  |            0  |              0  |                    79  |           0  |           2  |  00:00:08  |
-|  Total          |          0.572  |         29.706  |            0  |              0  |                    79  |           0  |           3  |  00:00:08  |
+|  Critical Path  |          0.427  |         11.113  |            0  |              0  |                    23  |           0  |           2  |  00:00:08  |
+|  Total          |          0.427  |         11.113  |            0  |              0  |                    23  |           0  |           3  |  00:00:08  |
 -------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 2361.316 ; gain = 0.000
-Ending Physical Synthesis Task | Checksum: 256094d45
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.008 . Memory (MB): peak = 2468.738 ; gain = 0.000
+Ending Physical Synthesis Task | Checksum: 1411f15a5
 
-Time (s): cpu = 00:00:15 ; elapsed = 00:00:09 . Memory (MB): peak = 2361.316 ; gain = 12.699
+Time (s): cpu = 00:00:16 ; elapsed = 00:00:10 . Memory (MB): peak = 2468.738 ; gain = 119.852
 INFO: [Common 17-83] Releasing license: Implementation
-424 Infos, 16 Warnings, 0 Critical Warnings and 0 Errors encountered.
+248 Infos, 52 Warnings, 5 Critical Warnings and 0 Errors encountered.
 phys_opt_design completed successfully
-phys_opt_design: Time (s): cpu = 00:00:17 ; elapsed = 00:00:11 . Memory (MB): peak = 2361.316 ; gain = 12.699
+phys_opt_design: Time (s): cpu = 00:00:18 ; elapsed = 00:00:11 . Memory (MB): peak = 2468.738 ; gain = 119.852
 INFO: [Timing 38-480] Writing timing data to binary archive.
-Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.013 . Memory (MB): peak = 2372.984 ; gain = 8.965
-Wrote PlaceDB: Time (s): cpu = 00:00:03 ; elapsed = 00:00:00.775 . Memory (MB): peak = 2372.984 ; gain = 8.949
-Wrote PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2372.984 ; gain = 0.000
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.014 . Memory (MB): peak = 2492.445 ; gain = 11.906
+Wrote PlaceDB: Time (s): cpu = 00:00:02 ; elapsed = 00:00:00.601 . Memory (MB): peak = 2492.445 ; gain = 8.906
+Wrote PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2492.445 ; gain = 0.000
 Writing XDEF routing.
 Writing XDEF routing logical nets.
 Writing XDEF routing special nets.
-Wrote RouteStorage: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.034 . Memory (MB): peak = 2372.984 ; gain = 0.000
-Wrote Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.019 . Memory (MB): peak = 2372.984 ; gain = 0.000
-Wrote Device Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 2372.984 ; gain = 0.000
-Write Physdb Complete: Time (s): cpu = 00:00:03 ; elapsed = 00:00:00.854 . Memory (MB): peak = 2372.984 ; gain = 8.965
+Wrote RouteStorage: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.029 . Memory (MB): peak = 2492.445 ; gain = 0.000
+Wrote Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.019 . Memory (MB): peak = 2492.445 ; gain = 0.000
+Wrote Device Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 2492.445 ; gain = 0.000
+Write Physdb Complete: Time (s): cpu = 00:00:02 ; elapsed = 00:00:00.675 . Memory (MB): peak = 2492.445 ; gain = 11.906
 INFO: [Common 17-1381] The checkpoint 'D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_12/top_physopt.dcp' has been generated.
 Command: route_design
 Attempting to get a license for feature 'Implementation' and/or device 'xc7k325t'
@@ -947,30 +812,30 @@ Starting Routing Task
 INFO: [Route 35-254] Multithreading enabled for route_design using a maximum of 8 CPUs
 
 Phase 1 Build RT Design
-Checksum: PlaceDB: fc2f5d14 ConstDB: 0 ShapeSum: 8613fc89 RouteDB: 0
-Post Restoration Checksum: NetGraph: 4bb9fe84 | NumContArr: 160aa50e | Constraints: c2a8fa9d | Timing: c2a8fa9d
-Phase 1 Build RT Design | Checksum: 1e71698cc
+Checksum: PlaceDB: 6b9e6ecc ConstDB: 0 ShapeSum: 93c72796 RouteDB: 0
+Post Restoration Checksum: NetGraph: 976c7c02 | NumContArr: 9b87e083 | Constraints: c2a8fa9d | Timing: c2a8fa9d
+Phase 1 Build RT Design | Checksum: 2b84651bf
 
-Time (s): cpu = 00:00:31 ; elapsed = 00:00:19 . Memory (MB): peak = 2627.047 ; gain = 254.062
+Time (s): cpu = 00:00:30 ; elapsed = 00:00:18 . Memory (MB): peak = 2743.102 ; gain = 247.535
 
 Phase 2 Router Initialization
 
 Phase 2.1 Fix Topology Constraints
-Phase 2.1 Fix Topology Constraints | Checksum: 1e71698cc
+Phase 2.1 Fix Topology Constraints | Checksum: 2b84651bf
 
-Time (s): cpu = 00:00:31 ; elapsed = 00:00:19 . Memory (MB): peak = 2627.047 ; gain = 254.062
+Time (s): cpu = 00:00:30 ; elapsed = 00:00:18 . Memory (MB): peak = 2743.102 ; gain = 247.535
 
 Phase 2.2 Pre Route Cleanup
-Phase 2.2 Pre Route Cleanup | Checksum: 1e71698cc
+Phase 2.2 Pre Route Cleanup | Checksum: 2b84651bf
 
-Time (s): cpu = 00:00:31 ; elapsed = 00:00:19 . Memory (MB): peak = 2627.047 ; gain = 254.062
+Time (s): cpu = 00:00:30 ; elapsed = 00:00:18 . Memory (MB): peak = 2743.102 ; gain = 247.535
  Number of Nodes with overlaps = 0
 
 Phase 2.3 Update Timing
-Phase 2.3 Update Timing | Checksum: 1c0a8fba2
+Phase 2.3 Update Timing | Checksum: 16733fbf2
 
-Time (s): cpu = 00:00:37 ; elapsed = 00:00:23 . Memory (MB): peak = 2821.312 ; gain = 448.328
-INFO: [Route 35-416] Intermediate Timing Summary | WNS=-0.116 | TNS=-0.940 | WHS=-0.437 | THS=-293.337|
+Time (s): cpu = 00:00:36 ; elapsed = 00:00:22 . Memory (MB): peak = 2822.051 ; gain = 326.484
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=-0.317 | TNS=-3.691 | WHS=-0.426 | THS=-299.755|
 
 
 Router Utilization Summary
@@ -979,42 +844,42 @@ Router Utilization Summary
   Routable Net Status*
   *Does not include unroutable nets such as driverless and loadless.
   Run report_route_status for detailed report.
-  Number of Failed Nets               = 10442
+  Number of Failed Nets               = 10476
     (Failed Nets is the sum of unrouted and partially routed nets)
-  Number of Unrouted Nets             = 10442
+  Number of Unrouted Nets             = 10476
   Number of Partially Routed Nets     = 0
   Number of Node Overlaps             = 0
 
-Phase 2 Router Initialization | Checksum: 22e2a5729
+Phase 2 Router Initialization | Checksum: 10781e6c7
 
-Time (s): cpu = 00:00:40 ; elapsed = 00:00:25 . Memory (MB): peak = 2860.934 ; gain = 487.949
+Time (s): cpu = 00:00:39 ; elapsed = 00:00:24 . Memory (MB): peak = 2852.203 ; gain = 356.637
 
 Phase 3 Initial Routing
 
 Phase 3.1 Global Routing
-Phase 3.1 Global Routing | Checksum: 22e2a5729
+Phase 3.1 Global Routing | Checksum: 10781e6c7
 
-Time (s): cpu = 00:00:40 ; elapsed = 00:00:25 . Memory (MB): peak = 2860.934 ; gain = 487.949
+Time (s): cpu = 00:00:39 ; elapsed = 00:00:24 . Memory (MB): peak = 2852.203 ; gain = 356.637
 
 Phase 3.2 Initial Net Routing
-Phase 3.2 Initial Net Routing | Checksum: 1c9230d8c
+Phase 3.2 Initial Net Routing | Checksum: 2611ca9ad
 
-Time (s): cpu = 00:01:06 ; elapsed = 00:00:34 . Memory (MB): peak = 3005.285 ; gain = 632.301
-Phase 3 Initial Routing | Checksum: 1c9230d8c
+Time (s): cpu = 00:01:00 ; elapsed = 00:00:33 . Memory (MB): peak = 2983.477 ; gain = 487.910
+Phase 3 Initial Routing | Checksum: 2611ca9ad
 
-Time (s): cpu = 00:01:06 ; elapsed = 00:00:34 . Memory (MB): peak = 3005.285 ; gain = 632.301
-INFO: [Route 35-580] Design has 56 pins with tight setup and hold constraints.
+Time (s): cpu = 00:01:00 ; elapsed = 00:00:33 . Memory (MB): peak = 2983.477 ; gain = 487.910
+INFO: [Route 35-580] Design has 60 pins with tight setup and hold constraints.
 
 The top 5 pins with tight setup and hold constraints:
 
 +====================+===================+====================================================================+
 | Launch Setup Clock | Launch Hold Clock | Pin                                                                |
 +====================+===================+====================================================================+
-| clk_out2_pll       | clk_out1_pll      | student_top_inst/bridge_inst/mmio_rdata_q_reg[15]/D                |
-| clk_out2_pll       | clk_out2_pll      | twin_controller_inst/status_buffer_reg[0][6]/D                     |
+| clk_out2_pll       | clk_out2_pll      | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[1]/D  |
+| clk_out2_pll       | clk_out2_pll      | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[6]/D  |
 | clk_out2_pll       | clk_out2_pll      | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[3]/D  |
-| clk_out1_pll       | clk_out1_pll      | student_top_inst/bridge_inst/mmio_rdata_q_reg[18]/D                |
-| clk_out2_pll       | clk_out2_pll      | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[15]/D |
+| clk_out2_pll       | clk_out2_pll      | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[2]/D  |
+| clk_out2_pll       | clk_out2_pll      | student_top_inst/u_KLDJ_top/u_pipe_mem_wb/mem_wb_wb_data_reg[25]/D |
 +--------------------+-------------------+--------------------------------------------------------------------+
 
 File with complete list of pins: tight_setup_hold_pins.txt
@@ -1023,104 +888,114 @@ File with complete list of pins: tight_setup_hold_pins.txt
 Phase 4 Rip-up And Reroute
 
 Phase 4.1 Global Iteration 0
- Number of Nodes with overlaps = 3205
- Number of Nodes with overlaps = 1084
- Number of Nodes with overlaps = 490
- Number of Nodes with overlaps = 185
- Number of Nodes with overlaps = 64
- Number of Nodes with overlaps = 11
- Number of Nodes with overlaps = 4
+ Number of Nodes with overlaps = 4026
+ Number of Nodes with overlaps = 1254
+ Number of Nodes with overlaps = 447
+ Number of Nodes with overlaps = 170
+ Number of Nodes with overlaps = 92
+ Number of Nodes with overlaps = 47
+ Number of Nodes with overlaps = 65
+ Number of Nodes with overlaps = 13
+ Number of Nodes with overlaps = 6
+ Number of Nodes with overlaps = 6
+ Number of Nodes with overlaps = 2
+ Number of Nodes with overlaps = 1
  Number of Nodes with overlaps = 0
-INFO: [Route 35-416] Intermediate Timing Summary | WNS=-0.713 | TNS=-132.595| WHS=N/A    | THS=N/A    |
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=-0.677 | TNS=-67.400| WHS=N/A    | THS=N/A    |
 
-Phase 4.1 Global Iteration 0 | Checksum: 2c1082da5
+Phase 4.1 Global Iteration 0 | Checksum: 28a65a2f1
 
-Time (s): cpu = 00:01:46 ; elapsed = 00:01:07 . Memory (MB): peak = 3005.285 ; gain = 632.301
+Time (s): cpu = 00:01:51 ; elapsed = 00:01:14 . Memory (MB): peak = 2983.477 ; gain = 487.910
 
 Phase 4.2 Global Iteration 1
- Number of Nodes with overlaps = 581
- Number of Nodes with overlaps = 236
- Number of Nodes with overlaps = 69
- Number of Nodes with overlaps = 89
- Number of Nodes with overlaps = 14
- Number of Nodes with overlaps = 10
- Number of Nodes with overlaps = 8
+ Number of Nodes with overlaps = 213
+ Number of Nodes with overlaps = 97
+ Number of Nodes with overlaps = 39
+ Number of Nodes with overlaps = 15
+ Number of Nodes with overlaps = 7
+ Number of Nodes with overlaps = 4
+ Number of Nodes with overlaps = 2
+ Number of Nodes with overlaps = 2
  Number of Nodes with overlaps = 1
- Number of Nodes with overlaps = 3
- Number of Nodes with overlaps = 3
  Number of Nodes with overlaps = 0
-INFO: [Route 35-416] Intermediate Timing Summary | WNS=-0.453 | TNS=-61.960| WHS=N/A    | THS=N/A    |
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=-0.301 | TNS=-7.146 | WHS=N/A    | THS=N/A    |
 
-Phase 4.2 Global Iteration 1 | Checksum: 164b62e4e
+Phase 4.2 Global Iteration 1 | Checksum: 21b42e64f
 
-Time (s): cpu = 00:02:05 ; elapsed = 00:01:19 . Memory (MB): peak = 3005.285 ; gain = 632.301
+Time (s): cpu = 00:02:01 ; elapsed = 00:01:21 . Memory (MB): peak = 2983.477 ; gain = 487.910
 
 Phase 4.3 Global Iteration 2
- Number of Nodes with overlaps = 573
- Number of Nodes with overlaps = 332
- Number of Nodes with overlaps = 149
- Number of Nodes with overlaps = 57
- Number of Nodes with overlaps = 23
- Number of Nodes with overlaps = 16
+ Number of Nodes with overlaps = 572
+ Number of Nodes with overlaps = 227
+ Number of Nodes with overlaps = 94
+ Number of Nodes with overlaps = 53
+ Number of Nodes with overlaps = 34
  Number of Nodes with overlaps = 15
  Number of Nodes with overlaps = 16
+ Number of Nodes with overlaps = 12
+ Number of Nodes with overlaps = 9
+ Number of Nodes with overlaps = 14
  Number of Nodes with overlaps = 2
- Number of Nodes with overlaps = 4
+ Number of Nodes with overlaps = 2
+ Number of Nodes with overlaps = 3
+ Number of Nodes with overlaps = 2
+ Number of Nodes with overlaps = 1
+ Number of Nodes with overlaps = 1
  Number of Nodes with overlaps = 0
-INFO: [Route 35-416] Intermediate Timing Summary | WNS=-0.620 | TNS=-58.431| WHS=N/A    | THS=N/A    |
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=-0.371 | TNS=-8.898 | WHS=N/A    | THS=N/A    |
 
-Phase 4.3 Global Iteration 2 | Checksum: 212949713
+Phase 4.3 Global Iteration 2 | Checksum: 21d34094f
 
-Time (s): cpu = 00:02:25 ; elapsed = 00:01:32 . Memory (MB): peak = 3005.285 ; gain = 632.301
-Phase 4 Rip-up And Reroute | Checksum: 212949713
+Time (s): cpu = 00:02:24 ; elapsed = 00:01:38 . Memory (MB): peak = 2983.477 ; gain = 487.910
+Phase 4 Rip-up And Reroute | Checksum: 21d34094f
 
-Time (s): cpu = 00:02:25 ; elapsed = 00:01:32 . Memory (MB): peak = 3005.285 ; gain = 632.301
+Time (s): cpu = 00:02:24 ; elapsed = 00:01:38 . Memory (MB): peak = 2983.477 ; gain = 487.910
 
 Phase 5 Delay and Skew Optimization
 
 Phase 5.1 Delay CleanUp
 
 Phase 5.1.1 Update Timing
-Phase 5.1.1 Update Timing | Checksum: 2360b9fc5
+Phase 5.1.1 Update Timing | Checksum: 24accaa84
 
-Time (s): cpu = 00:02:26 ; elapsed = 00:01:32 . Memory (MB): peak = 3005.285 ; gain = 632.301
-INFO: [Route 35-416] Intermediate Timing Summary | WNS=-0.437 | TNS=-41.512| WHS=N/A    | THS=N/A    |
+Time (s): cpu = 00:02:25 ; elapsed = 00:01:38 . Memory (MB): peak = 2983.477 ; gain = 487.910
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=-0.215 | TNS=-3.636 | WHS=N/A    | THS=N/A    |
 
  Number of Nodes with overlaps = 0
-Phase 5.1 Delay CleanUp | Checksum: 1c394f8df
+Phase 5.1 Delay CleanUp | Checksum: 23e8a53ed
 
-Time (s): cpu = 00:02:30 ; elapsed = 00:01:34 . Memory (MB): peak = 3005.285 ; gain = 632.301
+Time (s): cpu = 00:02:28 ; elapsed = 00:01:40 . Memory (MB): peak = 2983.477 ; gain = 487.910
 
 Phase 5.2 Clock Skew Optimization
-Phase 5.2 Clock Skew Optimization | Checksum: 1c394f8df
+Phase 5.2 Clock Skew Optimization | Checksum: 23e8a53ed
 
-Time (s): cpu = 00:02:30 ; elapsed = 00:01:34 . Memory (MB): peak = 3005.285 ; gain = 632.301
-Phase 5 Delay and Skew Optimization | Checksum: 1c394f8df
+Time (s): cpu = 00:02:28 ; elapsed = 00:01:40 . Memory (MB): peak = 2983.477 ; gain = 487.910
+Phase 5 Delay and Skew Optimization | Checksum: 23e8a53ed
 
-Time (s): cpu = 00:02:30 ; elapsed = 00:01:34 . Memory (MB): peak = 3005.285 ; gain = 632.301
+Time (s): cpu = 00:02:28 ; elapsed = 00:01:40 . Memory (MB): peak = 2983.477 ; gain = 487.910
 
 Phase 6 Post Hold Fix
 
 Phase 6.1 Hold Fix Iter
 
 Phase 6.1.1 Update Timing
-Phase 6.1.1 Update Timing | Checksum: 1ca44d6ba
+Phase 6.1.1 Update Timing | Checksum: 233b6d017
 
-Time (s): cpu = 00:02:31 ; elapsed = 00:01:35 . Memory (MB): peak = 3005.285 ; gain = 632.301
-INFO: [Route 35-416] Intermediate Timing Summary | WNS=-0.437 | TNS=-37.479| WHS=0.042  | THS=0.000  |
+Time (s): cpu = 00:02:29 ; elapsed = 00:01:40 . Memory (MB): peak = 2983.477 ; gain = 487.910
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=-0.215 | TNS=-3.446 | WHS=0.057  | THS=0.000  |
 
-Phase 6.1 Hold Fix Iter | Checksum: 2a1db96bd
+Phase 6.1 Hold Fix Iter | Checksum: 233b6d017
 
-Time (s): cpu = 00:02:31 ; elapsed = 00:01:35 . Memory (MB): peak = 3005.285 ; gain = 632.301
-Phase 6 Post Hold Fix | Checksum: 2a1db96bd
+Time (s): cpu = 00:02:29 ; elapsed = 00:01:40 . Memory (MB): peak = 2983.477 ; gain = 487.910
+Phase 6 Post Hold Fix | Checksum: 233b6d017
 
-Time (s): cpu = 00:02:31 ; elapsed = 00:01:35 . Memory (MB): peak = 3005.285 ; gain = 632.301
+Time (s): cpu = 00:02:29 ; elapsed = 00:01:40 . Memory (MB): peak = 2983.477 ; gain = 487.910
 
 Phase 7 Route finalize
 
 Router Utilization Summary
-  Global Vertical Routing Utilization    = 1.51146 %
-  Global Horizontal Routing Utilization  = 1.5041 %
+  Global Vertical Routing Utilization    = 1.44479 %
+  Global Horizontal Routing Utilization  = 1.40952 %
   Routable Net Status*
   *Does not include unroutable nets such as driverless and loadless.
   Run report_route_status for detailed report.
@@ -1134,20 +1009,22 @@ Router Utilization Summary
 --GLOBAL Congestion:
 Utilization threshold used for congestion level computation: 0.85
 Congestion Report
-North Dir 1x1 Area, Max Cong = 90.991%, Congestion bounded by tiles (Lower Left Tile -> Upper Right Tile):
-   INT_R_X31Y95 -> INT_R_X31Y95
-   INT_L_X30Y86 -> INT_L_X30Y86
-   INT_L_X28Y84 -> INT_L_X28Y84
-South Dir 1x1 Area, Max Cong = 96.3964%, Congestion bounded by tiles (Lower Left Tile -> Upper Right Tile):
-   INT_L_X30Y81 -> INT_L_X30Y81
-   INT_R_X29Y77 -> INT_R_X29Y77
-   INT_R_X29Y76 -> INT_R_X29Y76
-   INT_L_X30Y76 -> INT_L_X30Y76
-   INT_R_X29Y74 -> INT_R_X29Y74
-East Dir 1x1 Area, Max Cong = 80.8824%, No Congested Regions.
-West Dir 1x1 Area, Max Cong = 91.1765%, Congestion bounded by tiles (Lower Left Tile -> Upper Right Tile):
-   INT_L_X34Y79 -> INT_L_X34Y79
-   INT_L_X32Y78 -> INT_L_X32Y78
+North Dir 1x1 Area, Max Cong = 88.2883%, Congestion bounded by tiles (Lower Left Tile -> Upper Right Tile):
+   INT_R_X29Y92 -> INT_R_X29Y92
+South Dir 1x1 Area, Max Cong = 90.991%, Congestion bounded by tiles (Lower Left Tile -> Upper Right Tile):
+   INT_L_X30Y102 -> INT_L_X30Y102
+   INT_L_X26Y99 -> INT_L_X26Y99
+   INT_L_X30Y96 -> INT_L_X30Y96
+   INT_R_X29Y94 -> INT_R_X29Y94
+   INT_L_X30Y93 -> INT_L_X30Y93
+East Dir 2x2 Area, Max Cong = 87.1324%, Congestion bounded by tiles (Lower Left Tile -> Upper Right Tile):
+   INT_L_X32Y94 -> INT_R_X33Y95
+West Dir 1x1 Area, Max Cong = 95.5882%, Congestion bounded by tiles (Lower Left Tile -> Upper Right Tile):
+   INT_R_X31Y101 -> INT_R_X31Y101
+   INT_R_X27Y99 -> INT_R_X27Y99
+   INT_L_X30Y97 -> INT_L_X30Y97
+   INT_R_X29Y96 -> INT_R_X29Y96
+   INT_L_X30Y96 -> INT_L_X30Y96
 
 ------------------------------
 Reporting congestion hotspots
@@ -1159,55 +1036,55 @@ Effective congestion level: 0 Aspect Ratio: 1 Sparse Ratio: 1
 Direction: South
 ----------------
 Congested clusters found at Level 0
-Effective congestion level: 1 Aspect Ratio: 1 Sparse Ratio: 1.5
+Effective congestion level: 0 Aspect Ratio: 1 Sparse Ratio: 1
 Direction: East
 ----------------
 Congested clusters found at Level 0
-Effective congestion level: 0 Aspect Ratio: 1 Sparse Ratio: 0
+Effective congestion level: 1 Aspect Ratio: 1 Sparse Ratio: 1.25
 Direction: West
 ----------------
 Congested clusters found at Level 0
-Effective congestion level: 1 Aspect Ratio: 0.5 Sparse Ratio: 0.5
+Effective congestion level: 1 Aspect Ratio: 0.666667 Sparse Ratio: 1
 
-Phase 7 Route finalize | Checksum: 2a1db96bd
+Phase 7 Route finalize | Checksum: 233b6d017
 
-Time (s): cpu = 00:02:31 ; elapsed = 00:01:35 . Memory (MB): peak = 3005.285 ; gain = 632.301
+Time (s): cpu = 00:02:29 ; elapsed = 00:01:40 . Memory (MB): peak = 2983.477 ; gain = 487.910
 
 Phase 8 Verifying routed nets
 
  Verification completed successfully
-Phase 8 Verifying routed nets | Checksum: 2a1db96bd
+Phase 8 Verifying routed nets | Checksum: 233b6d017
 
-Time (s): cpu = 00:02:31 ; elapsed = 00:01:35 . Memory (MB): peak = 3005.285 ; gain = 632.301
+Time (s): cpu = 00:02:29 ; elapsed = 00:01:40 . Memory (MB): peak = 2983.477 ; gain = 487.910
 
 Phase 9 Depositing Routes
-Phase 9 Depositing Routes | Checksum: 340fac3d4
+Phase 9 Depositing Routes | Checksum: 273e79ad6
 
-Time (s): cpu = 00:02:32 ; elapsed = 00:01:35 . Memory (MB): peak = 3005.285 ; gain = 632.301
+Time (s): cpu = 00:02:30 ; elapsed = 00:01:41 . Memory (MB): peak = 2983.477 ; gain = 487.910
 
 Phase 10 Post Router Timing
-INFO: [Route 35-57] Estimated Timing Summary | WNS=-0.437 | TNS=-37.479| WHS=0.042  | THS=0.000  |
+INFO: [Route 35-57] Estimated Timing Summary | WNS=-0.215 | TNS=-3.446 | WHS=0.057  | THS=0.000  |
 
 WARNING: [Route 35-328] Router estimated timing not met.
 Resolution: For a complete and accurate timing signoff, report_timing_summary must be run after route_design. Alternatively, route_design can be run with the -timing_summary option to enable a complete timing signoff at the end of route_design.
-Phase 10 Post Router Timing | Checksum: 340fac3d4
+Phase 10 Post Router Timing | Checksum: 273e79ad6
 
-Time (s): cpu = 00:02:33 ; elapsed = 00:01:36 . Memory (MB): peak = 3005.285 ; gain = 632.301
+Time (s): cpu = 00:02:31 ; elapsed = 00:01:41 . Memory (MB): peak = 2983.477 ; gain = 487.910
 INFO: [Route 35-16] Router Completed Successfully
 
 Phase 11 Post-Route Event Processing
-Phase 11 Post-Route Event Processing | Checksum: 11994c70a
+Phase 11 Post-Route Event Processing | Checksum: 10da3980f
 
-Time (s): cpu = 00:02:33 ; elapsed = 00:01:36 . Memory (MB): peak = 3005.285 ; gain = 632.301
-Ending Routing Task | Checksum: 11994c70a
+Time (s): cpu = 00:02:31 ; elapsed = 00:01:42 . Memory (MB): peak = 2983.477 ; gain = 487.910
+Ending Routing Task | Checksum: 10da3980f
 
-Time (s): cpu = 00:02:34 ; elapsed = 00:01:37 . Memory (MB): peak = 3005.285 ; gain = 632.301
+Time (s): cpu = 00:02:31 ; elapsed = 00:01:42 . Memory (MB): peak = 2983.477 ; gain = 487.910
 
 Routing Is Done.
 INFO: [Common 17-83] Releasing license: Implementation
-444 Infos, 17 Warnings, 0 Critical Warnings and 0 Errors encountered.
+268 Infos, 53 Warnings, 5 Critical Warnings and 0 Errors encountered.
 route_design completed successfully
-route_design: Time (s): cpu = 00:02:37 ; elapsed = 00:01:38 . Memory (MB): peak = 3005.285 ; gain = 632.301
+route_design: Time (s): cpu = 00:02:34 ; elapsed = 00:01:43 . Memory (MB): peak = 2983.477 ; gain = 491.031
 INFO: [runtcl-4] Executing : report_drc -file top_drc_routed.rpt -pb top_drc_routed.pb -rpx top_drc_routed.rpx
 Command: report_drc -file top_drc_routed.rpt -pb top_drc_routed.pb -rpx top_drc_routed.rpx
 INFO: [IP_Flow 19-1839] IP Catalog is up to date.
@@ -1226,7 +1103,7 @@ INFO: [Timing 38-35] Done setting XDC timing constraints.
 Running Vector-less Activity Propagation...
 
 Finished Running Vector-less Activity Propagation
-454 Infos, 17 Warnings, 0 Critical Warnings and 0 Errors encountered.
+278 Infos, 53 Warnings, 5 Critical Warnings and 0 Errors encountered.
 report_power completed successfully
 INFO: [runtcl-4] Executing : report_route_status -file top_route_status.rpt -pb top_route_status.pb
 INFO: [runtcl-4] Executing : report_timing_summary -max_paths 10 -report_unconstrained -file top_timing_summary_routed.rpt -pb top_timing_summary_routed.pb -rpx top_timing_summary_routed.rpx -warn_on_violation 
@@ -1240,25 +1117,25 @@ INFO: [runtcl-4] Executing : report_bus_skew -warn_on_violation -file top_bus_sk
 INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: min_max.
 INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
 INFO: [Timing 38-480] Writing timing data to binary archive.
-Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.019 . Memory (MB): peak = 3005.285 ; gain = 0.000
-Wrote PlaceDB: Time (s): cpu = 00:00:03 ; elapsed = 00:00:00.741 . Memory (MB): peak = 3005.285 ; gain = 0.000
-Wrote PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 3005.285 ; gain = 0.000
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.016 . Memory (MB): peak = 2983.477 ; gain = 0.000
+Wrote PlaceDB: Time (s): cpu = 00:00:02 ; elapsed = 00:00:00.624 . Memory (MB): peak = 2983.477 ; gain = 0.000
+Wrote PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2983.477 ; gain = 0.000
 Writing XDEF routing.
 Writing XDEF routing logical nets.
 Writing XDEF routing special nets.
-Wrote RouteStorage: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.275 . Memory (MB): peak = 3005.285 ; gain = 0.000
-Wrote Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.015 . Memory (MB): peak = 3005.285 ; gain = 0.000
-Wrote Device Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 3005.285 ; gain = 0.000
-Write Physdb Complete: Time (s): cpu = 00:00:03 ; elapsed = 00:00:01 . Memory (MB): peak = 3005.285 ; gain = 0.000
+Wrote RouteStorage: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.183 . Memory (MB): peak = 2983.477 ; gain = 0.000
+Wrote Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.017 . Memory (MB): peak = 2983.477 ; gain = 0.000
+Wrote Device Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 2983.477 ; gain = 0.000
+Write Physdb Complete: Time (s): cpu = 00:00:02 ; elapsed = 00:00:00.848 . Memory (MB): peak = 2983.477 ; gain = 0.000
 INFO: [Common 17-1381] The checkpoint 'D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_12/top_routed.dcp' has been generated.
-INFO: [Common 17-206] Exiting Vivado at Mon Jul 13 15:05:14 2026...
+INFO: [Common 17-206] Exiting Vivado at Tue Jul 14 17:35:21 2026...
 #-----------------------------------------------------------
 # Vivado v2023.2 (64-bit)
 # SW Build 4029153 on Fri Oct 13 20:14:34 MDT 2023
 # IP Build 4028589 on Sat Oct 14 00:45:43 MDT 2023
 # SharedData Build 4025554 on Tue Oct 10 17:18:54 MDT 2023
-# Start of session at: Mon Jul 13 15:13:28 2026
-# Process ID: 12528
+# Start of session at: Tue Jul 14 17:35:51 2026
+# Process ID: 35340
 # Current directory: D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_12
 # Command line: vivado.exe -log top.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source top.tcl -notrace
 # Log file: D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_12/top.vdi
@@ -1270,31 +1147,31 @@ Command: open_checkpoint top_routed.dcp
 
 Starting open_checkpoint Task
 
-Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.035 . Memory (MB): peak = 399.492 ; gain = 8.633
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.034 . Memory (MB): peak = 399.035 ; gain = 5.727
 INFO: [Device 21-403] Loading part xc7k325tffg900-2
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.244 . Memory (MB): peak = 1034.883 ; gain = 0.000
-INFO: [Netlist 29-17] Analyzing 1511 Unisim elements for replacement
+Netlist sorting complete. Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.227 . Memory (MB): peak = 1034.629 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 1512 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-479] Netlist was created with Vivado 2023.2
 INFO: [Project 1-570] Preparing netlist for logic optimization
-Read ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.028 . Memory (MB): peak = 1163.102 ; gain = 2.594
+Read ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.024 . Memory (MB): peak = 1161.500 ; gain = 2.492
 INFO: [Timing 38-478] Restoring timing data from binary archive.
 INFO: [Timing 38-479] Binary timing data restore complete.
 INFO: [Project 1-856] Restoring constraints from binary archive.
 INFO: [Project 1-853] Binary constraint restore complete.
 INFO: [Designutils 20-5722] Start Reading Physical Databases.
 Reading placement.
-Read Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.009 . Memory (MB): peak = 1811.090 ; gain = 0.000
+Read Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.012 . Memory (MB): peak = 1804.359 ; gain = 0.000
 Reading placer database...
-Read Device Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 1811.090 ; gain = 0.000
-Read PlaceDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.318 . Memory (MB): peak = 1811.090 ; gain = 0.000
-Read PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1811.090 ; gain = 0.000
+Read Device Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 1804.359 ; gain = 0.000
+Read PlaceDB: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.347 . Memory (MB): peak = 1804.359 ; gain = 0.000
+Read PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1804.359 ; gain = 0.000
 Reading routing.
-Read RouteStorage: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.195 . Memory (MB): peak = 1811.090 ; gain = 0.000
-Read Physdb Files: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.543 . Memory (MB): peak = 1811.090 ; gain = 0.000
-Restored from archive | CPU: 0.000000 secs | Memory: 0.000000 MB |
-Finished XDEF File Restore: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.585 . Memory (MB): peak = 1811.090 ; gain = 2.984
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 1811.090 ; gain = 0.000
+Read RouteStorage: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.207 . Memory (MB): peak = 1804.359 ; gain = 0.000
+Read Physdb Files: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.587 . Memory (MB): peak = 1804.359 ; gain = 0.000
+Restored from archive | CPU: 1.000000 secs | Memory: 0.000000 MB |
+Finished XDEF File Restore: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.645 . Memory (MB): peak = 1804.359 ; gain = 2.961
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 1804.359 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
   A total of 21 instances were transformed.
   RAM64M => RAM64M (RAMD64E(x4)): 19 instances
@@ -1302,7 +1179,7 @@ INFO: [Project 1-111] Unisim Transformation Summary:
   RAM64X1S => RAM64X1S (RAMS64E): 1 instance 
 
 INFO: [Project 1-604] Checkpoint was created with Vivado v2023.2 (64-bit) build 4029153
-open_checkpoint: Time (s): cpu = 00:00:16 ; elapsed = 00:00:18 . Memory (MB): peak = 1812.453 ; gain = 1428.887
+open_checkpoint: Time (s): cpu = 00:00:17 ; elapsed = 00:00:18 . Memory (MB): peak = 1809.363 ; gain = 1422.867
 Command: write_bitstream -force top.bit
 Attempting to get a license for feature 'Implementation' and/or device 'xc7k325t'
 INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7k325t'
@@ -1337,5 +1214,5 @@ INFO: [Vivado 12-1842] Bitgen Completed Successfully.
 INFO: [Common 17-83] Releasing license: Implementation
 22 Infos, 4 Warnings, 0 Critical Warnings and 0 Errors encountered.
 write_bitstream completed successfully
-write_bitstream: Time (s): cpu = 00:00:32 ; elapsed = 00:00:26 . Memory (MB): peak = 2484.664 ; gain = 672.211
-INFO: [Common 17-206] Exiting Vivado at Mon Jul 13 15:14:14 2026...
+write_bitstream: Time (s): cpu = 00:00:29 ; elapsed = 00:00:25 . Memory (MB): peak = 2487.012 ; gain = 677.648
+INFO: [Common 17-206] Exiting Vivado at Tue Jul 14 17:36:37 2026...

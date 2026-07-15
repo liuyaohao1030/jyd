@@ -181,7 +181,7 @@ module KLDJ_top(
     assign if_static_jal        = (if_inst[6:2] == `KLDJ_JAL) && (if_inst[1:0] == 2'b11);
     assign if_static_jal_imm    = {{12{if_inst[31]}}, if_inst[19:12], if_inst[20], if_inst[30:21], 1'b0};
     assign if_static_jal_target = if_pc + if_static_jal_imm;
-    assign if_pred_taken        = if_static_jal || bpu_pred_taken;
+    assign if_pred_taken        = if_static_jal || bpu_pred_taken;   
     assign if_pred_target       = if_static_jal ? if_static_jal_target : bpu_pred_target;
 
     // ========================================================

@@ -12,6 +12,7 @@ module bpu #(
     ,output wire                  pred_taken
     ,output wire [`KLDJ_PC]       pred_target
     ,output wire                  btb_hit
+    ,output wire                  pred_is_jalr
     ,output wire [INDEX_WIDTH-1:0] lookup_pht_idx
 
     // EX stage update
@@ -20,6 +21,7 @@ module bpu #(
     ,input  wire [INDEX_WIDTH-1:0] update_pht_idx
     ,input  wire                  update_taken
     ,input  wire [`KLDJ_PC]       update_target
+    ,input  wire                  update_is_jalr
 );
 
     gshare_btb_core #(
@@ -32,12 +34,14 @@ module bpu #(
         ,.pred_taken     (pred_taken     )
         ,.pred_target    (pred_target    )
         ,.btb_hit        (btb_hit        )
+        ,.pred_is_jalr   (pred_is_jalr   )
         ,.lookup_pht_idx (lookup_pht_idx )
         ,.update_valid   (update_valid   )
         ,.update_pc      (update_pc      )
         ,.update_pht_idx (update_pht_idx )
         ,.update_taken   (update_taken   )
         ,.update_target  (update_target  )
+        ,.update_is_jalr (update_is_jalr )
     );
 
 endmodule
@@ -54,6 +58,7 @@ module gshare_btb_core #(
     ,output wire                  pred_taken
     ,output wire [`KLDJ_PC]       pred_target
     ,output wire                  btb_hit
+    ,output wire                  pred_is_jalr
     ,output wire [INDEX_WIDTH-1:0] lookup_pht_idx
 
     // EX stage update
@@ -62,6 +67,7 @@ module gshare_btb_core #(
     ,input  wire [INDEX_WIDTH-1:0] update_pht_idx
     ,input  wire                  update_taken
     ,input  wire [`KLDJ_PC]       update_target
+    ,input  wire                  update_is_jalr
 );
 
     localparam ENTRY_NUM      = (1 << INDEX_WIDTH);
@@ -77,11 +83,13 @@ module gshare_btb_core #(
     reg [INDEX_WIDTH-1:0]       update_pht_idx_q;
     reg                         update_taken_q;
     reg [`KLDJ_PC]              update_target_q;
+    reg                         update_is_jalr_q;
 
     // The data arrays intentionally have no reset. Keeping resettable validity
     // bits separate allows Vivado to infer asynchronous-read distributed RAM.
     (* ram_style = "distributed" *) reg [1:0] pht [0:ENTRY_NUM-1];
     (* ram_style = "distributed" *) reg [BTB_DATA_WIDTH-1:0] btb_data [0:ENTRY_NUM-1];
+    (* ram_style = "distributed" *) reg                         btb_is_jalr [0:ENTRY_NUM-1];
     reg [ENTRY_NUM-1:0] pht_valid;
     reg [ENTRY_NUM-1:0] btb_valid;
 
@@ -95,6 +103,7 @@ module gshare_btb_core #(
     wire [BTB_DATA_WIDTH-1:0] lookup_btb_data;
     wire [TAG_WIDTH-1:0]   lookup_btb_tag;
     wire [`KLDJ_PC]        lookup_btb_target;
+    wire                    lookup_btb_is_jalr;
 
     assign lookup_btb_idx = lookup_pc[INDEX_WIDTH+1:2];
     assign lookup_pht_idx = lookup_btb_idx ^ ghr;
@@ -113,9 +122,11 @@ module gshare_btb_core #(
     assign lookup_btb_data   = btb_data[lookup_btb_idx];
     assign lookup_btb_tag    = lookup_btb_data[BTB_DATA_WIDTH-1:32];
     assign lookup_btb_target = lookup_btb_data[31:0];
+    assign lookup_btb_is_jalr = btb_is_jalr[lookup_btb_idx];
 
     assign btb_hit     = btb_valid[lookup_btb_idx] && (lookup_btb_tag == lookup_tag);
-    assign pred_taken  = btb_hit && lookup_pht_value[1];
+    assign pred_is_jalr = btb_hit && lookup_btb_is_jalr;
+    assign pred_taken  = btb_hit && (lookup_btb_is_jalr || lookup_pht_value[1]);
     assign pred_target = lookup_btb_target;
 
     always @(posedge clk) begin
@@ -124,6 +135,7 @@ module gshare_btb_core #(
             pht_valid <= {ENTRY_NUM{1'b0}};
             btb_valid <= {ENTRY_NUM{1'b0}};
             update_valid_q <= 1'b0;
+            update_is_jalr_q <= 1'b0;
         end else begin
             update_valid_q <= update_valid;
             if(update_valid) begin
@@ -131,13 +143,23 @@ module gshare_btb_core #(
                 update_pht_idx_q <= update_pht_idx;
                 update_taken_q   <= update_taken;
                 update_target_q  <= update_target;
+                update_is_jalr_q <= update_is_jalr;
 
-                ghr <= {ghr[INDEX_WIDTH-2:0], update_taken};
+                // Indirect targets are not directional outcomes. Do not let
+                // JALR calls/returns perturb the GShare history.
+                if (!update_is_jalr)
+                    ghr <= {ghr[INDEX_WIDTH-2:0], update_taken};
             end
 
             if(update_valid_q) begin
-                pht[update_pht_idx_q]       <= update_pht_next;
-                pht_valid[update_pht_idx_q] <= 1'b1;
+                if (!update_is_jalr_q) begin
+                    pht[update_pht_idx_q]       <= update_pht_next;
+                    pht_valid[update_pht_idx_q] <= 1'b1;
+                end
+
+                // A JALR always allocates/updates the target entry. Direct
+                // control-flow updates keep the legacy non-indirect type.
+                btb_is_jalr[update_btb_idx] <= update_is_jalr_q;
 
                 if(update_taken_q) begin
                     btb_valid[update_btb_idx] <= 1'b1;

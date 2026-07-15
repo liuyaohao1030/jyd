@@ -1,5 +1,5 @@
 # 0. 定义绝对路径变量（注意：所有的反斜杠 \ 都已经替换成了正斜杠 /）
-set out_dir "D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/Timing_info/fixtiming5"
+set out_dir "D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/Timing_info/fixtiming6_jalr"
 
 # 1. 创建该绝对路径下的所有文件夹（就算父文件夹不存在，它也会自动顺藤摸瓜建好）
 file mkdir $out_dir

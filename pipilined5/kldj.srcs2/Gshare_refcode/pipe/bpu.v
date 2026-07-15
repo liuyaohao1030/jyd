@@ -87,7 +87,7 @@ module gshare_btb_core #(
     assign update_tag     = update_pc[31:INDEX_WIDTH+2];
 
     assign btb_hit     = btb_valid[lookup_btb_idx] && (btb_tag[lookup_btb_idx] == lookup_tag);
-    assign pred_taken  = btb_hit && pht[lookup_pht_idx][1];
+    assign pred_taken  = btb_hit && pht[lookup_pht_idx][1];  // BTB hit and PHT prediction is taken
     assign pred_target = btb_target[lookup_btb_idx];
 
     always @(posedge clk) begin

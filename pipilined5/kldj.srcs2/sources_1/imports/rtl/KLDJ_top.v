@@ -44,11 +44,13 @@ module KLDJ_top(
     wire [`KLDJ_PC]              if_pc;
     wire [`KLDJ_PC]              if_snpc;
     wire                         bpu_pred_taken;
+    wire                         bpu_pred_is_jalr;
     wire [`KLDJ_PC]              bpu_pred_target;
     wire                         if_static_jal;
     wire [`KLDJ_IMM]             if_static_jal_imm;
     wire [`KLDJ_PC]              if_static_jal_target;
     wire                         if_pred_taken;
+    wire                         if_pred_is_jalr;
     wire [`KLDJ_PC]              if_pred_target;
     wire [BPU_INDEX_WIDTH-1:0]   if_pred_pht_idx;
     wire                         if_btb_hit;
@@ -59,6 +61,7 @@ module KLDJ_top(
     wire [`KLDJ_PC]              if_id_pc;
     wire [`KLDJ_PC]              if_id_snpc;
     wire                         if_id_pred_taken;
+    wire                         if_id_pred_is_jalr;
     wire [`KLDJ_PC]              if_id_pred_target;
     wire [BPU_INDEX_WIDTH-1:0]   if_id_pred_pht_idx;
 
@@ -86,6 +89,7 @@ module KLDJ_top(
     wire [`KLDJ_PC]              id_ex_pc;
     wire [`KLDJ_PC]              id_ex_snpc;
     wire                         id_ex_pred_taken;
+    wire                         id_ex_pred_is_jalr;
     wire [`KLDJ_PC]              id_ex_pred_target;
     wire [BPU_INDEX_WIDTH-1:0]   id_ex_pred_pht_idx;
     wire [`KLDJ_REGADDR]         id_ex_rs1_addr;
@@ -106,6 +110,9 @@ module KLDJ_top(
     wire                         id_ex_load_op;
     wire                         id_ex_store_op;
     wire                         id_ex_rs2_to_data2;
+    wire                         id_ex_branch_op;
+    wire                         id_ex_jal_op;
+    wire                         id_ex_jalr_op;
     // CSR signals from ID/EX
     wire [11:0]                  id_ex_csr_addr;
     wire                         id_ex_csr_op;
@@ -129,6 +136,7 @@ module KLDJ_top(
     wire [BPU_INDEX_WIDTH-1:0]   bpu_update_pht_idx;
     wire                         bpu_update_taken;
     wire [`KLDJ_PC]              bpu_update_target;
+    wire                         bpu_update_is_jalr;
     wire                         load_use_stall;
     wire                         div_stall;
     wire                         mul_stall;
@@ -203,6 +211,7 @@ module KLDJ_top(
     assign if_static_jal_target = if_pc + if_static_jal_imm;
     assign if_pred_taken        = if_static_jal || bpu_pred_taken;
     assign if_pred_target       = if_static_jal ? if_static_jal_target : bpu_pred_target;
+    assign if_pred_is_jalr      = !if_static_jal && bpu_pred_taken && bpu_pred_is_jalr;
 
     // ========================================================
     // Module instantiations
@@ -218,12 +227,14 @@ module KLDJ_top(
         ,.pred_taken   (bpu_pred_taken    )
         ,.pred_target  (bpu_pred_target   )
         ,.btb_hit      (if_btb_hit        )
+        ,.pred_is_jalr (bpu_pred_is_jalr  )
         ,.lookup_pht_idx(if_pred_pht_idx  )
         ,.update_valid (bpu_update_valid  )
         ,.update_pc    (bpu_update_pc     )
         ,.update_pht_idx(bpu_update_pht_idx)
         ,.update_taken (bpu_update_taken  )
         ,.update_target(bpu_update_target )
+        ,.update_is_jalr(bpu_update_is_jalr)
     );
 
     // Select jump target: ecall jumps to mtvec, otherwise use EXU result
@@ -254,6 +265,7 @@ module KLDJ_top(
         ,.if_pc           (if_pc             )
         ,.if_snpc         (if_snpc           )
         ,.if_pred_taken   (if_pred_taken     )
+        ,.if_pred_is_jalr (if_pred_is_jalr   )
         ,.if_pred_target  (if_pred_target    )
         ,.if_pred_pht_idx (if_pred_pht_idx   )
         ,.ex_redirect     (ex_redirect       )
@@ -263,6 +275,7 @@ module KLDJ_top(
         ,.if_id_pc        (if_id_pc          )
         ,.if_id_snpc      (if_id_snpc        )
         ,.if_id_pred_taken(if_id_pred_taken  )
+        ,.if_id_pred_is_jalr(if_id_pred_is_jalr)
         ,.if_id_pred_target(if_id_pred_target)
         ,.if_id_pred_pht_idx(if_id_pred_pht_idx)
     );
@@ -302,6 +315,7 @@ module KLDJ_top(
         ,.if_id_pc        (if_id_pc          )
         ,.if_id_snpc      (if_id_snpc        )
         ,.if_id_pred_taken(if_id_pred_taken  )
+        ,.if_id_pred_is_jalr(if_id_pred_is_jalr)
         ,.if_id_pred_target(if_id_pred_target)
         ,.if_id_pred_pht_idx(if_id_pred_pht_idx)
         ,.id_reg_rs1_addr (id_reg_rs1_addr   )
@@ -329,6 +343,7 @@ module KLDJ_top(
         ,.id_ex_pc        (id_ex_pc          )
         ,.id_ex_snpc      (id_ex_snpc        )
         ,.id_ex_pred_taken(id_ex_pred_taken  )
+        ,.id_ex_pred_is_jalr(id_ex_pred_is_jalr)
         ,.id_ex_pred_target(id_ex_pred_target)
         ,.id_ex_pred_pht_idx(id_ex_pred_pht_idx)
         ,.id_ex_rs1_addr  (id_ex_rs1_addr    )
@@ -349,6 +364,9 @@ module KLDJ_top(
         ,.id_ex_load_op   (id_ex_load_op     )
         ,.id_ex_store_op  (id_ex_store_op    )
         ,.id_ex_rs2_to_data2(id_ex_rs2_to_data2)
+        ,.id_ex_branch_op (id_ex_branch_op   )
+        ,.id_ex_jal_op    (id_ex_jal_op      )
+        ,.id_ex_jalr_op   (id_ex_jalr_op     )
         ,.id_ex_csr_addr  (id_ex_csr_addr    )
         ,.id_ex_csr_op    (id_ex_csr_op      )
         ,.id_ex_csr_zimm  (id_ex_csr_zimm    )
@@ -429,9 +447,12 @@ module KLDJ_top(
         ,.id_ex_pc          (id_ex_pc          )
         ,.id_ex_snpc        (id_ex_snpc        )
         ,.id_ex_pred_taken  (id_ex_pred_taken  )
+        ,.id_ex_pred_is_jalr(id_ex_pred_is_jalr)
         ,.id_ex_pred_target (id_ex_pred_target )
         ,.id_ex_pred_pht_idx(id_ex_pred_pht_idx)
-        ,.id_ex_exu_op      (id_ex_exu_op      )
+        ,.id_ex_branch_op   (id_ex_branch_op   )
+        ,.id_ex_jal_op      (id_ex_jal_op      )
+        ,.id_ex_jalr_op     (id_ex_jalr_op     )
         ,.exu_jump_raw      (exu_jump_raw      )
         ,.exu_jump_pc_raw   (exu_jump_pc_raw   )
         ,.is_ecall          (is_ecall          )
@@ -445,6 +466,7 @@ module KLDJ_top(
         ,.bpu_update_pht_idx(bpu_update_pht_idx)
         ,.bpu_update_taken  (bpu_update_taken  )
         ,.bpu_update_target (bpu_update_target )
+        ,.bpu_update_is_jalr(bpu_update_is_jalr)
     );
 
     assign ex_stall = div_stall || mul_stall;

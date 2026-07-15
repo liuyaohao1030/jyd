@@ -5,9 +5,12 @@ module ex_bpu_ctrl_tb;
     reg  [31:0] id_ex_pc;
     reg  [31:0] id_ex_snpc;
     reg         id_ex_pred_taken;
+    reg         id_ex_pred_is_jalr;
     reg  [31:0] id_ex_pred_target;
     reg  [5:0]  id_ex_pred_pht_idx;
-    reg  [17:0] id_ex_exu_op;
+    reg         id_ex_branch_op;
+    reg         id_ex_jal_op;
+    reg         id_ex_jalr_op;
     reg         exu_jump_raw;
     reg  [31:0] exu_jump_pc_raw;
     reg         is_ecall;
@@ -22,6 +25,7 @@ module ex_bpu_ctrl_tb;
     wire [5:0]  bpu_update_pht_idx;
     wire        bpu_update_taken;
     wire [31:0] bpu_update_target;
+    wire        bpu_update_is_jalr;
 
     integer checks;
 
@@ -30,9 +34,12 @@ module ex_bpu_ctrl_tb;
         ,.id_ex_pc(id_ex_pc)
         ,.id_ex_snpc(id_ex_snpc)
         ,.id_ex_pred_taken(id_ex_pred_taken)
+        ,.id_ex_pred_is_jalr(id_ex_pred_is_jalr)
         ,.id_ex_pred_target(id_ex_pred_target)
         ,.id_ex_pred_pht_idx(id_ex_pred_pht_idx)
-        ,.id_ex_exu_op(id_ex_exu_op)
+        ,.id_ex_branch_op(id_ex_branch_op)
+        ,.id_ex_jal_op(id_ex_jal_op)
+        ,.id_ex_jalr_op(id_ex_jalr_op)
         ,.exu_jump_raw(exu_jump_raw)
         ,.exu_jump_pc_raw(exu_jump_pc_raw)
         ,.is_ecall(is_ecall)
@@ -46,6 +53,7 @@ module ex_bpu_ctrl_tb;
         ,.bpu_update_pht_idx(bpu_update_pht_idx)
         ,.bpu_update_taken(bpu_update_taken)
         ,.bpu_update_target(bpu_update_target)
+        ,.bpu_update_is_jalr(bpu_update_is_jalr)
     );
 
     task expect_bit;
@@ -80,9 +88,12 @@ module ex_bpu_ctrl_tb;
             id_ex_pc           = 32'h8000_0100;
             id_ex_snpc         = 32'h8000_0104;
             id_ex_pred_taken   = 1'b0;
+            id_ex_pred_is_jalr = 1'b0;
             id_ex_pred_target  = 32'h8000_0200;
             id_ex_pred_pht_idx = 6'h25;
-            id_ex_exu_op       = 18'h00;
+            id_ex_branch_op    = 1'b0;
+            id_ex_jal_op       = 1'b0;
+            id_ex_jalr_op      = 1'b0;
             exu_jump_raw       = 1'b0;
             exu_jump_pc_raw    = 32'h8000_0300;
             is_ecall           = 1'b0;
@@ -96,9 +107,9 @@ module ex_bpu_ctrl_tb;
 
         // Invalid pipeline entries must never redirect or train the predictor.
         apply_defaults();
-        id_ex_valid  = 1'b0;
-        id_ex_exu_op = 18'h14;
-        exu_jump_raw = 1'b1;
+        id_ex_valid     = 1'b0;
+        id_ex_branch_op = 1'b1;
+        exu_jump_raw    = 1'b1;
         #1;
         expect_bit(ex_actual_taken, 1'b0, "invalid actual taken");
         expect_bit(ex_redirect, 1'b0, "invalid redirect");
@@ -106,7 +117,7 @@ module ex_bpu_ctrl_tb;
 
         // A correctly predicted not-taken branch continues at SNPC.
         apply_defaults();
-        id_ex_exu_op = 18'h14;
+        id_ex_branch_op = 1'b1;
         #1;
         expect_bit(ex_redirect, 1'b0, "correct not-taken redirect");
         expect_word(ex_correct_pc, id_ex_snpc, "correct not-taken PC");
@@ -115,8 +126,8 @@ module ex_bpu_ctrl_tb;
 
         // An unpredicted taken branch redirects to the resolved target.
         apply_defaults();
-        id_ex_exu_op = 18'h15;
-        exu_jump_raw = 1'b1;
+        id_ex_branch_op = 1'b1;
+        exu_jump_raw    = 1'b1;
         #1;
         expect_bit(ex_actual_taken, 1'b1, "taken branch actual taken");
         expect_bit(ex_redirect, 1'b1, "taken branch direction miss");
@@ -130,7 +141,7 @@ module ex_bpu_ctrl_tb;
 
         // A predicted branch that resolves not-taken redirects to SNPC.
         apply_defaults();
-        id_ex_exu_op     = 18'h16;
+        id_ex_branch_op  = 1'b1;
         id_ex_pred_taken = 1'b1;
         #1;
         expect_bit(ex_redirect, 1'b1, "not-taken branch direction miss");
@@ -139,7 +150,7 @@ module ex_bpu_ctrl_tb;
 
         // Current predictions are direct; target mismatch alone must not redirect.
         apply_defaults();
-        id_ex_exu_op      = 18'h17;
+        id_ex_branch_op   = 1'b1;
         id_ex_pred_taken  = 1'b1;
         id_ex_pred_target = 32'hdead_beef;
         exu_jump_raw      = 1'b1;
@@ -149,27 +160,52 @@ module ex_bpu_ctrl_tb;
 
         // A correctly predicted JAL does not recover and still trains the BTB.
         apply_defaults();
-        id_ex_exu_op     = 18'h1c;
+        id_ex_jal_op     = 1'b1;
         id_ex_pred_taken = 1'b1;
         exu_jump_raw     = 1'b1;
         #1;
         expect_bit(ex_redirect, 1'b0, "correct JAL prediction");
         expect_bit(bpu_update_valid, 1'b1, "JAL update valid");
         expect_bit(bpu_update_taken, 1'b1, "JAL update taken");
+        expect_bit(bpu_update_is_jalr, 1'b0, "JAL direct update type");
 
-        // JALR is not predicted yet, so actual taken creates a direction miss.
+        // A cold JALR creates a direction miss and allocates an indirect entry.
         apply_defaults();
-        id_ex_exu_op = 18'h09;
-        exu_jump_raw = 1'b1;
+        id_ex_jalr_op = 1'b1;
+        exu_jump_raw  = 1'b1;
         #1;
         expect_bit(ex_redirect, 1'b1, "unpredicted JALR redirect");
         expect_word(ex_correct_pc, exu_jump_pc_raw, "JALR recovery PC");
-        expect_bit(bpu_update_valid, 1'b0, "JALR does not train current BPU");
+        expect_bit(bpu_update_valid, 1'b1, "JALR update valid");
+        expect_bit(bpu_update_taken, 1'b1, "JALR update taken");
+        expect_bit(bpu_update_is_jalr, 1'b1, "JALR indirect update type");
+
+        // A BTB-predicted JALR with the right target avoids recovery.
+        apply_defaults();
+        id_ex_jalr_op      = 1'b1;
+        id_ex_pred_taken   = 1'b1;
+        id_ex_pred_is_jalr = 1'b1;
+        id_ex_pred_target  = exu_jump_pc_raw;
+        exu_jump_raw       = 1'b1;
+        #1;
+        expect_bit(ex_redirect, 1'b0, "correct JALR target prediction");
+        expect_bit(bpu_update_valid, 1'b1, "predicted JALR update valid");
+
+        // Direction is taken in both cases, so a changed indirect target must
+        // independently request recovery.
+        apply_defaults();
+        id_ex_jalr_op      = 1'b1;
+        id_ex_pred_taken   = 1'b1;
+        id_ex_pred_is_jalr = 1'b1;
+        id_ex_pred_target  = 32'h8000_0400;
+        exu_jump_raw       = 1'b1;
+        #1;
+        expect_bit(ex_redirect, 1'b1, "JALR target mismatch redirect");
+        expect_word(ex_correct_pc, exu_jump_pc_raw, "JALR target recovery PC");
 
         // ECALL recovers to mtvec even though exu_jump_raw is low.
         apply_defaults();
-        id_ex_exu_op = 18'h34;
-        is_ecall     = 1'b1;
+        is_ecall = 1'b1;
         #1;
         expect_bit(ex_actual_taken, 1'b1, "ECALL actual taken");
         expect_bit(ex_redirect, 1'b1, "ECALL redirect");
@@ -178,8 +214,7 @@ module ex_bpu_ctrl_tb;
 
         // MRET recovers through the resolved EXU target.
         apply_defaults();
-        id_ex_exu_op = 18'h35;
-        is_mret      = 1'b1;
+        is_mret = 1'b1;
         #1;
         expect_bit(ex_actual_taken, 1'b1, "MRET actual taken");
         expect_bit(ex_redirect, 1'b1, "MRET redirect");

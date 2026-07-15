@@ -10,6 +10,7 @@ module pipe_id_ex #(
     ,input wire [`KLDJ_PC]       if_id_pc
     ,input wire [`KLDJ_PC]       if_id_snpc
     ,input wire                  if_id_pred_taken
+    ,input wire                  if_id_pred_is_jalr
     ,input wire [`KLDJ_PC]       if_id_pred_target
     ,input wire [BPU_INDEX_WIDTH-1:0] if_id_pred_pht_idx
     ,input wire [`KLDJ_REGADDR]  id_reg_rs1_addr
@@ -40,6 +41,7 @@ module pipe_id_ex #(
     ,output reg [`KLDJ_PC]       id_ex_pc
     ,output reg [`KLDJ_PC]       id_ex_snpc
     ,output reg                  id_ex_pred_taken
+    ,output reg                  id_ex_pred_is_jalr
     ,output reg [`KLDJ_PC]       id_ex_pred_target
     ,output reg [BPU_INDEX_WIDTH-1:0] id_ex_pred_pht_idx
     ,output reg [`KLDJ_REGADDR]  id_ex_rs1_addr
@@ -65,17 +67,24 @@ module pipe_id_ex #(
     ,output reg                  id_ex_load_op
     ,output reg                  id_ex_store_op
     ,output reg                  id_ex_rs2_to_data2
+    ,output reg                  id_ex_branch_op
+    ,output reg                  id_ex_jal_op
+    ,output reg                  id_ex_jalr_op
 );
 
     wire id_load_op = (id_exu_op >= 18'h1d) && (id_exu_op <= 18'h21);
     wire id_store_op = (id_exu_op >= 18'h22) && (id_exu_op <= 18'h24);
     wire id_rs2_to_data2 = ((id_exu_op >= 18'ha) && (id_exu_op <= 18'h19)) ||
                            ((id_exu_op >= 18'h25) && (id_exu_op <= 18'h2c));
+    wire id_branch_op = (id_exu_op >= 18'h14) && (id_exu_op <= 18'h19);
+    wire id_jal_op = (id_exu_op == 18'h1c);
+    wire id_jalr_op = (id_exu_op == 18'h9);
 
     always@(posedge clk) begin
         if(rst == `KLDJ_RSTABLE) begin
             id_ex_valid    <= 1'b0;
             id_ex_pred_taken  <= 1'b0;
+            id_ex_pred_is_jalr <= 1'b0;
             id_ex_rs1_ren  <= 1'b0;
             id_ex_rs2_ren  <= 1'b0;
             id_ex_wb_ctl   <= 1'b0;
@@ -83,9 +92,13 @@ module pipe_id_ex #(
             id_ex_load_op  <= 1'b0;
             id_ex_store_op <= 1'b0;
             id_ex_rs2_to_data2 <= 1'b0;
+            id_ex_branch_op <= 1'b0;
+            id_ex_jal_op    <= 1'b0;
+            id_ex_jalr_op   <= 1'b0;
         end else if(ex_redirect || load_use_stall) begin
             id_ex_valid    <= 1'b0;
             id_ex_pred_taken  <= 1'b0;
+            id_ex_pred_is_jalr <= 1'b0;
             id_ex_rs1_ren  <= 1'b0;
             id_ex_rs2_ren  <= 1'b0;
             id_ex_wb_ctl   <= 1'b0;
@@ -93,9 +106,13 @@ module pipe_id_ex #(
             id_ex_load_op  <= 1'b0;
             id_ex_store_op <= 1'b0;
             id_ex_rs2_to_data2 <= 1'b0;
+            id_ex_branch_op <= 1'b0;
+            id_ex_jal_op    <= 1'b0;
+            id_ex_jalr_op   <= 1'b0;
         end else if(!ex_stall) begin
             id_ex_valid    <= if_id_valid;
             id_ex_pred_taken  <= if_id_valid && if_id_pred_taken;
+            id_ex_pred_is_jalr <= if_id_valid && if_id_pred_is_jalr;
             id_ex_rs1_ren  <= if_id_valid && id_reg_rs1_ren;
             id_ex_rs2_ren  <= if_id_valid && id_reg_rs2_ren;
             id_ex_wb_ctl   <= if_id_valid && id_wb_ctl;
@@ -103,6 +120,9 @@ module pipe_id_ex #(
             id_ex_load_op  <= if_id_valid && id_load_op;
             id_ex_store_op <= if_id_valid && id_store_op;
             id_ex_rs2_to_data2 <= if_id_valid && id_rs2_to_data2;
+            id_ex_branch_op <= if_id_valid && id_branch_op;
+            id_ex_jal_op    <= if_id_valid && id_jal_op;
+            id_ex_jalr_op   <= if_id_valid && id_jalr_op;
         end
     end
 

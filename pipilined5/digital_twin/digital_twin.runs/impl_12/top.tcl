@@ -123,7 +123,9 @@ start_step write_bitstream
 set ACTIVE_STEP write_bitstream
 set rc [catch {
   create_msg_db write_bitstream.pb
+  set_param tcl.collectionResultDisplayLimit 0
   set_param chipscope.maxJobs 4
+  set_param xicom.use_bs_reader 1
   set_param runs.launchOptions { -jobs 8  }
   open_checkpoint top_routed.dcp
   set_property webtalk.parent_dir D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.cache/wt [current_project]
