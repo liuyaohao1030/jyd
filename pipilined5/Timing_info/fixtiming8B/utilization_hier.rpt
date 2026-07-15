@@ -1,0 +1,68 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2023.2 (win64) Build 4029153 Fri Oct 13 20:14:34 MDT 2023
+| Date         : Wed Jul 15 16:01:38 2026
+| Host         : DESKTOP-MO7L2KR running 64-bit major release  (build 9200)
+| Command      : report_utilization -hierarchical -hierarchical_depth 6 -file D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/Timing_info/fixtiming8B/utilization_hier.rpt
+| Design       : top
+| Device       : xc7k325tffg900-2
+| Speed File   : -2
+| Design State : Routed
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Utilization Design Information
+
+Table of Contents
+-----------------
+1. Utilization by Hierarchy
+
+1. Utilization by Hierarchy
+---------------------------
+
++------------------------------+-----------------------------------+------------+------------+---------+------+------+--------+--------+------------+
+|           Instance           |               Module              | Total LUTs | Logic LUTs | LUTRAMs | SRLs |  FFs | RAMB36 | RAMB18 | DSP Blocks |
++------------------------------+-----------------------------------+------------+------------+---------+------+------+--------+--------+------------+
+| top                          |                             (top) |       6146 |       6055 |      81 |   10 | 6159 |     64 |      0 |          4 |
+|   (top)                      |                             (top) |          0 |          0 |       0 |    0 |    0 |      0 |      0 |          0 |
+|   pll_inst                   |                               pll |          0 |          0 |       0 |    0 |    0 |      0 |      0 |          0 |
+|     inst                     |                       pll_clk_wiz |          0 |          0 |       0 |    0 |    0 |      0 |      0 |          0 |
+|   student_top_inst           |                       student_top |       5947 |       5856 |      81 |   10 | 5855 |     64 |      0 |          4 |
+|     (student_top_inst)       |                       student_top |          4 |          4 |       0 |    0 |    0 |      0 |      0 |          0 |
+|     Mem_IROM                 |                              IROM |       1194 |       1194 |       0 |    0 |    0 |      0 |      0 |          0 |
+|       U0                     |         IROM_dist_mem_gen_v8_0_14 |       1194 |       1194 |       0 |    0 |    0 |      0 |      0 |          0 |
+|     bridge_inst              |                      perip_bridge |        389 |        389 |       0 |    0 |  416 |     64 |      0 |          0 |
+|       (bridge_inst)          |                      perip_bridge |         25 |         25 |       0 |    0 |  167 |      0 |      0 |          0 |
+|       counter_inst           |                           counter |         60 |         60 |       0 |    0 |  146 |      0 |      0 |          0 |
+|       dram_driver_inst       |                       dram_driver |        265 |        265 |       0 |    0 |   98 |     64 |      0 |          0 |
+|         (dram_driver_inst)   |                       dram_driver |         82 |         82 |       0 |    0 |   94 |      0 |      0 |          0 |
+|         u_dram_tdp           |                          DRAM_TDP |        183 |        183 |       0 |    0 |    4 |     64 |      0 |          0 |
+|           U0                 |       DRAM_TDP_blk_mem_gen_v8_4_7 |        183 |        183 |       0 |    0 |    4 |     64 |      0 |          0 |
+|             inst_blk_mem_gen | DRAM_TDP_blk_mem_gen_v8_4_7_synth |        183 |        183 |       0 |    0 |    4 |     64 |      0 |          0 |
+|       seg_driver             |                       display_seg |         39 |         39 |       0 |    0 |    5 |      0 |      0 |          0 |
+|     u_KLDJ_top               |                          KLDJ_top |       4362 |       4271 |      81 |   10 | 5439 |      0 |      0 |          4 |
+|       exu2                   |                          KLDJ_exu |       1368 |       1358 |       0 |   10 | 3489 |      0 |      0 |          4 |
+|         u_KLDJ_alu           |                          KLDJ_alu |          0 |          0 |       0 |    0 |    0 |      0 |      0 |          0 |
+|           u_alu_add          |                           alu_add |          0 |          0 |       0 |    0 |    0 |      0 |      0 |          0 |
+|         u_div_ip_wrapper     |                    div_ip_wrapper |       1283 |       1282 |       0 |    1 | 3307 |      0 |      0 |          0 |
+|           (u_div_ip_wrapper) |                    div_ip_wrapper |        133 |        133 |       0 |    0 |  105 |      0 |      0 |          0 |
+|           u_div_gen_u32      |                       div_gen_u32 |       1150 |       1149 |       0 |    1 | 3202 |      0 |      0 |          0 |
+|             U0               |       div_gen_u32_div_gen_v5_1_20 |       1150 |       1149 |       0 |    1 | 3202 |      0 |      0 |          0 |
+|         u_mul_ip_wrapper     |                    mul_ip_wrapper |         85 |         76 |       0 |    9 |  182 |      0 |      0 |          4 |
+|           (u_mul_ip_wrapper) |                    mul_ip_wrapper |         76 |         76 |       0 |    0 |  132 |      0 |      0 |          0 |
+|           u_mult_gen_u33     |                      mult_gen_u33 |          9 |          0 |       0 |    9 |   50 |      0 |      0 |          4 |
+|             U0               |    mult_gen_u33_mult_gen_v12_0_19 |          9 |          0 |       0 |    9 |   50 |      0 |      0 |          4 |
+|       ifu0                   |                          KLDJ_ifu |         83 |         83 |       0 |    0 |   32 |      0 |      0 |          0 |
+|       reg5                   |                      KLDJ_regfile |        513 |        513 |       0 |    0 |  992 |      0 |      0 |          0 |
+|       u_bpu                  |                               bpu |        300 |        219 |      81 |    0 |  205 |      0 |      0 |          0 |
+|         u_gshare_btb_core    |                   gshare_btb_core |        300 |        219 |      81 |    0 |  205 |      0 |      0 |          0 |
+|       u_csr                  |                          KLDJ_csr |         64 |         64 |       0 |    0 |  160 |      0 |      0 |          0 |
+|       u_pipe_ex_mem          |                       pipe_ex_mem |         54 |         54 |       0 |    0 |   51 |      0 |      0 |          0 |
+|       u_pipe_id_ex           |                        pipe_id_ex |       1547 |       1547 |       0 |    0 |  336 |      0 |      0 |          0 |
+|       u_pipe_if_id           |                        pipe_if_id |        389 |        389 |       0 |    0 |  135 |      0 |      0 |          0 |
+|       u_pipe_mem_wb          |                       pipe_mem_wb |         46 |         46 |       0 |    0 |   39 |      0 |      0 |          0 |
+|   twin_controller_inst       |                   twin_controller |         94 |         94 |       0 |    0 |  222 |      0 |      0 |          0 |
+|   uart_inst                  |                              uart |        105 |        105 |       0 |    0 |   82 |      0 |      0 |          0 |
++------------------------------+-----------------------------------+------------+------------+---------+------+------+--------+--------+------------+
+* Note: The sum of lower-level cells may be larger than their parent cells total, due to cross-hierarchy LUT combining
+
+

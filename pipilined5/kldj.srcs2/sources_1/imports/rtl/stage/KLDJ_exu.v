@@ -30,6 +30,9 @@ module KLDJ_exu(
     // original outputs
     ,output wire                exu_jump
     ,output wire [`KLDJ_DATA]   exu_jump_pc
+    // Dedicated JALR target for prediction recovery/validation.  Keep this
+    // separate from exu_jump_pc, which muxes all control-flow target types.
+    ,output wire [`KLDJ_PC]     exu_jalr_target_raw
     ,output wire [`KLDJ_DATA]   exu_res
     ,output wire [`KLDJ_DATA]   ex_mem_addr
     ,output wire                div_stall
@@ -147,6 +150,7 @@ module KLDJ_exu(
     // control-flow rs1 operand, not either generic EX forwarding operand.
     wire [`KLDJ_DATA] jalr_sum        = ctrl_rs1_data + jalr_imm;
     wire [`KLDJ_DATA] jalr_target     = {jalr_sum[31:1], 1'b0};
+    assign exu_jalr_target_raw = jalr_target;
 
     assign ex_mem_addr = is_load_or_store ? load_store_addr : `KLDJ_ZERO32;
 

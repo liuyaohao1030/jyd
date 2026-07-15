@@ -16,6 +16,8 @@ module ex_bpu_ctrl #(
     ,input  wire                  id_ex_jalr_check_en
     ,input  wire                  exu_jump_raw
     ,input  wire [`KLDJ_PC]       exu_jump_pc_raw
+    // JALR bypasses the generic JAL/branch/MRET target mux.
+    ,input  wire [`KLDJ_PC]       exu_jalr_target_raw
     ,input  wire                  is_ecall
     ,input  wire                  is_mret
     ,input  wire [`KLDJ_PC]       mtvec_val
@@ -38,7 +40,11 @@ module ex_bpu_ctrl #(
 
     assign ex_actual_redirect = exu_jump_raw || is_ecall || is_mret;
     assign ex_actual_taken    = id_ex_valid && ex_actual_redirect;
+    // A JALR redirect must use its dedicated adder result.  Selecting it for
+    // all JALR entries is functionally equivalent when no redirect occurs and
+    // structurally keeps the recovery cone off exu_jump_pc_raw.
     assign ex_correct_pc      = is_ecall ? mtvec_val :
+                                id_ex_jalr_op ? exu_jalr_target_raw :
                                 ex_actual_redirect ? exu_jump_pc_raw :
                                 id_ex_snpc;
 
@@ -46,7 +52,7 @@ module ex_bpu_ctrl #(
     // Only an adopted indirect prediction needs target validation. Direct
     // branches and static JAL predictions stay off the 32-bit compare path.
     assign indirect_target_miss = id_ex_jalr_check_en &&
-                                  (id_ex_pred_target[31:1] != exu_jump_pc_raw[31:1]);
+                                  (id_ex_pred_target[31:1] != exu_jalr_target_raw[31:1]);
     assign ex_redirect = id_ex_valid && (direction_miss || indirect_target_miss);
 
     assign bpu_update_valid  = id_ex_valid &&
@@ -56,7 +62,8 @@ module ex_bpu_ctrl #(
     assign bpu_update_taken  = (id_ex_jal_op || id_ex_jalr_op) ? 1'b1 :
                                id_ex_branch_op ? exu_jump_raw :
                                1'b0;
-    assign bpu_update_target = exu_jump_pc_raw;
+    assign bpu_update_target = id_ex_jalr_op ? exu_jalr_target_raw :
+                               exu_jump_pc_raw;
     assign bpu_update_is_jalr = id_ex_jalr_op;
 
 endmodule

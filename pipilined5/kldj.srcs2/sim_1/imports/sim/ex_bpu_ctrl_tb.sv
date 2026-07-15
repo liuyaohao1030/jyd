@@ -15,6 +15,7 @@ module ex_bpu_ctrl_tb;
                                         id_ex_pred_is_jalr && id_ex_jalr_op;
     reg         exu_jump_raw;
     reg  [31:0] exu_jump_pc_raw;
+    reg  [31:0] exu_jalr_target_raw;
     reg         is_ecall;
     reg         is_mret;
     reg  [31:0] mtvec_val;
@@ -45,6 +46,7 @@ module ex_bpu_ctrl_tb;
         ,.id_ex_jalr_check_en(id_ex_jalr_check_en)
         ,.exu_jump_raw(exu_jump_raw)
         ,.exu_jump_pc_raw(exu_jump_pc_raw)
+        ,.exu_jalr_target_raw(exu_jalr_target_raw)
         ,.is_ecall(is_ecall)
         ,.is_mret(is_mret)
         ,.mtvec_val(mtvec_val)
@@ -99,6 +101,7 @@ module ex_bpu_ctrl_tb;
             id_ex_jalr_op      = 1'b0;
             exu_jump_raw       = 1'b0;
             exu_jump_pc_raw    = 32'h8000_0300;
+            exu_jalr_target_raw = 32'h8000_0320;
             is_ecall           = 1'b0;
             is_mret            = 1'b0;
             mtvec_val          = 32'h8000_1000;
@@ -178,20 +181,22 @@ module ex_bpu_ctrl_tb;
         exu_jump_raw  = 1'b1;
         #1;
         expect_bit(ex_redirect, 1'b1, "unpredicted JALR redirect");
-        expect_word(ex_correct_pc, exu_jump_pc_raw, "JALR recovery PC");
+        expect_word(ex_correct_pc, exu_jalr_target_raw, "JALR recovery PC");
         expect_bit(bpu_update_valid, 1'b1, "JALR update valid");
         expect_bit(bpu_update_taken, 1'b1, "JALR update taken");
         expect_bit(bpu_update_is_jalr, 1'b1, "JALR indirect update type");
+        expect_word(bpu_update_target, exu_jalr_target_raw, "JALR update target");
 
         // A BTB-predicted JALR with the right target avoids recovery.
         apply_defaults();
         id_ex_jalr_op      = 1'b1;
         id_ex_pred_taken   = 1'b1;
         id_ex_pred_is_jalr = 1'b1;
-        id_ex_pred_target  = exu_jump_pc_raw;
+        id_ex_pred_target  = exu_jalr_target_raw;
         exu_jump_raw       = 1'b1;
         #1;
         expect_bit(ex_redirect, 1'b0, "correct JALR target prediction");
+        expect_word(ex_correct_pc, exu_jalr_target_raw, "correct JALR target");
         expect_bit(bpu_update_valid, 1'b1, "predicted JALR update valid");
 
         // Direction is taken in both cases, so a changed indirect target must
@@ -204,7 +209,7 @@ module ex_bpu_ctrl_tb;
         exu_jump_raw       = 1'b1;
         #1;
         expect_bit(ex_redirect, 1'b1, "JALR target mismatch redirect");
-        expect_word(ex_correct_pc, exu_jump_pc_raw, "JALR target recovery PC");
+        expect_word(ex_correct_pc, exu_jalr_target_raw, "JALR target recovery PC");
 
         // ECALL recovers to mtvec even though exu_jump_raw is low.
         apply_defaults();

@@ -131,6 +131,7 @@ module KLDJ_top(
     wire [`KLDJ_DATA]            ex_cf_rs2_data;
     wire                         exu_jump_raw;
     wire [`KLDJ_PC]              exu_jump_pc_raw;
+    wire [`KLDJ_PC]              exu_jalr_target_raw;
     wire [`KLDJ_DATA]            exu_data;
     wire [`KLDJ_DATA]            ex_mem_addr_pre;
     wire                         ex_redirect;
@@ -487,6 +488,7 @@ module KLDJ_top(
         // original outputs
         ,.exu_jump    (exu_jump_raw          )
         ,.exu_jump_pc (exu_jump_pc_raw       )
+        ,.exu_jalr_target_raw(exu_jalr_target_raw)
         ,.exu_res     (exu_data              )
         ,.ex_mem_addr (ex_mem_addr_pre       )
         ,.div_stall   (div_stall             )
@@ -510,6 +512,7 @@ module KLDJ_top(
         ,.id_ex_jalr_check_en(id_ex_jalr_check_en)
         ,.exu_jump_raw      (exu_jump_raw      )
         ,.exu_jump_pc_raw   (exu_jump_pc_raw   )
+        ,.exu_jalr_target_raw(exu_jalr_target_raw)
         ,.is_ecall          (is_ecall          )
         ,.is_mret           (is_mret           )
         ,.mtvec_val         (mtvec_val         )

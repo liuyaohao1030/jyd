@@ -154,6 +154,9 @@ module KLDJ_top_tb;
                 (u_dut.exu_jump_pc_raw !== {jalr_expected_sum[31:1], 1'b0}))
                 $fatal(1, "JALR dedicated target path mismatch");
             if (u_dut.id_ex_valid && u_dut.id_ex_jalr_op &&
+                (u_dut.exu_jalr_target_raw !== {jalr_expected_sum[31:1], 1'b0}))
+                $fatal(1, "JALR target bypass mismatch");
+            if (u_dut.id_ex_valid && u_dut.id_ex_jalr_op &&
                 (u_dut.ex_cf_rs1_data !== u_dut.ex_data1))
                 $fatal(1, "JALR control-flow forwarding mismatch");
             if (u_dut.id_ex_valid && u_dut.id_ex_jalr_op &&

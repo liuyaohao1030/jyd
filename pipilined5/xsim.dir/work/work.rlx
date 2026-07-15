@@ -3,11 +3,11 @@
 Dec  7 2018
 00:33:28
 d:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.cache/ip/2023.2/0/2/0237280d532ddaaf/u_ila_0_stub.v,1783944414,verilog,,,,decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix,,,,,,,,
-d:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_16/.Xil/Vivado-29636-DESKTOP-MO7L2KR/dcp3/top_stub.v,1784101949,verilog,,,,top,,,,,,,,
+d:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_17/.Xil/Vivado-48104-DESKTOP-MO7L2KR/dcp3/top_stub.v,1784106073,verilog,,,,top,,,,,,,,
 d:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/Gshare_refcode/define.v,1783847019,verilog,,,,,,,,,,,,
-d:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sim_1/imports/sim/KLDJ_exu_jalr_tb.sv,1784100597,systemVerilog,,,,KLDJ_exu_jalr_tb,,,,,,,,
+d:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sim_1/imports/sim/KLDJ_exu_jalr_tb.sv,1784104454,systemVerilog,,,,KLDJ_exu_jalr_tb,,,,,,,,
 d:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sim_1/imports/sim/ctrl_forward_sel_tb.sv,1784100601,systemVerilog,,,,ctrl_forward_sel_tb,,,,,,,,
-d:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sim_1/imports/sim/ex_bpu_ctrl_tb.sv,1784032347,systemVerilog,,,,ex_bpu_ctrl_tb,,,,,,,,
+d:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sim_1/imports/sim/ex_bpu_ctrl_tb.sv,1784104456,systemVerilog,,,,ex_bpu_ctrl_tb,,,,,,,,
 d:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_top.v,1784021242,verilog,,,d:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/define.v,KLDJ_top,,,,,,,,
 d:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_and.v,1783847019,verilog,,,,alu_and,,,,,,,,
 d:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/div_ip_wrapper.v,1783847019,verilog,,,,div_ip_wrapper,,,,,,,,

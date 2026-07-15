@@ -23,6 +23,7 @@ module KLDJ_exu_jalr_tb;
 
     wire        exu_jump;
     wire [31:0] exu_jump_pc;
+    wire [31:0] exu_jalr_target_raw;
     wire [31:0] exu_res;
     wire [31:0] ex_mem_addr;
     wire        div_stall;
@@ -41,13 +42,28 @@ module KLDJ_exu_jalr_tb;
         ,.csr_rdata(csr_rdata), .csr_we(csr_we), .csr_wdata(csr_wdata)
         ,.is_ecall(is_ecall), .is_mret(is_mret), .mret_pc(mret_pc)
         ,.exu_jump(exu_jump), .exu_jump_pc(exu_jump_pc)
+        ,.exu_jalr_target_raw(exu_jalr_target_raw)
         ,.exu_res(exu_res), .ex_mem_addr(ex_mem_addr)
         ,.div_stall(div_stall), .mul_stall(mul_stall)
     );
 
     always #5 clk = ~clk;
 
-    task check_target;
+    task check_jalr_target;
+        input [31:0] expected;
+        input [8*40-1:0] label;
+        begin
+            #1;
+            if ((exu_jump_pc !== expected) ||
+                (exu_jalr_target_raw !== expected)) begin
+                $display("FAIL: %0s expected=%08x jump=%08x jalr=%08x", label,
+                         expected, exu_jump_pc, exu_jalr_target_raw);
+                $fatal(1);
+            end
+        end
+    endtask
+
+    task check_jump_target;
         input [31:0] expected;
         input [8*40-1:0] label;
         begin
@@ -82,12 +98,12 @@ module KLDJ_exu_jalr_tb;
         mret_pc = 32'h8000_0200;
 
         // (0x80000103 + 5) & ~1 = 0x80000108.
-        check_target(32'h8000_0108, "positive immediate");
+        check_jalr_target(32'h8000_0108, "positive immediate");
 
         ctrl_rs1_data = 32'h8000_0100;
         jalr_imm = 32'hffff_fffc;
         // (0x80000100 - 4) & ~1 = 0x800000fc.
-        check_target(32'h8000_00fc, "negative immediate");
+        check_jalr_target(32'h8000_00fc, "negative immediate");
 
         // JAL remains on the ordinary ALU path and is unaffected by jalr_imm.
         exu_op = 18'h1c;
@@ -95,7 +111,7 @@ module KLDJ_exu_jalr_tb;
         data2 = 32'h0000_0020;
         ctrl_rs1_data = 32'hdead_beef;
         jalr_imm = 32'hdead_beef;
-        check_target(32'h8000_0120, "direct JAL path");
+        check_jump_target(32'h8000_0120, "direct JAL path");
 
         $display("PASS: KLDJ_exu_jalr_tb (3 checks)");
         $finish;

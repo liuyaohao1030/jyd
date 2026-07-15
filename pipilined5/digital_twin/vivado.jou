@@ -361,3 +361,31 @@ set_property FULL_PROBES.FILE {} [get_hw_devices xc7k325t_0]
 set_property PROGRAM.FILE {D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_15/top.bit} [get_hw_devices xc7k325t_0]
 program_hw_devices [get_hw_devices xc7k325t_0]
 refresh_hw_device [lindex [get_hw_devices xc7k325t_0] 0]
+create_run fixtiming8b -flow {Vivado Synthesis 2023}
+create_run impl_16 -parent_run fixtiming8b -flow {Vivado Implementation 2023}
+launch_runs impl_16 -jobs 8
+wait_on_run impl_16
+current_run [get_runs fixtiming8b]
+close_hw_manager
+reset_run fixtiming8b
+launch_runs impl_16 -jobs 8
+wait_on_run impl_16
+add_files -norecurse -scan_for_includes D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/ctrl_forward_sel.v
+reset_run fixtiming8b
+launch_runs impl_16 -jobs 8
+wait_on_run impl_16
+open_run impl_16
+launch_runs impl_16 -to_step write_bitstream -jobs 8
+wait_on_run impl_16
+open_hw_manager
+connect_hw_server -allow_non_jtag
+open_hw_target
+set_property PROGRAM.FILE {D:\DESKTOP\JYD\Source_code\BPU_FixTiming3\jyd\pipilined5\digital_twin\digital_twin.runs\impl_15\top.bit} [get_hw_devices xc7k325t_0]
+current_hw_device [get_hw_devices xc7k325t_0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7k325t_0] 0]
+set_property PROBES.FILE {} [get_hw_devices xc7k325t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7k325t_0]
+set_property PROGRAM.FILE {D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_16/top.bit} [get_hw_devices xc7k325t_0]
+program_hw_devices [get_hw_devices xc7k325t_0]
+refresh_hw_device [lindex [get_hw_devices xc7k325t_0] 0]
+source D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/reports/timing_info.tcl
