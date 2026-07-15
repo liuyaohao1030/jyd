@@ -328,3 +328,14 @@ set_property PROGRAM.FILE {D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilin
 program_hw_devices [get_hw_devices xc7k325t_0]
 refresh_hw_device [lindex [get_hw_devices xc7k325t_0] 0]
 source D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/reports/timing_info.tcl
+create_run fixtiming6 -flow {Vivado Synthesis 2023}
+create_run impl_14 -parent_run fixtiming6 -flow {Vivado Implementation 2023}
+launch_runs impl_14 -jobs 8
+wait_on_run impl_14
+current_run [get_runs fixtiming6]
+source D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/reports/timing_info.tcl
+close_hw_manager
+open_run impl_14
+current_design impl_13
+close_design
+source D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/reports/timing_info.tcl

@@ -1,0 +1,75 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+-----------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2023.2 (win64) Build 4029153 Fri Oct 13 20:14:34 MDT 2023
+| Date         : Wed Jul 15 14:03:13 2026
+| Host         : DESKTOP-MO7L2KR running 64-bit major release  (build 9200)
+| Command      : report_methodology -file top_methodology_drc_routed.rpt -pb top_methodology_drc_routed.pb -rpx top_methodology_drc_routed.rpx
+| Design       : top
+| Device       : xc7k325tffg900-2
+| Speed File   : -2
+| Design State : Fully Routed
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+Report Methodology
+
+Table of Contents
+-----------------
+1. REPORT SUMMARY
+2. REPORT DETAILS
+
+1. REPORT SUMMARY
+-----------------
+            Netlist: netlist
+          Floorplan: design_1
+      Design limits: <entire design considered>
+             Max violations: <unlimited>
+             Violations found: 8
++-----------+----------+-----------------------+------------+
+| Rule      | Severity | Description           | Violations |
++-----------+----------+-----------------------+------------+
+| TIMING-16 | Warning  | Large setup violation | 8          |
++-----------+----------+-----------------------+------------+
+
+2. REPORT DETAILS
+-----------------
+TIMING-16#1 Warning
+Large setup violation  
+There is a large setup violation of -1.018 ns between student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_rs1_addr_reg[0]/C (clocked by clk_out2_pll) and student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_csr_op_reg/R (clocked by clk_out2_pll). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#2 Warning
+Large setup violation  
+There is a large setup violation of -1.018 ns between student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_rs1_addr_reg[0]/C (clocked by clk_out2_pll) and student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_jalr_op_reg/R (clocked by clk_out2_pll). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#3 Warning
+Large setup violation  
+There is a large setup violation of -1.018 ns between student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_rs1_addr_reg[0]/C (clocked by clk_out2_pll) and student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_store_op_reg/R (clocked by clk_out2_pll). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#4 Warning
+Large setup violation  
+There is a large setup violation of -1.018 ns between student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_rs1_addr_reg[0]/C (clocked by clk_out2_pll) and student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_wb_ctl_reg/R (clocked by clk_out2_pll). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#5 Warning
+Large setup violation  
+There is a large setup violation of -1.020 ns between student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_rs1_addr_reg[0]/C (clocked by clk_out2_pll) and student_top_inst/u_KLDJ_top/ifu0/pc_reg_reg[5]/D (clocked by clk_out2_pll). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#6 Warning
+Large setup violation  
+There is a large setup violation of -1.026 ns between student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_rs1_addr_reg[0]/C (clocked by clk_out2_pll) and student_top_inst/u_KLDJ_top/ifu0/pc_reg_reg[6]/D (clocked by clk_out2_pll). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#7 Warning
+Large setup violation  
+There is a large setup violation of -1.064 ns between student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_rs1_addr_reg[0]/C (clocked by clk_out2_pll) and student_top_inst/u_KLDJ_top/ifu0/pc_reg_reg[2]/D (clocked by clk_out2_pll). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#8 Warning
+Large setup violation  
+There is a large setup violation of -1.096 ns between student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_rs1_addr_reg[0]/C (clocked by clk_out2_pll) and student_top_inst/u_KLDJ_top/ifu0/pc_reg_reg[3]/D (clocked by clk_out2_pll). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+

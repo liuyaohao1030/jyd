@@ -392,3 +392,60 @@ RTL simulation passes, but no timing-closure claim is made here.  Synthesis,
 placement, routing and the 175 MHz report must be run by the user.  Compare
 WNS, TNS, failing endpoints, the first `indirect_target_miss` path, and the
 new JALR target path against `Timing_info/fixtiming6_jalr`.
+
+## Fix_Timing8A
+
+Date: 2026-07-15
+
+Fix_Timing8A removes the combinational MEM/WB forwarding-valid cone from the
+EX branch/redirect path.  The forwarding-valid flag is now registered in
+`pipe/pipe_mem_wb.v` and is calculated from the same MEM-stage inputs that are
+captured into the MEM/WB payload on that clock edge.  This preserves alignment
+with `mem_wb_wb_data` and `mem_wb_rd_addr` without adding a forwarding cycle.
+
+### RTL change
+
+- Change `mem_wb_forward_valid` from a continuous expression of
+  `mem_wb_valid`, `mem_wb_wb_ctl` and `mem_wb_rd_addr` to a pipeline register.
+- Reset it with the other MEM/WB state.
+- On each normal clock, load
+  `ex_mem_valid && mem_stage_wb_ctl && (ex_mem_rd_addr != 0)`.
+
+- `sim_1/imports/sim/pipe_mem_wb_tb.sv`: add a focused alignment test covering
+  reset, writable nonzero destination, x0, non-writeback and invalid entries.
+
+This is intentionally limited to the forwarding metadata path.  No BPU
+policy, JALR target calculation, pipeline stage count, or RAS state is changed.
+
+### Verification status
+
+All Fix_Timing8A snapshots were rebuilt in `TimingFix_Log/.fix8a_sim_work`
+with Vivado Simulator 2018.3.  Results:
+
+| Test | Result |
+| --- | --- |
+| `pipe_mem_wb_tb` | `6 checks` passed |
+| BPU unit | passed (`GHR=1`) |
+| EX/BPU control | `41 checks` passed |
+| BPU/CPU integration | passed (`updates=12`, `hits=4`, `GHR=63`) |
+| Full CPU regression | `29 PASSED, 0 FAILED` |
+| JALR EXU | `3 checks` passed |
+| RV32M wrapper | passed |
+
+JALR workload: 25,686 cycles, IPC 0.8384, JALR 6136/4090/6144,
+RET 3068/2045/3072, redirects 2073, register signature `e5327a89`,
+DRAM signature `14a4c280`.
+
+Original workload: 9,974,185 cycles, IPC 0.7018, conditional accuracy
+98.747%, JALR 4/1/66, RET 4/1/65, redirects 2701,
+register signature `a22530fe`, DRAM signature `0cddf26c`.
+
+The legacy `KLDJ_irom_v2_tb.sv` performance-counter harness reports `Z`
+because the corresponding counter instance is commented out in the current
+`KLDJ_top.v`; the branch-performance testbench above is the authoritative
+long-run check and is unaffected by this harness issue.
+
+RTL simulation passes and forwarding remains cycle-aligned.  Synthesis,
+placement, routing and the 175 MHz report must now be run by the user.
+Timing closure is not claimed until the routed report has WNS >= 0, TNS = 0,
+and zero failing setup endpoints.

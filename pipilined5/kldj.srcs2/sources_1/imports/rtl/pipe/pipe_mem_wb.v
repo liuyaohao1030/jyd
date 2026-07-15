@@ -15,11 +15,9 @@ module pipe_mem_wb(
     ,output reg [`KLDJ_REGADDR]  mem_wb_rd_addr
     ,output reg                  mem_wb_wb_ctl
     ,output reg [`KLDJ_DATA]     mem_wb_wb_data
-    // combinational derived outputs
-    ,output wire                 mem_wb_forward_valid
+    // registered forwarding metadata, kept aligned with the MEM/WB payload
+    ,output reg                  mem_wb_forward_valid
 );
-
-    assign mem_wb_forward_valid = mem_wb_valid && mem_wb_wb_ctl && (mem_wb_rd_addr != 5'd0);
 
     always@(posedge clk) begin
         if(rst == `KLDJ_RSTABLE) begin
@@ -28,12 +26,17 @@ module pipe_mem_wb(
             mem_wb_rd_addr <= 5'd0;
             mem_wb_wb_ctl  <= 1'b0;
             mem_wb_wb_data <= `KLDJ_ZERO32;
+            mem_wb_forward_valid <= 1'b0;
         end else begin
             mem_wb_valid   <= ex_mem_valid;
             mem_wb_pc      <= ex_mem_pc;
             mem_wb_rd_addr <= ex_mem_rd_addr;
             mem_wb_wb_ctl  <= mem_stage_wb_ctl;
             mem_wb_wb_data <= wb_reg_rd_data;
+            // Compute from the same MEM-stage inputs captured above so the
+            // valid bit remains cycle-aligned with the newly captured data.
+            mem_wb_forward_valid <= ex_mem_valid && mem_stage_wb_ctl &&
+                                    (ex_mem_rd_addr != 5'd0);
         end
     end
 

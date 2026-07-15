@@ -5303,3 +5303,193 @@ selectTab((HResource) null, (HResource) null, "Messages", 1); // aa
 selectTab((HResource) null, (HResource) null, "Serial I/O Links", 3); // aa
 selectTab((HResource) null, (HResource) null, "Design Runs", 2); // aa
 // HMemoryUtils.trashcanNow. Engine heap size: 3,181 MB. GUI used memory: 301 MB. Current time: 7/15/26, 12:25:52 PM CST
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Elapsed Time for: 'L.f': 45h:12m:19s
+// Elapsed Time for: 'L.f': 45h:12m:21s
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Elapsed Time for: 'L.f': 45h:12m:35s
+// Elapsed Time for: 'L.f': 45h:12m:37s
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Elapsed Time for: 'L.f': 45h:12m:45s
+// Elapsed Time for: 'L.f': 45h:12m:47s
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Elapsed Time for: 'L.f': 45h:12m:53s
+// Elapsed Time for: 'L.f': 45h:12m:55s
+// [GUI Memory]: 468 MB (+7732kb) [45:13:10]
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Elapsed Time for: 'L.f': 45h:13m:19s
+// [GUI Memory]: 494 MB (+2662kb) [45:13:34]
+// Elapsed Time for: 'L.f': 45h:13m:21s
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Elapsed Time for: 'L.f': 45h:13m:29s
+// Elapsed Time for: 'L.f': 45h:13m:31s
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Elapsed Time for: 'L.f': 45h:13m:55s
+// Elapsed Time for: 'L.f': 45h:13m:57s
+// HMemoryUtils.trashcanNow. Engine heap size: 3,181 MB. GUI used memory: 329 MB. Current time: 7/15/26, 12:55:52 PM CST
+// Elapsed time: 2053 seconds
+selectButton(PAResourceCommand.PACommandNames_DESIGN_AHEAD, "Design Runs_design_ahead"); // B (PAResourceCommand.PACommandNames_DESIGN_AHEAD, Design Runs_design_ahead)
+// Run Command: PAResourceCommand.PACommandNames_DESIGN_AHEAD
+selectRadioButton(PAResourceAtoD.DesignAheadWizard_BOTH, "Both"); // a (PAResourceAtoD.DesignAheadWizard_BOTH)
+selectButton("NEXT", "Next >"); // JButton (NEXT)
+selectTable(PAResourceAtoD.ConfigRunTablePanel_CONFIG_RUN_TABLE, "synth_4 ; constrs_1 ; xc7k325tffg900-2 ; Vivado Synthesis Defaults ; Vivado Synthesis Default Reports ; false", 0, "synth_4", 0); // c (PAResourceAtoD.ConfigRunTablePanel_CONFIG_RUN_TABLE)
+editTable(PAResourceAtoD.ConfigRunTablePanel_CONFIG_RUN_TABLE, "fixtiming6", 0, "Name", 0); // c (PAResourceAtoD.ConfigRunTablePanel_CONFIG_RUN_TABLE)
+selectButton("NEXT", "Next >"); // JButton (NEXT)
+selectButton("NEXT", "Next >"); // JButton (NEXT)
+selectButton("NEXT", "Next >"); // JButton (NEXT)
+// TclEventType: RUN_ADD
+// Tcl Message: create_run fixtiming6 -flow {Vivado Synthesis 2023} 
+// Tcl Message: Run is defaulting to srcset: sources_1 Run is defaulting to constrset: constrs_1 Run is defaulting to part: xc7k325tffg900-2 
+// Tcl Message: create_run impl_14 -parent_run fixtiming6 -flow {Vivado Implementation 2023} 
+// Tcl Message: Run is defaulting to parent run srcset: sources_1 Run is defaulting to parent run constrset: constrs_1 Run is defaulting to parent run part: xc7k325tffg900-2 
+dismissDialog("Create New Runs"); // n (dialog112)
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: RUN_MODIFY
+// Tcl Message: launch_runs impl_14 -jobs 8 
+// Tcl Message: INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci' is already up-to-date INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci' is already up-to-date INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci' is already up-to-date 
+// Tcl Message: [Wed Jul 15 12:57:24 2026] Launched fixtiming6... Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fixtiming6/runme.log [Wed Jul 15 12:57:24 2026] Launched impl_14... Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_14/runme.log 
+selectButton("FINISH", "Finish"); // JButton (FINISH)
+// 'e' command handler elapsed time: 14 seconds
+dismissDialog("Starting Design Runs"); // bq (Starting Design Runs Progress)
+expandTreeTable(PAResourceEtoH.ExpRunTreePanel_EXP_RUN_TREE_TABLE, "fixtiming6 ; constrs_1 ; Scripts Generated ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 00:00:00 ; Vivado Synthesis Defaults (Vivado Synthesis 2023) ; Vivado Synthesis Default Reports (Vivado Synthesis 2023) ; xc7k325tffg900-2 ; Vivado Synthesis Defaults", 27); // ao (PAResourceEtoH.ExpRunTreePanel_EXP_RUN_TREE_TABLE)
+// TclEventType: RUN_STATUS_CHANGE
+selectTreeTable(PAResourceEtoH.ExpRunTreePanel_EXP_RUN_TREE_TABLE, "fixtiming6 ; constrs_1 ; Running synth_design... ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; Wed Jul 15 12:57:25 CST 2026 ;  ; Vivado Synthesis Defaults (Vivado Synthesis 2023) ; Vivado Synthesis Default Reports (Vivado Synthesis 2023) ; xc7k325tffg900-2 ; Vivado Synthesis Defaults", 27, "fixtiming6", 0, true, false, false, false, true, false); // ao (PAResourceEtoH.ExpRunTreePanel_EXP_RUN_TREE_TABLE) - Popup Trigger - Node
+selectMenuItem(PAResourceEtoH.ExpRunMenu_MAKE_ACTIVE, "Make Active"); // ao (PAResourceEtoH.ExpRunMenu_MAKE_ACTIVE, Make Active)
+// TclEventType: RUN_CURRENT
+// Tcl Message: current_run [get_runs fixtiming6] 
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// Elapsed time: 279 seconds
+selectButton(PAResourceAtoD.AbstractFileView_RELOAD, "Reload"); // g (PAResourceAtoD.AbstractFileView_RELOAD)
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// Elapsed time: 18 seconds
+dismissDialog("Implementation Completed"); // Q.a (dialog113)
+selectTreeTable(PAResourceEtoH.ExpRunTreePanel_EXP_RUN_TREE_TABLE, "fixtiming6 ; constrs_1 ; synth_design Complete! ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 3335 ; 2896 ; 0.0 ; 0 ; 0 ; Wed Jul 15 12:57:32 CST 2026 ; 00:01:15 ; Vivado Synthesis Defaults (Vivado Synthesis 2023) ; Vivado Synthesis Default Reports (Vivado Synthesis 2023) ; xc7k325tffg900-2 ; Vivado Synthesis Defaults", 27, "100", 3, true); // ao (PAResourceEtoH.ExpRunTreePanel_EXP_RUN_TREE_TABLE) - Node
+selectTreeTable(PAResourceEtoH.ExpRunTreePanel_EXP_RUN_TREE_TABLE, "impl_14 ; constrs_1 ; route_design Complete, Failed Timing! ; -1.4900789260864258 ; -214.1861114501953 ; 0.062009260058403015 ; 0.0 ;  ; 0.0 ; 0.4916863441467285 ; 0 ; 72 Warn ;  ;  ; 5946 ; 6154 ; 64.0 ; 0 ; 4 ; Wed Jul 15 12:58:57 CST 2026 ; 00:03:19 ; Vivado Implementation Defaults (Vivado Implementation 2023) ; Vivado Implementation Default Reports (Vivado Implementation 2023) ; xc7k325tffg900-2 ; Default settings for Implementation.", 28, "100", 3, false); // ao (PAResourceEtoH.ExpRunTreePanel_EXP_RUN_TREE_TABLE)
+// Elapsed time: 61 seconds
+selectTab((HResource) null, (HResource) null, "Tcl Console", 0); // aa
+selectTab((HResource) null, (HResource) null, "Design Runs", 2); // aa
+selectTab((HResource) null, (HResource) null, "Messages", 1); // aa
+selectTab((HResource) null, (HResource) null, "Tcl Console", 0); // aa
+// Tcl (Dont Echo) Command: 'rdi::info_commands bd::match_path'
+// Tcl (Dont Echo) Command: 'bd::match_path {source} {D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/reports/} {timing_info.tcl}'
+setText(RDIResource.CommandsInput_TYPE_TCL_COMMAND_HERE, "source D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/reports/timing_info.tcl", true); // h.b (RDIResource.CommandsInput_TYPE_TCL_COMMAND_HERE)
+// Tcl Command: 'source D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/reports/timing_info.tcl'
+// Tcl Command: 'source D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/reports/timing_info.tcl'
+// Tcl Message: source D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/reports/timing_info.tcl 
+// Tcl Message: # set out_dir "D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/Timing_info/fixtiming7" # file mkdir $out_dir # report_timing_summary -delay_type max -report_unconstrained -check_timing_verbose -max_paths 20 -file $out_dir/timing_summary.rpt 
+// Tcl Message: INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: max. INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs 
+// Tcl Message: # report_timing -delay_type max -path_type full_clock_expanded -max_paths 60 -nworst 1 -sort_by slack -input_pins -nets -file $out_dir/worst_paths.rpt 
+// Tcl Message: INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: max. INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs INFO: [Timing 38-78] ReportTimingParams: -max_paths 60 -nworst 1 -delay_type max -sort_by slack. 
+// Tcl Message: # report_high_fanout_nets -timing -load_types -max_nets 100 -file $out_dir/high_fanout.rpt 
+// Tcl Message: INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: max. INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs INFO: [Timing 38-78] ReportTimingParams: -max_paths 10 -nworst 1 -delay_type max -sort_by slack. 
+// Tcl Message: report_high_fanout_nets: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.875 . Memory (MB): peak = 5347.496 ; gain = 0.000 
+// Tcl Message: # report_utilization -hierarchical -hierarchical_depth 6 -file $out_dir/utilization_hier.rpt 
+// Tcl Message: # report_design_analysis -congestion -file $out_dir/congestion.rpt # puts "报告已成功生成到绝�?�路�?: $out_dir" 
+// Tcl Message: 报告已成功生成到绝�?�路�?: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/Timing_info/fixtiming7 
+dismissDialog("Tcl Command"); // bq (Tcl Command Progress)
+// Elapsed time: 37 seconds
+selectTab((HResource) null, (HResource) null, "Design Runs", 2); // aa
+// Elapsed time: 411 seconds
+selectButton(PAResourceTtoZ.TaskBanner_CLOSE, (String) null); // j (PAResourceTtoZ.TaskBanner_CLOSE)
+closeTask("Program and Debug", "Hardware Manager", "DesignTask.PROGRAM_DEBUG");
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a (RDIResource.BaseDialog_OK)
+dismissDialog("Confirm Close"); // u (dialog114)
+// TclEventType: HW_OBJECT_DELETE
+// TclEventType: HW_SERVER_CLOSE
+// Tcl Message: close_hw_manager 
+// TclEventType: HW_SERVER_CLOSE
+// TclEventType: HW_SESSION_CLOSE
+// HMemoryUtils.trashcanNow. Engine heap size: 3,181 MB. GUI used memory: 333 MB. Current time: 7/15/26, 1:11:12 PM CST
+// Device view-level: 0.0
+dismissDialog("Close Hardware Manager"); // bq (Close Hardware Manager Progress)
+// Device view-level: 0.0
+// Device view-level: 0.0
+// Tcl (Dont Echo) Command: 'rdi::info_commands {open*}'
+// Tcl (Dont Echo) Command: 'rdi::info_commands {open_*}'
+// Tcl (Dont Echo) Command: 'rdi::info_commands {open_ri*}'
+// Tcl (Dont Echo) Command: 'rdi::info_commands {open_r*}'
+// Elapsed time: 52 seconds
+setText(RDIResource.CommandsInput_TYPE_TCL_COMMAND_HERE, "open_run impl_14", true); // h.b (RDIResource.CommandsInput_TYPE_TCL_COMMAND_HERE)
+// Tcl Command: 'open_run impl_14'
+// Tcl Command: 'open_run impl_14'
+// Tcl Message: open_run impl_14 
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: POWER_CNS_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: FLOORPLAN_MODIFY
+// TclEventType: DESIGN_NEW
+// HMemoryUtils.trashcanNow. Engine heap size: 3,181 MB. GUI used memory: 329 MB. Current time: 7/15/26, 1:12:09 PM CST
+// TclEventType: DESIGN_NEW
+// DeviceView Instantiated
+// TclEventType: CURR_DESIGN_SET
+// Device view-level: 0.0
+// Tcl Message: Netlist sorting complete. Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.220 . Memory (MB): peak = 5347.496 ; gain = 0.000 
+// Tcl Message: INFO: [Netlist 29-17] Analyzing 1502 Unisim elements for replacement INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds INFO: [Project 1-479] Netlist was created with Vivado 2023.2 INFO: [Project 1-570] Preparing netlist for logic optimization 
+// Tcl Message: Read ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.022 . Memory (MB): peak = 5347.496 ; gain = 0.000 
+// Tcl Message: INFO: [Timing 38-478] Restoring timing data from binary archive. INFO: [Timing 38-479] Binary timing data restore complete. INFO: [Project 1-856] Restoring constraints from binary archive. INFO: [Project 1-853] Binary constraint restore complete. INFO: [Designutils 20-5722] Start Reading Physical Databases. 
+// Tcl Message: Reading placement. 
+// Tcl Message: Read Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.010 . Memory (MB): peak = 5347.496 ; gain = 0.000 
+// Tcl Message: Reading placer database... 
+// Tcl Message: Read Device Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 5347.496 ; gain = 0.000 Read PlaceDB: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.319 . Memory (MB): peak = 5347.496 ; gain = 0.000 Read PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 5347.496 ; gain = 0.000 
+// Tcl Message: Reading routing. 
+// Tcl Message: Read RouteStorage: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.225 . Memory (MB): peak = 5347.496 ; gain = 0.000 Read Physdb Files: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.575 . Memory (MB): peak = 5347.496 ; gain = 0.000 
+// Tcl Message: Restored from archive | CPU: 1.000000 secs | Memory: 0.000000 MB | 
+// Tcl Message: Finished XDEF File Restore: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.576 . Memory (MB): peak = 5347.496 ; gain = 0.000 Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 5347.496 ; gain = 0.000 
+// Tcl Message: INFO: [Project 1-111] Unisim Transformation Summary:   A total of 22 instances were transformed.   RAM64M => RAM64M (RAMD64E(x4)): 19 instances   RAM64X1D => RAM64X1D (RAMD64E(x2)): 2 instances   RAM64X1S => RAM64X1S (RAMS64E): 1 instance   
+// Tcl Message: impl_14 
+dismissDialog("Tcl Command"); // bq (Tcl Command Progress)
+// RouteApi: Init Delay Mediator Swing Worker Finished
+// TclEventType: HFED_INIT_ROUTE_STORAGE_COMPLETED
+// RouteApi::loadEngineXgdAndInitRouteStorage elapsed time: 1.8s
+// Device view-level: 0.0
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a (RDIResource.BaseDialog_OK)
+dismissDialog("Confirm Close"); // u (dialog115)
+// TclEventType: CURR_DESIGN_SET
+// Tcl Message: current_design impl_13 
+// TclEventType: DESIGN_CLOSE
+// TclEventType: TIMING_RESULTS_UNLOAD
+// HMemoryUtils.trashcanNow. Engine heap size: 3,181 MB. GUI used memory: 287 MB. Current time: 7/15/26, 1:12:14 PM CST
+// Engine heap size: 3,181 MB. GUI used memory: 287 MB. Current time: 7/15/26, 1:12:14 PM CST
+// TclEventType: CURR_DESIGN_SET
+// Tcl Message: close_design 
+// TclEventType: DESIGN_CLOSE
+dismissDialog("Close Design"); // bq (Close Design Progress)
+// Device view-level: 0.0
+// HMemoryUtils.trashcanNow. Engine heap size: 3,181 MB. GUI used memory: 344 MB. Current time: 7/15/26, 1:12:16 PM CST
+// Tcl (Dont Echo) Command: 'rdi::info_commands bd::match_path'
+// Tcl (Dont Echo) Command: 'bd::match_path {source} {D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/reports/} {timing_info.tcl}'
+setText(RDIResource.CommandsInput_TYPE_TCL_COMMAND_HERE, "source D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/reports/timing_info.tcl", true); // h.b (RDIResource.CommandsInput_TYPE_TCL_COMMAND_HERE)
+// Tcl Command: 'source D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/reports/timing_info.tcl'
+// Tcl Command: 'source D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/reports/timing_info.tcl'
+// Tcl Message: source D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/reports/timing_info.tcl 
+// Tcl Message: # set out_dir "D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/Timing_info/fixtiming7" # file mkdir $out_dir # report_timing_summary -delay_type max -report_unconstrained -check_timing_verbose -max_paths 20 -file $out_dir/timing_summary.rpt 
+// Tcl Message: INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: max. INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs 
+// Tcl Message: # report_timing -delay_type max -path_type full_clock_expanded -max_paths 60 -nworst 1 -sort_by slack -input_pins -nets -file $out_dir/worst_paths.rpt 
+// Tcl Message: INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: max. INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs INFO: [Timing 38-78] ReportTimingParams: -max_paths 60 -nworst 1 -delay_type max -sort_by slack. 
+// Tcl Message: # report_high_fanout_nets -timing -load_types -max_nets 100 -file $out_dir/high_fanout.rpt 
+// Tcl Message: INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: max. INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs INFO: [Timing 38-78] ReportTimingParams: -max_paths 10 -nworst 1 -delay_type max -sort_by slack. 
+// Tcl Message: report_high_fanout_nets: Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 5347.496 ; gain = 0.000 
+// Tcl Message: # report_utilization -hierarchical -hierarchical_depth 6 -file $out_dir/utilization_hier.rpt # report_design_analysis -congestion -file $out_dir/congestion.rpt # puts "报告已成功生成到绝�?�路�?: $out_dir" 
+// Tcl Message: 报告已成功生成到绝�?�路�?: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/Timing_info/fixtiming7 
+dismissDialog("Tcl Command"); // bq (Tcl Command Progress)
+selectTab((HResource) null, (HResource) null, "Design Runs", 4); // aa
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Elapsed Time for: 'L.f': 46h:02m:49s
+// Elapsed Time for: 'L.f': 46h:02m:51s
