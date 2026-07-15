@@ -93,6 +93,7 @@ module KLDJ_top_tb;
     wire [31:0] perf_redirect_count;
     wire [31:0] perf_load_count;
     wire [31:0] perf_store_count;
+    wire [31:0] jalr_expected_sum = u_dut.ex_data1 + u_dut.id_ex_data2;
 
     KLDJ_top u_dut (
          .clk          (clk           )
@@ -123,29 +124,35 @@ module KLDJ_top_tb;
     // registered one-bit controls against the original exu_op definitions.
     always @(negedge clk) begin
         if (!rst) begin
-            if (u_dut.id_ex_load_op !==
-                (u_dut.id_ex_valid && (u_dut.id_ex_exu_op >= 18'h1d) &&
-                 (u_dut.id_ex_exu_op <= 18'h21)))
+            if (u_dut.id_ex_valid && (u_dut.id_ex_load_op !==
+                ((u_dut.id_ex_exu_op >= 18'h1d) &&
+                 (u_dut.id_ex_exu_op <= 18'h21))))
                 $fatal(1, "id_ex_load_op predecode mismatch");
-            if (u_dut.id_ex_store_op !==
-                (u_dut.id_ex_valid && (u_dut.id_ex_exu_op >= 18'h22) &&
-                 (u_dut.id_ex_exu_op <= 18'h24)))
+            if (u_dut.id_ex_valid && (u_dut.id_ex_store_op !==
+                ((u_dut.id_ex_exu_op >= 18'h22) &&
+                 (u_dut.id_ex_exu_op <= 18'h24))))
                 $fatal(1, "id_ex_store_op predecode mismatch");
-            if (u_dut.id_ex_rs2_to_data2 !==
-                (u_dut.id_ex_valid &&
-                 (((u_dut.id_ex_exu_op >= 18'ha) && (u_dut.id_ex_exu_op <= 18'h19)) ||
-                  ((u_dut.id_ex_exu_op >= 18'h25) && (u_dut.id_ex_exu_op <= 18'h2c)))))
+            if (u_dut.id_ex_valid && (u_dut.id_ex_rs2_to_data2 !==
+                (((u_dut.id_ex_exu_op >= 18'ha) && (u_dut.id_ex_exu_op <= 18'h19)) ||
+                 ((u_dut.id_ex_exu_op >= 18'h25) && (u_dut.id_ex_exu_op <= 18'h2c)))))
                 $fatal(1, "id_ex_rs2_to_data2 predecode mismatch");
-            if (u_dut.id_ex_branch_op !==
-                (u_dut.id_ex_valid && (u_dut.id_ex_exu_op >= 18'h14) &&
-                 (u_dut.id_ex_exu_op <= 18'h19)))
+            if (u_dut.id_ex_valid && (u_dut.id_ex_branch_op !==
+                ((u_dut.id_ex_exu_op >= 18'h14) &&
+                 (u_dut.id_ex_exu_op <= 18'h19))))
                 $fatal(1, "id_ex_branch_op predecode mismatch");
-            if (u_dut.id_ex_jal_op !==
-                (u_dut.id_ex_valid && (u_dut.id_ex_exu_op == 18'h1c)))
+            if (u_dut.id_ex_valid && (u_dut.id_ex_jal_op !==
+                (u_dut.id_ex_exu_op == 18'h1c)))
                 $fatal(1, "id_ex_jal_op predecode mismatch");
-            if (u_dut.id_ex_jalr_op !==
-                (u_dut.id_ex_valid && (u_dut.id_ex_exu_op == 18'h9)))
+            if (u_dut.id_ex_valid && (u_dut.id_ex_jalr_op !==
+                (u_dut.id_ex_exu_op == 18'h9)))
                 $fatal(1, "id_ex_jalr_op predecode mismatch");
+            if (u_dut.id_ex_valid && (u_dut.id_ex_jalr_check_en !==
+                (u_dut.id_ex_pred_taken && u_dut.id_ex_pred_is_jalr &&
+                 (u_dut.id_ex_exu_op == 18'h9))))
+                $fatal(1, "id_ex_jalr_check_en predecode mismatch");
+            if (u_dut.id_ex_valid && u_dut.id_ex_jalr_op &&
+                (u_dut.exu_jump_pc_raw !== {jalr_expected_sum[31:1], 1'b0}))
+                $fatal(1, "JALR dedicated target path mismatch");
             if (u_dut.id_ex_pred_is_jalr && !u_dut.id_ex_pred_taken)
                 $fatal(1, "indirect prediction metadata without taken prediction");
             if (u_dut.ex_mem_load_op !==
@@ -156,6 +163,8 @@ module KLDJ_top_tb;
                 (u_dut.ex_mem_valid && u_dut.ex_mem_wb_ctl &&
                  !u_dut.ex_mem_load_op && (u_dut.ex_mem_rd_addr != 5'd0)))
                 $fatal(1, "ex_mem_forward_valid registered control mismatch");
+            if (!u_dut.id_ex_valid && (u_dut.ex_redirect || u_dut.bpu_update_valid))
+                $fatal(1, "invalid ID/EX entry produced redirect or BPU update");
         end
     end
 

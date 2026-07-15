@@ -70,6 +70,7 @@ module pipe_id_ex #(
     ,output reg                  id_ex_branch_op
     ,output reg                  id_ex_jal_op
     ,output reg                  id_ex_jalr_op
+    ,output reg                  id_ex_jalr_check_en
 );
 
     wire id_load_op = (id_exu_op >= 18'h1d) && (id_exu_op <= 18'h21);
@@ -95,7 +96,12 @@ module pipe_id_ex #(
             id_ex_branch_op <= 1'b0;
             id_ex_jal_op    <= 1'b0;
             id_ex_jalr_op   <= 1'b0;
-        end else if(ex_redirect || load_use_stall) begin
+            id_ex_jalr_check_en <= 1'b0;
+        end else if(ex_redirect) begin
+            // Valid marks the bubble.  Keep the metadata out of the broad
+            // synchronous-clear cone; all consumers are valid-gated.
+            id_ex_valid <= 1'b0;
+        end else if(load_use_stall) begin
             id_ex_valid    <= 1'b0;
             id_ex_pred_taken  <= 1'b0;
             id_ex_pred_is_jalr <= 1'b0;
@@ -109,6 +115,7 @@ module pipe_id_ex #(
             id_ex_branch_op <= 1'b0;
             id_ex_jal_op    <= 1'b0;
             id_ex_jalr_op   <= 1'b0;
+            id_ex_jalr_check_en <= 1'b0;
         end else if(!ex_stall) begin
             id_ex_valid    <= if_id_valid;
             id_ex_pred_taken  <= if_id_valid && if_id_pred_taken;
@@ -123,6 +130,8 @@ module pipe_id_ex #(
             id_ex_branch_op <= if_id_valid && id_branch_op;
             id_ex_jal_op    <= if_id_valid && id_jal_op;
             id_ex_jalr_op   <= if_id_valid && id_jalr_op;
+            id_ex_jalr_check_en <= if_id_valid && if_id_pred_taken &&
+                                   if_id_pred_is_jalr && id_jalr_op;
         end
     end
 

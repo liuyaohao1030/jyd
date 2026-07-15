@@ -13,6 +13,7 @@ module ex_bpu_ctrl #(
     ,input  wire                  id_ex_branch_op
     ,input  wire                  id_ex_jal_op
     ,input  wire                  id_ex_jalr_op
+    ,input  wire                  id_ex_jalr_check_en
     ,input  wire                  exu_jump_raw
     ,input  wire [`KLDJ_PC]       exu_jump_pc_raw
     ,input  wire                  is_ecall
@@ -44,8 +45,7 @@ module ex_bpu_ctrl #(
     assign direction_miss = id_ex_pred_taken ^ ex_actual_redirect;
     // Only an adopted indirect prediction needs target validation. Direct
     // branches and static JAL predictions stay off the 32-bit compare path.
-    assign indirect_target_miss = id_ex_pred_taken && id_ex_pred_is_jalr &&
-                                  id_ex_jalr_op &&
+    assign indirect_target_miss = id_ex_jalr_check_en &&
                                   (id_ex_pred_target[31:1] != exu_jump_pc_raw[31:1]);
     assign ex_redirect = id_ex_valid && (direction_miss || indirect_target_miss);
 

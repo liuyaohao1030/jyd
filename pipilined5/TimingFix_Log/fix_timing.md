@@ -335,3 +335,60 @@ GHR 仍在原始 EX 更新请求到达的周期更新，保持后续 GShare 查�
 | RET/RAS 预测 | 未开始 | 在普通 JALR 预测验证后加入 |
 
 `TimingFix_Log/Fix_Timing5_impl` 和 `TimingFix_Log/run_fix_timing5_175.tcl` 来自分工确认前被中断的一次尝试，其中只有不完整的中间产物，不作为 Fix_Timing5 的综合、实现或时序结论。正式结果应由用户重新运行工程流程后另行记录。
+## Fix_Timing7
+
+Date: 2026-07-15
+
+Fix_Timing7 targets the Fix_Timing6 JALR timing regression without changing
+the five-stage pipeline or the BTB/GShare prediction policy.  The routed
+Fix_Timing6 report showed that the new `indirect_target_miss` cone inherited
+an unnecessary rs2 forwarding path.  This round keeps same-cycle JALR target
+validation and removes that unrelated dependency.
+
+### RTL changes
+
+- `stage/KLDJ_exu.v`: add a dedicated `jalr_imm` input from the ID/EX
+  immediate register.  JALR target calculation now uses
+  `ex_data1 + id_ex_data2` and no longer uses the generic forwarded `data2`
+  mux or the generic ALU result mux.
+- `pipe/pipe_id_ex.v`: register `id_ex_jalr_check_en`, which is asserted only
+  for a valid adopted BTB JALR prediction.  On redirect, only `id_ex_valid`
+  is cleared; stale metadata is held and remains inactive while invalid.
+- `pipe/pipe_if_id.v`: on redirect, only `if_id_valid` is cleared.  Prediction
+  metadata is held while invalid, avoiding a broad synchronous-clear cone.
+- `pipe/ex_bpu_ctrl.v` and `KLDJ_top.v`: route the registered check-enable
+  bit to the target mismatch comparator.
+- `KLDJ_top_tb.sv`: update structural checks for held invalid metadata and
+  assert the dedicated JALR target equation.  `ex_bpu_ctrl_tb.sv` supplies the
+  new check-enable input.
+- `KLDJ_exu_jalr_tb.sv`: drive `data2` and `jalr_imm` to different values and
+  directly verify positive, negative and direct-JAL target cases.
+
+### Simulation
+
+All snapshots were rebuilt with Vivado Simulator 2018.3 in
+`TimingFix_Log/.fix7_sim_work` before running.
+
+| Test | Result |
+| --- | --- |
+| Dedicated EXU JALR path | `3 checks` passed |
+| BPU unit | `BPU UNIT TEST PASSED (GHR=1)` |
+| EX/BPU control | `41 checks` passed |
+| BPU/CPU integration | `updates=12, hits=4, GHR=63` |
+| Full CPU regression | `29 PASSED, 0 FAILED` |
+| RV32M wrapper | passed |
+
+JALR workload: 25,686 cycles, IPC 0.8384, JALR 6136/4090/6144,
+RET 3068/2045/3072, redirects 2073, register signature `e5327a89`,
+DRAM signature `14a4c280`.
+
+Original workload: 9,974,185 cycles, IPC 0.7018, conditional accuracy
+98.747%, JAL 2670/2670, JALR 4/1/66, redirects 2701,
+register signature `a22530fe`, DRAM signature `0cddf26c`.
+
+### Timing status
+
+RTL simulation passes, but no timing-closure claim is made here.  Synthesis,
+placement, routing and the 175 MHz report must be run by the user.  Compare
+WNS, TNS, failing endpoints, the first `indirect_target_miss` path, and the
+new JALR target path against `Timing_info/fixtiming6_jalr`.

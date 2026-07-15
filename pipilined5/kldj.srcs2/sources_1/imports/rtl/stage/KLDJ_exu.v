@@ -8,6 +8,8 @@ module KLDJ_exu(
     ,input  wire [`KLDJ_DATA]   data2
     ,input  wire [`KLDJ_DATA]   data3
     ,input  wire [`KLDJ_DATA]   data4
+    // JALR immediate bypasses the generic EX operand-2 forwarding mux.
+    ,input  wire [`KLDJ_DATA]   jalr_imm
     ,input  wire [17:0]         exu_op
     ,input  wire [9:0]          alu_ctrl
     // CSR interface
@@ -114,7 +116,8 @@ module KLDJ_exu(
     wire [`KLDJ_DATA] load_store_addr = data1 + data2;
     wire [`KLDJ_DATA] branch_target   = data3 + data4;
     wire [`KLDJ_DATA] jal_target      = data1 + data2;
-    wire [`KLDJ_DATA] jalr_sum        = data1 + data2;
+    // JALR uses the registered immediate, not the rs2 forwarding operand.
+    wire [`KLDJ_DATA] jalr_sum        = data1 + jalr_imm;
     wire [`KLDJ_DATA] jalr_target     = {jalr_sum[31:1], 1'b0};
 
     assign ex_mem_addr = is_load_or_store ? load_store_addr : `KLDJ_ZERO32;
@@ -153,7 +156,7 @@ module KLDJ_exu(
 
     // mret also triggers a jump
     assign exu_jump = (exu_op == 18'h9 | exu_op == 18'h1c) | branch_taken | is_mret;
-    assign exu_jump_pc = (exu_op == 18'h9) ? {alu_res[31:1], 1'b0} :
+    assign exu_jump_pc = (exu_op == 18'h9) ? jalr_target :
                          (exu_op == 18'h1c) ? alu_res :
                          (branch_taken) ? branch_target :
                          is_mret ? mret_pc :

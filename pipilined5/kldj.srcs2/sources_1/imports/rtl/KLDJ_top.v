@@ -113,6 +113,7 @@ module KLDJ_top(
     wire                         id_ex_branch_op;
     wire                         id_ex_jal_op;
     wire                         id_ex_jalr_op;
+    wire                         id_ex_jalr_check_en;
     // CSR signals from ID/EX
     wire [11:0]                  id_ex_csr_addr;
     wire                         id_ex_csr_op;
@@ -367,6 +368,7 @@ module KLDJ_top(
         ,.id_ex_branch_op (id_ex_branch_op   )
         ,.id_ex_jal_op    (id_ex_jal_op      )
         ,.id_ex_jalr_op   (id_ex_jalr_op     )
+        ,.id_ex_jalr_check_en(id_ex_jalr_check_en)
         ,.id_ex_csr_addr  (id_ex_csr_addr    )
         ,.id_ex_csr_op    (id_ex_csr_op      )
         ,.id_ex_csr_zimm  (id_ex_csr_zimm    )
@@ -417,6 +419,7 @@ module KLDJ_top(
         ,.data2       (ex_data2              )
         ,.data3       (ex_data3              )
         ,.data4       (ex_data4              )
+        ,.jalr_imm    (id_ex_data2           )
         ,.exu_op      (id_ex_exu_op          )
         ,.alu_ctrl    (id_ex_alu_ctrl        )
         // CSR interface
@@ -453,6 +456,7 @@ module KLDJ_top(
         ,.id_ex_branch_op   (id_ex_branch_op   )
         ,.id_ex_jal_op      (id_ex_jal_op      )
         ,.id_ex_jalr_op     (id_ex_jalr_op     )
+        ,.id_ex_jalr_check_en(id_ex_jalr_check_en)
         ,.exu_jump_raw      (exu_jump_raw      )
         ,.exu_jump_pc_raw   (exu_jump_pc_raw   )
         ,.is_ecall          (is_ecall          )

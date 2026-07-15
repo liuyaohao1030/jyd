@@ -11,6 +11,8 @@ module ex_bpu_ctrl_tb;
     reg         id_ex_branch_op;
     reg         id_ex_jal_op;
     reg         id_ex_jalr_op;
+    wire        id_ex_jalr_check_en = id_ex_pred_taken &&
+                                        id_ex_pred_is_jalr && id_ex_jalr_op;
     reg         exu_jump_raw;
     reg  [31:0] exu_jump_pc_raw;
     reg         is_ecall;
@@ -40,6 +42,7 @@ module ex_bpu_ctrl_tb;
         ,.id_ex_branch_op(id_ex_branch_op)
         ,.id_ex_jal_op(id_ex_jal_op)
         ,.id_ex_jalr_op(id_ex_jalr_op)
+        ,.id_ex_jalr_check_en(id_ex_jalr_check_en)
         ,.exu_jump_raw(exu_jump_raw)
         ,.exu_jump_pc_raw(exu_jump_pc_raw)
         ,.is_ecall(is_ecall)

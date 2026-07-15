@@ -33,8 +33,8 @@ module pipe_if_id #(
             if_id_pred_is_jalr <= 1'b0;
         end else if(ex_redirect) begin
             if_id_valid <= 1'b0;
-            if_id_pred_taken <= 1'b0;
-            if_id_pred_is_jalr <= 1'b0;
+            // Valid marks the bubble; prediction metadata is don't-care
+            // while invalid and is kept off the redirect clear cone.
         end else if(!load_use_stall) begin
             if_id_valid <= 1'b1;
             if_id_pred_taken <= if_pred_taken;
