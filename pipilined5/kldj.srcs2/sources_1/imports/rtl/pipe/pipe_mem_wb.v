@@ -1,9 +1,11 @@
 `include "../define.v"
 
-// DRAM/bridge response boundary.  The BRAM output, decode mux and store
-// forwarding mux end here; byte/half selection and sign extension start in
-// MEM2 from registered inputs.
-module pipe_mem1_mem2(
+// DRAM/bridge response boundary.  The optional early formatter turns the
+// synchronous response into a registered MEM2 forwarding value, so the EX
+// stage never receives a live BRAM/bridge response.
+module pipe_mem1_mem2 #(
+     parameter ENABLE_MEM2_LOAD_FWD = 1'b0
+)(
      input wire                  clk
     ,input wire                  rst
     // from EX/MEM (MEM1 control) and the synchronous memory response
@@ -26,8 +28,35 @@ module pipe_mem1_mem2(
     ,output reg [`KLDJ_DATA]     mem2_exu_res
     ,output reg [1:0]            mem2_addr_low
     ,output reg [`KLDJ_DATA]     mem2_mem_rdata
+    // Registered value used by MEM2 forwarding.  In the optimized mode this
+    // is the fully formatted load result; non-load producers always carry
+    // their EX result.
+    ,output reg [`KLDJ_DATA]     mem2_forward_data
     ,output reg                  mem2_forward_valid
 );
+
+    wire [`KLDJ_DATA] mem1_load_data;
+    wire [`KLDJ_DATA] mem1_forward_data;
+
+    // Keep the legacy configuration structurally equivalent: its formatter
+    // remains in MEM2 and this new path has no load-data fanout.  The enabled
+    // configuration pays the formatter cost before the MEM1/MEM2 register,
+    // then forwards only a registered value through EX.
+    generate
+        if (ENABLE_MEM2_LOAD_FWD) begin : g_early_load_format
+            KLDJ_lsu u_mem1_load_format(
+                 .ls_ctl   (ex_mem_ls_ctl )
+                ,.addr_low (ex_mem_addr_low)
+                ,.mem_rdata(mem_rdata      )
+                ,.lsu_res  (mem1_load_data )
+            );
+        end else begin : g_no_early_load_format
+            assign mem1_load_data = `KLDJ_ZERO32;
+        end
+    endgenerate
+
+    assign mem1_forward_data = (ENABLE_MEM2_LOAD_FWD && ex_mem_load_op) ?
+                               mem1_load_data : ex_mem_exu_res;
 
     always @(posedge clk) begin
         if (rst == `KLDJ_RSTABLE) begin
@@ -40,6 +69,7 @@ module pipe_mem1_mem2(
             mem2_exu_res       <= `KLDJ_ZERO32;
             mem2_addr_low      <= 2'b00;
             mem2_mem_rdata     <= `KLDJ_ZERO32;
+            mem2_forward_data  <= `KLDJ_ZERO32;
             mem2_forward_valid <= 1'b0;
         end else begin
             mem2_valid         <= ex_mem_valid;
@@ -51,6 +81,7 @@ module pipe_mem1_mem2(
             mem2_exu_res       <= ex_mem_exu_res;
             mem2_addr_low      <= ex_mem_addr_low;
             mem2_mem_rdata     <= mem_rdata;
+            mem2_forward_data  <= mem1_forward_data;
             mem2_forward_valid <= ex_mem_valid && ex_mem_wb_ctl &&
                                   (ex_mem_rd_addr != 5'd0);
         end

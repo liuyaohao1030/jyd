@@ -1,13 +1,15 @@
 `include "../define.v"
 
-module ex_forward(
+module ex_forward #(
+     // When enabled, MEM2 carries a registered, already formatted load value.
+     // This makes FWD_MEM2 valid for loads and removes the second bubble.
+     parameter ENABLE_MEM2_LOAD_FWD = 1'b0
+)(
      // from ID/EX pipeline register
      input wire                  id_ex_valid
     ,input wire [`KLDJ_REGADDR]  id_ex_rd_addr
     ,input wire                  id_ex_load_op
-    // A load in EX/MEM becomes a MEM2 response on the next edge.  A
-    // dependent IF/ID instruction must wait one more cycle so that it uses
-    // the registered MEM/WB source instead of the timing-critical response.
+    // A load in EX/MEM becomes a MEM2 response on the next edge.
     ,input wire                  ex_mem_valid
     ,input wire [`KLDJ_REGADDR]  ex_mem_rd_addr
     ,input wire                  ex_mem_load_op
@@ -19,10 +21,10 @@ module ex_forward(
     ,input wire [`KLDJ_DATA]     id_ex_data4
     // from EX/MEM pipeline register
     ,input wire [`KLDJ_DATA]     ex_mem_exu_res
-    // from MEM2 stage.  FWD_MEM2 is legal only for a non-load producer, so
-    // use its raw EX result rather than the load-format/WB MUX.  This
-    // structurally removes the MEM2 load-response path from the EX MUX.
-    ,input wire [`KLDJ_DATA]     mem2_exu_res
+    // from MEM2 stage.  With ENABLE_MEM2_LOAD_FWD this is a registered,
+    // already formatted load result for load producers; otherwise it is the
+    // legacy raw EX result and FWD_MEM2 remains non-load-only.
+    ,input wire [`KLDJ_DATA]     mem2_forward_data
     // from MEM/WB pipeline register
     ,input wire [`KLDJ_DATA]     mem_wb_wb_data
     // from IF/ID stage
@@ -47,17 +49,16 @@ module ex_forward(
                           ((id_reg_rs1_ren && (id_reg_rs1_addr == id_ex_rd_addr)) ||
                            (id_reg_rs2_ren && (id_reg_rs2_addr == id_ex_rd_addr)));
 
-    // Second interlock: after the first bubble, or after one independent
-    // instruction, a consumer could otherwise enter EX while the load is in
-    // MEM2.  That path contains load formatting, the forwarding MUX and the
-    // downstream AGU/branch logic.  Holding IF/ID here makes pipe_id_ex
-    // select FWD_MEM_WB on the following edge.
+    // Legacy second interlock.  It is retained as an observable raw event for
+    // regression, but only blocks the front end when MEM2 cannot yet forward
+    // a registered formatted load value.
     wire ex_mem_load_use = ex_mem_valid && ex_mem_load_op &&
                            (ex_mem_rd_addr != 5'd0) && if_id_valid &&
                            ((id_reg_rs1_ren && (id_reg_rs1_addr == ex_mem_rd_addr)) ||
                             (id_reg_rs2_ren && (id_reg_rs2_addr == ex_mem_rd_addr)));
 
-    assign load_use_stall = id_ex_load_use || ex_mem_load_use;
+    assign load_use_stall = id_ex_load_use ||
+                            (!ENABLE_MEM2_LOAD_FWD && ex_mem_load_use);
 
     localparam [1:0] FWD_EX_MEM = 2'b01;
     localparam [1:0] FWD_MEM2   = 2'b10;
@@ -83,15 +84,15 @@ module ex_forward(
     endfunction
 
     assign ex_data1 = forward_mux(id_ex_rs1_fwd_sel, id_ex_data1,
-                                  ex_mem_exu_res, mem2_exu_res, mem_wb_wb_data);
+                                  ex_mem_exu_res, mem2_forward_data, mem_wb_wb_data);
     // For a store, a non-zero rs2 selector also changes ex_data2, but the AGU
     // uses the dedicated ls_imm input.  ex_store_wdata uses the same selector
     // with id_ex_data3 as its unforwarded store-data source.
     assign ex_data2 = forward_mux(id_ex_rs2_fwd_sel, id_ex_data2,
-                                  ex_mem_exu_res, mem2_exu_res, mem_wb_wb_data);
+                                  ex_mem_exu_res, mem2_forward_data, mem_wb_wb_data);
     assign ex_data3 = id_ex_data3;
     assign ex_data4 = id_ex_data4;
     assign ex_store_wdata = forward_mux(id_ex_rs2_fwd_sel, id_ex_data3,
-                                        ex_mem_exu_res, mem2_exu_res, mem_wb_wb_data);
+                                        ex_mem_exu_res, mem2_forward_data, mem_wb_wb_data);
 
 endmodule
