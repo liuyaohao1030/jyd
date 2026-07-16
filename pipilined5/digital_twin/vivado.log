@@ -3,10 +3,10 @@
 # SW Build 4029153 on Fri Oct 13 20:14:34 MDT 2023
 # IP Build 4028589 on Sat Oct 14 00:45:43 MDT 2023
 # SharedData Build 4025554 on Tue Oct 10 17:18:54 MDT 2023
-# Start of session at: Mon Jul 13 15:22:13 2026
-# Process ID: 7352
+# Start of session at: Wed Jul 15 19:05:58 2026
+# Process ID: 46852
 # Current directory: D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent28308 D:\Desktop\JYD\Source_code\BPU_FixTiming3\jyd\pipilined5\digital_twin\digital_twin.xpr
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent46096 D:\Desktop\JYD\Source_code\BPU_FixTiming3\jyd\pipilined5\digital_twin\digital_twin.xpr
 # Log file: D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/vivado.log
 # Journal file: D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin\vivado.jou
 # Running On: DESKTOP-MO7L2KR, OS: Windows, CPU Frequency: 3793 MHz, CPU Physical cores: 16, Host memory: 33618 MB
@@ -23,7 +23,6 @@ WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu208ld:part0:2.0 avail
 WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu216ld:part0:2.0 available at E:/Vivado2023.2/Vivado/2023.2/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu216ld/production/2.0/board.xml as part xczu59dr-ffvf1760-2-i specified in board_part file is either invalid or not available
 WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu670:part0:2.0 available at E:/Vivado2023.2/Vivado/2023.2/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu670/2.0/board.xml as part xczu67dr-fsve1156-2-i specified in board_part file is either invalid or not available
 WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu670ld:part0:1.0 available at E:/Vivado2023.2/Vivado/2023.2/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu670ld/1.0/board.xml as part xczu57dr-fsve1156-2-i specified in board_part file is either invalid or not available
-INFO: [Project 1-313] Project file moved from 'D:/Desktop/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/digital_twin' since last save.
 Scanning sources...
 Finished scanning sources
 INFO: [IP_Flow 19-234] Refreshing IP repositories
@@ -32,65 +31,182 @@ INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'E:/Vivado2023.2/Vivado/2023
 WARNING: [IP_Flow 19-3664] IP 'div_gen_u32' generated file not found 'd:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/div_gen_u32_1/cmodel/div_gen_v5_1_bitacc_cmodel_lin64.zip'. Please regenerate to continue.
 WARNING: [IP_Flow 19-3664] IP 'div_gen_u32' generated file not found 'd:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/div_gen_u32_1/cmodel/div_gen_v5_1_bitacc_cmodel_nt64.zip'. Please regenerate to continue.
 WARNING: [IP_Flow 19-3664] IP 'DRAM_TDP' generated file not found 'd:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/DRAM_TDP_1/summary.log'. Please regenerate to continue.
-open_project: Time (s): cpu = 00:00:16 ; elapsed = 00:00:09 . Memory (MB): peak = 1601.668 ; gain = 387.668
+open_project: Time (s): cpu = 00:00:20 ; elapsed = 00:00:10 . Memory (MB): peak = 1631.555 ; gain = 408.789
 update_compile_order -fileset sources_1
-remove_files [get_files *.v]
-CRITICAL WARNING: [filemgmt 20-1679] Unable to remove the file: d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/div_gen_u32_1/div_gen_u32_stub.v
-from the fileset 'sources_1'.
-File is part of a sub-design (IP, Block Design, DSP Design, etc.) and must be removed via the sub-design parent.
-CRITICAL WARNING: [filemgmt 20-1679] Unable to remove the file: d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/mult_gen_u33_1/mult_gen_u33_stub.v
-from the fileset 'sources_1'.
-File is part of a sub-design (IP, Block Design, DSP Design, etc.) and must be removed via the sub-design parent.
-CRITICAL WARNING: [filemgmt 20-1679] Unable to remove the file: d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll_clk_wiz.v
-from the fileset 'sources_1'.
-File is part of a sub-design (IP, Block Design, DSP Design, etc.) and must be removed via the sub-design parent.
-CRITICAL WARNING: [filemgmt 20-1679] Unable to remove the file: d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll.v
-from the fileset 'sources_1'.
-File is part of a sub-design (IP, Block Design, DSP Design, etc.) and must be removed via the sub-design parent.
-CRITICAL WARNING: [filemgmt 20-1679] Unable to remove the file: d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll_stub.v
-from the fileset 'sources_1'.
-File is part of a sub-design (IP, Block Design, DSP Design, etc.) and must be removed via the sub-design parent.
-CRITICAL WARNING: [filemgmt 20-1679] Unable to remove the file: d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll_sim_netlist.v
-from the fileset 'sources_1'.
-File is part of a sub-design (IP, Block Design, DSP Design, etc.) and must be removed via the sub-design parent.
-CRITICAL WARNING: [filemgmt 20-1679] Unable to remove the file: d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/DRAM/simulation/dist_mem_gen_v8_0.v
-from the fileset 'DRAM'.
-File is part of a sub-design (IP, Block Design, DSP Design, etc.) and must be removed via the sub-design parent.
-CRITICAL WARNING: [filemgmt 20-1679] Unable to remove the file: d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/DRAM/sim/DRAM.v
-from the fileset 'DRAM'.
-File is part of a sub-design (IP, Block Design, DSP Design, etc.) and must be removed via the sub-design parent.
-CRITICAL WARNING: [filemgmt 20-1679] Unable to remove the file: d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/DRAM/DRAM_stub.v
-from the fileset 'DRAM'.
-File is part of a sub-design (IP, Block Design, DSP Design, etc.) and must be removed via the sub-design parent.
-CRITICAL WARNING: [filemgmt 20-1679] Unable to remove the file: d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/DRAM_TDP_1/simulation/blk_mem_gen_v8_4.v
-from the fileset 'DRAM_TDP'.
-File is part of a sub-design (IP, Block Design, DSP Design, etc.) and must be removed via the sub-design parent.
-CRITICAL WARNING: [filemgmt 20-1679] Unable to remove the file: d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/DRAM_TDP_1/sim/DRAM_TDP.v
-from the fileset 'DRAM_TDP'.
-File is part of a sub-design (IP, Block Design, DSP Design, etc.) and must be removed via the sub-design parent.
-CRITICAL WARNING: [filemgmt 20-1679] Unable to remove the file: d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/DRAM_TDP_1/DRAM_TDP_stub.v
-from the fileset 'DRAM_TDP'.
-File is part of a sub-design (IP, Block Design, DSP Design, etc.) and must be removed via the sub-design parent.
-CRITICAL WARNING: [filemgmt 20-1679] Unable to remove the file: d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/IROM/simulation/dist_mem_gen_v8_0.v
-from the fileset 'IROM'.
-File is part of a sub-design (IP, Block Design, DSP Design, etc.) and must be removed via the sub-design parent.
-CRITICAL WARNING: [filemgmt 20-1679] Unable to remove the file: d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/IROM/sim/IROM.v
-from the fileset 'IROM'.
-File is part of a sub-design (IP, Block Design, DSP Design, etc.) and must be removed via the sub-design parent.
-CRITICAL WARNING: [filemgmt 20-1679] Unable to remove the file: d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/IROM/IROM_stub.v
-from the fileset 'IROM'.
-File is part of a sub-design (IP, Block Design, DSP Design, etc.) and must be removed via the sub-design parent.
-D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/define.v d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/div_gen_u32_1/div_gen_u32_stub.v d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/mult_gen_u33_1/mult_gen_u33_stub.v d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll_clk_wiz.v d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll.v d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll_stub.v d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll_sim_netlist.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/KLDJ_alu.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_csr.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_exu.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_idu.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_ifu.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_lsu.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_regfile.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_top.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_wbu.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_add.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_and.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_or.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_shifter.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_slt.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_xor.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/bpu.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/div_ip_wrapper.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/ex_bpu_ctrl.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/ex_forward.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/ex_mem_req_ctrl.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/mem_stage_top.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/mul_ip_wrapper.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_ex_mem.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_id_ex.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_if_id.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_mem_wb.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_wb_commit.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_div.v D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_mul.v d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/IROM/simulation/dist_mem_gen_v8_0.v d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/IROM/sim/IROM.v d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/IROM/IROM_stub.v d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/DRAM/simulation/dist_mem_gen_v8_0.v d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/DRAM/sim/DRAM.v d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/DRAM/DRAM_stub.v d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/DRAM_TDP_1/simulation/blk_mem_gen_v8_4.v d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/DRAM_TDP_1/sim/DRAM_TDP.v d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/DRAM_TDP_1/DRAM_TDP_stub.v
-update_compile_order -fileset sources_1
-remove_files [get_files *.sv]
-D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/new/counter.sv D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/new/display_seg.sv D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/new/dram_driver.sv D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/new/perip_bridge.sv D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/new/seg7.sv D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/new/student_top.sv D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/new/twin_controller.sv D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/new/uart.sv D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/new/top.sv D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/new/DRAM_TDP.sv D:/DESKTOP/JYD/Source_code/merge_dualport_bpu/jyd/pipilined5/new/IROM_BHV.sv
-update_compile_order -fileset sources_1
-add_files -norecurse -scan_for_includes {D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/mul_ip_wrapper.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_if_id.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_exu.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/seg7.sv D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/mem_stage_top.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/student_top.sv D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_top.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_or.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/define.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_div.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_regfile.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/counter.sv D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_wb_commit.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_slt.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/ex_mem_req_ctrl.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_wbu.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/perip_bridge.sv D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_id_ex.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_ex_mem.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/DRAM_TDP.sv D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_mem_wb.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/twin_controller.sv D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_shifter.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/ex_bpu_ctrl.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/bpu.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/dram_driver.sv D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_and.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_mul.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/ex_forward.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/KLDJ_alu.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/top.sv D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/IROM_BHV.sv D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/div_ip_wrapper.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_lsu.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_add.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_idu.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_xor.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/display_seg.sv D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/uart.sv D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_ifu.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_csr.v}
-INFO: [filemgmt 56-200] Setting project included file 'D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/define.v' to type 'Verilog Header'.
-update_compile_order -fileset sources_1
+create_run fixtiming8e -flow {Vivado Synthesis 2023}
+Run is defaulting to srcset: sources_1
+Run is defaulting to constrset: constrs_1
+Run is defaulting to part: xc7k325tffg900-2
+create_run impl_18 -parent_run fixtiming8e -flow {Vivado Implementation 2023}
+Run is defaulting to parent run srcset: sources_1
+Run is defaulting to parent run constrset: constrs_1
+Run is defaulting to parent run part: xc7k325tffg900-2
+launch_runs impl_18 -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci' is already up-to-date
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci' is already up-to-date
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci' is already up-to-date
+[Wed Jul 15 19:13:28 2026] Launched fixtiming8e...
+Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fixtiming8e/runme.log
+[Wed Jul 15 19:13:28 2026] Launched impl_18...
+Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_18/runme.log
+reset_run fixtiming8e
+WARNING: [Vivado 12-1017] Problems encountered:
+1. PID not specified
+
+set_property STEPS.PLACE_DESIGN.ARGS.DIRECTIVE ExtraNetDelay_high [get_runs impl_17]
+set_property STEPS.ROUTE_DESIGN.ARGS.DIRECTIVE AggressiveExplore [get_runs impl_17]
+current_run [get_runs fixtiming8e]
+set_property STEPS.PLACE_DESIGN.ARGS.DIRECTIVE ExtraNetDelay_high [get_runs impl_18]
+set_property STEPS.ROUTE_DESIGN.ARGS.DIRECTIVE AggressiveExplore [get_runs impl_18]
+INFO: [Device 21-403] Loading part xc7k325tffg900-2
+set_property -dict [list \
+  CONFIG.CLKOUT1_JITTER {185.808} \
+  CONFIG.CLKOUT1_PHASE_ERROR {164.801} \
+  CONFIG.CLKOUT2_JITTER {143.375} \
+  CONFIG.CLKOUT2_PHASE_ERROR {164.801} \
+  CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {190} \
+  CONFIG.MMCM_CLKFBOUT_MULT_F {19} \
+  CONFIG.MMCM_CLKOUT0_DIVIDE_F {19} \
+  CONFIG.MMCM_CLKOUT1_DIVIDE {5} \
+] [get_ips pll]
+generate_target all [get_files  D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci]
+INFO: [IP_Flow 19-1686] Generating 'Instantiation Template' target for IP 'pll'...
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'pll'...
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'pll'...
+INFO: [IP_Flow 19-1686] Generating 'Implementation' target for IP 'pll'...
+INFO: [IP_Flow 19-1686] Generating 'Change Log' target for IP 'pll'...
+catch { config_ip_cache -export [get_ips -all pll] }
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: pll
+export_ip_user_files -of_objects [get_files D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci]
+launch_runs pll_synth_1 -jobs 8
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: pll
+[Wed Jul 15 19:15:33 2026] Launched pll_synth_1...
+Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/pll_synth_1/runme.log
+export_simulation -of_objects [get_files D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci] -directory D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.ip_user_files -ipstatic_source_dir D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/modelsim} {questa=D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/questa} {riviera=D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/riviera} {activehdl=D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+set_property -dict [list \
+  CONFIG.CLKOUT1_JITTER {96.231} \
+  CONFIG.CLKOUT1_PHASE_ERROR {107.074} \
+  CONFIG.CLKOUT2_JITTER {78.690} \
+  CONFIG.CLKOUT2_PHASE_ERROR {107.074} \
+  CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {185} \
+  CONFIG.MMCM_CLKFBOUT_MULT_F {37} \
+  CONFIG.MMCM_CLKIN2_PERIOD {10.000} \
+  CONFIG.MMCM_CLKOUT0_DIVIDE_F {37} \
+  CONFIG.MMCM_CLKOUT1_DIVIDE {10} \
+] [get_ips pll]
+generate_target all [get_files  D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci]
+INFO: [IP_Flow 19-1686] Generating 'Instantiation Template' target for IP 'pll'...
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'pll'...
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'pll'...
+INFO: [IP_Flow 19-1686] Generating 'Implementation' target for IP 'pll'...
+INFO: [IP_Flow 19-1686] Generating 'Change Log' target for IP 'pll'...
+catch { config_ip_cache -export [get_ips -all pll] }
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: pll
+export_ip_user_files -of_objects [get_files D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci] -no_script -sync -force -quiet
+reset_run pll_synth_1
+launch_runs pll_synth_1 -jobs 8
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: pll
+[Wed Jul 15 19:16:27 2026] Launched pll_synth_1...
+Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/pll_synth_1/runme.log
+export_simulation -of_objects [get_files D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci] -directory D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.ip_user_files -ipstatic_source_dir D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/modelsim} {questa=D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/questa} {riviera=D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/riviera} {activehdl=D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+launch_runs impl_18 -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci' is already up-to-date
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci' is already up-to-date
+[Wed Jul 15 19:16:37 2026] Launched pll_synth_1, fixtiming8e...
+Run output will be captured here:
+pll_synth_1: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/pll_synth_1/runme.log
+fixtiming8e: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fixtiming8e/runme.log
+[Wed Jul 15 19:16:37 2026] Launched impl_18...
+Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_18/runme.log
 export_ip_user_files -of_objects  [get_files d:/Desktop/JYD/DESKTOP/JYD/src2/dram.coe] -no_script -reset -force -quiet
 remove_files  d:/Desktop/JYD/DESKTOP/JYD/src2/dram.coe
-INFO: [Device 21-403] Loading part xc7k325tffg900-2
+reset_run fixtiming8e
+launch_runs impl_18 -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci' is already up-to-date
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci' is already up-to-date
+[Wed Jul 15 19:17:44 2026] Launched fixtiming8e...
+Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fixtiming8e/runme.log
+[Wed Jul 15 19:17:44 2026] Launched impl_18...
+Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_18/runme.log
+open_run impl_18
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.223 . Memory (MB): peak = 2875.191 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 1507 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2023.2
+INFO: [Project 1-570] Preparing netlist for logic optimization
+Read ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.021 . Memory (MB): peak = 2914.832 ; gain = 2.594
+INFO: [Timing 38-478] Restoring timing data from binary archive.
+INFO: [Timing 38-479] Binary timing data restore complete.
+INFO: [Project 1-856] Restoring constraints from binary archive.
+INFO: [Project 1-853] Binary constraint restore complete.
+INFO: [Designutils 20-5722] Start Reading Physical Databases.
+Reading placement.
+Read Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.011 . Memory (MB): peak = 3550.801 ; gain = 0.000
+Reading placer database...
+Read Device Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 3550.801 ; gain = 0.000
+Read PlaceDB: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.360 . Memory (MB): peak = 3550.801 ; gain = 0.000
+Read PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3550.801 ; gain = 0.000
+Reading routing.
+Read RouteStorage: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.229 . Memory (MB): peak = 3550.801 ; gain = 0.000
+Read Physdb Files: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.622 . Memory (MB): peak = 3550.801 ; gain = 0.000
+Restored from archive | CPU: 1.000000 secs | Memory: 0.000000 MB |
+Finished XDEF File Restore: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.622 . Memory (MB): peak = 3550.801 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 3550.801 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 22 instances were transformed.
+  RAM64M => RAM64M (RAMD64E(x4)): 19 instances
+  RAM64X1D => RAM64X1D (RAMD64E(x2)): 2 instances
+  RAM64X1S => RAM64X1S (RAMS64E): 1 instance 
+
+open_run: Time (s): cpu = 00:00:19 ; elapsed = 00:00:10 . Memory (MB): peak = 3726.328 ; gain = 851.137
+open_report: Time (s): cpu = 00:00:09 ; elapsed = 00:00:06 . Memory (MB): peak = 3821.066 ; gain = 12.910
+CRITICAL WARNING: [Timing 38-282] The design failed to meet the timing requirements. Please see the timing summary report for details on the timing violations.
+launch_runs impl_18 -to_step write_bitstream -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci' is already up-to-date
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci' is already up-to-date
+[Wed Jul 15 20:05:47 2026] Launched impl_18...
+Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_18/runme.log
+open_hw_manager
+connect_hw_server -allow_non_jtag
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-2222] Launching hw_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx hw_server v2023.2
+  **** Build date : Oct 13 2023 at 21:31:40
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+
+INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:0
+INFO: [Labtools 27-3417] Launching cs_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+
+******** Xilinx cs_server v2023.2.0
+  ****** Build date   : Oct 10 2023-12:01:56
+    **** Build number : 2023.2.1696910516
+      ** Copyright 2017-2022 Xilinx, Inc. All Rights Reserved.
+      ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+
+
+connect_hw_server: Time (s): cpu = 00:00:01 ; elapsed = 00:00:06 . Memory (MB): peak = 3838.016 ; gain = 12.594
+open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/C306A93EABCD
+set_property PROGRAM.FILE {D:\DESKTOP\JYD\Source_code\BPU_FixTiming3\jyd\pipilined5\digital_twin\digital_twin.runs\impl_17\top.bit} [get_hw_devices xc7k325t_0]
+current_hw_device [get_hw_devices xc7k325t_0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7k325t_0] 0]
+INFO: [Labtools 27-1435] Device xc7k325t (JTAG device index = 0) is not programmed (DONE status = 0).
+set_property PROBES.FILE {} [get_hw_devices xc7k325t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7k325t_0]
+set_property PROGRAM.FILE {D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_18/top.bit} [get_hw_devices xc7k325t_0]
+program_hw_devices [get_hw_devices xc7k325t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+program_hw_devices: Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 3862.094 ; gain = 0.000
+refresh_hw_device [lindex [get_hw_devices xc7k325t_0] 0]
+INFO: [Labtools 27-1434] Device xc7k325t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+close_hw_manager
 set_property -dict [list \
   CONFIG.CLKOUT1_JITTER {173.722} \
   CONFIG.CLKOUT1_PHASE_ERROR {164.344} \
@@ -98,8 +214,9 @@ set_property -dict [list \
   CONFIG.CLKOUT2_PHASE_ERROR {164.344} \
   CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {175} \
   CONFIG.MMCM_CLKFBOUT_MULT_F {21} \
+  CONFIG.MMCM_CLKIN2_PERIOD {10.0} \
   CONFIG.MMCM_CLKOUT0_DIVIDE_F {21} \
-  CONFIG.MMCM_DIVCLK_DIVIDE {4} \
+  CONFIG.MMCM_CLKOUT1_DIVIDE {6} \
 ] [get_ips pll]
 generate_target all [get_files  D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci]
 INFO: [IP_Flow 19-1686] Generating 'Instantiation Template' target for IP 'pll'...
@@ -120,555 +237,57 @@ INFO: [IP_Flow 19-6928] IPCACHE: copied cached file d:/Desktop/JYD/Source_code/B
 INFO: [IP_Flow 19-6926] IPCACHE: added file to list for BOM: d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll_stub.v
 INFO: [IP_Flow 19-6928] IPCACHE: copied cached file d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.cache/ip/2023.2/c/3/c34508fc5a6030c5/pll_stub.vhdl to d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll_stub.vhdl.
 INFO: [IP_Flow 19-6926] IPCACHE: added file to list for BOM: d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll_stub.vhdl
-INFO: [IP_Flow 19-4993] Using cached IP synthesis design for IP pll, cache-ID = c34508fc5a6030c5; cache size = 76.753 MB.
+INFO: [IP_Flow 19-4993] Using cached IP synthesis design for IP pll, cache-ID = c34508fc5a6030c5; cache size = 101.049 MB.
+catch { [ delete_ip_run [get_ips -all pll] ] }
+INFO: [Project 1-386] Moving file 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci' from fileset 'pll' to fileset 'sources_1'.
 export_ip_user_files -of_objects [get_files D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci] -no_script -sync -force -quiet
 create_ip_run [get_files -of_objects [get_fileset sources_1] D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci]
 INFO: [Vivado 12-3453] The given sub-design is up-to-date, no action was taken.  If a run is still desired, use the '-force' option for the file:'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci'
 export_simulation -of_objects [get_files D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci] -directory D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.ip_user_files -ipstatic_source_dir D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/modelsim} {questa=D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/questa} {riviera=D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/riviera} {activehdl=D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
-create_run Try_175mhz -flow {Vivado Synthesis 2023}
-Run is defaulting to srcset: sources_1
-Run is defaulting to constrset: constrs_1
-Run is defaulting to part: xc7k325tffg900-2
-create_run impl_9 -parent_run Try_175mhz -flow {Vivado Implementation 2023}
-Run is defaulting to parent run srcset: sources_1
-Run is defaulting to parent run constrset: constrs_1
-Run is defaulting to parent run part: xc7k325tffg900-2
-launch_runs impl_9 -jobs 8
+close_design
+reset_run fixtiming8e
+INFO: [Project 1-1160] Copying file D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fixtiming8e/top.dcp to D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/utils_1/imports/fixtiming8e and adding it to utils fileset
+launch_runs impl_18 -jobs 8
 INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci' is already up-to-date
 INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci' is already up-to-date
 INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci' is already up-to-date
-[Mon Jul 13 15:28:22 2026] Launched Try_175mhz...
-Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/Try_175mhz/runme.log
-[Mon Jul 13 15:28:22 2026] Launched impl_9...
-Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_9/runme.log
-current_run [get_runs Try_175mhz]
-open_run impl_9
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.220 . Memory (MB): peak = 2209.199 ; gain = 0.000
-INFO: [Netlist 29-17] Analyzing 1511 Unisim elements for replacement
+[Wed Jul 15 20:09:05 2026] Launched fixtiming8e...
+Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fixtiming8e/runme.log
+[Wed Jul 15 20:09:05 2026] Launched impl_18...
+Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_18/runme.log
+open_run impl_18
+Netlist sorting complete. Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.218 . Memory (MB): peak = 3867.754 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 1507 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-479] Netlist was created with Vivado 2023.2
 INFO: [Project 1-570] Preparing netlist for logic optimization
-Read ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.022 . Memory (MB): peak = 2300.105 ; gain = 2.098
+Read ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.019 . Memory (MB): peak = 3867.754 ; gain = 0.000
 INFO: [Timing 38-478] Restoring timing data from binary archive.
 INFO: [Timing 38-479] Binary timing data restore complete.
 INFO: [Project 1-856] Restoring constraints from binary archive.
 INFO: [Project 1-853] Binary constraint restore complete.
 INFO: [Designutils 20-5722] Start Reading Physical Databases.
 Reading placement.
-Read Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.010 . Memory (MB): peak = 2939.938 ; gain = 0.000
+Read Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.010 . Memory (MB): peak = 3867.754 ; gain = 0.000
 Reading placer database...
-Read Device Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 2939.938 ; gain = 0.000
-Read PlaceDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.289 . Memory (MB): peak = 2939.938 ; gain = 0.000
-Read PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2939.938 ; gain = 0.000
+Read Device Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 3867.754 ; gain = 0.000
+Read PlaceDB: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.309 . Memory (MB): peak = 3867.754 ; gain = 0.000
+Read PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3867.754 ; gain = 0.000
 Reading routing.
-Read RouteStorage: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.182 . Memory (MB): peak = 2939.938 ; gain = 0.000
-Read Physdb Files: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.498 . Memory (MB): peak = 2939.938 ; gain = 0.000
-Restored from archive | CPU: 0.000000 secs | Memory: 0.000000 MB |
-Finished XDEF File Restore: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.499 . Memory (MB): peak = 2939.938 ; gain = 0.000
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 2939.938 ; gain = 0.000
-INFO: [Project 1-111] Unisim Transformation Summary:
-  A total of 21 instances were transformed.
-  RAM64M => RAM64M (RAMD64E(x4)): 19 instances
-  RAM64X1D => RAM64X1D (RAMD64E(x2)): 1 instance 
-  RAM64X1S => RAM64X1S (RAMS64E): 1 instance 
-
-open_run: Time (s): cpu = 00:00:18 ; elapsed = 00:00:10 . Memory (MB): peak = 3131.723 ; gain = 922.523
-open_report: Time (s): cpu = 00:00:08 ; elapsed = 00:00:06 . Memory (MB): peak = 3191.402 ; gain = 37.621
-CRITICAL WARNING: [Timing 38-282] The design failed to meet the timing requirements. Please see the timing summary report for details on the timing violations.
-source D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/reports/export_impl_reports.tcl
-# set BASE_REPORT_DIR "D:/System/desktop/jyd-feature/pipilined5/reports"
-# set RUN_TAG "baseline_150mhz"
-# set TARGET_CLOCK "cpu_clk_out2"
-# set timestamp [clock format [clock seconds] -format "%Y%m%d_%H%M%S"]
-# set REPORT_DIR "${BASE_REPORT_DIR}/${timestamp}_${RUN_TAG}"
-# file mkdir $REPORT_DIR
-# puts "============================================================"
-============================================================
-# puts "Exporting implementation reports to:"
-Exporting implementation reports to:
-# puts "  $REPORT_DIR"
-  D:/System/desktop/jyd-feature/pipilined5/reports/20260713_153415_baseline_150mhz
-# puts "============================================================"
-============================================================
-# if {[catch {current_design} cur_design] || $cur_design eq ""} {
-#     puts "No current design opened. Trying to open impl_1..."
-#     open_run impl_1
-# } else {
-#     puts "Current design: $cur_design"
-# }
-Current design: impl_9
-# set info_file "${REPORT_DIR}/run_info.txt"
-# set fp [open $info_file "w"]
-# puts $fp "Report directory: $REPORT_DIR"
-# puts $fp "Timestamp       : $timestamp"
-# puts $fp "Run tag         : $RUN_TAG"
-# puts $fp "Vivado version  : [version]"
-# puts $fp ""
-# puts $fp "Current project : [current_project]"
-# puts $fp "Current design  : [current_design]"
-# puts $fp ""
-# catch {
-#     puts $fp "Current run     : [current_run]"
-# }
-# catch {
-#     puts $fp "Impl run status : [get_property STATUS [get_runs impl_1]]"
-# }
-# catch {
-#     puts $fp "Impl run WNS    : [get_property STATS.WNS [get_runs impl_1]]"
-#     puts $fp "Impl run TNS    : [get_property STATS.TNS [get_runs impl_1]]"
-# }
-# close $fp
-# report_timing_summary \
-#     -delay_type max \
-#     -report_unconstrained \
-#     -check_timing_verbose \
-#     -max_paths 20 \
-#     -input_pins \
-#     -file "${REPORT_DIR}/timing_summary_max.rpt"
-INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: max.
-INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
-# report_timing_summary \
-#     -delay_type min \
-#     -report_unconstrained \
-#     -check_timing_verbose \
-#     -max_paths 20 \
-#     -input_pins \
-#     -file "${REPORT_DIR}/timing_summary_min.rpt"
-INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: min.
-INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
-# report_timing \
-#     -delay_type max \
-#     -sort_by group \
-#     -max_paths 50 \
-#     -nworst 10 \
-#     -input_pins \
-#     -nets \
-#     -file "${REPORT_DIR}/timing_full_max.rpt"
-CRITICAL WARNING: [Vivado 12-1569] report_timing: The -nets option to is deprecated. The default behavior is to display net names if the timing path format allows it.
-INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: max.
-INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
-INFO: [Timing 38-78] ReportTimingParams: -max_paths 50 -nworst 10 -delay_type max -sort_by group.
-# report_timing \
-#     -delay_type min \
-#     -sort_by group \
-#     -max_paths 50 \
-#     -nworst 10 \
-#     -input_pins \
-#     -nets \
-#     -file "${REPORT_DIR}/timing_full_min.rpt"
-CRITICAL WARNING: [Vivado 12-1569] report_timing: The -nets option to is deprecated. The default behavior is to display net names if the timing path format allows it.
-INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: min.
-INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
-INFO: [Timing 38-78] ReportTimingParams: -max_paths 50 -nworst 10 -delay_type min -sort_by group.
-# if {$TARGET_CLOCK ne ""} {
-#     set clk_obj [get_clocks -quiet $TARGET_CLOCK]
-#     if {[llength $clk_obj] > 0} {
-#         report_timing \
-#             -from [get_clocks $TARGET_CLOCK] \
-#             -to   [get_clocks $TARGET_CLOCK] \
-#             -delay_type max \
-#             -max_paths 50 \
-#             -nworst 10 \
-#             -input_pins \
-#             -nets \
-#             -file "${REPORT_DIR}/timing_${TARGET_CLOCK}_full_max.rpt"
-# 
-#         report_timing \
-#             -from [get_clocks $TARGET_CLOCK] \
-#             -to   [get_clocks $TARGET_CLOCK] \
-#             -delay_type min \
-#             -max_paths 50 \
-#             -nworst 10 \
-#             -input_pins \
-#             -nets \
-#             -file "${REPORT_DIR}/timing_${TARGET_CLOCK}_full_min.rpt"
-#     } else {
-#         puts "WARNING: TARGET_CLOCK '$TARGET_CLOCK' not found. Skip clock-specific timing."
-#     }
-# }
-WARNING: TARGET_CLOCK 'cpu_clk_out2' not found. Skip clock-specific timing.
-# report_clocks \
-#     -file "${REPORT_DIR}/clocks.rpt"
-# report_clock_interaction \
-#     -delay_type max \
-#     -file "${REPORT_DIR}/clock_interaction.rpt"
-INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: max.
-INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
-# report_clock_utilization \
-#     -file "${REPORT_DIR}/clock_utilization.rpt"
-# report_utilization \
-#     -hierarchical \
-#     -file "${REPORT_DIR}/utilization_hier.rpt"
-# report_utilization \
-#     -file "${REPORT_DIR}/utilization_flat.rpt"
-# report_high_fanout_nets \
-#     -timing \
-#     -load_types \
-#     -max_nets 100 \
-#     -file "${REPORT_DIR}/high_fanout.rpt"
-INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: max.
-INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
-INFO: [Timing 38-78] ReportTimingParams: -max_paths 10 -nworst 1 -delay_type max -sort_by slack.
-report_high_fanout_nets: Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 3316.930 ; gain = 2.434
-# report_methodology \
-#     -file "${REPORT_DIR}/methodology.rpt"
-Command: report_methodology -file D:/System/desktop/jyd-feature/pipilined5/reports/20260713_153415_baseline_150mhz/methodology.rpt
-INFO: [Timing 38-35] Done setting XDC timing constraints.
-INFO: [DRC 23-133] Running Methodology with 2 threads
-INFO: [Vivado_Tcl 2-1520] The results of Report Methodology are in file D:/System/desktop/jyd-feature/pipilined5/reports/20260713_153415_baseline_150mhz/methodology.rpt.
-report_methodology completed successfully
-# report_route_status \
-#     -file "${REPORT_DIR}/route_status.rpt"
-# report_drc \
-#     -file "${REPORT_DIR}/drc.rpt"
-Command: report_drc -file D:/System/desktop/jyd-feature/pipilined5/reports/20260713_153415_baseline_150mhz/drc.rpt
-INFO: [IP_Flow 19-1839] IP Catalog is up to date.
-INFO: [DRC 23-27] Running DRC with 2 threads
-INFO: [Vivado_Tcl 2-168] The results of DRC are in file D:/System/desktop/jyd-feature/pipilined5/reports/20260713_153415_baseline_150mhz/drc.rpt.
-report_drc completed successfully
-# write_checkpoint -force "${REPORT_DIR}/post_impl.dcp"
-INFO: [Timing 38-480] Writing timing data to binary archive.
-Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.015 . Memory (MB): peak = 3380.469 ; gain = 0.996
-Wrote PlaceDB: Time (s): cpu = 00:00:02 ; elapsed = 00:00:00.560 . Memory (MB): peak = 3380.469 ; gain = 0.996
-Wrote PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3380.469 ; gain = 0.000
-Writing XDEF routing.
-Writing XDEF routing logical nets.
-Writing XDEF routing special nets.
-Wrote RouteStorage: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.170 . Memory (MB): peak = 3380.469 ; gain = 0.000
-Wrote Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.016 . Memory (MB): peak = 3380.469 ; gain = 0.000
-Wrote Device Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 3380.469 ; gain = 0.000
-Write Physdb Complete: Time (s): cpu = 00:00:02 ; elapsed = 00:00:00.767 . Memory (MB): peak = 3380.469 ; gain = 0.996
-INFO: [Common 17-1381] The checkpoint 'D:/System/desktop/jyd-feature/pipilined5/reports/20260713_153415_baseline_150mhz/post_impl.dcp' has been generated.
-# puts "============================================================"
-============================================================
-# puts "Reports exported successfully."
-Reports exported successfully.
-# puts "Directory:"
-Directory:
-# puts "  $REPORT_DIR"
-  D:/System/desktop/jyd-feature/pipilined5/reports/20260713_153415_baseline_150mhz
-# puts "============================================================"
-============================================================
-source D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/reports/export_impl_reports.tcl
-# set BASE_REPORT_DIR "D:/System/desktop/jyd-feature/pipilined5/reports"
-# set RUN_TAG "baseline_150mhz"
-# set TARGET_CLOCK "cpu_clk_out2"
-# set timestamp [clock format [clock seconds] -format "%Y%m%d_%H%M%S"]
-# set REPORT_DIR "${BASE_REPORT_DIR}/${timestamp}_${RUN_TAG}"
-# file mkdir $REPORT_DIR
-# puts "============================================================"
-============================================================
-# puts "Exporting implementation reports to:"
-Exporting implementation reports to:
-# puts "  $REPORT_DIR"
-  D:/System/desktop/jyd-feature/pipilined5/reports/20260713_153559_baseline_150mhz
-# puts "============================================================"
-============================================================
-# if {[catch {current_design} cur_design] || $cur_design eq ""} {
-#     puts "No current design opened. Trying to open impl_1..."
-#     open_run impl_1
-# } else {
-#     puts "Current design: $cur_design"
-# }
-Current design: impl_9
-# set info_file "${REPORT_DIR}/run_info.txt"
-# set fp [open $info_file "w"]
-# puts $fp "Report directory: $REPORT_DIR"
-# puts $fp "Timestamp       : $timestamp"
-# puts $fp "Run tag         : $RUN_TAG"
-# puts $fp "Vivado version  : [version]"
-# puts $fp ""
-# puts $fp "Current project : [current_project]"
-# puts $fp "Current design  : [current_design]"
-# puts $fp ""
-# catch {
-#     puts $fp "Current run     : [current_run]"
-# }
-# catch {
-#     puts $fp "Impl run status : [get_property STATUS [get_runs impl_1]]"
-# }
-# catch {
-#     puts $fp "Impl run WNS    : [get_property STATS.WNS [get_runs impl_1]]"
-#     puts $fp "Impl run TNS    : [get_property STATS.TNS [get_runs impl_1]]"
-# }
-# close $fp
-# report_timing_summary \
-#     -delay_type max \
-#     -report_unconstrained \
-#     -check_timing_verbose \
-#     -max_paths 20 \
-#     -input_pins \
-#     -file "${REPORT_DIR}/timing_summary_max.rpt"
-INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: max.
-INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
-INFO: [Timing 38-35] Done setting XDC timing constraints.
-# report_timing_summary \
-#     -delay_type min \
-#     -report_unconstrained \
-#     -check_timing_verbose \
-#     -max_paths 20 \
-#     -input_pins \
-#     -file "${REPORT_DIR}/timing_summary_min.rpt"
-INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: min.
-INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
-# report_timing \
-#     -delay_type max \
-#     -sort_by group \
-#     -max_paths 50 \
-#     -nworst 10 \
-#     -input_pins \
-#     -nets \
-#     -file "${REPORT_DIR}/timing_full_max.rpt"
-CRITICAL WARNING: [Vivado 12-1569] report_timing: The -nets option to is deprecated. The default behavior is to display net names if the timing path format allows it.
-INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: max.
-INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
-INFO: [Timing 38-78] ReportTimingParams: -max_paths 50 -nworst 10 -delay_type max -sort_by group.
-# report_timing \
-#     -delay_type min \
-#     -sort_by group \
-#     -max_paths 50 \
-#     -nworst 10 \
-#     -input_pins \
-#     -nets \
-#     -file "${REPORT_DIR}/timing_full_min.rpt"
-CRITICAL WARNING: [Vivado 12-1569] report_timing: The -nets option to is deprecated. The default behavior is to display net names if the timing path format allows it.
-INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: min.
-INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
-INFO: [Timing 38-78] ReportTimingParams: -max_paths 50 -nworst 10 -delay_type min -sort_by group.
-# if {$TARGET_CLOCK ne ""} {
-#     set clk_obj [get_clocks -quiet $TARGET_CLOCK]
-#     if {[llength $clk_obj] > 0} {
-#         report_timing \
-#             -from [get_clocks $TARGET_CLOCK] \
-#             -to   [get_clocks $TARGET_CLOCK] \
-#             -delay_type max \
-#             -max_paths 50 \
-#             -nworst 10 \
-#             -input_pins \
-#             -nets \
-#             -file "${REPORT_DIR}/timing_${TARGET_CLOCK}_full_max.rpt"
-# 
-#         report_timing \
-#             -from [get_clocks $TARGET_CLOCK] \
-#             -to   [get_clocks $TARGET_CLOCK] \
-#             -delay_type min \
-#             -max_paths 50 \
-#             -nworst 10 \
-#             -input_pins \
-#             -nets \
-#             -file "${REPORT_DIR}/timing_${TARGET_CLOCK}_full_min.rpt"
-#     } else {
-#         puts "WARNING: TARGET_CLOCK '$TARGET_CLOCK' not found. Skip clock-specific timing."
-#     }
-# }
-WARNING: TARGET_CLOCK 'cpu_clk_out2' not found. Skip clock-specific timing.
-# report_clocks \
-#     -file "${REPORT_DIR}/clocks.rpt"
-# report_clock_interaction \
-#     -delay_type max \
-#     -file "${REPORT_DIR}/clock_interaction.rpt"
-INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: max.
-INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
-# report_clock_utilization \
-#     -file "${REPORT_DIR}/clock_utilization.rpt"
-# report_utilization \
-#     -hierarchical \
-#     -file "${REPORT_DIR}/utilization_hier.rpt"
-# report_utilization \
-#     -file "${REPORT_DIR}/utilization_flat.rpt"
-# report_high_fanout_nets \
-#     -timing \
-#     -load_types \
-#     -max_nets 100 \
-#     -file "${REPORT_DIR}/high_fanout.rpt"
-INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: max.
-INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
-INFO: [Timing 38-78] ReportTimingParams: -max_paths 10 -nworst 1 -delay_type max -sort_by slack.
-report_high_fanout_nets: Time (s): cpu = 00:00:01 ; elapsed = 00:00:01 . Memory (MB): peak = 3380.469 ; gain = 0.000
-# report_methodology \
-#     -file "${REPORT_DIR}/methodology.rpt"
-Command: report_methodology -file D:/System/desktop/jyd-feature/pipilined5/reports/20260713_153559_baseline_150mhz/methodology.rpt
-INFO: [Timing 38-35] Done setting XDC timing constraints.
-INFO: [DRC 23-133] Running Methodology with 2 threads
-INFO: [Vivado_Tcl 2-1520] The results of Report Methodology are in file D:/System/desktop/jyd-feature/pipilined5/reports/20260713_153559_baseline_150mhz/methodology.rpt.
-report_methodology completed successfully
-# report_route_status \
-#     -file "${REPORT_DIR}/route_status.rpt"
-# report_drc \
-#     -file "${REPORT_DIR}/drc.rpt"
-Command: report_drc -file D:/System/desktop/jyd-feature/pipilined5/reports/20260713_153559_baseline_150mhz/drc.rpt
-INFO: [IP_Flow 19-1839] IP Catalog is up to date.
-INFO: [DRC 23-27] Running DRC with 2 threads
-INFO: [Vivado_Tcl 2-168] The results of DRC are in file D:/System/desktop/jyd-feature/pipilined5/reports/20260713_153559_baseline_150mhz/drc.rpt.
-report_drc completed successfully
-# write_checkpoint -force "${REPORT_DIR}/post_impl.dcp"
-INFO: [Timing 38-480] Writing timing data to binary archive.
-Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.019 . Memory (MB): peak = 3398.098 ; gain = 0.973
-Wrote PlaceDB: Time (s): cpu = 00:00:02 ; elapsed = 00:00:00.644 . Memory (MB): peak = 3398.098 ; gain = 0.973
-Wrote PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3398.098 ; gain = 0.000
-Writing XDEF routing.
-Writing XDEF routing logical nets.
-Writing XDEF routing special nets.
-Wrote RouteStorage: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.184 . Memory (MB): peak = 3398.098 ; gain = 0.000
-Wrote Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.017 . Memory (MB): peak = 3398.098 ; gain = 0.000
-Wrote Device Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 3398.098 ; gain = 0.000
-Write Physdb Complete: Time (s): cpu = 00:00:03 ; elapsed = 00:00:00.868 . Memory (MB): peak = 3398.098 ; gain = 0.973
-INFO: [Common 17-1381] The checkpoint 'D:/System/desktop/jyd-feature/pipilined5/reports/20260713_153559_baseline_150mhz/post_impl.dcp' has been generated.
-# puts "============================================================"
-============================================================
-# puts "Reports exported successfully."
-Reports exported successfully.
-# puts "Directory:"
-Directory:
-# puts "  $REPORT_DIR"
-  D:/System/desktop/jyd-feature/pipilined5/reports/20260713_153559_baseline_150mhz
-# puts "============================================================"
-============================================================
-source D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/reports/timing_info.tcl
-# set out_dir "D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/Timing_info/fixtiming3/175mhz"
-# file mkdir $out_dir
-# report_timing_summary -delay_type max -report_unconstrained -check_timing_verbose -max_paths 20 -file $out_dir/timing_summary.rpt
-INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: max.
-INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
-INFO: [Timing 38-35] Done setting XDC timing constraints.
-# report_timing -delay_type max -path_type full_clock_expanded -max_paths 60 -nworst 1 -sort_by slack -input_pins -nets -file $out_dir/worst_paths.rpt
-CRITICAL WARNING: [Vivado 12-1569] report_timing: The -nets option to is deprecated. The default behavior is to display net names if the timing path format allows it.
-INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: max.
-INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
-INFO: [Timing 38-78] ReportTimingParams: -max_paths 60 -nworst 1 -delay_type max -sort_by slack.
-# report_high_fanout_nets -timing -load_types -max_nets 100 -file $out_dir/high_fanout.rpt
-INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: max.
-INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
-INFO: [Timing 38-78] ReportTimingParams: -max_paths 10 -nworst 1 -delay_type max -sort_by slack.
-report_high_fanout_nets: Time (s): cpu = 00:00:01 ; elapsed = 00:00:01 . Memory (MB): peak = 3439.918 ; gain = 0.000
-# report_utilization -hierarchical -hierarchical_depth 6 -file $out_dir/utilization_hier.rpt
-# report_design_analysis -congestion -file $out_dir/congestion.rpt
-# puts "报告已成功生成到绝�?�路�?: $out_dir"
-报告已成功生成到绝�?�路�?: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/Timing_info/fixtiming3/175mhz
-create_run fixtiming_5 -flow {Vivado Synthesis 2023}
-Run is defaulting to srcset: sources_1
-Run is defaulting to constrset: constrs_1
-Run is defaulting to part: xc7k325tffg900-2
-create_run impl_10 -parent_run fixtiming_5 -flow {Vivado Implementation 2023}
-Run is defaulting to parent run srcset: sources_1
-Run is defaulting to parent run constrset: constrs_1
-Run is defaulting to parent run part: xc7k325tffg900-2
-launch_runs impl_10 -jobs 8
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci' is already up-to-date
-[Mon Jul 13 17:27:22 2026] Launched fixtiming_5...
-Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fixtiming_5/runme.log
-[Mon Jul 13 17:27:23 2026] Launched impl_10...
-Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_10/runme.log
-current_run [get_runs fixtiming_5]
-open_run impl_10
-Netlist sorting complete. Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.216 . Memory (MB): peak = 3443.742 ; gain = 0.000
-INFO: [Netlist 29-17] Analyzing 1512 Unisim elements for replacement
-INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
-INFO: [Project 1-479] Netlist was created with Vivado 2023.2
-INFO: [Project 1-570] Preparing netlist for logic optimization
-Read ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.020 . Memory (MB): peak = 3474.512 ; gain = 2.516
-INFO: [Timing 38-478] Restoring timing data from binary archive.
-INFO: [Timing 38-479] Binary timing data restore complete.
-INFO: [Project 1-856] Restoring constraints from binary archive.
-INFO: [Project 1-853] Binary constraint restore complete.
-INFO: [Designutils 20-5722] Start Reading Physical Databases.
-Reading placement.
-Read Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.009 . Memory (MB): peak = 3605.242 ; gain = 0.000
-Reading placer database...
-Read Device Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 3605.242 ; gain = 0.000
-Read PlaceDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.300 . Memory (MB): peak = 3605.242 ; gain = 0.000
-Read PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3605.242 ; gain = 0.000
-Reading routing.
-Read RouteStorage: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.246 . Memory (MB): peak = 3605.242 ; gain = 0.000
-Read Physdb Files: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.583 . Memory (MB): peak = 3605.242 ; gain = 0.000
+Read RouteStorage: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.175 . Memory (MB): peak = 3867.754 ; gain = 0.000
+Read Physdb Files: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.513 . Memory (MB): peak = 3867.754 ; gain = 0.000
 Restored from archive | CPU: 1.000000 secs | Memory: 0.000000 MB |
-Finished XDEF File Restore: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.584 . Memory (MB): peak = 3605.242 ; gain = 0.000
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 3605.242 ; gain = 0.000
+Finished XDEF File Restore: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.514 . Memory (MB): peak = 3867.754 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 3867.754 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
-  A total of 21 instances were transformed.
+  A total of 22 instances were transformed.
   RAM64M => RAM64M (RAMD64E(x4)): 19 instances
-  RAM64X1D => RAM64X1D (RAMD64E(x2)): 1 instance 
+  RAM64X1D => RAM64X1D (RAMD64E(x2)): 2 instances
   RAM64X1S => RAM64X1S (RAMS64E): 1 instance 
 
-open_report: Time (s): cpu = 00:00:07 ; elapsed = 00:00:06 . Memory (MB): peak = 3742.625 ; gain = 54.562
-CRITICAL WARNING: [Timing 38-282] The design failed to meet the timing requirements. Please see the timing summary report for details on the timing violations.
-launch_runs impl_10 -to_step write_bitstream -jobs 8
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci' is already up-to-date
-[Mon Jul 13 17:33:17 2026] Launched impl_10...
-Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_10/runme.log
-open_hw_manager
-connect_hw_server -allow_non_jtag
-INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
-INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:0
-INFO: [Labtools 27-3417] Launching cs_server...
-INFO: [Labtools 27-2221] Launch Output:
-
-
-******** Xilinx cs_server v2023.2.0
-  ****** Build date   : Oct 10 2023-12:01:56
-    **** Build number : 2023.2.1696910516
-      ** Copyright 2017-2022 Xilinx, Inc. All Rights Reserved.
-      ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
-
-
-
-open_hw_target
-INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/C306A93EABCD
-set_property PROGRAM.FILE {D:\DESKTOP\JYD\Source_code\merge_dualport_bpu\jyd\pipilined5\digital_twin\digital_twin.runs\impl_8\top.bit} [get_hw_devices xc7k325t_0]
-current_hw_device [get_hw_devices xc7k325t_0]
-refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7k325t_0] 0]
-INFO: [Labtools 27-1435] Device xc7k325t (JTAG device index = 0) is not programmed (DONE status = 0).
-ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Digilent/C306A93EABCD
-disconnect_hw_server localhost:3121
-connect_hw_server -allow_non_jtag
-INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
-INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:0
-INFO: [Labtools 27-3417] Launching cs_server...
-INFO: [Labtools 27-2221] Launch Output:
-
-
-******** Xilinx cs_server v2023.2.0
-  ****** Build date   : Oct 10 2023-12:01:56
-    **** Build number : 2023.2.1696910516
-      ** Copyright 2017-2022 Xilinx, Inc. All Rights Reserved.
-      ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
-
-
-
-open_hw_target
-INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/C306A93EABCD
-ERROR: [Labtools 27-2269] No devices detected on target localhost:3121/xilinx_tcf/Digilent/C306A93EABCD.
-Check cable connectivity and that the target board is powered up then
-use the disconnect_hw_server and connect_hw_server to re-register this hardware target.
-ERROR: [Common 17-39] 'open_hw_target' failed due to earlier errors.
-INFO: [Labtools 27-1435] Device xc7k325t (JTAG device index = 0) is not programmed (DONE status = 0).
-WARNING: [Labtoolstcl 44-129] No matching hw_ila_data was found.
-set_property PROBES.FILE {} [get_hw_devices xc7k325t_0]
-set_property FULL_PROBES.FILE {} [get_hw_devices xc7k325t_0]
-set_property PROGRAM.FILE {D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_10/top.bit} [get_hw_devices xc7k325t_0]
-program_hw_devices [get_hw_devices xc7k325t_0]
-INFO: [Labtools 27-3164] End of startup status: HIGH
-program_hw_devices: Time (s): cpu = 00:00:08 ; elapsed = 00:00:07 . Memory (MB): peak = 3847.055 ; gain = 0.000
-refresh_hw_device [lindex [get_hw_devices xc7k325t_0] 0]
-INFO: [Labtools 27-1434] Device xc7k325t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
-reset_run impl_10 -prev_step 
-launch_runs impl_10 -to_step write_bitstream -jobs 8
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci' is already up-to-date
-[Mon Jul 13 17:41:51 2026] Launched impl_10...
-Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_10/runme.log
-ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Digilent/C306A93EABCD
-INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/C306A93EABCD
-INFO: [Labtools 27-1435] Device xc7k325t (JTAG device index = 0) is not programmed (DONE status = 0).
-WARNING: [Labtoolstcl 44-129] No matching hw_ila_data was found.
-ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Digilent/C306A93EABCD
+open_report: Time (s): cpu = 00:00:08 ; elapsed = 00:00:06 . Memory (MB): peak = 3960.043 ; gain = 66.797
 source D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/reports/timing_info.tcl
-# set out_dir "D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/Timing_info/fixtiming5"
+# set out_dir "D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/Timing_info/fixtiming8E"
 # file mkdir $out_dir
 # report_timing_summary -delay_type max -report_unconstrained -check_timing_verbose -max_paths 20 -file $out_dir/timing_summary.rpt
 INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: max.
@@ -682,1125 +301,73 @@ INFO: [Timing 38-78] ReportTimingParams: -max_paths 60 -nworst 1 -delay_type max
 INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: max.
 INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
 INFO: [Timing 38-78] ReportTimingParams: -max_paths 10 -nworst 1 -delay_type max -sort_by slack.
-report_high_fanout_nets: Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 3899.934 ; gain = 4.004
+report_high_fanout_nets: Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 4009.434 ; gain = 1.430
 # report_utilization -hierarchical -hierarchical_depth 6 -file $out_dir/utilization_hier.rpt
 # report_design_analysis -congestion -file $out_dir/congestion.rpt
 # puts "报告已成功生成到绝�?�路�?: $out_dir"
-报告已成功生成到绝�?�路�?: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/Timing_info/fixtiming5
-close_hw_manager
-create_run fuck -flow {Vivado Synthesis 2023}
+报告已成功生成到绝�?�路�?: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/Timing_info/fixtiming8E
+create_run fixtiming8f -flow {Vivado Synthesis 2023}
 Run is defaulting to srcset: sources_1
 Run is defaulting to constrset: constrs_1
 Run is defaulting to part: xc7k325tffg900-2
-launch_runs fuck -jobs 8
+create_run impl_19 -parent_run fixtiming8f -flow {Vivado Implementation 2023}
+Run is defaulting to parent run srcset: sources_1
+Run is defaulting to parent run constrset: constrs_1
+Run is defaulting to parent run part: xc7k325tffg900-2
+launch_runs impl_19 -jobs 8
 INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci' is already up-to-date
 INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci' is already up-to-date
 INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci' is already up-to-date
-WARNING: [Vivado 12-7122] Auto Incremental Compile:: No reference checkpoint was found in run fuck. Auto-incremental flow will not be run, the standard flow will be run instead.
-[Mon Jul 13 19:16:55 2026] Launched fuck...
-Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fuck/runme.log
-current_run [get_runs fuck]
-current_design impl_9
-close_design
-close_design
-reset_run fuck
+[Wed Jul 15 20:48:00 2026] Launched fixtiming8f...
+Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fixtiming8f/runme.log
+[Wed Jul 15 20:48:00 2026] Launched impl_19...
+Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_19/runme.log
+current_run [get_runs fixtiming8f]
+reset_run fixtiming8f
 WARNING: [Vivado 12-1017] Problems encountered:
-1. Failed to delete one or more files in run directory D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fuck
+1. Failed to delete one or more files in run directory D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fixtiming8f
 
-launch_runs fuck -jobs 8
+set_property STEPS.POST_ROUTE_PHYS_OPT_DESIGN.ARGS.DIRECTIVE AggressiveExplore [get_runs impl_19]
+set_property STEPS.PLACE_DESIGN.ARGS.DIRECTIVE ExtraNetDelay_high [get_runs impl_19]
+set_property STEPS.ROUTE_DESIGN.ARGS.DIRECTIVE AggressiveExplore [get_runs impl_19]
+launch_runs impl_19 -jobs 8
 INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci' is already up-to-date
 INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci' is already up-to-date
 INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci' is already up-to-date
-WARNING: [Vivado 12-7122] Auto Incremental Compile:: No reference checkpoint was found in run fuck. Auto-incremental flow will not be run, the standard flow will be run instead.
-[Mon Jul 13 19:17:17 2026] Launched fuck...
-Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fuck/runme.log
-open_run fuck -name fuck
-Design is defaulting to impl run constrset: constrs_1
-Design is defaulting to synth run part: xc7k325tffg900-2
-INFO: [Project 1-454] Reading design checkpoint 'd:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll.dcp' for cell 'pll_inst'
-INFO: [Project 1-454] Reading design checkpoint 'd:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/IROM/IROM.dcp' for cell 'student_top_inst/Mem_IROM'
-INFO: [Project 1-454] Reading design checkpoint 'd:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/DRAM_TDP_1/DRAM_TDP.dcp' for cell 'student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp'
-INFO: [Project 1-454] Reading design checkpoint 'd:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/div_gen_u32_1/div_gen_u32.dcp' for cell 'student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32'
-INFO: [Project 1-454] Reading design checkpoint 'd:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/mult_gen_u33_1/mult_gen_u33.dcp' for cell 'student_top_inst/u_KLDJ_top/exu2/u_mul_ip_wrapper/u_mult_gen_u33'
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.235 . Memory (MB): peak = 4655.273 ; gain = 0.000
-INFO: [Netlist 29-17] Analyzing 1609 Unisim elements for replacement
+[Wed Jul 15 20:49:40 2026] Launched fixtiming8f...
+Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fixtiming8f/runme.log
+[Wed Jul 15 20:49:41 2026] Launched impl_19...
+Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_19/runme.log
+open_run impl_19
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.227 . Memory (MB): peak = 4326.090 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 1507 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-479] Netlist was created with Vivado 2023.2
 INFO: [Project 1-570] Preparing netlist for logic optimization
-Parsing XDC File [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll_board.xdc] for cell 'pll_inst/inst'
-Finished Parsing XDC File [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll_board.xdc] for cell 'pll_inst/inst'
-Parsing XDC File [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll.xdc] for cell 'pll_inst/inst'
-INFO: [Timing 38-35] Done setting XDC timing constraints. [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll.xdc:54]
-INFO: [Timing 38-2] Deriving generated clocks [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll.xdc:54]
-Finished Parsing XDC File [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll.xdc] for cell 'pll_inst/inst'
-Parsing XDC File [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/digital_twin.xdc]
-Finished Parsing XDC File [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/digital_twin.xdc]
-INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 4655.273 ; gain = 0.000
-INFO: [Project 1-111] Unisim Transformation Summary:
-  A total of 21 instances were transformed.
-  RAM64M => RAM64M (RAMD64E(x4)): 19 instances
-  RAM64X1D => RAM64X1D (RAMD64E(x2)): 2 instances
-
-open_run: Time (s): cpu = 00:00:08 ; elapsed = 00:00:05 . Memory (MB): peak = 4655.273 ; gain = 0.000
-reset_run fuck
-INFO: [Project 1-1160] Copying file D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fuck/top.dcp to D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/utils_1/imports/fuck and adding it to utils fileset
-launch_runs fuck -jobs 8
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci' is already up-to-date
-[Mon Jul 13 19:20:23 2026] Launched fuck...
-Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fuck/runme.log
-reset_run fuck
-launch_runs fuck -jobs 8
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci' is already up-to-date
-[Mon Jul 13 19:21:27 2026] Launched fuck...
-Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fuck/runme.log
-create_ip_run [get_files -of_objects [get_fileset sources_1] D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci]
-INFO: [Vivado 12-3453] The given sub-design is up-to-date, no action was taken.  If a run is still desired, use the '-force' option for the file:'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci'
-refresh_design
-INFO: [Project 1-454] Reading design checkpoint 'd:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll.dcp' for cell 'pll_inst'
-INFO: [Project 1-454] Reading design checkpoint 'd:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/IROM/IROM.dcp' for cell 'student_top_inst/Mem_IROM'
-INFO: [Project 1-454] Reading design checkpoint 'd:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/DRAM_TDP_1/DRAM_TDP.dcp' for cell 'student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp'
-INFO: [Project 1-454] Reading design checkpoint 'd:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/div_gen_u32_1/div_gen_u32.dcp' for cell 'student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32'
-INFO: [Project 1-454] Reading design checkpoint 'd:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/mult_gen_u33_1/mult_gen_u33.dcp' for cell 'student_top_inst/u_KLDJ_top/exu2/u_mul_ip_wrapper/u_mult_gen_u33'
-Netlist sorting complete. Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.238 . Memory (MB): peak = 4655.273 ; gain = 0.000
-INFO: [Netlist 29-17] Analyzing 1581 Unisim elements for replacement
-INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
-INFO: [Project 1-479] Netlist was created with Vivado 2023.2
-INFO: [Project 1-570] Preparing netlist for logic optimization
-Parsing XDC File [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll_board.xdc] for cell 'pll_inst/inst'
-Finished Parsing XDC File [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll_board.xdc] for cell 'pll_inst/inst'
-Parsing XDC File [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll.xdc] for cell 'pll_inst/inst'
-INFO: [Timing 38-35] Done setting XDC timing constraints. [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll.xdc:54]
-INFO: [Timing 38-2] Deriving generated clocks [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll.xdc:54]
-Finished Parsing XDC File [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll.xdc] for cell 'pll_inst/inst'
-Parsing XDC File [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/digital_twin.xdc]
-Finished Parsing XDC File [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/digital_twin.xdc]
-INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-refresh_design: Time (s): cpu = 00:00:07 ; elapsed = 00:00:06 . Memory (MB): peak = 4655.273 ; gain = 0.000
-create_debug_core u_ila_0 ila
-set_property C_DATA_DEPTH 65536 [get_debug_cores u_ila_0]
-set_property C_TRIGIN_EN false [get_debug_cores u_ila_0]
-set_property C_TRIGOUT_EN false [get_debug_cores u_ila_0]
-set_property C_ADV_TRIGGER false [get_debug_cores u_ila_0]
-set_property C_INPUT_PIPE_STAGES 0 [get_debug_cores u_ila_0]
-set_property C_EN_STRG_QUAL false [get_debug_cores u_ila_0]
-set_property ALL_PROBE_SAME_MU true [get_debug_cores u_ila_0]
-set_property ALL_PROBE_SAME_MU_CNT 1 [get_debug_cores u_ila_0]
-connect_debug_port u_ila_0/clk [get_nets [list pll_inst/inst/clk_out2 ]]
-set_property port_width 32 [get_debug_ports u_ila_0/probe0]
-set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe0]
-connect_debug_port u_ila_0/probe0 [get_nets [list {student_top_inst/u_KLDJ_top/if_pc[0]} {student_top_inst/u_KLDJ_top/if_pc[1]} {student_top_inst/u_KLDJ_top/if_pc[2]} {student_top_inst/u_KLDJ_top/if_pc[3]} {student_top_inst/u_KLDJ_top/if_pc[4]} {student_top_inst/u_KLDJ_top/if_pc[5]} {student_top_inst/u_KLDJ_top/if_pc[6]} {student_top_inst/u_KLDJ_top/if_pc[7]} {student_top_inst/u_KLDJ_top/if_pc[8]} {student_top_inst/u_KLDJ_top/if_pc[9]} {student_top_inst/u_KLDJ_top/if_pc[10]} {student_top_inst/u_KLDJ_top/if_pc[11]} {student_top_inst/u_KLDJ_top/if_pc[12]} {student_top_inst/u_KLDJ_top/if_pc[13]} {student_top_inst/u_KLDJ_top/if_pc[14]} {student_top_inst/u_KLDJ_top/if_pc[15]} {student_top_inst/u_KLDJ_top/if_pc[16]} {student_top_inst/u_KLDJ_top/if_pc[17]} {student_top_inst/u_KLDJ_top/if_pc[18]} {student_top_inst/u_KLDJ_top/if_pc[19]} {student_top_inst/u_KLDJ_top/if_pc[20]} {student_top_inst/u_KLDJ_top/if_pc[21]} {student_top_inst/u_KLDJ_top/if_pc[22]} {student_top_inst/u_KLDJ_top/if_pc[23]} {student_top_inst/u_KLDJ_top/if_pc[24]} {student_top_inst/u_KLDJ_top/if_pc[25]} {student_top_inst/u_KLDJ_top/if_pc[26]} {student_top_inst/u_KLDJ_top/if_pc[27]} {student_top_inst/u_KLDJ_top/if_pc[28]} {student_top_inst/u_KLDJ_top/if_pc[29]} {student_top_inst/u_KLDJ_top/if_pc[30]} {student_top_inst/u_KLDJ_top/if_pc[31]} ]]
-close [ open D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc w ]
-add_files -fileset constrs_1 D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc
-set_property target_constrs_file D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc [current_fileset -constrset]
-save_constraints -force
-reset_run fuck
-INFO: [Project 1-1161] Replacing file D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/utils_1/imports/fuck/top.dcp with file D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fuck/top.dcp
-launch_runs impl_11 -jobs 8
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci' is already up-to-date
-WARNING: [Project 1-478] Design 'fuck' is stale and will not be used when launching 'impl_11'
-[Mon Jul 13 19:24:49 2026] Launched fuck...
-Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fuck/runme.log
-[Mon Jul 13 19:24:49 2026] Launched impl_11...
-Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/runme.log
-create_ip_run [get_files -of_objects [get_fileset sources_1] D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci]
-INFO: [Vivado 12-3453] The given sub-design is up-to-date, no action was taken.  If a run is still desired, use the '-force' option for the file:'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci'
-refresh_design
-INFO: [Project 1-454] Reading design checkpoint 'd:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll.dcp' for cell 'pll_inst'
-INFO: [Project 1-454] Reading design checkpoint 'd:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/IROM/IROM.dcp' for cell 'student_top_inst/Mem_IROM'
-INFO: [Project 1-454] Reading design checkpoint 'd:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/DRAM_TDP_1/DRAM_TDP.dcp' for cell 'student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp'
-INFO: [Project 1-454] Reading design checkpoint 'd:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/div_gen_u32_1/div_gen_u32.dcp' for cell 'student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32'
-INFO: [Project 1-454] Reading design checkpoint 'd:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/mult_gen_u33_1/mult_gen_u33.dcp' for cell 'student_top_inst/u_KLDJ_top/exu2/u_mul_ip_wrapper/u_mult_gen_u33'
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.258 . Memory (MB): peak = 4655.273 ; gain = 0.000
-INFO: [Netlist 29-17] Analyzing 1581 Unisim elements for replacement
-INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
-INFO: [Project 1-479] Netlist was created with Vivado 2023.2
-INFO: [Project 1-570] Preparing netlist for logic optimization
-Parsing XDC File [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll_board.xdc] for cell 'pll_inst/inst'
-Finished Parsing XDC File [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll_board.xdc] for cell 'pll_inst/inst'
-Parsing XDC File [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll.xdc] for cell 'pll_inst/inst'
-INFO: [Timing 38-35] Done setting XDC timing constraints. [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll.xdc:54]
-INFO: [Timing 38-2] Deriving generated clocks [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll.xdc:54]
-Finished Parsing XDC File [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll.xdc] for cell 'pll_inst/inst'
-Parsing XDC File [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/digital_twin.xdc]
-Finished Parsing XDC File [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/digital_twin.xdc]
-Parsing XDC File [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc]
-Finished Parsing XDC File [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc]
-INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-refresh_design: Time (s): cpu = 00:00:09 ; elapsed = 00:00:07 . Memory (MB): peak = 4655.273 ; gain = 0.000
-launch_runs impl_11 -to_step write_bitstream -jobs 8
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci' is already up-to-date
-[Mon Jul 13 19:32:09 2026] Launched impl_11...
-Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/runme.log
-open_hw_manager
-connect_hw_server -allow_non_jtag
-INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
-INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:0
-INFO: [Labtools 27-3417] Launching cs_server...
-INFO: [Labtools 27-2221] Launch Output:
-
-
-******** Xilinx cs_server v2023.2.0
-  ****** Build date   : Oct 10 2023-12:01:56
-    **** Build number : 2023.2.1696910516
-      ** Copyright 2017-2022 Xilinx, Inc. All Rights Reserved.
-      ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
-
-
-
-open_hw_target
-INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/C306A93EABCD
-set_property PROGRAM.FILE {D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_10/top.bit} [get_hw_devices xc7k325t_0]
-current_hw_device [get_hw_devices xc7k325t_0]
-refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7k325t_0] 0]
-INFO: [Labtools 27-1435] Device xc7k325t (JTAG device index = 0) is not programmed (DONE status = 0).
-set_property PROBES.FILE {D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/top.ltx} [get_hw_devices xc7k325t_0]
-set_property FULL_PROBES.FILE {D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/top.ltx} [get_hw_devices xc7k325t_0]
-set_property PROGRAM.FILE {D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/top.bit} [get_hw_devices xc7k325t_0]
-program_hw_devices [get_hw_devices xc7k325t_0]
-INFO: [Labtools 27-3164] End of startup status: HIGH
-program_hw_devices: Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 4655.273 ; gain = 0.000
-refresh_hw_device [lindex [get_hw_devices xc7k325t_0] 0]
-INFO: [Labtools 27-2302] Device xc7k325t (JTAG device index = 0) is programmed with a design that has 1 ILA core(s).
-display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE eq32'hXXXX_XXX0 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE eq32'hXXXX_XXX9 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE eq32'h0000_14X9 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE eq32'h0000_0149 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE eq32'h0000_0014 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2026-Jul-13 19:36:27
-wait_on_hw_ila -timeout 0 [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-INFO: [Labtools 27-1965] The ILA core 'hw_ila_1' trigger was stopped by user at 2026-Jul-13 19:37:36
-WARNING: [Labtools 27-157] hw_ila [hw_ila_1] stopped. No data to upload.
-run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2026-Jul-13 19:37:44
-set_property TRIGGER_COMPARE_VALUE eq32'b0000_0000_0000_0000_0000_0000_0001_0100 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE eq32'h0000_0014 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE eq32'b0000_0000_0000_0000_0000_0000_0001_0100 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE gt32'b0000_0000_0000_0000_0000_0000_0001_0100 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE gt32'h0000_0014 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE gt32'h8000_0000 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE eq32'h8000_0000 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-ERROR: [Xicom 50-38] xicom: Unable to connect to debug core(s) on the target device. Check cable connectivity and that the target board is powered up then use the disconnect_hw_server and connect_hw_server to re-initialize the hardware target. Use open_hw_target to re-register the hardware device.
-ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Digilent/C306A93EABCD
-INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/C306A93EABCD
-INFO: [Labtools 27-1435] Device xc7k325t (JTAG device index = 0) is not programmed (DONE status = 0).
-WARNING: [Labtoolstcl 44-129] No matching hw_ila_data was found.
-close_hw_manager
-open_hw_manager
-connect_hw_server -allow_non_jtag
-INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
-INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:0
-INFO: [Labtools 27-3417] Launching cs_server...
-INFO: [Labtools 27-2221] Launch Output:
-
-
-******** Xilinx cs_server v2023.2.0
-  ****** Build date   : Oct 10 2023-12:01:56
-    **** Build number : 2023.2.1696910516
-      ** Copyright 2017-2022 Xilinx, Inc. All Rights Reserved.
-      ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
-
-
-
-open_hw_target
-INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/C306A93EABCD
-set_property PROGRAM.FILE {D:\DESKTOP\JYD\Source_code\BPU_FixTiming3\jyd\pipilined5\digital_twin\digital_twin.runs\impl_11\top.bit} [get_hw_devices xc7k325t_0]
-set_property PROBES.FILE {D:\DESKTOP\JYD\Source_code\BPU_FixTiming3\jyd\pipilined5\digital_twin\digital_twin.runs\impl_11\top.ltx} [get_hw_devices xc7k325t_0]
-set_property FULL_PROBES.FILE {D:\DESKTOP\JYD\Source_code\BPU_FixTiming3\jyd\pipilined5\digital_twin\digital_twin.runs\impl_11\top.ltx} [get_hw_devices xc7k325t_0]
-current_hw_device [get_hw_devices xc7k325t_0]
-refresh_hw_device [lindex [get_hw_devices xc7k325t_0] 0]
-INFO: [Labtools 27-1435] Device xc7k325t (JTAG device index = 0) is not programmed (DONE status = 0).
-set_property PROBES.FILE {D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/top.ltx} [get_hw_devices xc7k325t_0]
-set_property FULL_PROBES.FILE {D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/top.ltx} [get_hw_devices xc7k325t_0]
-set_property PROGRAM.FILE {D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/top.bit} [get_hw_devices xc7k325t_0]
-program_hw_devices [get_hw_devices xc7k325t_0]
-INFO: [Labtools 27-3164] End of startup status: HIGH
-program_hw_devices: Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 4655.273 ; gain = 0.000
-refresh_hw_device [lindex [get_hw_devices xc7k325t_0] 0]
-INFO: [Labtools 27-2302] Device xc7k325t (JTAG device index = 0) is programmed with a design that has 1 ILA core(s).
-display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE neq32'h8000_0000 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE neq32'h0000_0001 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE neq32'h0000_0000 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE neq32'h0000_0001 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE neq32'h0000_0014 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2026-Jul-13 19:55:32
-wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2026-Jul-13 19:55:32
-INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.hw/backup/hw_ila_data_1.ila. Use Tcl command 'read_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
-run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2026-Jul-13 19:56:08
-wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2026-Jul-13 19:56:08
-INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.hw/backup/hw_ila_data_1.ila. Use Tcl command 'read_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
-set_property TRIGGER_COMPARE_VALUE neq32'h8000_0014 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2026-Jul-13 19:58:06
-wait_on_hw_ila -timeout 0 [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-INFO: [Labtools 27-1965] The ILA core 'hw_ila_1' trigger was stopped by user at 2026-Jul-13 19:58:10
-WARNING: [Labtools 27-157] hw_ila [hw_ila_1] stopped. No data to upload.
-set_property TRIGGER_COMPARE_VALUE neq32'h0000_0014 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2026-Jul-13 19:58:36
-wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2026-Jul-13 19:58:36
-INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.hw/backup/hw_ila_data_1.ila. Use Tcl command 'read_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
-set_property TRIGGER_COMPARE_VALUE eq32'h0000_0014 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2026-Jul-13 19:58:43
-wait_on_hw_ila -timeout 0 [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-INFO: [Labtools 27-1965] The ILA core 'hw_ila_1' trigger was stopped by user at 2026-Jul-13 19:58:46
-WARNING: [Labtools 27-157] hw_ila [hw_ila_1] stopped. No data to upload.
-set_property TRIGGER_COMPARE_VALUE neq32'h0000_0014 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2026-Jul-13 19:58:49
-wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2026-Jul-13 19:58:49
-INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.hw/backup/hw_ila_data_1.ila. Use Tcl command 'read_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
-ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Digilent/C306A93EABCD
-close_hw_manager
-reset_run fuck
-INFO: [Project 1-1161] Replacing file D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/utils_1/imports/fuck/top.dcp with file D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fuck/top.dcp
-launch_runs fuck -jobs 8
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci' is already up-to-date
-[Mon Jul 13 20:02:00 2026] Launched fuck...
-Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fuck/runme.log
-close_design
-open_run fuck -name fuck
-Design is defaulting to impl run constrset: constrs_1
-Design is defaulting to synth run part: xc7k325tffg900-2
-INFO: [Project 1-454] Reading design checkpoint 'd:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll.dcp' for cell 'pll_inst'
-INFO: [Project 1-454] Reading design checkpoint 'd:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/IROM/IROM.dcp' for cell 'student_top_inst/Mem_IROM'
-INFO: [Project 1-454] Reading design checkpoint 'd:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/DRAM_TDP_1/DRAM_TDP.dcp' for cell 'student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp'
-INFO: [Project 1-454] Reading design checkpoint 'd:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/div_gen_u32_1/div_gen_u32.dcp' for cell 'student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32'
-INFO: [Project 1-454] Reading design checkpoint 'd:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/mult_gen_u33_1/mult_gen_u33.dcp' for cell 'student_top_inst/u_KLDJ_top/exu2/u_mul_ip_wrapper/u_mult_gen_u33'
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.247 . Memory (MB): peak = 5347.496 ; gain = 0.000
-INFO: [Netlist 29-17] Analyzing 1561 Unisim elements for replacement
-INFO: [Netlist 29-28] Unisim Transformation completed in 1 CPU seconds
-INFO: [Project 1-479] Netlist was created with Vivado 2023.2
-INFO: [Project 1-570] Preparing netlist for logic optimization
-Parsing XDC File [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll_board.xdc] for cell 'pll_inst/inst'
-Finished Parsing XDC File [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll_board.xdc] for cell 'pll_inst/inst'
-Parsing XDC File [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll.xdc] for cell 'pll_inst/inst'
-INFO: [Timing 38-35] Done setting XDC timing constraints. [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll.xdc:54]
-INFO: [Timing 38-2] Deriving generated clocks [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll.xdc:54]
-Finished Parsing XDC File [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll.xdc] for cell 'pll_inst/inst'
-Parsing XDC File [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/digital_twin.xdc]
-Finished Parsing XDC File [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/digital_twin.xdc]
-Parsing XDC File [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc]
-Finished Parsing XDC File [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc]
-INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 5347.496 ; gain = 0.000
-INFO: [Project 1-111] Unisim Transformation Summary:
-  A total of 21 instances were transformed.
-  RAM64M => RAM64M (RAMD64E(x4)): 19 instances
-  RAM64X1D => RAM64X1D (RAMD64E(x2)): 2 instances
-
-open_run: Time (s): cpu = 00:00:08 ; elapsed = 00:00:05 . Memory (MB): peak = 5347.496 ; gain = 0.000
-delete_debug_core [get_debug_cores {u_ila_0 }]
-create_debug_core u_ila_0 ila
-set_property C_DATA_DEPTH 65536 [get_debug_cores u_ila_0]
-set_property C_TRIGIN_EN false [get_debug_cores u_ila_0]
-set_property C_TRIGOUT_EN false [get_debug_cores u_ila_0]
-set_property C_ADV_TRIGGER false [get_debug_cores u_ila_0]
-set_property C_INPUT_PIPE_STAGES 0 [get_debug_cores u_ila_0]
-set_property C_EN_STRG_QUAL false [get_debug_cores u_ila_0]
-set_property ALL_PROBE_SAME_MU true [get_debug_cores u_ila_0]
-set_property ALL_PROBE_SAME_MU_CNT 1 [get_debug_cores u_ila_0]
-connect_debug_port u_ila_0/clk [get_nets [list pll_inst/inst/clk_out2 ]]
-set_property port_width 32 [get_debug_ports u_ila_0/probe0]
-set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe0]
-connect_debug_port u_ila_0/probe0 [get_nets [list {student_top_inst/u_KLDJ_top/if_pc[0]} {student_top_inst/u_KLDJ_top/if_pc[1]} {student_top_inst/u_KLDJ_top/if_pc[2]} {student_top_inst/u_KLDJ_top/if_pc[3]} {student_top_inst/u_KLDJ_top/if_pc[4]} {student_top_inst/u_KLDJ_top/if_pc[5]} {student_top_inst/u_KLDJ_top/if_pc[6]} {student_top_inst/u_KLDJ_top/if_pc[7]} {student_top_inst/u_KLDJ_top/if_pc[8]} {student_top_inst/u_KLDJ_top/if_pc[9]} {student_top_inst/u_KLDJ_top/if_pc[10]} {student_top_inst/u_KLDJ_top/if_pc[11]} {student_top_inst/u_KLDJ_top/if_pc[12]} {student_top_inst/u_KLDJ_top/if_pc[13]} {student_top_inst/u_KLDJ_top/if_pc[14]} {student_top_inst/u_KLDJ_top/if_pc[15]} {student_top_inst/u_KLDJ_top/if_pc[16]} {student_top_inst/u_KLDJ_top/if_pc[17]} {student_top_inst/u_KLDJ_top/if_pc[18]} {student_top_inst/u_KLDJ_top/if_pc[19]} {student_top_inst/u_KLDJ_top/if_pc[20]} {student_top_inst/u_KLDJ_top/if_pc[21]} {student_top_inst/u_KLDJ_top/if_pc[22]} {student_top_inst/u_KLDJ_top/if_pc[23]} {student_top_inst/u_KLDJ_top/if_pc[24]} {student_top_inst/u_KLDJ_top/if_pc[25]} {student_top_inst/u_KLDJ_top/if_pc[26]} {student_top_inst/u_KLDJ_top/if_pc[27]} {student_top_inst/u_KLDJ_top/if_pc[28]} {student_top_inst/u_KLDJ_top/if_pc[29]} {student_top_inst/u_KLDJ_top/if_pc[30]} {student_top_inst/u_KLDJ_top/if_pc[31]} ]]
-create_debug_port u_ila_0 probe
-set_property port_width 1 [get_debug_ports u_ila_0/probe1]
-set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe1]
-connect_debug_port u_ila_0/probe1 [get_nets [list student_top_inst/u_KLDJ_top/ex_mem_valid ]]
-create_debug_port u_ila_0 probe
-set_property port_width 1 [get_debug_ports u_ila_0/probe2]
-set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe2]
-connect_debug_port u_ila_0/probe2 [get_nets [list student_top_inst/u_KLDJ_top/ex_redirect ]]
-create_debug_port u_ila_0 probe
-set_property port_width 1 [get_debug_ports u_ila_0/probe3]
-set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe3]
-connect_debug_port u_ila_0/probe3 [get_nets [list student_top_inst/u_KLDJ_top/ex_stall ]]
-create_debug_port u_ila_0 probe
-set_property port_width 1 [get_debug_ports u_ila_0/probe4]
-set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe4]
-connect_debug_port u_ila_0/probe4 [get_nets [list student_top_inst/u_KLDJ_top/load_use_stall ]]
-create_debug_port u_ila_0 probe
-set_property port_width 1 [get_debug_ports u_ila_0/probe5]
-set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe5]
-connect_debug_port u_ila_0/probe5 [get_nets [list student_top_inst/u_KLDJ_top/mem_wb_valid ]]
-save_constraints
-launch_runs impl_11 -jobs 8
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci' is already up-to-date
-INFO: [Timing 38-480] Writing timing data to binary archive.
-Wrote PlaceDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 5347.496 ; gain = 0.000
-Wrote PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 5347.496 ; gain = 0.000
-Writing XDEF routing.
-Write ShapeDB Complete: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.038 . Memory (MB): peak = 5347.496 ; gain = 0.000
-Writing XDEF routing logical nets.
-Writing XDEF routing special nets.
-Wrote RouteStorage: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.076 . Memory (MB): peak = 5347.496 ; gain = 0.000
-Wrote Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 5347.496 ; gain = 0.000
-Wrote Device Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.008 . Memory (MB): peak = 5347.496 ; gain = 0.000
-Write Physdb Complete: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.103 . Memory (MB): peak = 5347.496 ; gain = 0.000
-[Mon Jul 13 20:04:26 2026] Launched impl_11...
-Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/runme.log
-launch_runs impl_11 -to_step write_bitstream -jobs 8
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci' is already up-to-date
-[Mon Jul 13 20:13:27 2026] Launched impl_11...
-Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/runme.log
-open_hw_manager
-connect_hw_server -allow_non_jtag
-INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
-INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:0
-INFO: [Labtools 27-3417] Launching cs_server...
-INFO: [Labtools 27-2221] Launch Output:
-
-
-******** Xilinx cs_server v2023.2.0
-  ****** Build date   : Oct 10 2023-12:01:56
-    **** Build number : 2023.2.1696910516
-      ** Copyright 2017-2022 Xilinx, Inc. All Rights Reserved.
-      ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
-
-
-
-open_hw_target
-INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/C306A93EABCD
-ERROR: [Labtools 27-2269] No devices detected on target localhost:3121/xilinx_tcf/Digilent/C306A93EABCD.
-Check cable connectivity and that the target board is powered up then
-use the disconnect_hw_server and connect_hw_server to re-register this hardware target.
-ERROR: [Common 17-39] 'open_hw_target' failed due to earlier errors.
-INFO: [Labtools 27-1435] Device xc7k325t (JTAG device index = 0) is not programmed (DONE status = 0).
-WARNING: [Labtoolstcl 44-129] No matching hw_ila_data was found.
-set_property PROBES.FILE {D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/top.ltx} [get_hw_devices xc7k325t_0]
-set_property FULL_PROBES.FILE {D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/top.ltx} [get_hw_devices xc7k325t_0]
-set_property PROGRAM.FILE {D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/top.bit} [get_hw_devices xc7k325t_0]
-program_hw_devices [get_hw_devices xc7k325t_0]
-INFO: [Labtools 27-3164] End of startup status: HIGH
-program_hw_devices: Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 5347.496 ; gain = 0.000
-refresh_hw_device [lindex [get_hw_devices xc7k325t_0] 0]
-INFO: [Labtools 27-2302] Device xc7k325t (JTAG device index = 0) is programmed with a design that has 1 ILA core(s).
-display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE neq32'h16F8_0014 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE neq32'h0000_16F8 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE eq32'h0000_16F8 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2026-Jul-13 20:15:49
-wait_on_hw_ila -timeout 0 [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-INFO: [Labtools 27-1965] The ILA core 'hw_ila_1' trigger was stopped by user at 2026-Jul-13 20:15:58
-WARNING: [Labtools 27-157] hw_ila [hw_ila_1] stopped. No data to upload.
-set_property TRIGGER_COMPARE_VALUE eq1'b1 [get_hw_probes student_top_inst/u_KLDJ_top/load_use_stall -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2026-Jul-13 20:16:08
-wait_on_hw_ila -timeout 0 [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-INFO: [Labtools 27-1965] The ILA core 'hw_ila_1' trigger was stopped by user at 2026-Jul-13 20:16:12
-WARNING: [Labtools 27-157] hw_ila [hw_ila_1] stopped. No data to upload.
-set_property TRIGGER_COMPARE_VALUE eq32'hXXXX_XXXX [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2026-Jul-13 20:16:17
-wait_on_hw_ila -timeout 0 [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-INFO: [Labtools 27-1965] The ILA core 'hw_ila_1' trigger was stopped by user at 2026-Jul-13 20:16:32
-WARNING: [Labtools 27-157] hw_ila [hw_ila_1] stopped. No data to upload.
-set_property TRIGGER_COMPARE_VALUE eq1'b0 [get_hw_probes student_top_inst/u_KLDJ_top/load_use_stall -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2026-Jul-13 20:16:35
-wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2026-Jul-13 20:16:35
-INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.hw/backup/hw_ila_data_1.ila. Use Tcl command 'read_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
-run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2026-Jul-13 20:16:50
-wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2026-Jul-13 20:16:50
-INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.hw/backup/hw_ila_data_1.ila. Use Tcl command 'read_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
-set_property TRIGGER_COMPARE_VALUE neq1'b0 [get_hw_probes student_top_inst/u_KLDJ_top/load_use_stall -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2026-Jul-13 20:17:14
-wait_on_hw_ila -timeout 0 [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-INFO: [Labtools 27-1965] The ILA core 'hw_ila_1' trigger was stopped by user at 2026-Jul-13 20:17:15
-WARNING: [Labtools 27-157] hw_ila [hw_ila_1] stopped. No data to upload.
-set_property TRIGGER_COMPARE_VALUE eq1'bX [get_hw_probes student_top_inst/u_KLDJ_top/load_use_stall -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE eq1'b0 [get_hw_probes student_top_inst/u_KLDJ_top/ex_redirect -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-INFO: [Labtools 27-1964] The ILA core 'hw_ila_1' trigger was armed at 2026-Jul-13 20:17:26
-wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-INFO: [Labtools 27-1966] The ILA core 'hw_ila_1' triggered at 2026-Jul-13 20:17:26
-INFO: [Labtools 27-3304] ILA Waveform data saved to file D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.hw/backup/hw_ila_data_1.ila. Use Tcl command 'read_hw_ila_data' or Vivado File->Import->Import ILA Data menu item to import the previously saved data.
-ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Digilent/C306A93EABCD
-INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/C306A93EABCD
-INFO: [Labtools 27-2302] Device xc7k325t (JTAG device index = 0) is programmed with a design that has 2 ILA core(s).
-WARNING: [Labtools 27-1974] Mismatch between the design programmed into the device xc7k325t_0 and the probes file(s) D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/top.ltx.
-The device design has 2 ILA core(s) and 0 VIO core(s). 1 ILA core(s) and 0 VIO core(s) are matched in the probes file(s).
-Resolution: 
-1. Reprogram device with the correct programming file and associated probes file(s) OR
-2. Goto device properties and associate the correct probes file(s) with the programming file already programmed in the device.
-WARNING: [Labtoolstcl 44-129] No matching hw_ila_data was found.
-ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Digilent/C306A93EABCD
-INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/C306A93EABCD
-INFO: [Labtools 27-1435] Device xc7k325t (JTAG device index = 0) is not programmed (DONE status = 0).
-WARNING: [Labtoolstcl 44-129] No matching hw_ila_data was found.
-ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Digilent/C306A93EABCD
-INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/C306A93EABCD
-INFO: [Labtools 27-1434] Device xc7k325t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
-WARNING: [Labtools 27-3361] The debug hub core was not detected.
-Resolution: 
-1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
-2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
-For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
-WARNING: [Labtools 27-3413] Dropping logic core with cellname:'u_ila_0' at location 'uuid_23E7D65A79BC59F7BC47406C1714DFAE' from probes file, since it cannot be found on the programmed device.
-WARNING: [Labtoolstcl 44-129] No matching hw_ila_data was found.
-close_hw_manager
-close_design
-create_run fixtiming5_175mhz -flow {Vivado Synthesis 2023}
-Run is defaulting to srcset: sources_1
-Run is defaulting to constrset: constrs_1
-Run is defaulting to part: xc7k325tffg900-2
-create_run impl_12 -parent_run fixtiming5_175mhz -flow {Vivado Implementation 2023}
-Run is defaulting to parent run srcset: sources_1
-Run is defaulting to parent run constrset: constrs_1
-Run is defaulting to parent run part: xc7k325tffg900-2
-launch_runs impl_12 -jobs 8
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci' is already up-to-date
-[Tue Jul 14 17:28:44 2026] Launched fixtiming5_175mhz...
-Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fixtiming5_175mhz/runme.log
-[Tue Jul 14 17:28:44 2026] Launched impl_12...
-Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_12/runme.log
-current_run [get_runs fixtiming5_175mhz]
-open_run fixtiming5_175mhz -name fixtiming5_175mhz
-Design is defaulting to impl run constrset: constrs_1
-Design is defaulting to synth run part: xc7k325tffg900-2
-INFO: [Project 1-454] Reading design checkpoint 'd:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll.dcp' for cell 'pll_inst'
-INFO: [Project 1-454] Reading design checkpoint 'd:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/IROM/IROM.dcp' for cell 'student_top_inst/Mem_IROM'
-INFO: [Project 1-454] Reading design checkpoint 'd:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/DRAM_TDP_1/DRAM_TDP.dcp' for cell 'student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp'
-INFO: [Project 1-454] Reading design checkpoint 'd:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/div_gen_u32_1/div_gen_u32.dcp' for cell 'student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32'
-INFO: [Project 1-454] Reading design checkpoint 'd:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/mult_gen_u33_1/mult_gen_u33.dcp' for cell 'student_top_inst/u_KLDJ_top/exu2/u_mul_ip_wrapper/u_mult_gen_u33'
-Netlist sorting complete. Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.255 . Memory (MB): peak = 5347.496 ; gain = 0.000
-INFO: [Netlist 29-17] Analyzing 1609 Unisim elements for replacement
-INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
-INFO: [Project 1-479] Netlist was created with Vivado 2023.2
-INFO: [Project 1-570] Preparing netlist for logic optimization
-Parsing XDC File [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll_board.xdc] for cell 'pll_inst/inst'
-Finished Parsing XDC File [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll_board.xdc] for cell 'pll_inst/inst'
-Parsing XDC File [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll.xdc] for cell 'pll_inst/inst'
-INFO: [Timing 38-35] Done setting XDC timing constraints. [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll.xdc:54]
-INFO: [Timing 38-2] Deriving generated clocks [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll.xdc:54]
-Finished Parsing XDC File [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll.xdc] for cell 'pll_inst/inst'
-Parsing XDC File [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/digital_twin.xdc]
-Finished Parsing XDC File [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/digital_twin.xdc]
-Parsing XDC File [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc]
-WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[0]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:15]
-WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[1]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:15]
-WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[2]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:15]
-WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[3]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:15]
-WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[4]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:15]
-WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[5]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:15]
-WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[6]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:15]
-WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[7]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:15]
-WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[8]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:15]
-WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[9]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:15]
-WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[10]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:15]
-WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[11]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:15]
-WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[12]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:15]
-WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[13]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:15]
-WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[14]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:15]
-WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[15]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:15]
-WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[16]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:15]
-WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[17]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:15]
-WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[18]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:15]
-WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[19]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:15]
-WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[20]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:15]
-WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[21]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:15]
-WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[22]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:15]
-WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[23]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:15]
-WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[24]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:15]
-WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[25]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:15]
-WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[26]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:15]
-WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[27]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:15]
-WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[28]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:15]
-WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[29]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:15]
-WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[30]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:15]
-WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/if_pc[31]'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:15]
-CRITICAL WARNING: [Common 17-162] Invalid option value specified for '-nets'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:15]
-WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/ex_redirect'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:23]
-CRITICAL WARNING: [Common 17-162] Invalid option value specified for '-nets'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:23]
-WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/ex_stall'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:27]
-CRITICAL WARNING: [Common 17-162] Invalid option value specified for '-nets'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:27]
-WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/load_use_stall'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:31]
-CRITICAL WARNING: [Common 17-162] Invalid option value specified for '-nets'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:31]
-WARNING: [Vivado 12-507] No nets matched 'student_top_inst/u_KLDJ_top/mem_wb_valid'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:35]
-CRITICAL WARNING: [Common 17-162] Invalid option value specified for '-nets'. [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc:35]
-Finished Parsing XDC File [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc]
-INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 5347.496 ; gain = 0.000
-INFO: [Project 1-111] Unisim Transformation Summary:
-  A total of 21 instances were transformed.
-  RAM64M => RAM64M (RAMD64E(x4)): 19 instances
-  RAM64X1D => RAM64X1D (RAMD64E(x2)): 2 instances
-
-open_run: Time (s): cpu = 00:00:08 ; elapsed = 00:00:06 . Memory (MB): peak = 5347.496 ; gain = 0.000
-delete_debug_core [get_debug_cores {u_ila_0 }]
-save_constraints
-reset_run impl_12
-launch_runs impl_12 -jobs 8
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci' is already up-to-date
-INFO: [Timing 38-480] Writing timing data to binary archive.
-Wrote PlaceDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.003 . Memory (MB): peak = 5347.496 ; gain = 0.000
-Wrote PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 5347.496 ; gain = 0.000
-Writing XDEF routing.
-Write ShapeDB Complete: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.022 . Memory (MB): peak = 5347.496 ; gain = 0.000
-Writing XDEF routing logical nets.
-Writing XDEF routing special nets.
-Wrote RouteStorage: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.047 . Memory (MB): peak = 5347.496 ; gain = 0.000
-Wrote Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 5347.496 ; gain = 0.000
-Wrote Device Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 5347.496 ; gain = 0.000
-Write Physdb Complete: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.067 . Memory (MB): peak = 5347.496 ; gain = 0.000
-[Tue Jul 14 17:31:14 2026] Launched impl_12...
-Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_12/runme.log
-close_design
-reset_run impl_12
-WARNING: [Vivado 12-1017] Problems encountered:
-1. Attempt to kill process failed
-
-launch_runs impl_12 -jobs 8
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci' is already up-to-date
-[Tue Jul 14 17:31:25 2026] Launched impl_12...
-Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_12/runme.log
-reset_run impl_12
-launch_runs impl_12 -jobs 8
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci' is already up-to-date
-[Tue Jul 14 17:31:38 2026] Launched impl_12...
-Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_12/runme.log
-launch_runs impl_12 -to_step write_bitstream -jobs 8
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci' is already up-to-date
-[Tue Jul 14 17:35:38 2026] Launched impl_12...
-Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_12/runme.log
-open_hw_manager
-connect_hw_server -allow_non_jtag
-INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
-INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:0
-INFO: [Labtools 27-3417] Launching cs_server...
-INFO: [Labtools 27-2221] Launch Output:
-
-
-******** Xilinx cs_server v2023.2.0
-  ****** Build date   : Oct 10 2023-12:01:56
-    **** Build number : 2023.2.1696910516
-      ** Copyright 2017-2022 Xilinx, Inc. All Rights Reserved.
-      ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
-
-
-
-open_hw_target
-INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/C306A93EABCD
-set_property PROGRAM.FILE {D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/top.bit} [get_hw_devices xc7k325t_0]
-set_property PROBES.FILE {D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/top.ltx} [get_hw_devices xc7k325t_0]
-set_property FULL_PROBES.FILE {D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/top.ltx} [get_hw_devices xc7k325t_0]
-current_hw_device [get_hw_devices xc7k325t_0]
-refresh_hw_device [lindex [get_hw_devices xc7k325t_0] 0]
-INFO: [Labtools 27-1434] Device xc7k325t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
-WARNING: [Labtools 27-3361] The debug hub core was not detected.
-Resolution: 
-1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
-2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
-For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
-WARNING: [Labtools 27-3413] Dropping logic core with cellname:'u_ila_0' at location 'uuid_23E7D65A79BC59F7BC47406C1714DFAE' from probes file, since it cannot be found on the programmed device.
-set_property PROBES.FILE {D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/top.ltx} [get_hw_devices xc7k325t_0]
-set_property FULL_PROBES.FILE {D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/top.ltx} [get_hw_devices xc7k325t_0]
-set_property PROGRAM.FILE {D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_12/top.bit} [get_hw_devices xc7k325t_0]
-program_hw_devices [get_hw_devices xc7k325t_0]
-INFO: [Labtools 27-3164] End of startup status: HIGH
-program_hw_devices: Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 5347.496 ; gain = 0.000
-refresh_hw_device [lindex [get_hw_devices xc7k325t_0] 0]
-INFO: [Labtools 27-1434] Device xc7k325t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
-WARNING: [Labtools 27-3361] The debug hub core was not detected.
-Resolution: 
-1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
-2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
-For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
-WARNING: [Labtools 27-3413] Dropping logic core with cellname:'u_ila_0' at location 'uuid_23E7D65A79BC59F7BC47406C1714DFAE' from probes file, since it cannot be found on the programmed device.
-ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Digilent/C306A93EABCD
-close_hw_manager
-create_run try_jalr -flow {Vivado Synthesis 2023}
-Run is defaulting to srcset: sources_1
-Run is defaulting to constrset: constrs_1
-Run is defaulting to part: xc7k325tffg900-2
-create_run impl_13 -parent_run try_jalr -flow {Vivado Implementation 2023}
-Run is defaulting to parent run srcset: sources_1
-Run is defaulting to parent run constrset: constrs_1
-Run is defaulting to parent run part: xc7k325tffg900-2
-launch_runs impl_13 -jobs 8
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci' is already up-to-date
-[Tue Jul 14 20:50:25 2026] Launched try_jalr...
-Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/try_jalr/runme.log
-[Tue Jul 14 20:50:25 2026] Launched impl_13...
-Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_13/runme.log
-current_run [get_runs try_jalr]
-open_run impl_13
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.231 . Memory (MB): peak = 5347.496 ; gain = 0.000
-INFO: [Netlist 29-17] Analyzing 1520 Unisim elements for replacement
-INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
-INFO: [Project 1-479] Netlist was created with Vivado 2023.2
-INFO: [Project 1-570] Preparing netlist for logic optimization
-Read ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.026 . Memory (MB): peak = 5347.496 ; gain = 0.000
+Read ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.020 . Memory (MB): peak = 4424.941 ; gain = 2.859
 INFO: [Timing 38-478] Restoring timing data from binary archive.
 INFO: [Timing 38-479] Binary timing data restore complete.
 INFO: [Project 1-856] Restoring constraints from binary archive.
 INFO: [Project 1-853] Binary constraint restore complete.
 INFO: [Designutils 20-5722] Start Reading Physical Databases.
 Reading placement.
-Read Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.015 . Memory (MB): peak = 5347.496 ; gain = 0.000
+Read Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.010 . Memory (MB): peak = 4554.488 ; gain = 0.000
 Reading placer database...
-Read Device Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 5347.496 ; gain = 0.000
-Read PlaceDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.394 . Memory (MB): peak = 5347.496 ; gain = 0.000
-Read PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 5347.496 ; gain = 0.000
+Read Device Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 4554.488 ; gain = 0.000
+Read PlaceDB: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.289 . Memory (MB): peak = 4554.488 ; gain = 0.000
+Read PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 4554.488 ; gain = 0.000
 Reading routing.
-Read RouteStorage: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.313 . Memory (MB): peak = 5347.496 ; gain = 0.000
-Read Physdb Files: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.744 . Memory (MB): peak = 5347.496 ; gain = 0.000
+Read RouteStorage: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.169 . Memory (MB): peak = 4554.488 ; gain = 0.000
+Read Physdb Files: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.484 . Memory (MB): peak = 4554.488 ; gain = 0.000
 Restored from archive | CPU: 1.000000 secs | Memory: 0.000000 MB |
-Finished XDEF File Restore: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.745 . Memory (MB): peak = 5347.496 ; gain = 0.000
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 5347.496 ; gain = 0.000
+Finished XDEF File Restore: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.485 . Memory (MB): peak = 4554.488 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 4554.488 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
   A total of 22 instances were transformed.
   RAM64M => RAM64M (RAMD64E(x4)): 19 instances
   RAM64X1D => RAM64X1D (RAMD64E(x2)): 2 instances
   RAM64X1S => RAM64X1S (RAMS64E): 1 instance 
 
-open_report: Time (s): cpu = 00:00:09 ; elapsed = 00:00:06 . Memory (MB): peak = 5347.496 ; gain = 0.000
-CRITICAL WARNING: [Timing 38-282] The design failed to meet the timing requirements. Please see the timing summary report for details on the timing violations.
-launch_runs impl_13 -to_step write_bitstream -jobs 8
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci' is already up-to-date
-[Tue Jul 14 20:56:26 2026] Launched impl_13...
-Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_13/runme.log
-open_hw_manager
-connect_hw_server -allow_non_jtag
-INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
-INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:0
-INFO: [Labtools 27-3417] Launching cs_server...
-INFO: [Labtools 27-2221] Launch Output:
-
-
-******** Xilinx cs_server v2023.2.0
-  ****** Build date   : Oct 10 2023-12:01:56
-    **** Build number : 2023.2.1696910516
-      ** Copyright 2017-2022 Xilinx, Inc. All Rights Reserved.
-      ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
-
-
-
-open_hw_target
-INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/C306A93EABCD
-ERROR: [Labtools 27-2269] No devices detected on target localhost:3121/xilinx_tcf/Digilent/C306A93EABCD.
-Check cable connectivity and that the target board is powered up then
-use the disconnect_hw_server and connect_hw_server to re-register this hardware target.
-ERROR: [Common 17-39] 'open_hw_target' failed due to earlier errors.
-INFO: [Labtools 27-1435] Device xc7k325t (JTAG device index = 0) is not programmed (DONE status = 0).
-WARNING: [Labtoolstcl 44-129] No matching hw_ila_data was found.
-set_property PROBES.FILE {} [get_hw_devices xc7k325t_0]
-set_property FULL_PROBES.FILE {} [get_hw_devices xc7k325t_0]
-set_property PROGRAM.FILE {D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_13/top.bit} [get_hw_devices xc7k325t_0]
-program_hw_devices [get_hw_devices xc7k325t_0]
-INFO: [Labtools 27-3164] End of startup status: HIGH
-program_hw_devices: Time (s): cpu = 00:00:08 ; elapsed = 00:00:07 . Memory (MB): peak = 5347.496 ; gain = 0.000
-refresh_hw_device [lindex [get_hw_devices xc7k325t_0] 0]
-INFO: [Labtools 27-1434] Device xc7k325t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
-set_property PROBES.FILE {} [get_hw_devices xc7k325t_0]
-set_property FULL_PROBES.FILE {} [get_hw_devices xc7k325t_0]
-set_property PROGRAM.FILE {D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_13/top.bit} [get_hw_devices xc7k325t_0]
-program_hw_devices [get_hw_devices xc7k325t_0]
-INFO: [Labtools 27-3164] End of startup status: HIGH
-program_hw_devices: Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 5347.496 ; gain = 0.000
-refresh_hw_device [lindex [get_hw_devices xc7k325t_0] 0]
-INFO: [Labtools 27-1434] Device xc7k325t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
-ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Digilent/C306A93EABCD
-source D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/reports/timing_info.tcl
-# set out_dir "D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/Timing_info/fixtiming6_jalr"
-# file mkdir $out_dir
-# report_timing_summary -delay_type max -report_unconstrained -check_timing_verbose -max_paths 20 -file $out_dir/timing_summary.rpt
-INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: max.
-INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
-# report_timing -delay_type max -path_type full_clock_expanded -max_paths 60 -nworst 1 -sort_by slack -input_pins -nets -file $out_dir/worst_paths.rpt
-CRITICAL WARNING: [Vivado 12-1569] report_timing: The -nets option to is deprecated. The default behavior is to display net names if the timing path format allows it.
-INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: max.
-INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
-INFO: [Timing 38-78] ReportTimingParams: -max_paths 60 -nworst 1 -delay_type max -sort_by slack.
-# report_high_fanout_nets -timing -load_types -max_nets 100 -file $out_dir/high_fanout.rpt
-INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: max.
-INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
-INFO: [Timing 38-78] ReportTimingParams: -max_paths 10 -nworst 1 -delay_type max -sort_by slack.
-report_high_fanout_nets: Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 5347.496 ; gain = 0.000
-# report_utilization -hierarchical -hierarchical_depth 6 -file $out_dir/utilization_hier.rpt
-# report_design_analysis -congestion -file $out_dir/congestion.rpt
-# puts "报告已成功生成到绝�?�路�?: $out_dir"
-报告已成功生成到绝�?�路�?: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/Timing_info/fixtiming6_jalr
-create_run fixtiming6 -flow {Vivado Synthesis 2023}
-Run is defaulting to srcset: sources_1
-Run is defaulting to constrset: constrs_1
-Run is defaulting to part: xc7k325tffg900-2
-create_run impl_14 -parent_run fixtiming6 -flow {Vivado Implementation 2023}
-Run is defaulting to parent run srcset: sources_1
-Run is defaulting to parent run constrset: constrs_1
-Run is defaulting to parent run part: xc7k325tffg900-2
-launch_runs impl_14 -jobs 8
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci' is already up-to-date
-[Wed Jul 15 12:57:24 2026] Launched fixtiming6...
-Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fixtiming6/runme.log
-[Wed Jul 15 12:57:24 2026] Launched impl_14...
-Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_14/runme.log
-current_run [get_runs fixtiming6]
-source D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/reports/timing_info.tcl
-# set out_dir "D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/Timing_info/fixtiming7"
-# file mkdir $out_dir
-# report_timing_summary -delay_type max -report_unconstrained -check_timing_verbose -max_paths 20 -file $out_dir/timing_summary.rpt
-INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: max.
-INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
-# report_timing -delay_type max -path_type full_clock_expanded -max_paths 60 -nworst 1 -sort_by slack -input_pins -nets -file $out_dir/worst_paths.rpt
-CRITICAL WARNING: [Vivado 12-1569] report_timing: The -nets option to is deprecated. The default behavior is to display net names if the timing path format allows it.
-INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: max.
-INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
-INFO: [Timing 38-78] ReportTimingParams: -max_paths 60 -nworst 1 -delay_type max -sort_by slack.
-# report_high_fanout_nets -timing -load_types -max_nets 100 -file $out_dir/high_fanout.rpt
-INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: max.
-INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
-INFO: [Timing 38-78] ReportTimingParams: -max_paths 10 -nworst 1 -delay_type max -sort_by slack.
-report_high_fanout_nets: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.875 . Memory (MB): peak = 5347.496 ; gain = 0.000
-# report_utilization -hierarchical -hierarchical_depth 6 -file $out_dir/utilization_hier.rpt
-# report_design_analysis -congestion -file $out_dir/congestion.rpt
-# puts "报告已成功生成到绝�?�路�?: $out_dir"
-报告已成功生成到绝�?�路�?: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/Timing_info/fixtiming7
-close_hw_manager
-open_run impl_14
-Netlist sorting complete. Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.220 . Memory (MB): peak = 5347.496 ; gain = 0.000
-INFO: [Netlist 29-17] Analyzing 1502 Unisim elements for replacement
-INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
-INFO: [Project 1-479] Netlist was created with Vivado 2023.2
-INFO: [Project 1-570] Preparing netlist for logic optimization
-Read ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.022 . Memory (MB): peak = 5347.496 ; gain = 0.000
-INFO: [Timing 38-478] Restoring timing data from binary archive.
-INFO: [Timing 38-479] Binary timing data restore complete.
-INFO: [Project 1-856] Restoring constraints from binary archive.
-INFO: [Project 1-853] Binary constraint restore complete.
-INFO: [Designutils 20-5722] Start Reading Physical Databases.
-Reading placement.
-Read Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.010 . Memory (MB): peak = 5347.496 ; gain = 0.000
-Reading placer database...
-Read Device Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 5347.496 ; gain = 0.000
-Read PlaceDB: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.319 . Memory (MB): peak = 5347.496 ; gain = 0.000
-Read PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 5347.496 ; gain = 0.000
-Reading routing.
-Read RouteStorage: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.225 . Memory (MB): peak = 5347.496 ; gain = 0.000
-Read Physdb Files: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.575 . Memory (MB): peak = 5347.496 ; gain = 0.000
-Restored from archive | CPU: 1.000000 secs | Memory: 0.000000 MB |
-Finished XDEF File Restore: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.576 . Memory (MB): peak = 5347.496 ; gain = 0.000
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 5347.496 ; gain = 0.000
-INFO: [Project 1-111] Unisim Transformation Summary:
-  A total of 22 instances were transformed.
-  RAM64M => RAM64M (RAMD64E(x4)): 19 instances
-  RAM64X1D => RAM64X1D (RAMD64E(x2)): 2 instances
-  RAM64X1S => RAM64X1S (RAMS64E): 1 instance 
-
-impl_14
-current_design impl_13
-close_design
-source D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/reports/timing_info.tcl
-# set out_dir "D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/Timing_info/fixtiming7"
-# file mkdir $out_dir
-# report_timing_summary -delay_type max -report_unconstrained -check_timing_verbose -max_paths 20 -file $out_dir/timing_summary.rpt
-INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: max.
-INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
-# report_timing -delay_type max -path_type full_clock_expanded -max_paths 60 -nworst 1 -sort_by slack -input_pins -nets -file $out_dir/worst_paths.rpt
-CRITICAL WARNING: [Vivado 12-1569] report_timing: The -nets option to is deprecated. The default behavior is to display net names if the timing path format allows it.
-INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: max.
-INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
-INFO: [Timing 38-78] ReportTimingParams: -max_paths 60 -nworst 1 -delay_type max -sort_by slack.
-# report_high_fanout_nets -timing -load_types -max_nets 100 -file $out_dir/high_fanout.rpt
-INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: max.
-INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
-INFO: [Timing 38-78] ReportTimingParams: -max_paths 10 -nworst 1 -delay_type max -sort_by slack.
-report_high_fanout_nets: Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 5347.496 ; gain = 0.000
-# report_utilization -hierarchical -hierarchical_depth 6 -file $out_dir/utilization_hier.rpt
-# report_design_analysis -congestion -file $out_dir/congestion.rpt
-# puts "报告已成功生成到绝�?�路�?: $out_dir"
-报告已成功生成到绝�?�路�?: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/Timing_info/fixtiming7
-create_run fixtiming8a -flow {Vivado Synthesis 2023}
-Run is defaulting to srcset: sources_1
-Run is defaulting to constrset: constrs_1
-Run is defaulting to part: xc7k325tffg900-2
-create_run impl_15 -parent_run fixtiming8a -flow {Vivado Implementation 2023}
-Run is defaulting to parent run srcset: sources_1
-Run is defaulting to parent run constrset: constrs_1
-Run is defaulting to parent run part: xc7k325tffg900-2
-launch_runs impl_15 -jobs 8
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci' is already up-to-date
-[Wed Jul 15 13:58:53 2026] Launched fixtiming8a...
-Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fixtiming8a/runme.log
-[Wed Jul 15 13:58:53 2026] Launched impl_15...
-Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_15/runme.log
-current_run [get_runs fixtiming8a]
-open_run impl_15
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.230 . Memory (MB): peak = 5347.496 ; gain = 0.000
-INFO: [Netlist 29-17] Analyzing 1499 Unisim elements for replacement
-INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
-INFO: [Project 1-479] Netlist was created with Vivado 2023.2
-INFO: [Project 1-570] Preparing netlist for logic optimization
-Read ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.019 . Memory (MB): peak = 5347.496 ; gain = 0.000
-INFO: [Timing 38-478] Restoring timing data from binary archive.
-INFO: [Timing 38-479] Binary timing data restore complete.
-INFO: [Project 1-856] Restoring constraints from binary archive.
-INFO: [Project 1-853] Binary constraint restore complete.
-INFO: [Designutils 20-5722] Start Reading Physical Databases.
-Reading placement.
-Read Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.014 . Memory (MB): peak = 5347.496 ; gain = 0.000
-Reading placer database...
-Read Device Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.008 . Memory (MB): peak = 5347.496 ; gain = 0.000
-Read PlaceDB: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.319 . Memory (MB): peak = 5347.496 ; gain = 0.000
-Read PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 5347.496 ; gain = 0.000
-Reading routing.
-Read RouteStorage: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.230 . Memory (MB): peak = 5347.496 ; gain = 0.000
-Read Physdb Files: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.585 . Memory (MB): peak = 5347.496 ; gain = 0.000
-Restored from archive | CPU: 1.000000 secs | Memory: 0.000000 MB |
-Finished XDEF File Restore: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.585 . Memory (MB): peak = 5347.496 ; gain = 0.000
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 5347.496 ; gain = 0.000
-INFO: [Project 1-111] Unisim Transformation Summary:
-  A total of 22 instances were transformed.
-  RAM64M => RAM64M (RAMD64E(x4)): 19 instances
-  RAM64X1D => RAM64X1D (RAMD64E(x2)): 2 instances
-  RAM64X1S => RAM64X1S (RAMS64E): 1 instance 
-
-open_report: Time (s): cpu = 00:00:08 ; elapsed = 00:00:06 . Memory (MB): peak = 5347.496 ; gain = 0.000
-CRITICAL WARNING: [Timing 38-282] The design failed to meet the timing requirements. Please see the timing summary report for details on the timing violations.
-current_design impl_14
-close_design
-source D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/reports/timing_info.tcl
-# set out_dir "D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/Timing_info/fixtiming8"
-# file mkdir $out_dir
-# report_timing_summary -delay_type max -report_unconstrained -check_timing_verbose -max_paths 20 -file $out_dir/timing_summary.rpt
-INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: max.
-INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
-# report_timing -delay_type max -path_type full_clock_expanded -max_paths 60 -nworst 1 -sort_by slack -input_pins -nets -file $out_dir/worst_paths.rpt
-CRITICAL WARNING: [Vivado 12-1569] report_timing: The -nets option to is deprecated. The default behavior is to display net names if the timing path format allows it.
-INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: max.
-INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
-INFO: [Timing 38-78] ReportTimingParams: -max_paths 60 -nworst 1 -delay_type max -sort_by slack.
-# report_high_fanout_nets -timing -load_types -max_nets 100 -file $out_dir/high_fanout.rpt
-INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: max.
-INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
-INFO: [Timing 38-78] ReportTimingParams: -max_paths 10 -nworst 1 -delay_type max -sort_by slack.
-report_high_fanout_nets: Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 5347.496 ; gain = 0.000
-# report_utilization -hierarchical -hierarchical_depth 6 -file $out_dir/utilization_hier.rpt
-# report_design_analysis -congestion -file $out_dir/congestion.rpt
-# puts "报告已成功生成到绝�?�路�?: $out_dir"
-报告已成功生成到绝�?�路�?: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/Timing_info/fixtiming8
-launch_runs impl_15 -to_step write_bitstream -jobs 8
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci' is already up-to-date
-[Wed Jul 15 15:01:07 2026] Launched impl_15...
-Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_15/runme.log
-open_hw_manager
-connect_hw_server -allow_non_jtag
-INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
-INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:0
-INFO: [Labtools 27-3417] Launching cs_server...
-INFO: [Labtools 27-2221] Launch Output:
-
-
-******** Xilinx cs_server v2023.2.0
-  ****** Build date   : Oct 10 2023-12:01:56
-    **** Build number : 2023.2.1696910516
-      ** Copyright 2017-2022 Xilinx, Inc. All Rights Reserved.
-      ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
-
-
-
-open_hw_target
-INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/C306A93EABCD
-set_property PROGRAM.FILE {D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_13/top.bit} [get_hw_devices xc7k325t_0]
-current_hw_device [get_hw_devices xc7k325t_0]
-refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7k325t_0] 0]
-INFO: [Labtools 27-1435] Device xc7k325t (JTAG device index = 0) is not programmed (DONE status = 0).
-set_property PROBES.FILE {} [get_hw_devices xc7k325t_0]
-set_property FULL_PROBES.FILE {} [get_hw_devices xc7k325t_0]
-set_property PROGRAM.FILE {D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_15/top.bit} [get_hw_devices xc7k325t_0]
-program_hw_devices [get_hw_devices xc7k325t_0]
-INFO: [Labtools 27-3164] End of startup status: HIGH
-program_hw_devices: Time (s): cpu = 00:00:08 ; elapsed = 00:00:07 . Memory (MB): peak = 5347.496 ; gain = 0.000
-refresh_hw_device [lindex [get_hw_devices xc7k325t_0] 0]
-INFO: [Labtools 27-1434] Device xc7k325t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
-ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Digilent/C306A93EABCD
-create_run fixtiming8b -flow {Vivado Synthesis 2023}
-Run is defaulting to srcset: sources_1
-Run is defaulting to constrset: constrs_1
-Run is defaulting to part: xc7k325tffg900-2
-create_run impl_16 -parent_run fixtiming8b -flow {Vivado Implementation 2023}
-Run is defaulting to parent run srcset: sources_1
-Run is defaulting to parent run constrset: constrs_1
-Run is defaulting to parent run part: xc7k325tffg900-2
-launch_runs impl_16 -jobs 8
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci' is already up-to-date
-[Wed Jul 15 15:43:20 2026] Launched fixtiming8b...
-Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fixtiming8b/runme.log
-[Wed Jul 15 15:43:20 2026] Launched impl_16...
-Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_16/runme.log
-current_run [get_runs fixtiming8b]
-close_hw_manager
-reset_run fixtiming8b
-launch_runs impl_16 -jobs 8
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci' is already up-to-date
-[Wed Jul 15 15:46:07 2026] Launched fixtiming8b...
-Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fixtiming8b/runme.log
-[Wed Jul 15 15:46:07 2026] Launched impl_16...
-Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_16/runme.log
-add_files -norecurse -scan_for_includes D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/ctrl_forward_sel.v
-reset_run fixtiming8b
-launch_runs impl_16 -jobs 8
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci' is already up-to-date
-[Wed Jul 15 15:47:31 2026] Launched fixtiming8b...
-Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fixtiming8b/runme.log
-[Wed Jul 15 15:47:31 2026] Launched impl_16...
-Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_16/runme.log
-open_run impl_16
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.222 . Memory (MB): peak = 5347.496 ; gain = 0.000
-INFO: [Netlist 29-17] Analyzing 1536 Unisim elements for replacement
-INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
-INFO: [Project 1-479] Netlist was created with Vivado 2023.2
-INFO: [Project 1-570] Preparing netlist for logic optimization
-Read ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.020 . Memory (MB): peak = 5347.496 ; gain = 0.000
-INFO: [Timing 38-478] Restoring timing data from binary archive.
-INFO: [Timing 38-479] Binary timing data restore complete.
-INFO: [Project 1-856] Restoring constraints from binary archive.
-INFO: [Project 1-853] Binary constraint restore complete.
-INFO: [Designutils 20-5722] Start Reading Physical Databases.
-Reading placement.
-Read Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.014 . Memory (MB): peak = 5347.496 ; gain = 0.000
-Reading placer database...
-Read Device Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.008 . Memory (MB): peak = 5347.496 ; gain = 0.000
-Read PlaceDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.309 . Memory (MB): peak = 5347.496 ; gain = 0.000
-Read PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 5347.496 ; gain = 0.000
-Reading routing.
-Read RouteStorage: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.236 . Memory (MB): peak = 5347.496 ; gain = 0.000
-Read Physdb Files: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.581 . Memory (MB): peak = 5347.496 ; gain = 0.000
-Restored from archive | CPU: 0.000000 secs | Memory: 0.000000 MB |
-Finished XDEF File Restore: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.581 . Memory (MB): peak = 5347.496 ; gain = 0.000
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 5347.496 ; gain = 0.000
-INFO: [Project 1-111] Unisim Transformation Summary:
-  A total of 22 instances were transformed.
-  RAM64M => RAM64M (RAMD64E(x4)): 19 instances
-  RAM64X1D => RAM64X1D (RAMD64E(x2)): 2 instances
-  RAM64X1S => RAM64X1S (RAMS64E): 1 instance 
-
-open_report: Time (s): cpu = 00:00:09 ; elapsed = 00:00:06 . Memory (MB): peak = 5347.496 ; gain = 0.000
-CRITICAL WARNING: [Timing 38-282] The design failed to meet the timing requirements. Please see the timing summary report for details on the timing violations.
-launch_runs impl_16 -to_step write_bitstream -jobs 8
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/mult_gen_u33_1/mult_gen_u33.xci' is already up-to-date
-INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci' is already up-to-date
-[Wed Jul 15 15:54:00 2026] Launched impl_16...
-Run output will be captured here: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_16/runme.log
-open_hw_manager
-connect_hw_server -allow_non_jtag
-INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
-INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:0
-INFO: [Labtools 27-3417] Launching cs_server...
-INFO: [Labtools 27-2221] Launch Output:
-
-
-******** Xilinx cs_server v2023.2.0
-  ****** Build date   : Oct 10 2023-12:01:56
-    **** Build number : 2023.2.1696910516
-      ** Copyright 2017-2022 Xilinx, Inc. All Rights Reserved.
-      ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
-
-
-
-open_hw_target
-INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/C306A93EABCD
-set_property PROGRAM.FILE {D:\DESKTOP\JYD\Source_code\BPU_FixTiming3\jyd\pipilined5\digital_twin\digital_twin.runs\impl_15\top.bit} [get_hw_devices xc7k325t_0]
-current_hw_device [get_hw_devices xc7k325t_0]
-refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7k325t_0] 0]
-INFO: [Labtools 27-1435] Device xc7k325t (JTAG device index = 0) is not programmed (DONE status = 0).
-set_property PROBES.FILE {} [get_hw_devices xc7k325t_0]
-set_property FULL_PROBES.FILE {} [get_hw_devices xc7k325t_0]
-set_property PROGRAM.FILE {D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_16/top.bit} [get_hw_devices xc7k325t_0]
-program_hw_devices [get_hw_devices xc7k325t_0]
-INFO: [Labtools 27-3164] End of startup status: HIGH
-program_hw_devices: Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 5347.496 ; gain = 0.000
-refresh_hw_device [lindex [get_hw_devices xc7k325t_0] 0]
-INFO: [Labtools 27-1434] Device xc7k325t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
-source D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/reports/timing_info.tcl
-# set out_dir "D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/Timing_info/fixtiming8B"
-# file mkdir $out_dir
-# report_timing_summary -delay_type max -report_unconstrained -check_timing_verbose -max_paths 20 -file $out_dir/timing_summary.rpt
-INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: max.
-INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
-# report_timing -delay_type max -path_type full_clock_expanded -max_paths 60 -nworst 1 -sort_by slack -input_pins -nets -file $out_dir/worst_paths.rpt
-CRITICAL WARNING: [Vivado 12-1569] report_timing: The -nets option to is deprecated. The default behavior is to display net names if the timing path format allows it.
-INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: max.
-INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
-INFO: [Timing 38-78] ReportTimingParams: -max_paths 60 -nworst 1 -delay_type max -sort_by slack.
-# report_high_fanout_nets -timing -load_types -max_nets 100 -file $out_dir/high_fanout.rpt
-INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: max.
-INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
-INFO: [Timing 38-78] ReportTimingParams: -max_paths 10 -nworst 1 -delay_type max -sort_by slack.
-report_high_fanout_nets: Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 5347.496 ; gain = 0.000
-# report_utilization -hierarchical -hierarchical_depth 6 -file $out_dir/utilization_hier.rpt
-# report_design_analysis -congestion -file $out_dir/congestion.rpt
-# puts "报告已成功生成到绝�?�路�?: $out_dir"
-报告已成功生成到绝�?�路�?: D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/Timing_info/fixtiming8B
-ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Digilent/C306A93EABCD
+open_report: Time (s): cpu = 00:00:08 ; elapsed = 00:00:06 . Memory (MB): peak = 4706.312 ; gain = 66.973
+exit
+INFO: [Common 17-206] Exiting Vivado at Wed Jul 15 21:11:27 2026...

@@ -1,6 +1,6 @@
 `include "../define.v"
 
-// Forwarding-source predecode for control-flow operands.
+// Forwarding-source predecode for operands captured by ID/EX.
 //
 // The source instruction is in IF/ID while this block is evaluated.  At the
 // following edge the current ID/EX producer advances to EX/MEM, and the
@@ -8,8 +8,8 @@
 // describe the sources that will be visible to the newly captured ID/EX
 // control-flow instruction in its EX cycle.
 module ctrl_forward_sel(
-     input  wire                  ctrl_rs1_ren
-    ,input  wire                  ctrl_rs2_ren
+     input  wire                  id_rs1_ren
+    ,input  wire                  id_rs2_ren
     ,input  wire [`KLDJ_REGADDR]  id_rs1_addr
     ,input  wire [`KLDJ_REGADDR]  id_rs2_addr
     // Current EX-stage producer, becomes EX/MEM after this edge.
@@ -20,8 +20,8 @@ module ctrl_forward_sel(
     // Current MEM-stage producer, becomes MEM/WB after this edge.
     ,input  wire [`KLDJ_REGADDR]  ex_mem_rd_addr
     ,input  wire                  mem_stage_wb_ctl
-    ,output reg  [1:0]            ctrl_rs1_fwd_sel
-    ,output reg  [1:0]            ctrl_rs2_fwd_sel
+     ,output reg  [1:0]            rs1_fwd_sel
+    ,output reg  [1:0]            rs2_fwd_sel
 );
 
     localparam [1:0] FWD_REGFILE = 2'b00;
@@ -37,20 +37,20 @@ module ctrl_forward_sel(
     wire mem_can_forward = mem_stage_wb_ctl && (ex_mem_rd_addr != 5'd0);
 
     always @(*) begin
-        ctrl_rs1_fwd_sel = FWD_REGFILE;
-        if (ctrl_rs1_ren) begin
+        rs1_fwd_sel = FWD_REGFILE;
+        if (id_rs1_ren) begin
             if (ex_can_forward && (id_rs1_addr == id_ex_rd_addr))
-                ctrl_rs1_fwd_sel = FWD_EX_MEM;
+                rs1_fwd_sel = FWD_EX_MEM;
             else if (mem_can_forward && (id_rs1_addr == ex_mem_rd_addr))
-                ctrl_rs1_fwd_sel = FWD_MEM_WB;
+                rs1_fwd_sel = FWD_MEM_WB;
         end
 
-        ctrl_rs2_fwd_sel = FWD_REGFILE;
-        if (ctrl_rs2_ren) begin
+        rs2_fwd_sel = FWD_REGFILE;
+        if (id_rs2_ren) begin
             if (ex_can_forward && (id_rs2_addr == id_ex_rd_addr))
-                ctrl_rs2_fwd_sel = FWD_EX_MEM;
+                rs2_fwd_sel = FWD_EX_MEM;
             else if (mem_can_forward && (id_rs2_addr == ex_mem_rd_addr))
-                ctrl_rs2_fwd_sel = FWD_MEM_WB;
+                rs2_fwd_sel = FWD_MEM_WB;
         end
     end
 

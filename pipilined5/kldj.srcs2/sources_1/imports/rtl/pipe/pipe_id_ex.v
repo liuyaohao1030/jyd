@@ -28,9 +28,10 @@ module pipe_id_ex #(
     ,input wire [`KLDJ_DATA]     id_data4
     ,input wire [`KLDJ_DATA]     reg_id_rs1_data
     ,input wire [`KLDJ_DATA]     reg_id_rs2_data
-    // Control-flow forwarding metadata generated for the current ID entry.
-    ,input wire [1:0]            id_cf_rs1_fwd_sel
-    ,input wire [1:0]            id_cf_rs2_fwd_sel
+    // Generic forwarding metadata generated for the current ID entry.
+    // The selected producer advances with this instruction into EX.
+    ,input wire [1:0]            id_rs1_fwd_sel
+    ,input wire [1:0]            id_rs2_fwd_sel
     // CSR signals from ID
     ,input wire [11:0]           id_csr_addr
     ,input wire                  id_csr_op
@@ -62,9 +63,9 @@ module pipe_id_ex #(
     ,output reg [`KLDJ_DATA]     id_ex_data4
     ,output reg [`KLDJ_DATA]     id_ex_rs1_data
     ,output reg [`KLDJ_DATA]     id_ex_rs2_data
-    // Registered selects for branch/JALR-only EX operand paths.
-    ,output reg [1:0]            id_ex_cf_rs1_fwd_sel
-    ,output reg [1:0]            id_ex_cf_rs2_fwd_sel
+    // Registered selects for all EX operand paths.
+    ,output reg [1:0]            id_ex_rs1_fwd_sel
+    ,output reg [1:0]            id_ex_rs2_fwd_sel
     // CSR signals to EX
     ,output reg [11:0]           id_ex_csr_addr
     ,output reg                  id_ex_csr_op
@@ -103,8 +104,8 @@ module pipe_id_ex #(
             id_ex_jal_op    <= 1'b0;
             id_ex_jalr_op   <= 1'b0;
             id_ex_jalr_check_en <= 1'b0;
-            id_ex_cf_rs1_fwd_sel <= 2'b00;
-            id_ex_cf_rs2_fwd_sel <= 2'b00;
+            id_ex_rs1_fwd_sel <= 2'b00;
+            id_ex_rs2_fwd_sel <= 2'b00;
         end else if(ex_redirect) begin
             // Valid marks the bubble.  Keep the metadata out of the broad
             // synchronous-clear cone; all consumers are valid-gated.
@@ -140,8 +141,8 @@ module pipe_id_ex #(
             id_ex_jalr_op   <= if_id_valid && id_jalr_op;
             id_ex_jalr_check_en <= if_id_valid && if_id_pred_taken &&
                                     if_id_pred_is_jalr && id_jalr_op;
-            id_ex_cf_rs1_fwd_sel <= id_cf_rs1_fwd_sel;
-            id_ex_cf_rs2_fwd_sel <= id_cf_rs2_fwd_sel;
+            id_ex_rs1_fwd_sel <= id_rs1_fwd_sel;
+            id_ex_rs2_fwd_sel <= id_rs2_fwd_sel;
         end
     end
 

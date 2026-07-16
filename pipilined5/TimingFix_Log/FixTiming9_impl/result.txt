@@ -1,0 +1,3 @@
+WNS(ns): 0.090
+Worst startpoint: student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_rs2_fwd_sel_reg[1]/C
+Worst endpoint: student_top_inst/u_KLDJ_top/u_pipe_id_ex/id_ex_rs2_to_data2_reg/CE

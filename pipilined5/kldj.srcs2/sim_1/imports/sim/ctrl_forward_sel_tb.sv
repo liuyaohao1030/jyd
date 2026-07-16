@@ -16,12 +16,12 @@ module ctrl_forward_sel_tb;
     integer checks;
 
     ctrl_forward_sel dut(
-         .ctrl_rs1_ren(ctrl_rs1_ren), .ctrl_rs2_ren(ctrl_rs2_ren)
+         .id_rs1_ren(ctrl_rs1_ren), .id_rs2_ren(ctrl_rs2_ren)
         ,.id_rs1_addr(id_rs1_addr), .id_rs2_addr(id_rs2_addr)
         ,.id_ex_valid(id_ex_valid), .id_ex_rd_addr(id_ex_rd_addr)
         ,.id_ex_wb_ctl(id_ex_wb_ctl), .id_ex_load_op(id_ex_load_op)
         ,.ex_mem_rd_addr(ex_mem_rd_addr), .mem_stage_wb_ctl(mem_stage_wb_ctl)
-        ,.ctrl_rs1_fwd_sel(ctrl_rs1_fwd_sel), .ctrl_rs2_fwd_sel(ctrl_rs2_fwd_sel)
+        ,.rs1_fwd_sel(ctrl_rs1_fwd_sel), .rs2_fwd_sel(ctrl_rs2_fwd_sel)
     );
 
     task expect_sel;

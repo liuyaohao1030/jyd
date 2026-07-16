@@ -107,8 +107,8 @@ module KLDJ_top(
     wire [`KLDJ_DATA]            id_ex_data4;
     wire [`KLDJ_DATA]            id_ex_rs1_data;
     wire [`KLDJ_DATA]            id_ex_rs2_data;
-    wire [1:0]                   id_ex_cf_rs1_fwd_sel;
-    wire [1:0]                   id_ex_cf_rs2_fwd_sel;
+    wire [1:0]                   id_ex_rs1_fwd_sel;
+    wire [1:0]                   id_ex_rs2_fwd_sel;
     wire                         id_ex_load_op;
     wire                         id_ex_store_op;
     wire                         id_ex_rs2_to_data2;
@@ -149,15 +149,11 @@ module KLDJ_top(
     wire                         ex_stall;
     wire                         frontend_stall;
 
-    // ID-stage control-flow forwarding selects.  They are captured with the
-    // decoded branch/JALR and refer to producer locations in the next EX
+    // ID-stage generic forwarding selects.  They are captured with the
+    // decoded instruction and refer to producer locations in its next EX
     // cycle, not to the current EX forwarding locations.
-    wire                         id_ctrl_branch_op;
-    wire                         id_ctrl_jalr_op;
-    wire                         id_ctrl_rs1_ren;
-    wire                         id_ctrl_rs2_ren;
-    wire [1:0]                   id_cf_rs1_fwd_sel;
-    wire [1:0]                   id_cf_rs2_fwd_sel;
+    wire [1:0]                   id_rs1_fwd_sel;
+    wire [1:0]                   id_rs2_fwd_sel;
 
     // CSR module wires
     wire [31:0]                  csr_rdata;
@@ -321,15 +317,9 @@ module KLDJ_top(
         ,.csr_zimm    (id_csr_zimm                      )
     );
 
-    assign id_ctrl_branch_op = (id_exu_op >= 18'h14) && (id_exu_op <= 18'h19);
-    assign id_ctrl_jalr_op   = (id_exu_op == 18'h9);
-    assign id_ctrl_rs1_ren   = if_id_valid && id_reg_rs1_ren &&
-                               (id_ctrl_branch_op || id_ctrl_jalr_op);
-    assign id_ctrl_rs2_ren   = if_id_valid && id_reg_rs2_ren && id_ctrl_branch_op;
-
     ctrl_forward_sel u_ctrl_forward_sel(
-         .ctrl_rs1_ren  (id_ctrl_rs1_ren   )
-        ,.ctrl_rs2_ren  (id_ctrl_rs2_ren   )
+         .id_rs1_ren    (if_id_valid && id_reg_rs1_ren)
+        ,.id_rs2_ren    (if_id_valid && id_reg_rs2_ren)
         ,.id_rs1_addr   (id_reg_rs1_addr   )
         ,.id_rs2_addr   (id_reg_rs2_addr   )
         ,.id_ex_valid   (id_ex_valid       )
@@ -338,8 +328,8 @@ module KLDJ_top(
         ,.id_ex_load_op (id_ex_load_op     )
         ,.ex_mem_rd_addr(ex_mem_rd_addr    )
         ,.mem_stage_wb_ctl(mem_stage_wb_ctl)
-        ,.ctrl_rs1_fwd_sel(id_cf_rs1_fwd_sel)
-        ,.ctrl_rs2_fwd_sel(id_cf_rs2_fwd_sel)
+        ,.rs1_fwd_sel   (id_rs1_fwd_sel)
+        ,.rs2_fwd_sel   (id_rs2_fwd_sel)
     );
 
     // ID/EX pipeline register
@@ -370,8 +360,8 @@ module KLDJ_top(
         ,.id_data4        (id_data4          )
         ,.reg_id_rs1_data (reg_id_rs1_data   )
         ,.reg_id_rs2_data (reg_id_rs2_data   )
-        ,.id_cf_rs1_fwd_sel(id_cf_rs1_fwd_sel)
-        ,.id_cf_rs2_fwd_sel(id_cf_rs2_fwd_sel)
+        ,.id_rs1_fwd_sel   (id_rs1_fwd_sel)
+        ,.id_rs2_fwd_sel   (id_rs2_fwd_sel)
         ,.id_csr_addr     (id_csr_addr       )
         ,.id_csr_op       (id_csr_op         )
         ,.id_csr_zimm     (id_csr_zimm       )
@@ -400,8 +390,8 @@ module KLDJ_top(
         ,.id_ex_data4     (id_ex_data4       )
         ,.id_ex_rs1_data  (id_ex_rs1_data    )
         ,.id_ex_rs2_data  (id_ex_rs2_data    )
-        ,.id_ex_cf_rs1_fwd_sel(id_ex_cf_rs1_fwd_sel)
-        ,.id_ex_cf_rs2_fwd_sel(id_ex_cf_rs2_fwd_sel)
+        ,.id_ex_rs1_fwd_sel(id_ex_rs1_fwd_sel)
+        ,.id_ex_rs2_fwd_sel(id_ex_rs2_fwd_sel)
         ,.id_ex_load_op   (id_ex_load_op     )
         ,.id_ex_store_op  (id_ex_store_op    )
         ,.id_ex_rs2_to_data2(id_ex_rs2_to_data2)
@@ -417,11 +407,11 @@ module KLDJ_top(
     // EX forwarding and MUX
     ex_forward u_ex_forward(
          .id_ex_valid          (id_ex_valid          )
-        ,.id_ex_rs1_addr       (id_ex_rs1_addr       )
-        ,.id_ex_rs2_addr       (id_ex_rs2_addr       )
         ,.id_ex_rd_addr        (id_ex_rd_addr        )
         ,.id_ex_rs1_ren        (id_ex_rs1_ren        )
         ,.id_ex_rs2_ren        (id_ex_rs2_ren        )
+        ,.id_ex_rs1_fwd_sel    (id_ex_rs1_fwd_sel    )
+        ,.id_ex_rs2_fwd_sel    (id_ex_rs2_fwd_sel    )
         ,.id_ex_load_op        (id_ex_load_op        )
         ,.id_ex_store_op       (id_ex_store_op       )
         ,.id_ex_rs2_to_data2   (id_ex_rs2_to_data2   )
@@ -431,12 +421,8 @@ module KLDJ_top(
         ,.id_ex_data4          (id_ex_data4          )
         ,.id_ex_rs1_data       (id_ex_rs1_data       )
         ,.id_ex_rs2_data       (id_ex_rs2_data       )
-        ,.ex_mem_rd_addr       (ex_mem_rd_addr       )
         ,.ex_mem_exu_res       (ex_mem_exu_res       )
-        ,.ex_mem_forward_valid (ex_mem_forward_valid )
-        ,.mem_wb_rd_addr       (mem_wb_rd_addr       )
         ,.mem_wb_wb_data       (mem_wb_wb_data       )
-        ,.mem_wb_forward_valid (mem_wb_forward_valid )
         ,.if_id_valid          (if_id_valid          )
         ,.id_reg_rs1_addr      (id_reg_rs1_addr      )
         ,.id_reg_rs2_addr      (id_reg_rs2_addr      )
@@ -450,15 +436,14 @@ module KLDJ_top(
         ,.load_use_stall       (load_use_stall       )
     );
 
-    // These selects were computed while the instruction was in ID.  Their
-    // producers have advanced one pipeline position by the time this EX
-    // instruction consumes them.
-    assign ex_cf_rs1_data = (id_ex_cf_rs1_fwd_sel == 2'b01) ? ex_mem_exu_res :
-                            (id_ex_cf_rs1_fwd_sel == 2'b10) ? mem_wb_wb_data :
-                                                               id_ex_rs1_data;
-    assign ex_cf_rs2_data = (id_ex_cf_rs2_fwd_sel == 2'b01) ? ex_mem_exu_res :
-                            (id_ex_cf_rs2_fwd_sel == 2'b10) ? mem_wb_wb_data :
-                                                               id_ex_rs2_data;
+    // Branch/JALR use the same ID-predecoded selections as all other EX
+    // operands; their producers have advanced one pipeline position here.
+    assign ex_cf_rs1_data = (id_ex_rs1_fwd_sel == 2'b01) ? ex_mem_exu_res :
+                            (id_ex_rs1_fwd_sel == 2'b10) ? mem_wb_wb_data :
+                                                            id_ex_rs1_data;
+    assign ex_cf_rs2_data = (id_ex_rs2_fwd_sel == 2'b01) ? ex_mem_exu_res :
+                            (id_ex_rs2_fwd_sel == 2'b10) ? mem_wb_wb_data :
+                                                            id_ex_rs2_data;
 
     // EX stage
     KLDJ_exu exu2(

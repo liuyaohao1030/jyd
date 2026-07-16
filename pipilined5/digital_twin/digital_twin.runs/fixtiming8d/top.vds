@@ -1,0 +1,598 @@
+#-----------------------------------------------------------
+# Vivado v2023.2 (64-bit)
+# SW Build 4029153 on Fri Oct 13 20:14:34 MDT 2023
+# IP Build 4028589 on Sat Oct 14 00:45:43 MDT 2023
+# SharedData Build 4025554 on Tue Oct 10 17:18:54 MDT 2023
+# Start of session at: Wed Jul 15 18:54:35 2026
+# Process ID: 34496
+# Current directory: D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fixtiming8d
+# Command line: vivado.exe -log top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source top.tcl
+# Log file: D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fixtiming8d/top.vds
+# Journal file: D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fixtiming8d\vivado.jou
+# Running On: DESKTOP-MO7L2KR, OS: Windows, CPU Frequency: 3793 MHz, CPU Physical cores: 16, Host memory: 33618 MB
+#-----------------------------------------------------------
+source top.tcl -notrace
+create_project: Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 565.453 ; gain = 182.652
+Command: synth_design -top top -part xc7k325tffg900-2
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7k325t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7k325t'
+INFO: [Device 21-403] Loading part xc7k325tffg900-2
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 32232
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 1472.656 ; gain = 438.996
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'top' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/top.sv:23]
+INFO: [Synth 8-6157] synthesizing module 'pll' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fixtiming8d/.Xil/Vivado-34496-DESKTOP-MO7L2KR/realtime/pll_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'pll' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fixtiming8d/.Xil/Vivado-34496-DESKTOP-MO7L2KR/realtime/pll_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'uart' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/uart.sv:22]
+	Parameter CLK_FREQ bound to: 50000000 - type: integer 
+	Parameter BAUD_RATE bound to: 9600 - type: integer 
+INFO: [Synth 8-226] default block is never used [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/uart.sv:72]
+INFO: [Synth 8-155] case statement is not full and has no default [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/uart.sv:147]
+INFO: [Synth 8-6155] done synthesizing module 'uart' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/uart.sv:22]
+INFO: [Synth 8-6157] synthesizing module 'twin_controller' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/twin_controller.sv:23]
+INFO: [Synth 8-226] default block is never used [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/twin_controller.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'twin_controller' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/twin_controller.sv:23]
+INFO: [Synth 8-6157] synthesizing module 'student_top' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/student_top.sv:23]
+INFO: [Synth 8-6157] synthesizing module 'KLDJ_top' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_top.v:3]
+INFO: [Synth 8-6157] synthesizing module 'bpu' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/bpu.v:3]
+	Parameter INDEX_WIDTH bound to: 6 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'gshare_btb_core' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/bpu.v:49]
+	Parameter INDEX_WIDTH bound to: 6 - type: integer 
+	Parameter BHT_RESET_VALUE bound to: 2'b01 
+INFO: [Synth 8-6155] done synthesizing module 'gshare_btb_core' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/bpu.v:49]
+INFO: [Synth 8-6155] done synthesizing module 'bpu' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/bpu.v:3]
+INFO: [Synth 8-6157] synthesizing module 'KLDJ_ifu' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_ifu.v:3]
+INFO: [Synth 8-6155] done synthesizing module 'KLDJ_ifu' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_ifu.v:3]
+INFO: [Synth 8-6157] synthesizing module 'pipe_if_id' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_if_id.v:3]
+	Parameter BPU_INDEX_WIDTH bound to: 6 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'pipe_if_id' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_if_id.v:3]
+INFO: [Synth 8-6157] synthesizing module 'KLDJ_idu' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_idu.v:3]
+INFO: [Synth 8-6155] done synthesizing module 'KLDJ_idu' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_idu.v:3]
+INFO: [Synth 8-6157] synthesizing module 'ctrl_forward_sel' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/ctrl_forward_sel.v:11]
+INFO: [Synth 8-6155] done synthesizing module 'ctrl_forward_sel' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/ctrl_forward_sel.v:11]
+INFO: [Synth 8-6157] synthesizing module 'pipe_id_ex' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_id_ex.v:3]
+	Parameter BPU_INDEX_WIDTH bound to: 6 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'pipe_id_ex' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_id_ex.v:3]
+INFO: [Synth 8-6157] synthesizing module 'ex_forward' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/ex_forward.v:3]
+INFO: [Synth 8-6155] done synthesizing module 'ex_forward' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/ex_forward.v:3]
+INFO: [Synth 8-6157] synthesizing module 'KLDJ_exu' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_exu.v:3]
+INFO: [Synth 8-6157] synthesizing module 'KLDJ_alu' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/KLDJ_alu.v:3]
+INFO: [Synth 8-6157] synthesizing module 'alu_add' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_add.v:1]
+INFO: [Synth 8-6155] done synthesizing module 'alu_add' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_add.v:1]
+INFO: [Synth 8-6157] synthesizing module 'alu_and' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_and.v:1]
+INFO: [Synth 8-6155] done synthesizing module 'alu_and' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_and.v:1]
+INFO: [Synth 8-6157] synthesizing module 'alu_or' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_or.v:1]
+INFO: [Synth 8-6155] done synthesizing module 'alu_or' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_or.v:1]
+INFO: [Synth 8-6157] synthesizing module 'alu_shifter' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_shifter.v:1]
+INFO: [Synth 8-6155] done synthesizing module 'alu_shifter' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_shifter.v:1]
+INFO: [Synth 8-6157] synthesizing module 'alu_slt' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_slt.v:1]
+INFO: [Synth 8-6155] done synthesizing module 'alu_slt' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_slt.v:1]
+INFO: [Synth 8-6157] synthesizing module 'alu_xor' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_xor.v:1]
+INFO: [Synth 8-6155] done synthesizing module 'alu_xor' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_xor.v:1]
+INFO: [Synth 8-6155] done synthesizing module 'KLDJ_alu' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/KLDJ_alu.v:3]
+INFO: [Synth 8-6157] synthesizing module 'mul_ip_wrapper' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/mul_ip_wrapper.v:1]
+INFO: [Synth 8-226] default block is never used [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/mul_ip_wrapper.v:60]
+INFO: [Synth 8-6157] synthesizing module 'mult_gen_u33' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fixtiming8d/.Xil/Vivado-34496-DESKTOP-MO7L2KR/realtime/mult_gen_u33_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'mult_gen_u33' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fixtiming8d/.Xil/Vivado-34496-DESKTOP-MO7L2KR/realtime/mult_gen_u33_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'mul_ip_wrapper' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/mul_ip_wrapper.v:1]
+INFO: [Synth 8-6157] synthesizing module 'div_ip_wrapper' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/div_ip_wrapper.v:1]
+INFO: [Synth 8-6157] synthesizing module 'div_gen_u32' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fixtiming8d/.Xil/Vivado-34496-DESKTOP-MO7L2KR/realtime/div_gen_u32_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'div_gen_u32' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fixtiming8d/.Xil/Vivado-34496-DESKTOP-MO7L2KR/realtime/div_gen_u32_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'div_ip_wrapper' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/div_ip_wrapper.v:1]
+INFO: [Synth 8-6155] done synthesizing module 'KLDJ_exu' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_exu.v:3]
+INFO: [Synth 8-6157] synthesizing module 'ex_bpu_ctrl' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/ex_bpu_ctrl.v:3]
+	Parameter BPU_INDEX_WIDTH bound to: 6 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'ex_bpu_ctrl' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/ex_bpu_ctrl.v:3]
+INFO: [Synth 8-6157] synthesizing module 'ex_mem_req_ctrl' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/ex_mem_req_ctrl.v:3]
+INFO: [Synth 8-6155] done synthesizing module 'ex_mem_req_ctrl' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/ex_mem_req_ctrl.v:3]
+INFO: [Synth 8-6157] synthesizing module 'KLDJ_csr' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_csr.v:3]
+INFO: [Synth 8-6155] done synthesizing module 'KLDJ_csr' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_csr.v:3]
+INFO: [Synth 8-6157] synthesizing module 'pipe_ex_mem' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_ex_mem.v:3]
+INFO: [Synth 8-6155] done synthesizing module 'pipe_ex_mem' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_ex_mem.v:3]
+INFO: [Synth 8-6157] synthesizing module 'mem_stage_top' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/mem_stage_top.v:3]
+INFO: [Synth 8-6157] synthesizing module 'KLDJ_lsu' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_lsu.v:3]
+INFO: [Synth 8-6155] done synthesizing module 'KLDJ_lsu' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_lsu.v:3]
+INFO: [Synth 8-6155] done synthesizing module 'mem_stage_top' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/mem_stage_top.v:3]
+INFO: [Synth 8-6157] synthesizing module 'pipe_mem_wb' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_mem_wb.v:3]
+INFO: [Synth 8-6155] done synthesizing module 'pipe_mem_wb' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_mem_wb.v:3]
+INFO: [Synth 8-6157] synthesizing module 'KLDJ_wbu' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_wbu.v:3]
+INFO: [Synth 8-6155] done synthesizing module 'KLDJ_wbu' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_wbu.v:3]
+INFO: [Synth 8-6157] synthesizing module 'KLDJ_regfile' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_regfile.v:4]
+INFO: [Synth 8-6155] done synthesizing module 'KLDJ_regfile' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_regfile.v:4]
+INFO: [Synth 8-6157] synthesizing module 'pipe_wb_commit' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_wb_commit.v:3]
+INFO: [Synth 8-6155] done synthesizing module 'pipe_wb_commit' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_wb_commit.v:3]
+INFO: [Synth 8-6155] done synthesizing module 'KLDJ_top' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_top.v:3]
+WARNING: [Synth 8-7071] port 'perf_cycle_count' of module 'KLDJ_top' is unconnected for instance 'u_KLDJ_top' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/student_top.sv:52]
+WARNING: [Synth 8-7071] port 'perf_instret_count' of module 'KLDJ_top' is unconnected for instance 'u_KLDJ_top' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/student_top.sv:52]
+WARNING: [Synth 8-7071] port 'perf_frontend_stall_count' of module 'KLDJ_top' is unconnected for instance 'u_KLDJ_top' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/student_top.sv:52]
+WARNING: [Synth 8-7071] port 'perf_load_use_stall_count' of module 'KLDJ_top' is unconnected for instance 'u_KLDJ_top' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/student_top.sv:52]
+WARNING: [Synth 8-7071] port 'perf_mul_stall_count' of module 'KLDJ_top' is unconnected for instance 'u_KLDJ_top' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/student_top.sv:52]
+WARNING: [Synth 8-7071] port 'perf_div_stall_count' of module 'KLDJ_top' is unconnected for instance 'u_KLDJ_top' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/student_top.sv:52]
+WARNING: [Synth 8-7071] port 'perf_redirect_count' of module 'KLDJ_top' is unconnected for instance 'u_KLDJ_top' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/student_top.sv:52]
+WARNING: [Synth 8-7071] port 'perf_load_count' of module 'KLDJ_top' is unconnected for instance 'u_KLDJ_top' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/student_top.sv:52]
+WARNING: [Synth 8-7071] port 'perf_store_count' of module 'KLDJ_top' is unconnected for instance 'u_KLDJ_top' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/student_top.sv:52]
+WARNING: [Synth 8-7023] instance 'u_KLDJ_top' of module 'KLDJ_top' has 22 connections declared, but only 13 given [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/student_top.sv:52]
+INFO: [Synth 8-6157] synthesizing module 'IROM' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fixtiming8d/.Xil/Vivado-34496-DESKTOP-MO7L2KR/realtime/IROM_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'IROM' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fixtiming8d/.Xil/Vivado-34496-DESKTOP-MO7L2KR/realtime/IROM_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'perip_bridge' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/perip_bridge.sv:22]
+INFO: [Synth 8-6157] synthesizing module 'display_seg' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/display_seg.sv:23]
+INFO: [Synth 8-6157] synthesizing module 'seg7' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/seg7.sv:23]
+INFO: [Synth 8-226] default block is never used [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/seg7.sv:29]
+INFO: [Synth 8-6155] done synthesizing module 'seg7' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/seg7.sv:23]
+INFO: [Synth 8-6155] done synthesizing module 'display_seg' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/display_seg.sv:23]
+INFO: [Synth 8-6157] synthesizing module 'dram_driver' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/dram_driver.sv:27]
+INFO: [Synth 8-6157] synthesizing module 'DRAM_TDP' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fixtiming8d/.Xil/Vivado-34496-DESKTOP-MO7L2KR/realtime/DRAM_TDP_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'DRAM_TDP' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fixtiming8d/.Xil/Vivado-34496-DESKTOP-MO7L2KR/realtime/DRAM_TDP_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'dram_driver' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/dram_driver.sv:27]
+INFO: [Synth 8-6157] synthesizing module 'counter' [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/counter.sv:23]
+INFO: [Synth 8-6155] done synthesizing module 'counter' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/counter.sv:23]
+INFO: [Synth 8-6155] done synthesizing module 'perip_bridge' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/perip_bridge.sv:22]
+INFO: [Synth 8-6155] done synthesizing module 'student_top' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/student_top.sv:23]
+INFO: [Synth 8-6155] done synthesizing module 'top' (0#1) [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/top.sv:23]
+WARNING: [Synth 8-3848] Net perf_cycle_count in module/entity KLDJ_top does not have driver. [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_top.v:18]
+WARNING: [Synth 8-3848] Net perf_instret_count in module/entity KLDJ_top does not have driver. [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_top.v:19]
+WARNING: [Synth 8-3848] Net perf_frontend_stall_count in module/entity KLDJ_top does not have driver. [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_top.v:20]
+WARNING: [Synth 8-3848] Net perf_load_use_stall_count in module/entity KLDJ_top does not have driver. [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_top.v:21]
+WARNING: [Synth 8-3848] Net perf_mul_stall_count in module/entity KLDJ_top does not have driver. [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_top.v:22]
+WARNING: [Synth 8-3848] Net perf_div_stall_count in module/entity KLDJ_top does not have driver. [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_top.v:23]
+WARNING: [Synth 8-3848] Net perf_redirect_count in module/entity KLDJ_top does not have driver. [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_top.v:24]
+WARNING: [Synth 8-3848] Net perf_load_count in module/entity KLDJ_top does not have driver. [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_top.v:25]
+WARNING: [Synth 8-3848] Net perf_store_count in module/entity KLDJ_top does not have driver. [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_top.v:26]
+WARNING: [Synth 8-6014] Unused sequential element fwd_r_reg was removed.  [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/dram_driver.sv:124]
+WARNING: [Synth 8-7129] Port perip_addr[1] in module dram_driver is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perip_addr[0] in module dram_driver is either unconnected or has no load
+WARNING: [Synth 8-7129] Port id_ls_ctl[3] in module KLDJ_lsu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port id_ex_ls_ctl[3] in module ex_mem_req_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port id_ex_ls_ctl[2] in module ex_mem_req_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port id_ex_pred_is_jalr in module ex_bpu_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port id_ex_pred_target[0] in module ex_bpu_ctrl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port csr_addr[11] in module KLDJ_exu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port csr_addr[10] in module KLDJ_exu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port csr_addr[9] in module KLDJ_exu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port csr_addr[8] in module KLDJ_exu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port csr_addr[7] in module KLDJ_exu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port csr_addr[6] in module KLDJ_exu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port csr_addr[5] in module KLDJ_exu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port csr_addr[4] in module KLDJ_exu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port csr_addr[3] in module KLDJ_exu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port csr_addr[2] in module KLDJ_exu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port csr_addr[1] in module KLDJ_exu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port csr_addr[0] in module KLDJ_exu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port csr_zimm[4] in module KLDJ_exu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port csr_zimm[3] in module KLDJ_exu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port csr_zimm[2] in module KLDJ_exu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port csr_zimm[1] in module KLDJ_exu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port csr_zimm[0] in module KLDJ_exu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port id_ex_rs2_ren in module ex_forward is either unconnected or has no load
+WARNING: [Synth 8-7129] Port lookup_pc[1] in module gshare_btb_core is either unconnected or has no load
+WARNING: [Synth 8-7129] Port lookup_pc[0] in module gshare_btb_core is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_cycle_count[31] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_cycle_count[30] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_cycle_count[29] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_cycle_count[28] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_cycle_count[27] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_cycle_count[26] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_cycle_count[25] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_cycle_count[24] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_cycle_count[23] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_cycle_count[22] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_cycle_count[21] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_cycle_count[20] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_cycle_count[19] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_cycle_count[18] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_cycle_count[17] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_cycle_count[16] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_cycle_count[15] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_cycle_count[14] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_cycle_count[13] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_cycle_count[12] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_cycle_count[11] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_cycle_count[10] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_cycle_count[9] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_cycle_count[8] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_cycle_count[7] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_cycle_count[6] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_cycle_count[5] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_cycle_count[4] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_cycle_count[3] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_cycle_count[2] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_cycle_count[1] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_cycle_count[0] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_instret_count[31] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_instret_count[30] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_instret_count[29] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_instret_count[28] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_instret_count[27] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_instret_count[26] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_instret_count[25] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_instret_count[24] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_instret_count[23] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_instret_count[22] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_instret_count[21] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_instret_count[20] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_instret_count[19] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_instret_count[18] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_instret_count[17] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_instret_count[16] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_instret_count[15] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_instret_count[14] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_instret_count[13] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_instret_count[12] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_instret_count[11] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_instret_count[10] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_instret_count[9] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_instret_count[8] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_instret_count[7] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_instret_count[6] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_instret_count[5] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_instret_count[4] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_instret_count[3] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_instret_count[2] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_instret_count[1] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_instret_count[0] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_frontend_stall_count[31] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_frontend_stall_count[30] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_frontend_stall_count[29] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_frontend_stall_count[28] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_frontend_stall_count[27] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_frontend_stall_count[26] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_frontend_stall_count[25] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_frontend_stall_count[24] in module KLDJ_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port perf_frontend_stall_count[23] in module KLDJ_top is either unconnected or has no load
+INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 1612.199 ; gain = 578.539
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 1612.199 ; gain = 578.539
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 1612.199 ; gain = 578.539
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.108 . Memory (MB): peak = 1612.199 ; gain = 0.000
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/div_gen_u32_1/div_gen_u32/div_gen_u32_in_context.xdc] for cell 'student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32'
+Finished Parsing XDC File [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/div_gen_u32_1/div_gen_u32/div_gen_u32_in_context.xdc] for cell 'student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32'
+Parsing XDC File [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/mult_gen_u33_1/mult_gen_u33/mult_gen_u33_in_context.xdc] for cell 'student_top_inst/u_KLDJ_top/exu2/u_mul_ip_wrapper/u_mult_gen_u33'
+Finished Parsing XDC File [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/mult_gen_u33_1/mult_gen_u33/mult_gen_u33_in_context.xdc] for cell 'student_top_inst/u_KLDJ_top/exu2/u_mul_ip_wrapper/u_mult_gen_u33'
+Parsing XDC File [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll/pll_in_context.xdc] for cell 'pll_inst'
+Finished Parsing XDC File [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll/pll_in_context.xdc] for cell 'pll_inst'
+Parsing XDC File [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/IROM/IROM/IROM_in_context.xdc] for cell 'student_top_inst/Mem_IROM'
+Finished Parsing XDC File [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/IROM/IROM/IROM_in_context.xdc] for cell 'student_top_inst/Mem_IROM'
+Parsing XDC File [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/DRAM_TDP_1/DRAM_TDP/DRAM_TDP_in_context.xdc] for cell 'student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp'
+Finished Parsing XDC File [d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/DRAM_TDP_1/DRAM_TDP/DRAM_TDP_in_context.xdc] for cell 'student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp'
+Parsing XDC File [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/digital_twin.xdc]
+Finished Parsing XDC File [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/digital_twin.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/digital_twin.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/top_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Parsing XDC File [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc]
+Finished Parsing XDC File [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/top_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Parsing XDC File [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fixtiming8d/dont_touch.xdc]
+Finished Parsing XDC File [D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fixtiming8d/dont_touch.xdc]
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1717.863 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.019 . Memory (MB): peak = 1717.863 ; gain = 0.000
+WARNING: [Timing 38-316] Clock period '20.000' specified during out-of-context synthesis of instance 'student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp' at clock pin 'clka' is different from the actual clock period '5.714', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '1000.000' specified during out-of-context synthesis of instance 'student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32' at clock pin 'aclk' is different from the actual clock period '5.714', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '100.000' specified during out-of-context synthesis of instance 'student_top_inst/u_KLDJ_top/exu2/u_mul_ip_wrapper/u_mult_gen_u33' at clock pin 'CLK' is different from the actual clock period '5.714', this can lead to different synthesis results.
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 1717.898 ; gain = 684.238
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7k325tffg900-2
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 1717.898 ; gain = 684.238
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+Applied set_property IO_BUFFER_TYPE = NONE for i_sys_clk_n. (constraint file  d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll/pll_in_context.xdc, line 4).
+Applied set_property CLOCK_BUFFER_TYPE = NONE for i_sys_clk_n. (constraint file  d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll/pll_in_context.xdc, line 5).
+Applied set_property IO_BUFFER_TYPE = NONE for i_sys_clk_p. (constraint file  d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll/pll_in_context.xdc, line 6).
+Applied set_property CLOCK_BUFFER_TYPE = NONE for i_sys_clk_p. (constraint file  d:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.gen/sources_1/ip/pll/pll/pll_in_context.xdc, line 7).
+Applied set_property KEEP_HIERARCHY = SOFT for student_top_inst/u_KLDJ_top/exu2/u_div_ip_wrapper/u_div_gen_u32. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for student_top_inst/u_KLDJ_top/exu2/u_mul_ip_wrapper/u_mult_gen_u33. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for pll_inst. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for student_top_inst/Mem_IROM. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for student_top_inst/bridge_inst/dram_driver_inst/u_dram_tdp. (constraint file  auto generated constraint).
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:14 ; elapsed = 00:00:14 . Memory (MB): peak = 1717.898 ; gain = 684.238
+---------------------------------------------------------------------------------
+INFO: [Synth 8-802] inferred FSM for state register 'rx_state_reg' in module 'uart'
+INFO: [Synth 8-802] inferred FSM for state register 'tx_state_reg' in module 'uart'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'div_ip_wrapper'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                  iSTATE |                               00 |                               00
+                 iSTATE0 |                               01 |                               01
+                 iSTATE1 |                               10 |                               10
+                 iSTATE2 |                               11 |                               11
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'rx_state_reg' using encoding 'sequential' in module 'uart'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                  iSTATE |                                0 |                             0000
+                 iSTATE0 |                                1 |                             0001
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'tx_state_reg' using encoding 'sequential' in module 'uart'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                 ST_IDLE |                               00 |                              000
+               ST_LAUNCH |                               11 |                              001
+          ST_WAIT_RESULT |                               10 |                              010
+                 ST_DONE |                               01 |                              011
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'sequential' in module 'div_ip_wrapper'
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:15 ; elapsed = 00:00:16 . Memory (MB): peak = 1717.898 ; gain = 684.238
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input   32 Bit       Adders := 12    
+	   3 Input   32 Bit       Adders := 2     
+	   2 Input   13 Bit       Adders := 3     
+	   2 Input    5 Bit       Adders := 2     
+	   2 Input    4 Bit       Adders := 2     
+	   2 Input    2 Bit       Adders := 2     
++---XORs : 
+	   2 Input     32 Bit         XORs := 4     
+	   2 Input      6 Bit         XORs := 1     
+	   2 Input      1 Bit         XORs := 33    
++---Registers : 
+	               64 Bit    Registers := 3     
+	               32 Bit    Registers := 77    
+	               18 Bit    Registers := 2     
+	               16 Bit    Registers := 2     
+	               13 Bit    Registers := 2     
+	               12 Bit    Registers := 1     
+	               10 Bit    Registers := 2     
+	                8 Bit    Registers := 22    
+	                6 Bit    Registers := 4     
+	                5 Bit    Registers := 9     
+	                4 Bit    Registers := 7     
+	                2 Bit    Registers := 6     
+	                1 Bit    Registers := 53    
++---Muxes : 
+	   2 Input   64 Bit        Muxes := 6     
+	   2 Input   33 Bit        Muxes := 6     
+	   2 Input   32 Bit        Muxes := 58    
+	  54 Input   32 Bit        Muxes := 4     
+	   3 Input   32 Bit        Muxes := 3     
+	   4 Input   32 Bit        Muxes := 3     
+	   5 Input   32 Bit        Muxes := 1     
+	   6 Input   32 Bit        Muxes := 1     
+	   2 Input   30 Bit        Muxes := 1     
+	   2 Input   13 Bit        Muxes := 4     
+	   4 Input   13 Bit        Muxes := 1     
+	   2 Input   10 Bit        Muxes := 2     
+	  54 Input   10 Bit        Muxes := 1     
+	   2 Input    8 Bit        Muxes := 8     
+	  54 Input    6 Bit        Muxes := 1     
+	   2 Input    6 Bit        Muxes := 1     
+	   2 Input    5 Bit        Muxes := 4     
+	   4 Input    4 Bit        Muxes := 3     
+	   2 Input    4 Bit        Muxes := 8     
+	  54 Input    4 Bit        Muxes := 1     
+	   2 Input    3 Bit        Muxes := 1     
+	   6 Input    3 Bit        Muxes := 1     
+	   4 Input    2 Bit        Muxes := 4     
+	   2 Input    2 Bit        Muxes := 9     
+	   5 Input    2 Bit        Muxes := 2     
+	   2 Input    1 Bit        Muxes := 70    
+	   4 Input    1 Bit        Muxes := 14    
+	   3 Input    1 Bit        Muxes := 3     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 840 (col length:140)
+BRAMs: 890 (col length: RAMB18 140 RAMB36 70)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+WARNING: [Synth 8-3917] design top has port virtual_seg[37] driven by constant 0
+WARNING: [Synth 8-3917] design top has port virtual_seg[27] driven by constant 0
+WARNING: [Synth 8-3917] design top has port virtual_seg[17] driven by constant 0
+WARNING: [Synth 8-3917] design top has port virtual_seg[7] driven by constant 0
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:30 ; elapsed = 00:00:32 . Memory (MB): peak = 1717.898 ; gain = 684.238
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Distributed RAM: Preliminary Mapping Report (see note below)
++------------------------------------+-----------------------------------+----------------+----------------------+---------------+
+|Module Name                         | RTL Object                        | Inference      | Size (Depth x Width) | Primitives    | 
++------------------------------------+-----------------------------------+----------------+----------------------+---------------+
+|\student_top_inst/u_KLDJ_top /u_bpu | u_gshare_btb_core/pht_reg         | User Attribute | 64 x 2               | RAM64X1D x 2  | 
+|\student_top_inst/u_KLDJ_top /u_bpu | u_gshare_btb_core/btb_is_jalr_reg | User Attribute | 64 x 1               | RAM64M x 1    | 
+|\student_top_inst/u_KLDJ_top /u_bpu | u_gshare_btb_core/btb_data_reg    | User Attribute | 64 x 56              | RAM64M x 19   | 
++------------------------------------+-----------------------------------+----------------+----------------------+---------------+
+
+Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 1717.898 ; gain = 684.238
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:36 ; elapsed = 00:00:37 . Memory (MB): peak = 1717.898 ; gain = 684.238
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Distributed RAM: Final Mapping Report
++------------------------------------+-----------------------------------+----------------+----------------------+---------------+
+|Module Name                         | RTL Object                        | Inference      | Size (Depth x Width) | Primitives    | 
++------------------------------------+-----------------------------------+----------------+----------------------+---------------+
+|\student_top_inst/u_KLDJ_top /u_bpu | u_gshare_btb_core/pht_reg         | User Attribute | 64 x 2               | RAM64X1D x 2  | 
+|\student_top_inst/u_KLDJ_top /u_bpu | u_gshare_btb_core/btb_is_jalr_reg | User Attribute | 64 x 1               | RAM64M x 1    | 
+|\student_top_inst/u_KLDJ_top /u_bpu | u_gshare_btb_core/btb_data_reg    | User Attribute | 64 x 56              | RAM64M x 19   | 
++------------------------------------+-----------------------------------+----------------+----------------------+---------------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:39 ; elapsed = 00:00:40 . Memory (MB): peak = 1760.094 ; gain = 726.434
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:42 ; elapsed = 00:00:43 . Memory (MB): peak = 1774.812 ; gain = 741.152
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:42 ; elapsed = 00:00:43 . Memory (MB): peak = 1774.812 ; gain = 741.152
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:43 ; elapsed = 00:00:44 . Memory (MB): peak = 1774.812 ; gain = 741.152
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:43 ; elapsed = 00:00:44 . Memory (MB): peak = 1774.812 ; gain = 741.152
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:43 ; elapsed = 00:00:44 . Memory (MB): peak = 1774.812 ; gain = 741.152
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:43 ; elapsed = 00:00:44 . Memory (MB): peak = 1774.812 ; gain = 741.152
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++------+--------------+----------+
+|      |BlackBox name |Instances |
++------+--------------+----------+
+|1     |pll           |         1|
+|2     |IROM          |         1|
+|3     |DRAM_TDP      |         1|
+|4     |div_gen_u32   |         1|
+|5     |mult_gen_u33  |         1|
++------+--------------+----------+
+
+Report Cell Usage: 
++------+-------------+------+
+|      |Cell         |Count |
++------+-------------+------+
+|1     |DRAM_TDP     |     1|
+|2     |IROM         |     1|
+|3     |div_gen_u32  |     1|
+|4     |mult_gen_u33 |     1|
+|5     |pll          |     1|
+|6     |CARRY4       |   138|
+|7     |LUT1         |   107|
+|8     |LUT2         |   440|
+|9     |LUT3         |   548|
+|10    |LUT4         |   457|
+|11    |LUT5         |   708|
+|12    |LUT6         |  1618|
+|13    |MUXF7        |   305|
+|14    |MUXF8        |   136|
+|15    |RAM64M       |    19|
+|16    |RAM64X1D     |     3|
+|17    |FDCE         |   296|
+|18    |FDPE         |    13|
+|19    |FDRE         |  2573|
+|20    |FDSE         |     9|
+|21    |IBUF         |     1|
+|22    |OBUF         |    73|
++------+-------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:43 ; elapsed = 00:00:44 . Memory (MB): peak = 1774.812 ; gain = 741.152
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 318 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:34 ; elapsed = 00:00:41 . Memory (MB): peak = 1774.812 ; gain = 635.453
+Synthesis Optimization Complete : Time (s): cpu = 00:00:43 ; elapsed = 00:00:44 . Memory (MB): peak = 1774.812 ; gain = 741.152
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.089 . Memory (MB): peak = 1786.926 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 601 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1794.582 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 22 instances were transformed.
+  RAM64M => RAM64M (RAMD64E(x4)): 19 instances
+  RAM64X1D => RAM64X1D (RAMD64E(x2)): 3 instances
+
+Synth Design complete | Checksum: d329acac
+INFO: [Common 17-83] Releasing license: Synthesis
+114 Infos, 128 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:48 ; elapsed = 00:00:49 . Memory (MB): peak = 1794.582 ; gain = 1215.633
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.008 . Memory (MB): peak = 1794.582 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/fixtiming8d/top.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file top_utilization_synth.rpt -pb top_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Wed Jul 15 18:55:34 2026...

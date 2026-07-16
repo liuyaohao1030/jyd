@@ -3,10 +3,10 @@
 # SW Build 4029153 on Fri Oct 13 20:14:34 MDT 2023
 # IP Build 4028589 on Sat Oct 14 00:45:43 MDT 2023
 # SharedData Build 4025554 on Tue Oct 10 17:18:54 MDT 2023
-# Start of session at: Mon Jul 13 15:22:13 2026
-# Process ID: 7352
+# Start of session at: Wed Jul 15 19:05:58 2026
+# Process ID: 46852
 # Current directory: D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent28308 D:\Desktop\JYD\Source_code\BPU_FixTiming3\jyd\pipilined5\digital_twin\digital_twin.xpr
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent46096 D:\Desktop\JYD\Source_code\BPU_FixTiming3\jyd\pipilined5\digital_twin\digital_twin.xpr
 # Log file: D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/vivado.log
 # Journal file: D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin\vivado.jou
 # Running On: DESKTOP-MO7L2KR, OS: Windows, CPU Frequency: 3793 MHz, CPU Physical cores: 16, Host memory: 33618 MB
@@ -14,14 +14,73 @@
 start_gui
 open_project D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.xpr
 update_compile_order -fileset sources_1
-remove_files [get_files *.v]
-update_compile_order -fileset sources_1
-remove_files [get_files *.sv]
-update_compile_order -fileset sources_1
-add_files -norecurse -scan_for_includes {D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/mul_ip_wrapper.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_if_id.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_exu.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/seg7.sv D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/mem_stage_top.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/student_top.sv D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/KLDJ_top.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_or.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/define.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_div.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_regfile.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/counter.sv D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_wb_commit.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_slt.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/ex_mem_req_ctrl.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_wbu.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/perip_bridge.sv D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_id_ex.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_ex_mem.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/DRAM_TDP.sv D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/pipe_mem_wb.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/twin_controller.sv D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_shifter.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/ex_bpu_ctrl.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/bpu.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/dram_driver.sv D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_and.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_mul.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/ex_forward.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/KLDJ_alu.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/top.sv D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/IROM_BHV.sv D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/div_ip_wrapper.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_lsu.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_add.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_idu.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/alu/alu_xor.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/display_seg.sv D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/new/uart.sv D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_ifu.v D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/stage/KLDJ_csr.v}
-update_compile_order -fileset sources_1
+create_run fixtiming8e -flow {Vivado Synthesis 2023}
+create_run impl_18 -parent_run fixtiming8e -flow {Vivado Implementation 2023}
+launch_runs impl_18 -jobs 8
+wait_on_run impl_18
+reset_run fixtiming8e
+set_property STEPS.PLACE_DESIGN.ARGS.DIRECTIVE ExtraNetDelay_high [get_runs impl_17]
+set_property STEPS.ROUTE_DESIGN.ARGS.DIRECTIVE AggressiveExplore [get_runs impl_17]
+current_run [get_runs fixtiming8e]
+set_property STEPS.PLACE_DESIGN.ARGS.DIRECTIVE ExtraNetDelay_high [get_runs impl_18]
+set_property STEPS.ROUTE_DESIGN.ARGS.DIRECTIVE AggressiveExplore [get_runs impl_18]
+set_property -dict [list \
+  CONFIG.CLKOUT1_JITTER {185.808} \
+  CONFIG.CLKOUT1_PHASE_ERROR {164.801} \
+  CONFIG.CLKOUT2_JITTER {143.375} \
+  CONFIG.CLKOUT2_PHASE_ERROR {164.801} \
+  CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {190} \
+  CONFIG.MMCM_CLKFBOUT_MULT_F {19} \
+  CONFIG.MMCM_CLKOUT0_DIVIDE_F {19} \
+  CONFIG.MMCM_CLKOUT1_DIVIDE {5} \
+] [get_ips pll]
+generate_target all [get_files  D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci]
+catch { config_ip_cache -export [get_ips -all pll] }
+export_ip_user_files -of_objects [get_files D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci]
+launch_runs pll_synth_1 -jobs 8
+wait_on_run pll_synth_1
+export_simulation -of_objects [get_files D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci] -directory D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.ip_user_files -ipstatic_source_dir D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/modelsim} {questa=D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/questa} {riviera=D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/riviera} {activehdl=D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+set_property -dict [list \
+  CONFIG.CLKOUT1_JITTER {96.231} \
+  CONFIG.CLKOUT1_PHASE_ERROR {107.074} \
+  CONFIG.CLKOUT2_JITTER {78.690} \
+  CONFIG.CLKOUT2_PHASE_ERROR {107.074} \
+  CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {185} \
+  CONFIG.MMCM_CLKFBOUT_MULT_F {37} \
+  CONFIG.MMCM_CLKIN2_PERIOD {10.000} \
+  CONFIG.MMCM_CLKOUT0_DIVIDE_F {37} \
+  CONFIG.MMCM_CLKOUT1_DIVIDE {10} \
+] [get_ips pll]
+generate_target all [get_files  D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci]
+catch { config_ip_cache -export [get_ips -all pll] }
+export_ip_user_files -of_objects [get_files D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci] -no_script -sync -force -quiet
+reset_run pll_synth_1
+launch_runs pll_synth_1 -jobs 8
+wait_on_run pll_synth_1
+export_simulation -of_objects [get_files D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci] -directory D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.ip_user_files -ipstatic_source_dir D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/modelsim} {questa=D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/questa} {riviera=D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/riviera} {activehdl=D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+launch_runs impl_18 -jobs 8
+wait_on_run impl_18
 export_ip_user_files -of_objects  [get_files d:/Desktop/JYD/DESKTOP/JYD/src2/dram.coe] -no_script -reset -force -quiet
 remove_files  d:/Desktop/JYD/DESKTOP/JYD/src2/dram.coe
+reset_run fixtiming8e
+launch_runs impl_18 -jobs 8
+wait_on_run impl_18
+open_run impl_18
+launch_runs impl_18 -to_step write_bitstream -jobs 8
+wait_on_run impl_18
+open_hw_manager
+connect_hw_server -allow_non_jtag
+open_hw_target
+set_property PROGRAM.FILE {D:\DESKTOP\JYD\Source_code\BPU_FixTiming3\jyd\pipilined5\digital_twin\digital_twin.runs\impl_17\top.bit} [get_hw_devices xc7k325t_0]
+current_hw_device [get_hw_devices xc7k325t_0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7k325t_0] 0]
+set_property PROBES.FILE {} [get_hw_devices xc7k325t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7k325t_0]
+set_property PROGRAM.FILE {D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_18/top.bit} [get_hw_devices xc7k325t_0]
+program_hw_devices [get_hw_devices xc7k325t_0]
+refresh_hw_device [lindex [get_hw_devices xc7k325t_0] 0]
+close_hw_manager
 set_property -dict [list \
   CONFIG.CLKOUT1_JITTER {173.722} \
   CONFIG.CLKOUT1_PHASE_ERROR {164.344} \
@@ -29,363 +88,31 @@ set_property -dict [list \
   CONFIG.CLKOUT2_PHASE_ERROR {164.344} \
   CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {175} \
   CONFIG.MMCM_CLKFBOUT_MULT_F {21} \
+  CONFIG.MMCM_CLKIN2_PERIOD {10.0} \
   CONFIG.MMCM_CLKOUT0_DIVIDE_F {21} \
-  CONFIG.MMCM_DIVCLK_DIVIDE {4} \
+  CONFIG.MMCM_CLKOUT1_DIVIDE {6} \
 ] [get_ips pll]
 generate_target all [get_files  D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci]
 catch { config_ip_cache -export [get_ips -all pll] }
+catch { [ delete_ip_run [get_ips -all pll] ] }
 export_ip_user_files -of_objects [get_files D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci] -no_script -sync -force -quiet
 create_ip_run [get_files -of_objects [get_fileset sources_1] D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci]
 export_simulation -of_objects [get_files D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/pll_1/pll.xci] -directory D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.ip_user_files -ipstatic_source_dir D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/modelsim} {questa=D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/questa} {riviera=D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/riviera} {activehdl=D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
-create_run Try_175mhz -flow {Vivado Synthesis 2023}
-create_run impl_9 -parent_run Try_175mhz -flow {Vivado Implementation 2023}
-launch_runs impl_9 -jobs 8
-wait_on_run impl_9
-current_run [get_runs Try_175mhz]
-open_run impl_9
-source D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/reports/export_impl_reports.tcl
-source D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/reports/export_impl_reports.tcl
-source D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/reports/timing_info.tcl
-create_run fixtiming_5 -flow {Vivado Synthesis 2023}
-create_run impl_10 -parent_run fixtiming_5 -flow {Vivado Implementation 2023}
-launch_runs impl_10 -jobs 8
-wait_on_run impl_10
-current_run [get_runs fixtiming_5]
-open_run impl_10
-launch_runs impl_10 -to_step write_bitstream -jobs 8
-wait_on_run impl_10
-open_hw_manager
-connect_hw_server -allow_non_jtag
-open_hw_target
-set_property PROGRAM.FILE {D:\DESKTOP\JYD\Source_code\merge_dualport_bpu\jyd\pipilined5\digital_twin\digital_twin.runs\impl_8\top.bit} [get_hw_devices xc7k325t_0]
-current_hw_device [get_hw_devices xc7k325t_0]
-refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7k325t_0] 0]
-disconnect_hw_server localhost:3121
-connect_hw_server -allow_non_jtag
-open_hw_target
-set_property PROBES.FILE {} [get_hw_devices xc7k325t_0]
-set_property FULL_PROBES.FILE {} [get_hw_devices xc7k325t_0]
-set_property PROGRAM.FILE {D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_10/top.bit} [get_hw_devices xc7k325t_0]
-program_hw_devices [get_hw_devices xc7k325t_0]
-refresh_hw_device [lindex [get_hw_devices xc7k325t_0] 0]
-reset_run impl_10 -prev_step 
-launch_runs impl_10 -to_step write_bitstream -jobs 8
-wait_on_run impl_10
-source D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/reports/timing_info.tcl
-close_hw_manager
-create_run fuck -flow {Vivado Synthesis 2023}
-launch_runs fuck -jobs 8
-wait_on_run fuck
-current_run [get_runs fuck]
-current_design impl_9
 close_design
-close_design
-reset_run fuck
-launch_runs fuck -jobs 8
-wait_on_run fuck
-open_run fuck -name fuck
-reset_run fuck
-launch_runs fuck -jobs 8
-wait_on_run fuck
-reset_run fuck
-launch_runs fuck -jobs 8
-wait_on_run fuck
-create_ip_run [get_files -of_objects [get_fileset sources_1] D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci]
-refresh_design
-create_debug_core u_ila_0 ila
-set_property C_DATA_DEPTH 65536 [get_debug_cores u_ila_0]
-set_property C_TRIGIN_EN false [get_debug_cores u_ila_0]
-set_property C_TRIGOUT_EN false [get_debug_cores u_ila_0]
-set_property C_ADV_TRIGGER false [get_debug_cores u_ila_0]
-set_property C_INPUT_PIPE_STAGES 0 [get_debug_cores u_ila_0]
-set_property C_EN_STRG_QUAL false [get_debug_cores u_ila_0]
-set_property ALL_PROBE_SAME_MU true [get_debug_cores u_ila_0]
-set_property ALL_PROBE_SAME_MU_CNT 1 [get_debug_cores u_ila_0]
-connect_debug_port u_ila_0/clk [get_nets [list pll_inst/inst/clk_out2 ]]
-set_property port_width 32 [get_debug_ports u_ila_0/probe0]
-set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe0]
-connect_debug_port u_ila_0/probe0 [get_nets [list {student_top_inst/u_KLDJ_top/if_pc[0]} {student_top_inst/u_KLDJ_top/if_pc[1]} {student_top_inst/u_KLDJ_top/if_pc[2]} {student_top_inst/u_KLDJ_top/if_pc[3]} {student_top_inst/u_KLDJ_top/if_pc[4]} {student_top_inst/u_KLDJ_top/if_pc[5]} {student_top_inst/u_KLDJ_top/if_pc[6]} {student_top_inst/u_KLDJ_top/if_pc[7]} {student_top_inst/u_KLDJ_top/if_pc[8]} {student_top_inst/u_KLDJ_top/if_pc[9]} {student_top_inst/u_KLDJ_top/if_pc[10]} {student_top_inst/u_KLDJ_top/if_pc[11]} {student_top_inst/u_KLDJ_top/if_pc[12]} {student_top_inst/u_KLDJ_top/if_pc[13]} {student_top_inst/u_KLDJ_top/if_pc[14]} {student_top_inst/u_KLDJ_top/if_pc[15]} {student_top_inst/u_KLDJ_top/if_pc[16]} {student_top_inst/u_KLDJ_top/if_pc[17]} {student_top_inst/u_KLDJ_top/if_pc[18]} {student_top_inst/u_KLDJ_top/if_pc[19]} {student_top_inst/u_KLDJ_top/if_pc[20]} {student_top_inst/u_KLDJ_top/if_pc[21]} {student_top_inst/u_KLDJ_top/if_pc[22]} {student_top_inst/u_KLDJ_top/if_pc[23]} {student_top_inst/u_KLDJ_top/if_pc[24]} {student_top_inst/u_KLDJ_top/if_pc[25]} {student_top_inst/u_KLDJ_top/if_pc[26]} {student_top_inst/u_KLDJ_top/if_pc[27]} {student_top_inst/u_KLDJ_top/if_pc[28]} {student_top_inst/u_KLDJ_top/if_pc[29]} {student_top_inst/u_KLDJ_top/if_pc[30]} {student_top_inst/u_KLDJ_top/if_pc[31]} ]]
-close [ open D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc w ]
-add_files -fileset constrs_1 D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc
-set_property target_constrs_file D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/constrs_1/new/fuck20260713.xdc [current_fileset -constrset]
-save_constraints -force
-reset_run fuck
-launch_runs impl_11 -jobs 8
-wait_on_run impl_11
-create_ip_run [get_files -of_objects [get_fileset sources_1] D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.srcs/sources_1/ip/div_gen_u32_1/div_gen_u32.xci]
-refresh_design
-launch_runs impl_11 -to_step write_bitstream -jobs 8
-wait_on_run impl_11
-open_hw_manager
-connect_hw_server -allow_non_jtag
-open_hw_target
-set_property PROGRAM.FILE {D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_10/top.bit} [get_hw_devices xc7k325t_0]
-current_hw_device [get_hw_devices xc7k325t_0]
-refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7k325t_0] 0]
-set_property PROBES.FILE {D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/top.ltx} [get_hw_devices xc7k325t_0]
-set_property FULL_PROBES.FILE {D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/top.ltx} [get_hw_devices xc7k325t_0]
-set_property PROGRAM.FILE {D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/top.bit} [get_hw_devices xc7k325t_0]
-program_hw_devices [get_hw_devices xc7k325t_0]
-refresh_hw_device [lindex [get_hw_devices xc7k325t_0] 0]
-display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE eq32'hXXXX_XXX0 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE eq32'hXXXX_XXX9 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE eq32'h0000_14X9 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE eq32'h0000_0149 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE eq32'h0000_0014 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-wait_on_hw_ila -timeout 0 [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-set_property TRIGGER_COMPARE_VALUE eq32'b0000_0000_0000_0000_0000_0000_0001_0100 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE eq32'h0000_0014 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE eq32'b0000_0000_0000_0000_0000_0000_0001_0100 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE gt32'b0000_0000_0000_0000_0000_0000_0001_0100 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE gt32'h0000_0014 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE gt32'h8000_0000 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE eq32'h8000_0000 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-close_hw_manager
-open_hw_manager
-connect_hw_server -allow_non_jtag
-open_hw_target
-set_property PROGRAM.FILE {D:\DESKTOP\JYD\Source_code\BPU_FixTiming3\jyd\pipilined5\digital_twin\digital_twin.runs\impl_11\top.bit} [get_hw_devices xc7k325t_0]
-set_property PROBES.FILE {D:\DESKTOP\JYD\Source_code\BPU_FixTiming3\jyd\pipilined5\digital_twin\digital_twin.runs\impl_11\top.ltx} [get_hw_devices xc7k325t_0]
-set_property FULL_PROBES.FILE {D:\DESKTOP\JYD\Source_code\BPU_FixTiming3\jyd\pipilined5\digital_twin\digital_twin.runs\impl_11\top.ltx} [get_hw_devices xc7k325t_0]
-current_hw_device [get_hw_devices xc7k325t_0]
-refresh_hw_device [lindex [get_hw_devices xc7k325t_0] 0]
-set_property PROBES.FILE {D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/top.ltx} [get_hw_devices xc7k325t_0]
-set_property FULL_PROBES.FILE {D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/top.ltx} [get_hw_devices xc7k325t_0]
-set_property PROGRAM.FILE {D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/top.bit} [get_hw_devices xc7k325t_0]
-program_hw_devices [get_hw_devices xc7k325t_0]
-refresh_hw_device [lindex [get_hw_devices xc7k325t_0] 0]
-display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE neq32'h8000_0000 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE neq32'h0000_0001 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE neq32'h0000_0000 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE neq32'h0000_0001 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE neq32'h0000_0014 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE neq32'h8000_0014 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-wait_on_hw_ila -timeout 0 [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-set_property TRIGGER_COMPARE_VALUE neq32'h0000_0014 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE eq32'h0000_0014 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-wait_on_hw_ila -timeout 0 [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-set_property TRIGGER_COMPARE_VALUE neq32'h0000_0014 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-close_hw_manager
-reset_run fuck
-launch_runs fuck -jobs 8
-wait_on_run fuck
-close_design
-open_run fuck -name fuck
-delete_debug_core [get_debug_cores {u_ila_0 }]
-create_debug_core u_ila_0 ila
-set_property C_DATA_DEPTH 65536 [get_debug_cores u_ila_0]
-set_property C_TRIGIN_EN false [get_debug_cores u_ila_0]
-set_property C_TRIGOUT_EN false [get_debug_cores u_ila_0]
-set_property C_ADV_TRIGGER false [get_debug_cores u_ila_0]
-set_property C_INPUT_PIPE_STAGES 0 [get_debug_cores u_ila_0]
-set_property C_EN_STRG_QUAL false [get_debug_cores u_ila_0]
-set_property ALL_PROBE_SAME_MU true [get_debug_cores u_ila_0]
-set_property ALL_PROBE_SAME_MU_CNT 1 [get_debug_cores u_ila_0]
-connect_debug_port u_ila_0/clk [get_nets [list pll_inst/inst/clk_out2 ]]
-set_property port_width 32 [get_debug_ports u_ila_0/probe0]
-set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe0]
-connect_debug_port u_ila_0/probe0 [get_nets [list {student_top_inst/u_KLDJ_top/if_pc[0]} {student_top_inst/u_KLDJ_top/if_pc[1]} {student_top_inst/u_KLDJ_top/if_pc[2]} {student_top_inst/u_KLDJ_top/if_pc[3]} {student_top_inst/u_KLDJ_top/if_pc[4]} {student_top_inst/u_KLDJ_top/if_pc[5]} {student_top_inst/u_KLDJ_top/if_pc[6]} {student_top_inst/u_KLDJ_top/if_pc[7]} {student_top_inst/u_KLDJ_top/if_pc[8]} {student_top_inst/u_KLDJ_top/if_pc[9]} {student_top_inst/u_KLDJ_top/if_pc[10]} {student_top_inst/u_KLDJ_top/if_pc[11]} {student_top_inst/u_KLDJ_top/if_pc[12]} {student_top_inst/u_KLDJ_top/if_pc[13]} {student_top_inst/u_KLDJ_top/if_pc[14]} {student_top_inst/u_KLDJ_top/if_pc[15]} {student_top_inst/u_KLDJ_top/if_pc[16]} {student_top_inst/u_KLDJ_top/if_pc[17]} {student_top_inst/u_KLDJ_top/if_pc[18]} {student_top_inst/u_KLDJ_top/if_pc[19]} {student_top_inst/u_KLDJ_top/if_pc[20]} {student_top_inst/u_KLDJ_top/if_pc[21]} {student_top_inst/u_KLDJ_top/if_pc[22]} {student_top_inst/u_KLDJ_top/if_pc[23]} {student_top_inst/u_KLDJ_top/if_pc[24]} {student_top_inst/u_KLDJ_top/if_pc[25]} {student_top_inst/u_KLDJ_top/if_pc[26]} {student_top_inst/u_KLDJ_top/if_pc[27]} {student_top_inst/u_KLDJ_top/if_pc[28]} {student_top_inst/u_KLDJ_top/if_pc[29]} {student_top_inst/u_KLDJ_top/if_pc[30]} {student_top_inst/u_KLDJ_top/if_pc[31]} ]]
-create_debug_port u_ila_0 probe
-set_property port_width 1 [get_debug_ports u_ila_0/probe1]
-set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe1]
-connect_debug_port u_ila_0/probe1 [get_nets [list student_top_inst/u_KLDJ_top/ex_mem_valid ]]
-create_debug_port u_ila_0 probe
-set_property port_width 1 [get_debug_ports u_ila_0/probe2]
-set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe2]
-connect_debug_port u_ila_0/probe2 [get_nets [list student_top_inst/u_KLDJ_top/ex_redirect ]]
-create_debug_port u_ila_0 probe
-set_property port_width 1 [get_debug_ports u_ila_0/probe3]
-set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe3]
-connect_debug_port u_ila_0/probe3 [get_nets [list student_top_inst/u_KLDJ_top/ex_stall ]]
-create_debug_port u_ila_0 probe
-set_property port_width 1 [get_debug_ports u_ila_0/probe4]
-set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe4]
-connect_debug_port u_ila_0/probe4 [get_nets [list student_top_inst/u_KLDJ_top/load_use_stall ]]
-create_debug_port u_ila_0 probe
-set_property port_width 1 [get_debug_ports u_ila_0/probe5]
-set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe5]
-connect_debug_port u_ila_0/probe5 [get_nets [list student_top_inst/u_KLDJ_top/mem_wb_valid ]]
-save_constraints
-launch_runs impl_11 -jobs 8
-wait_on_run impl_11
-launch_runs impl_11 -to_step write_bitstream -jobs 8
-wait_on_run impl_11
-open_hw_manager
-connect_hw_server -allow_non_jtag
-open_hw_target
-set_property PROBES.FILE {D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/top.ltx} [get_hw_devices xc7k325t_0]
-set_property FULL_PROBES.FILE {D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/top.ltx} [get_hw_devices xc7k325t_0]
-set_property PROGRAM.FILE {D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/top.bit} [get_hw_devices xc7k325t_0]
-program_hw_devices [get_hw_devices xc7k325t_0]
-refresh_hw_device [lindex [get_hw_devices xc7k325t_0] 0]
-display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE neq32'h16F8_0014 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE neq32'h0000_16F8 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE eq32'h0000_16F8 [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-wait_on_hw_ila -timeout 0 [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-set_property TRIGGER_COMPARE_VALUE eq1'b1 [get_hw_probes student_top_inst/u_KLDJ_top/load_use_stall -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-wait_on_hw_ila -timeout 0 [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-set_property TRIGGER_COMPARE_VALUE eq32'hXXXX_XXXX [get_hw_probes student_top_inst/u_KLDJ_top/if_pc -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-wait_on_hw_ila -timeout 0 [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-set_property TRIGGER_COMPARE_VALUE eq1'b0 [get_hw_probes student_top_inst/u_KLDJ_top/load_use_stall -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE neq1'b0 [get_hw_probes student_top_inst/u_KLDJ_top/load_use_stall -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-wait_on_hw_ila -timeout 0 [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-set_property TRIGGER_COMPARE_VALUE eq1'bX [get_hw_probes student_top_inst/u_KLDJ_top/load_use_stall -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-set_property TRIGGER_COMPARE_VALUE eq1'b0 [get_hw_probes student_top_inst/u_KLDJ_top/ex_redirect -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]
-display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7k325t_0] -filter {CELL_NAME=~"u_ila_0"}]]
-close_hw_manager
-close_design
-create_run fixtiming5_175mhz -flow {Vivado Synthesis 2023}
-create_run impl_12 -parent_run fixtiming5_175mhz -flow {Vivado Implementation 2023}
-launch_runs impl_12 -jobs 8
-wait_on_run impl_12
-current_run [get_runs fixtiming5_175mhz]
-open_run fixtiming5_175mhz -name fixtiming5_175mhz
-delete_debug_core [get_debug_cores {u_ila_0 }]
-save_constraints
-reset_run impl_12
-launch_runs impl_12 -jobs 8
-wait_on_run impl_12
-close_design
-reset_run impl_12
-launch_runs impl_12 -jobs 8
-wait_on_run impl_12
-reset_run impl_12
-launch_runs impl_12 -jobs 8
-wait_on_run impl_12
-launch_runs impl_12 -to_step write_bitstream -jobs 8
-wait_on_run impl_12
-open_hw_manager
-connect_hw_server -allow_non_jtag
-open_hw_target
-set_property PROGRAM.FILE {D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/top.bit} [get_hw_devices xc7k325t_0]
-set_property PROBES.FILE {D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/top.ltx} [get_hw_devices xc7k325t_0]
-set_property FULL_PROBES.FILE {D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/top.ltx} [get_hw_devices xc7k325t_0]
-current_hw_device [get_hw_devices xc7k325t_0]
-refresh_hw_device [lindex [get_hw_devices xc7k325t_0] 0]
-set_property PROBES.FILE {D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/top.ltx} [get_hw_devices xc7k325t_0]
-set_property FULL_PROBES.FILE {D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_11/top.ltx} [get_hw_devices xc7k325t_0]
-set_property PROGRAM.FILE {D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_12/top.bit} [get_hw_devices xc7k325t_0]
-program_hw_devices [get_hw_devices xc7k325t_0]
-refresh_hw_device [lindex [get_hw_devices xc7k325t_0] 0]
-close_hw_manager
-create_run try_jalr -flow {Vivado Synthesis 2023}
-create_run impl_13 -parent_run try_jalr -flow {Vivado Implementation 2023}
-launch_runs impl_13 -jobs 8
-wait_on_run impl_13
-current_run [get_runs try_jalr]
-open_run impl_13
-launch_runs impl_13 -to_step write_bitstream -jobs 8
-wait_on_run impl_13
-open_hw_manager
-connect_hw_server -allow_non_jtag
-open_hw_target
-set_property PROBES.FILE {} [get_hw_devices xc7k325t_0]
-set_property FULL_PROBES.FILE {} [get_hw_devices xc7k325t_0]
-set_property PROGRAM.FILE {D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_13/top.bit} [get_hw_devices xc7k325t_0]
-program_hw_devices [get_hw_devices xc7k325t_0]
-refresh_hw_device [lindex [get_hw_devices xc7k325t_0] 0]
-set_property PROBES.FILE {} [get_hw_devices xc7k325t_0]
-set_property FULL_PROBES.FILE {} [get_hw_devices xc7k325t_0]
-set_property PROGRAM.FILE {D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_13/top.bit} [get_hw_devices xc7k325t_0]
-program_hw_devices [get_hw_devices xc7k325t_0]
-refresh_hw_device [lindex [get_hw_devices xc7k325t_0] 0]
+reset_run fixtiming8e
+launch_runs impl_18 -jobs 8
+wait_on_run impl_18
+open_run impl_18
 source D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/reports/timing_info.tcl
-create_run fixtiming6 -flow {Vivado Synthesis 2023}
-create_run impl_14 -parent_run fixtiming6 -flow {Vivado Implementation 2023}
-launch_runs impl_14 -jobs 8
-wait_on_run impl_14
-current_run [get_runs fixtiming6]
-source D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/reports/timing_info.tcl
-close_hw_manager
-open_run impl_14
-current_design impl_13
-close_design
-source D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/reports/timing_info.tcl
-create_run fixtiming8a -flow {Vivado Synthesis 2023}
-create_run impl_15 -parent_run fixtiming8a -flow {Vivado Implementation 2023}
-launch_runs impl_15 -jobs 8
-wait_on_run impl_15
-current_run [get_runs fixtiming8a]
-open_run impl_15
-current_design impl_14
-close_design
-source D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/reports/timing_info.tcl
-launch_runs impl_15 -to_step write_bitstream -jobs 8
-wait_on_run impl_15
-open_hw_manager
-connect_hw_server -allow_non_jtag
-open_hw_target
-set_property PROGRAM.FILE {D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_13/top.bit} [get_hw_devices xc7k325t_0]
-current_hw_device [get_hw_devices xc7k325t_0]
-refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7k325t_0] 0]
-set_property PROBES.FILE {} [get_hw_devices xc7k325t_0]
-set_property FULL_PROBES.FILE {} [get_hw_devices xc7k325t_0]
-set_property PROGRAM.FILE {D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_15/top.bit} [get_hw_devices xc7k325t_0]
-program_hw_devices [get_hw_devices xc7k325t_0]
-refresh_hw_device [lindex [get_hw_devices xc7k325t_0] 0]
-create_run fixtiming8b -flow {Vivado Synthesis 2023}
-create_run impl_16 -parent_run fixtiming8b -flow {Vivado Implementation 2023}
-launch_runs impl_16 -jobs 8
-wait_on_run impl_16
-current_run [get_runs fixtiming8b]
-close_hw_manager
-reset_run fixtiming8b
-launch_runs impl_16 -jobs 8
-wait_on_run impl_16
-add_files -norecurse -scan_for_includes D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/kldj.srcs2/sources_1/imports/rtl/pipe/ctrl_forward_sel.v
-reset_run fixtiming8b
-launch_runs impl_16 -jobs 8
-wait_on_run impl_16
-open_run impl_16
-launch_runs impl_16 -to_step write_bitstream -jobs 8
-wait_on_run impl_16
-open_hw_manager
-connect_hw_server -allow_non_jtag
-open_hw_target
-set_property PROGRAM.FILE {D:\DESKTOP\JYD\Source_code\BPU_FixTiming3\jyd\pipilined5\digital_twin\digital_twin.runs\impl_15\top.bit} [get_hw_devices xc7k325t_0]
-current_hw_device [get_hw_devices xc7k325t_0]
-refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7k325t_0] 0]
-set_property PROBES.FILE {} [get_hw_devices xc7k325t_0]
-set_property FULL_PROBES.FILE {} [get_hw_devices xc7k325t_0]
-set_property PROGRAM.FILE {D:/DESKTOP/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/digital_twin/digital_twin.runs/impl_16/top.bit} [get_hw_devices xc7k325t_0]
-program_hw_devices [get_hw_devices xc7k325t_0]
-refresh_hw_device [lindex [get_hw_devices xc7k325t_0] 0]
-source D:/Desktop/JYD/Source_code/BPU_FixTiming3/jyd/pipilined5/reports/timing_info.tcl
+create_run fixtiming8f -flow {Vivado Synthesis 2023}
+create_run impl_19 -parent_run fixtiming8f -flow {Vivado Implementation 2023}
+launch_runs impl_19 -jobs 8
+wait_on_run impl_19
+current_run [get_runs fixtiming8f]
+reset_run fixtiming8f
+set_property STEPS.POST_ROUTE_PHYS_OPT_DESIGN.ARGS.DIRECTIVE AggressiveExplore [get_runs impl_19]
+set_property STEPS.PLACE_DESIGN.ARGS.DIRECTIVE ExtraNetDelay_high [get_runs impl_19]
+set_property STEPS.ROUTE_DESIGN.ARGS.DIRECTIVE AggressiveExplore [get_runs impl_19]
+launch_runs impl_19 -jobs 8
+wait_on_run impl_19
+open_run impl_19

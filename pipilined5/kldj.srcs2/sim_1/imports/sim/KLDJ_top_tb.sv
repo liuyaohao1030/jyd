@@ -94,6 +94,22 @@ module KLDJ_top_tb;
     wire [31:0] perf_load_count;
     wire [31:0] perf_store_count;
     wire [31:0] jalr_expected_sum = u_dut.ex_cf_rs1_data + u_dut.id_ex_data4;
+    // FixTiming9 must select exactly the source that the previous EX-stage
+    // address-comparison implementation would have selected this cycle.
+    wire [1:0] expected_rs1_fwd_sel =
+        (u_dut.id_ex_rs1_ren && u_dut.ex_mem_forward_valid &&
+         (u_dut.id_ex_rs1_addr == u_dut.ex_mem_rd_addr)) ? 2'b01 :
+        (u_dut.id_ex_rs1_ren && u_dut.mem_wb_forward_valid &&
+         (u_dut.id_ex_rs1_addr == u_dut.mem_wb_rd_addr)) ? 2'b10 :
+                                                                  2'b00;
+    wire [1:0] expected_rs2_fwd_sel =
+        (u_dut.id_ex_rs2_ren && u_dut.ex_mem_forward_valid &&
+         (u_dut.id_ex_rs2_addr == u_dut.ex_mem_rd_addr)) ? 2'b01 :
+        (u_dut.id_ex_rs2_ren && u_dut.mem_wb_forward_valid &&
+         (u_dut.id_ex_rs2_addr == u_dut.mem_wb_rd_addr)) ? 2'b10 :
+                                                                  2'b00;
+    wire id_ex_multicycle_op = (u_dut.id_ex_exu_op >= 18'h25) &&
+                                (u_dut.id_ex_exu_op <= 18'h2c);
 
     KLDJ_top u_dut (
          .clk          (clk           )
@@ -166,12 +182,21 @@ module KLDJ_top_tb;
                 ((u_dut.ex_cf_rs1_data !== u_dut.ex_data1) ||
                  (u_dut.ex_cf_rs2_data !== u_dut.ex_data2)))
                 $fatal(1, "branch control-flow forwarding mismatch");
-            if (u_dut.id_ex_valid && (u_dut.id_ex_branch_op || u_dut.id_ex_jalr_op) &&
-                (u_dut.id_ex_cf_rs1_fwd_sel == 2'b11))
-                $fatal(1, "reserved control-flow rs1 forwarding select");
-            if (u_dut.id_ex_valid && u_dut.id_ex_branch_op &&
-                (u_dut.id_ex_cf_rs2_fwd_sel == 2'b11))
-                $fatal(1, "reserved control-flow rs2 forwarding select");
+            if (u_dut.id_ex_valid && (u_dut.id_ex_rs1_fwd_sel == 2'b11))
+                $fatal(1, "reserved rs1 forwarding select");
+            if (u_dut.id_ex_valid && (u_dut.id_ex_rs2_fwd_sel == 2'b11))
+                $fatal(1, "reserved rs2 forwarding select");
+            // A multi-cycle EX entry holds its metadata while older producers
+            // drain. Its operands are consumed only on launch, so subsequent
+            // dynamic EX-stage comparisons are not architecturally relevant.
+            if (u_dut.id_ex_valid && !u_dut.ex_stall && !id_ex_multicycle_op &&
+                (u_dut.id_ex_rs1_fwd_sel !== expected_rs1_fwd_sel)) begin
+                $fatal(1, "rs1 forwarding predecode mismatch");
+            end
+            if (u_dut.id_ex_valid && !u_dut.ex_stall && !id_ex_multicycle_op &&
+                (u_dut.id_ex_rs2_fwd_sel !== expected_rs2_fwd_sel)) begin
+                $fatal(1, "rs2 forwarding predecode mismatch");
+            end
             if (u_dut.id_ex_pred_is_jalr && !u_dut.id_ex_pred_taken)
                 $fatal(1, "indirect prediction metadata without taken prediction");
             if (u_dut.ex_mem_load_op !==
