@@ -3,6 +3,7 @@ param(
     [string]$Version = 'both',
     [switch]$SixStaticJal,
     [switch]$SixMem2LoadFwd,
+    [switch]$SixRas,
     [switch]$ToCompletion,
     [switch]$DumpVcd
 )
@@ -45,15 +46,11 @@ foreach ($Variant in $Variants) {
         Join-Path $Root 'pipeline5'
     }
     $RunLabel = if ($Variant -eq 'six') {
-        if ($SixStaticJal -and $SixMem2LoadFwd) {
-            'six_static_jal_mem2_load_fwd'
-        } elseif ($SixStaticJal) {
-            'six_static_jal'
-        } elseif ($SixMem2LoadFwd) {
-            'six_mem2_load_fwd'
-        } else {
-            'six'
-        }
+        $Features = @()
+        if ($SixStaticJal) { $Features += 'static_jal' }
+        if ($SixMem2LoadFwd) { $Features += 'mem2_load_fwd' }
+        if ($SixRas) { $Features += 'ras' }
+        if ($Features.Count -eq 0) { 'six' } else { 'six_' + ($Features -join '_') }
     } else {
         $Variant
     }
@@ -82,6 +79,9 @@ foreach ($Variant in $Variants) {
     }
     if (($Variant -eq 'six') -and $SixMem2LoadFwd) {
         $CompileArgs += @('-d', 'SIX_MEM2_LOAD_FWD')
+    }
+    if (($Variant -eq 'six') -and $SixRas) {
+        $CompileArgs += @('-d', 'SIX_RAS_PRED')
     }
     # The six-stage-only diagnostics reference its additional MEM2 interlock.
     # Keep the pipeline5 elaboration independent of those hierarchy names.

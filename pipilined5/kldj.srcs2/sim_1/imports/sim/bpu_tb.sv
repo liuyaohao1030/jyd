@@ -14,6 +14,11 @@ module bpu_tb;
     reg [5:0] update_pht_idx;
     reg update_taken;
     reg [31:0] update_target;
+    reg ras_push;
+    reg ras_pop;
+    reg [31:0] ras_push_addr;
+    wire ras_valid;
+    wire [31:0] ras_target;
 
     always #5 clk = ~clk;
 
@@ -25,6 +30,8 @@ module bpu_tb;
         ,.update_valid(update_valid), .update_pc(update_pc)
         ,.update_pht_idx(update_pht_idx), .update_taken(update_taken)
         ,.update_target(update_target)
+        ,.ras_valid(ras_valid), .ras_target(ras_target)
+        ,.ras_push(ras_push), .ras_pop(ras_pop), .ras_push_addr(ras_push_addr)
     );
 
     task tick;
@@ -57,6 +64,9 @@ module bpu_tb;
         update_pht_idx = 6'b0;
         update_taken = 1'b0;
         update_target = 32'b0;
+        ras_push = 1'b0;
+        ras_pop = 1'b0;
+        ras_push_addr = 32'b0;
         repeat (2) tick;
         rst = 1'b0;
         #1;

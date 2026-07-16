@@ -28,6 +28,11 @@ module KLDJ_demo_perf_tb;
 `else
     localparam TB_ENABLE_MEM2_LOAD_FWD = 1'b0;
 `endif
+`ifdef SIX_RAS_PRED
+    localparam TB_ENABLE_RAS_PRED = 1'b1;
+`else
+    localparam TB_ENABLE_RAS_PRED = 1'b0;
+`endif
 `ifdef BENCH_TO_COMPLETION
     localparam integer DEFAULT_MAX_CYCLES     = 20_000_000;
     localparam integer MEASURE_INSTRET_LIMIT  = 0;
@@ -68,6 +73,9 @@ module KLDJ_demo_perf_tb;
     longint unsigned mul_stall_count;
     longint unsigned div_stall_count;
     longint unsigned redirect_count;
+    longint unsigned ras_return_count;
+    longint unsigned ras_pred_hit_count;
+    longint unsigned ras_pred_miss_count;
     longint unsigned load_count;
     longint unsigned store_count;
 `ifdef BENCH_SIX_STAGE
@@ -89,6 +97,7 @@ module KLDJ_demo_perf_tb;
     wire tb_id_ex_load_use;
     wire tb_ex_mem_load_use;
     wire tb_ex_mem_load_use_maskable;
+    wire tb_ex_ras_return;
 
     assign tb_id_ex_load_use = u_dut.u_ex_forward.id_ex_load_use;
     assign tb_ex_mem_load_use = u_dut.u_ex_forward.ex_mem_load_use;
@@ -100,6 +109,12 @@ module KLDJ_demo_perf_tb;
                                          !u_dut.id_ex_load_op &&
                                          (u_dut.id_ex_rd_addr != 5'd0) &&
                                          (u_dut.id_ex_rd_addr == u_dut.ex_mem_rd_addr);
+    assign tb_ex_ras_return = u_dut.id_ex_valid &&
+                              (u_dut.id_ex_exu_op == 18'h09) &&
+                              (u_dut.id_ex_rd_addr == 5'd0) &&
+                              ((u_dut.id_ex_rs1_addr == 5'd1) ||
+                               (u_dut.id_ex_rs1_addr == 5'd5)) &&
+                              (u_dut.id_ex_data2 == 32'd0);
 `endif
 
     initial clk     = 1'b0;
@@ -113,6 +128,7 @@ module KLDJ_demo_perf_tb;
     KLDJ_top #(
          .ENABLE_STATIC_JAL_PRED(TB_ENABLE_STATIC_JAL_PRED)
         ,.ENABLE_MEM2_LOAD_FWD(TB_ENABLE_MEM2_LOAD_FWD)
+        ,.ENABLE_RAS_PRED       (TB_ENABLE_RAS_PRED       )
     ) u_dut (
 `else
     KLDJ_top u_dut (
@@ -209,6 +225,9 @@ module KLDJ_demo_perf_tb;
             mul_stall_count      <= 0;
             div_stall_count      <= 0;
             redirect_count       <= 0;
+            ras_return_count     <= 0;
+            ras_pred_hit_count   <= 0;
+            ras_pred_miss_count  <= 0;
             load_count           <= 0;
             store_count          <= 0;
 `ifdef BENCH_SIX_STAGE
@@ -227,6 +246,17 @@ module KLDJ_demo_perf_tb;
             mul_stall_count      <= mul_stall_count + u_dut.mul_stall;
             div_stall_count      <= div_stall_count + u_dut.div_stall;
             redirect_count       <= redirect_count + u_dut.ex_redirect;
+`ifdef BENCH_SIX_STAGE
+            if (tb_ex_ras_return) begin
+                ras_return_count <= ras_return_count + 1;
+                if (u_dut.id_ex_pred_taken &&
+                    (u_dut.id_ex_pred_target == u_dut.exu_jump_pc_raw) &&
+                    !u_dut.ex_redirect)
+                    ras_pred_hit_count <= ras_pred_hit_count + 1;
+                else
+                    ras_pred_miss_count <= ras_pred_miss_count + 1;
+            end
+`endif
             load_count           <= load_count +
                                     (u_dut.id_ex_valid && !u_dut.ex_stall &&
                                      u_dut.id_ex_load_op);
@@ -293,10 +323,11 @@ module KLDJ_demo_perf_tb;
 
         wait (done == 1'b1);
         #1;
-        $display("DEMO_PERF_RESULT cycles=%0d instret=%0d cpi_x1000=%0d load_use_stall=%0d frontend_stall=%0d redirect=%0d mul_stall=%0d div_stall=%0d loads=%0d stores=%0d commit_hash=0x%016x terminal=%0d done_pc=0x%08x",
+        $display("DEMO_PERF_RESULT cycles=%0d instret=%0d cpi_x1000=%0d load_use_stall=%0d frontend_stall=%0d redirect=%0d ras_return=%0d ras_hit=%0d ras_miss=%0d mul_stall=%0d div_stall=%0d loads=%0d stores=%0d commit_hash=0x%016x terminal=%0d done_pc=0x%08x",
                  cycle_count, instret_count,
                  (instret_count == 0) ? 0 : (cycle_count * 1000) / instret_count,
-                  load_use_stall_count, frontend_stall_count, redirect_count,
+                 load_use_stall_count, frontend_stall_count, redirect_count,
+                  ras_return_count, ras_pred_hit_count, ras_pred_miss_count,
                   mul_stall_count, div_stall_count, load_count, store_count, commit_hash,
                   terminal_reached, DONE_PC);
 `ifdef BENCH_SIX_STAGE

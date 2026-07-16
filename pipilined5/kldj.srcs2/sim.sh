@@ -29,6 +29,30 @@ case "$TEST" in
         TB_FILE="$TB_DIR/KLDJ_irom_v2_tb.sv"
         PASS_PATTERN="Done."
         ;;
+    bpu|bpu_tb)
+        TEST="bpu"
+        TOP="bpu_tb"
+        TB_FILE="$TB_DIR/bpu_tb.sv"
+        PASS_PATTERN="BPU UNIT TEST PASSED"
+        ;;
+    ex-bpu-ctrl|ex_bpu_ctrl|ex_bpu_ctrl_tb)
+        TEST="ex-bpu-ctrl"
+        TOP="ex_bpu_ctrl_tb"
+        TB_FILE="$TB_DIR/ex_bpu_ctrl_tb.sv"
+        PASS_PATTERN="PASS: ex_bpu_ctrl_tb"
+        ;;
+    ras|ras_tb)
+        TEST="ras"
+        TOP="ras_tb"
+        TB_FILE="$TB_DIR/ras_tb.sv"
+        PASS_PATTERN="RAS UNIT TEST PASSED"
+        ;;
+    ras-integration|ras_integration|ras_integration_tb)
+        TEST="ras-integration"
+        TOP="ras_integration_tb"
+        TB_FILE="$TB_DIR/ras_integration_tb.sv"
+        PASS_PATTERN="RAS INTEGRATION TEST PASSED"
+        ;;
     dram|dram-driver|dram_driver_tb)
         TEST="dram-driver"
         TOP="dram_driver_tb"
@@ -40,7 +64,7 @@ case "$TEST" in
         PASS_PATTERN="DRAM DRIVER TEST PASSED"
         ;;
     -h|--help|help)
-        echo "Usage: $0 [rv32i|rv32m|irom-v2|dram-driver] [timeout_seconds]"
+        echo "Usage: $0 [rv32i|rv32m|irom-v2|bpu|ex-bpu-ctrl|ras|ras-integration|dram-driver] [timeout_seconds]"
         echo "Examples:"
         echo "  $0 rv32i"
         echo "  $0 rv32m 120"
@@ -48,7 +72,7 @@ case "$TEST" in
         ;;
     *)
         echo "Unknown test: $TEST"
-        echo "Usage: $0 [rv32i|rv32m|irom-v2|dram-driver] [timeout_seconds]"
+        echo "Usage: $0 [rv32i|rv32m|irom-v2|bpu|ex-bpu-ctrl|ras|ras-integration|dram-driver] [timeout_seconds]"
         exit 2
         ;;
 esac

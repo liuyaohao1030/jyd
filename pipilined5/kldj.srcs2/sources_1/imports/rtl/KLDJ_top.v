@@ -10,7 +10,12 @@ module KLDJ_top #(
     // Experiment switch for the six-stage load-return path.  Keep the
     // timing-closed legacy behavior as the default until implementation STA
     // approves the registered MEM2 load-forward path.
-    parameter ENABLE_MEM2_LOAD_FWD = 1'b0
+    parameter ENABLE_MEM2_LOAD_FWD = 1'b0,
+    // IF-level return prediction adds an IROM/decode/PC feedback path.  Keep
+    // it disabled in the timing-closed 200 MHz default build; simulations or
+    // a re-timed implementation can opt in explicitly.
+    parameter ENABLE_RAS_PRED = 1'b0,
+    parameter RAS_DEPTH       = 8
 )(
      input wire                  clk
     ,input wire                  rst
@@ -56,11 +61,15 @@ module KLDJ_top #(
     wire [`KLDJ_PC]              if_snpc;
     wire                         bpu_pred_taken;
     wire [`KLDJ_PC]              bpu_pred_target;
+    wire                         ras_valid;
+    wire [`KLDJ_PC]              ras_target;
     wire                         if_static_jal;
     wire [`KLDJ_IMM]             if_static_jal_imm;
     wire [`KLDJ_PC]              if_static_jal_target;
     wire                         if_pred_taken;
     wire [`KLDJ_PC]              if_pred_target;
+    wire                         if_ras_return;
+    wire                         if_ras_pred_taken;
     wire [BPU_INDEX_WIDTH-1:0]   if_pred_pht_idx;
     wire                         if_btb_hit;
 
@@ -142,6 +151,9 @@ module KLDJ_top #(
     wire [BPU_INDEX_WIDTH-1:0]   bpu_update_pht_idx;
     wire                         bpu_update_taken;
     wire [`KLDJ_PC]              bpu_update_target;
+    wire                         ras_push;
+    wire                         ras_pop;
+    wire [`KLDJ_PC]              ras_push_addr;
     wire                         load_use_stall;
     wire                         div_stall;
     wire                         mul_stall;
@@ -227,8 +239,21 @@ module KLDJ_top #(
     assign if_static_jal        = (if_inst[6:2] == `KLDJ_JAL) && (if_inst[1:0] == 2'b11);
     assign if_static_jal_imm    = {{12{if_inst[31]}}, if_inst[19:12], if_inst[20], if_inst[30:21], 1'b0};
     assign if_static_jal_target = if_pc + if_static_jal_imm;
-    assign if_pred_taken        = (ENABLE_STATIC_JAL_PRED && if_static_jal) || bpu_pred_taken;
-    assign if_pred_target       = (ENABLE_STATIC_JAL_PRED && if_static_jal) ?
+    // Canonical RV32 returns are jalr x0, 0(x1/x5).  Decode only this form in
+    // IF: general JALR targets still need their register value in EX.
+    assign if_ras_return        = (if_inst[6:2] == `KLDJ_JALR) &&
+                                  (if_inst[1:0] == 2'b11) &&
+                                  (if_inst[14:12] == 3'b000) &&
+                                  (if_inst[11:7] == 5'd0) &&
+                                  ((if_inst[19:15] == 5'd1) ||
+                                   (if_inst[19:15] == 5'd5)) &&
+                                  (if_inst[31:20] == 12'd0);
+    assign if_ras_pred_taken    = ENABLE_RAS_PRED && if_ras_return && ras_valid;
+    assign if_pred_taken        = if_ras_pred_taken ||
+                                  (ENABLE_STATIC_JAL_PRED && if_static_jal) ||
+                                  bpu_pred_taken;
+    assign if_pred_target       = if_ras_pred_taken ? ras_target :
+                                  (ENABLE_STATIC_JAL_PRED && if_static_jal) ?
                                   if_static_jal_target : bpu_pred_target;
 
     // ========================================================
@@ -238,6 +263,7 @@ module KLDJ_top #(
     // Branch prediction unit
     bpu #(
          .INDEX_WIDTH  (BPU_INDEX_WIDTH)
+        ,.RAS_DEPTH    (RAS_DEPTH      )
     ) u_bpu(
         .clk          (core_clk          )
         ,.rst          (core_rst          )
@@ -251,6 +277,11 @@ module KLDJ_top #(
         ,.update_pht_idx(bpu_update_pht_idx)
         ,.update_taken (bpu_update_taken  )
         ,.update_target(bpu_update_target )
+        ,.ras_valid    (ras_valid        )
+        ,.ras_target   (ras_target       )
+        ,.ras_push     (ras_push         )
+        ,.ras_pop      (ras_pop          )
+        ,.ras_push_addr(ras_push_addr    )
     );
 
     // Select jump target: ecall jumps to mtvec, otherwise use EXU result
@@ -464,6 +495,9 @@ module KLDJ_top #(
         ,.id_ex_pred_target (id_ex_pred_target )
         ,.id_ex_pred_pht_idx(id_ex_pred_pht_idx)
         ,.id_ex_exu_op      (id_ex_exu_op      )
+        ,.id_ex_rd_addr     (id_ex_rd_addr     )
+        ,.id_ex_rs1_addr    (id_ex_rs1_addr    )
+        ,.id_ex_data2       (id_ex_data2       )
         ,.exu_jump_raw      (exu_jump_raw      )
         ,.exu_jump_pc_raw   (exu_jump_pc_raw   )
         ,.is_ecall          (is_ecall          )
@@ -477,6 +511,9 @@ module KLDJ_top #(
         ,.bpu_update_pht_idx(bpu_update_pht_idx)
         ,.bpu_update_taken  (bpu_update_taken  )
         ,.bpu_update_target (bpu_update_target )
+        ,.ras_push          (ras_push          )
+        ,.ras_pop           (ras_pop           )
+        ,.ras_push_addr     (ras_push_addr     )
     );
 
     assign ex_stall = div_stall || mul_stall;

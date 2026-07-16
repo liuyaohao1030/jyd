@@ -8,6 +8,9 @@ module ex_bpu_ctrl_tb;
     reg  [31:0] id_ex_pred_target;
     reg  [5:0]  id_ex_pred_pht_idx;
     reg  [17:0] id_ex_exu_op;
+    reg  [4:0]  id_ex_rd_addr;
+    reg  [4:0]  id_ex_rs1_addr;
+    reg  [31:0] id_ex_data2;
     reg         exu_jump_raw;
     reg  [31:0] exu_jump_pc_raw;
     reg         is_ecall;
@@ -22,6 +25,9 @@ module ex_bpu_ctrl_tb;
     wire [5:0]  bpu_update_pht_idx;
     wire        bpu_update_taken;
     wire [31:0] bpu_update_target;
+    wire        ras_push;
+    wire        ras_pop;
+    wire [31:0] ras_push_addr;
 
     integer checks;
 
@@ -33,6 +39,9 @@ module ex_bpu_ctrl_tb;
         ,.id_ex_pred_target(id_ex_pred_target)
         ,.id_ex_pred_pht_idx(id_ex_pred_pht_idx)
         ,.id_ex_exu_op(id_ex_exu_op)
+        ,.id_ex_rd_addr(id_ex_rd_addr)
+        ,.id_ex_rs1_addr(id_ex_rs1_addr)
+        ,.id_ex_data2(id_ex_data2)
         ,.exu_jump_raw(exu_jump_raw)
         ,.exu_jump_pc_raw(exu_jump_pc_raw)
         ,.is_ecall(is_ecall)
@@ -46,6 +55,9 @@ module ex_bpu_ctrl_tb;
         ,.bpu_update_pht_idx(bpu_update_pht_idx)
         ,.bpu_update_taken(bpu_update_taken)
         ,.bpu_update_target(bpu_update_target)
+        ,.ras_push(ras_push)
+        ,.ras_pop(ras_pop)
+        ,.ras_push_addr(ras_push_addr)
     );
 
     task expect_bit;
@@ -83,6 +95,9 @@ module ex_bpu_ctrl_tb;
             id_ex_pred_target  = 32'h8000_0200;
             id_ex_pred_pht_idx = 6'h25;
             id_ex_exu_op       = 18'h00;
+            id_ex_rd_addr      = 5'd0;
+            id_ex_rs1_addr     = 5'd0;
+            id_ex_data2        = 32'd0;
             exu_jump_raw       = 1'b0;
             exu_jump_pc_raw    = 32'h8000_0300;
             is_ecall           = 1'b0;
@@ -137,34 +152,85 @@ module ex_bpu_ctrl_tb;
         expect_word(ex_correct_pc, id_ex_snpc, "not-taken recovery PC");
         expect_bit(bpu_update_taken, 1'b0, "not-taken branch training");
 
-        // Current predictions are direct; target mismatch alone must not redirect.
+        // A taken prediction with a mismatched target must recover.  This is
+        // essential for indirect/RAS predictions where direction is correct
+        // but the target can be stale.
         apply_defaults();
         id_ex_exu_op      = 18'h17;
         id_ex_pred_taken  = 1'b1;
         id_ex_pred_target = 32'hdead_beef;
         exu_jump_raw      = 1'b1;
         #1;
-        expect_bit(ex_redirect, 1'b0, "direct prediction ignores target compare");
+        expect_bit(ex_redirect, 1'b1, "target mismatch redirects");
         expect_word(ex_correct_pc, exu_jump_pc_raw, "direct resolved target");
 
         // A correctly predicted JAL does not recover and still trains the BTB.
         apply_defaults();
         id_ex_exu_op     = 18'h1c;
+        id_ex_rd_addr    = 5'd1;
         id_ex_pred_taken = 1'b1;
+        id_ex_pred_target = exu_jump_pc_raw;
         exu_jump_raw     = 1'b1;
         #1;
         expect_bit(ex_redirect, 1'b0, "correct JAL prediction");
         expect_bit(bpu_update_valid, 1'b1, "JAL update valid");
         expect_bit(bpu_update_taken, 1'b1, "JAL update taken");
+        expect_bit(ras_push, 1'b1, "JAL call pushes RAS");
+        expect_bit(ras_pop, 1'b0, "JAL call does not pop RAS");
+        expect_word(ras_push_addr, id_ex_snpc, "JAL RAS return address");
 
-        // JALR is not predicted yet, so actual taken creates a direction miss.
+        // An indirect JALR call also pushes its resolved return address.
         apply_defaults();
-        id_ex_exu_op = 18'h09;
-        exu_jump_raw = 1'b1;
+        id_ex_exu_op   = 18'h09;
+        id_ex_rd_addr  = 5'd1;
+        id_ex_rs1_addr = 5'd5;
+        exu_jump_raw   = 1'b1;
         #1;
-        expect_bit(ex_redirect, 1'b1, "unpredicted JALR redirect");
+        expect_bit(ex_redirect, 1'b1, "unpredicted JALR call redirect");
         expect_word(ex_correct_pc, exu_jump_pc_raw, "JALR recovery PC");
         expect_bit(bpu_update_valid, 1'b0, "JALR does not train current BPU");
+        expect_bit(ras_push, 1'b1, "JALR call pushes RAS");
+        expect_bit(ras_pop, 1'b0, "JALR call does not pop RAS");
+
+        // A canonical ret has a predicted target and pops the RAS.  No
+        // redirect is needed when the predicted target matches EX.
+        apply_defaults();
+        id_ex_exu_op      = 18'h09;
+        id_ex_rd_addr     = 5'd0;
+        id_ex_rs1_addr    = 5'd1;
+        id_ex_data2       = 32'd0;
+        id_ex_pred_taken  = 1'b1;
+        id_ex_pred_target = exu_jump_pc_raw;
+        exu_jump_raw      = 1'b1;
+        #1;
+        expect_bit(ex_redirect, 1'b0, "correct RAS return prediction");
+        expect_bit(ras_push, 1'b0, "return does not push RAS");
+        expect_bit(ras_pop, 1'b1, "canonical return pops RAS");
+
+        // A stale RAS top is a target miss even though both prediction and
+        // resolved return are taken, so EX must redirect to the true target.
+        apply_defaults();
+        id_ex_exu_op      = 18'h09;
+        id_ex_rd_addr     = 5'd0;
+        id_ex_rs1_addr    = 5'd1;
+        id_ex_data2       = 32'd0;
+        id_ex_pred_taken  = 1'b1;
+        id_ex_pred_target = 32'hdead_beef;
+        exu_jump_raw      = 1'b1;
+        #1;
+        expect_bit(ex_redirect, 1'b1, "stale RAS target redirects");
+        expect_bit(ras_pop, 1'b1, "stale return still pops RAS");
+
+        // A JALR through x5 that writes x1 is a call, not a return.  Also
+        // reject non-zero-offset JALR x0,x1 as a RAS pop hint.
+        apply_defaults();
+        id_ex_exu_op   = 18'h09;
+        id_ex_rd_addr  = 5'd0;
+        id_ex_rs1_addr = 5'd1;
+        id_ex_data2    = 32'd4;
+        exu_jump_raw   = 1'b1;
+        #1;
+        expect_bit(ras_pop, 1'b0, "noncanonical JALR does not pop RAS");
 
         // ECALL recovers to mtvec even though exu_jump_raw is low.
         apply_defaults();

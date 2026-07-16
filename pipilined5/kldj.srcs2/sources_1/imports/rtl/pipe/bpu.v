@@ -3,6 +3,7 @@
 module bpu #(
      parameter INDEX_WIDTH     = 6
     ,parameter BHT_RESET_VALUE = 2'b01
+    ,parameter RAS_DEPTH       = 8
 )(
      input  wire                  clk
     ,input  wire                  rst
@@ -20,6 +21,14 @@ module bpu #(
     ,input  wire [INDEX_WIDTH-1:0] update_pht_idx
     ,input  wire                  update_taken
     ,input  wire [`KLDJ_PC]       update_target
+
+    // Return-address stack.  The stack is deliberately updated from the
+    // resolved EX-stage control transfer rather than speculatively in IF.
+    ,output wire                  ras_valid
+    ,output wire [`KLDJ_PC]       ras_target
+    ,input  wire                  ras_push
+    ,input  wire                  ras_pop
+    ,input  wire [`KLDJ_PC]       ras_push_addr
 );
 
     gshare_btb_core #(
@@ -39,6 +48,94 @@ module bpu #(
         ,.update_taken   (update_taken   )
         ,.update_target  (update_target  )
     );
+
+    return_address_stack #(
+         .DEPTH (RAS_DEPTH)
+    ) u_return_address_stack(
+         .clk           (clk          )
+        ,.rst           (rst          )
+        ,.push          (ras_push     )
+        ,.pop           (ras_pop      )
+        ,.push_addr     (ras_push_addr)
+        ,.valid         (ras_valid    )
+        ,.top_addr      (ras_target   )
+    );
+
+endmodule
+
+// A small circular return-address stack.  On overflow it discards the oldest
+// entry, which preserves the most recent return addresses; underflow is a
+// no-op.  A same-cycle pop/push replaces the top entry, supporting future
+// coroutine-style JALR hints without needing a second write port.
+module return_address_stack #(
+     parameter DEPTH = 8
+    ,parameter PTR_WIDTH = (DEPTH <= 2) ? 1 : $clog2(DEPTH)
+)(
+     input  wire                  clk
+    ,input  wire                  rst
+    ,input  wire                  push
+    ,input  wire                  pop
+    ,input  wire [`KLDJ_PC]       push_addr
+    ,output wire                  valid
+    ,output wire [`KLDJ_PC]       top_addr
+);
+
+    localparam [PTR_WIDTH:0] DEPTH_COUNT = DEPTH;
+
+    // next_free points at the slot written by the next push.  Keeping it as
+    // a circular pointer means a full stack naturally overwrites its oldest
+    // entry while its newest entry remains at next_free - 1.
+    reg [PTR_WIDTH-1:0] next_free;
+    reg [PTR_WIDTH:0]   entry_count;
+    reg [`KLDJ_PC]      entries [0:DEPTH-1];
+
+    wire [PTR_WIDTH-1:0] next_free_inc;
+    wire [PTR_WIDTH-1:0] next_free_dec;
+    wire [PTR_WIDTH-1:0] top_index;
+
+    assign next_free_inc = (next_free == DEPTH - 1) ?
+                           {PTR_WIDTH{1'b0}} : next_free + 1'b1;
+    assign next_free_dec = (next_free == {PTR_WIDTH{1'b0}}) ?
+                           DEPTH - 1 : next_free - 1'b1;
+    assign top_index     = next_free_dec;
+
+    assign valid    = (entry_count != {PTR_WIDTH+1{1'b0}});
+    assign top_addr = entries[top_index];
+
+    always @(posedge clk) begin
+        if(rst == `KLDJ_RSTABLE) begin
+            next_free   <= {PTR_WIDTH{1'b0}};
+            entry_count <= {PTR_WIDTH+1{1'b0}};
+        end else begin
+            case ({push, pop})
+                2'b10: begin
+                    entries[next_free] <= push_addr;
+                    next_free <= next_free_inc;
+                    if(entry_count < DEPTH_COUNT)
+                        entry_count <= entry_count + 1'b1;
+                end
+                2'b01: begin
+                    if(entry_count != {PTR_WIDTH+1{1'b0}}) begin
+                        next_free   <= next_free_dec;
+                        entry_count <= entry_count - 1'b1;
+                    end
+                end
+                2'b11: begin
+                    if(entry_count == {PTR_WIDTH+1{1'b0}}) begin
+                        // Pop-underflow followed by push behaves as a push.
+                        entries[next_free] <= push_addr;
+                        next_free   <= next_free_inc;
+                        entry_count <= {{PTR_WIDTH{1'b0}}, 1'b1};
+                    end else begin
+                        // Pop then push: replace the previous top in place.
+                        entries[next_free_dec] <= push_addr;
+                    end
+                end
+                default: begin
+                end
+            endcase
+        end
+    end
 
 endmodule
 
