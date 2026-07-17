@@ -155,6 +155,8 @@ module KLDJ_top #(
     wire                         ras_pop;
     wire [`KLDJ_PC]              ras_push_addr;
     wire                         load_use_stall;
+    wire                         control_dep_stall;
+    wire                         pipeline_hazard_stall;
     wire                         div_stall;
     wire                         mul_stall;
     wire                         ex_stall;
@@ -387,8 +389,9 @@ module KLDJ_top #(
         ,.id_csr_op       (id_csr_op         )
         ,.id_csr_zimm     (id_csr_zimm       )
         ,.ex_redirect     (ex_redirect       )
-        ,.load_use_stall  (load_use_stall    )
+        ,.load_use_stall  (pipeline_hazard_stall)
         ,.ex_stall        (ex_stall          )
+        ,.control_dep_stall(control_dep_stall )
         ,.id_ex_valid     (id_ex_valid       )
         ,.id_ex_pc        (id_ex_pc          )
         ,.id_ex_snpc      (id_ex_snpc        )
@@ -517,7 +520,11 @@ module KLDJ_top #(
     );
 
     assign ex_stall = div_stall || mul_stall;
-    assign frontend_stall = load_use_stall || ex_stall;
+    // In addition to ordinary load-use handling, delay a control transfer
+    // that would otherwise use the direct EX/MEM bypass.  pipe_id_ex injects
+    // the bubble while IF/ID and IFU hold the control-transfer instruction.
+    assign pipeline_hazard_stall = load_use_stall || control_dep_stall;
+    assign frontend_stall = pipeline_hazard_stall || ex_stall;
 
     // EX-stage BRAM request control
     ex_mem_req_ctrl u_ex_mem_req_ctrl(

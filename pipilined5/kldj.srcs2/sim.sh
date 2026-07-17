@@ -9,6 +9,7 @@ BUILD_DIR="$SCRIPT_DIR/build"
 TEST="${1:-rv32i}"
 MAX_SECONDS="${2:-60}"
 EXTRA_FILES=()
+IVERILOG_DEFINES=()
 
 case "$TEST" in
     rv32i|i|KLDJ_top_tb)
@@ -29,11 +30,36 @@ case "$TEST" in
         TB_FILE="$TB_DIR/KLDJ_irom_v2_tb.sv"
         PASS_PATTERN="Done."
         ;;
+    load-dep|load_dep|KLDJ_load_dep_tb)
+        TEST="load-dep"
+        TOP="KLDJ_load_dep_tb"
+        TB_FILE="$TB_DIR/KLDJ_load_dep_tb.sv"
+        PASS_PATTERN="LOAD_DEP_REGRESSION_PASS"
+        ;;
+    load-dep-mem2|load_dep_mem2)
+        TEST="load-dep-mem2"
+        TOP="KLDJ_load_dep_tb"
+        TB_FILE="$TB_DIR/KLDJ_load_dep_tb.sv"
+        IVERILOG_DEFINES=(-DSIX_MEM2_LOAD_FWD)
+        PASS_PATTERN="LOAD_DEP_REGRESSION_PASS"
+        ;;
+    control-dep|control_dep|KLDJ_control_dep_tb)
+        TEST="control-dep"
+        TOP="KLDJ_control_dep_tb"
+        TB_FILE="$TB_DIR/KLDJ_control_dep_tb.sv"
+        PASS_PATTERN="CONTROL_DEP_INTERLOCK_PASS"
+        ;;
     bpu|bpu_tb)
         TEST="bpu"
         TOP="bpu_tb"
         TB_FILE="$TB_DIR/bpu_tb.sv"
         PASS_PATTERN="BPU UNIT TEST PASSED"
+        ;;
+    bpu-integration|bpu_integration|bpu_integration_tb)
+        TEST="bpu-integration"
+        TOP="bpu_integration_tb"
+        TB_FILE="$TB_DIR/bpu_integration_tb.sv"
+        PASS_PATTERN="BPU INTEGRATION TEST PASSED"
         ;;
     ex-bpu-ctrl|ex_bpu_ctrl|ex_bpu_ctrl_tb)
         TEST="ex-bpu-ctrl"
@@ -64,7 +90,7 @@ case "$TEST" in
         PASS_PATTERN="DRAM DRIVER TEST PASSED"
         ;;
     -h|--help|help)
-        echo "Usage: $0 [rv32i|rv32m|irom-v2|bpu|ex-bpu-ctrl|ras|ras-integration|dram-driver] [timeout_seconds]"
+        echo "Usage: $0 [rv32i|rv32m|irom-v2|load-dep|load-dep-mem2|control-dep|bpu|bpu-integration|ex-bpu-ctrl|ras|ras-integration|dram-driver] [timeout_seconds]"
         echo "Examples:"
         echo "  $0 rv32i"
         echo "  $0 rv32m 120"
@@ -72,7 +98,7 @@ case "$TEST" in
         ;;
     *)
         echo "Unknown test: $TEST"
-        echo "Usage: $0 [rv32i|rv32m|irom-v2|bpu|ex-bpu-ctrl|ras|ras-integration|dram-driver] [timeout_seconds]"
+        echo "Usage: $0 [rv32i|rv32m|irom-v2|load-dep|load-dep-mem2|control-dep|bpu|bpu-integration|ex-bpu-ctrl|ras|ras-integration|dram-driver] [timeout_seconds]"
         exit 2
         ;;
 esac
@@ -84,6 +110,7 @@ mkdir -p "$BUILD_DIR"
 
 echo "=== Compile ${TEST} (${TOP}) ==="
 iverilog -g2012 \
+    "${IVERILOG_DEFINES[@]}" \
     -s "$TOP" \
     -I "$RTL_DIR" \
     -I "$RTL_DIR/alu" \
@@ -100,7 +127,10 @@ iverilog -g2012 \
     "$TB_FILE"
 
 echo "=== Simulate ${TEST} (timeout ${MAX_SECONDS}s) ==="
-timeout "$MAX_SECONDS" vvp "$SIM_OUT" 2>&1 | tee "$SIM_LOG"
+(
+    cd "$TB_DIR"
+    timeout "$MAX_SECONDS" vvp "$SIM_OUT"
+) 2>&1 | tee "$SIM_LOG"
 
 echo ""
 echo "=== Result ==="
