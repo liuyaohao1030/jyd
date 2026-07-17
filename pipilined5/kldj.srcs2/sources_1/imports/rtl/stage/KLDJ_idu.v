@@ -1,4 +1,5 @@
 `include "../define.v"
+`include "../zb/zb_cfg.vh"
 
 module KLDJ_idu(
     //system input
@@ -189,6 +190,25 @@ wire [31:0] imm;
 assign imm = i_imm & {32{i_imm_en}} | j_imm & {32{j_imm_en}} |
     u_imm & {32{u_imm_en}} | s_imm & {32{s_imm_en}} | b_imm & {32{b_imm_en}};
 
+// The Zb decoder exists only in an extension build.  In the default build the
+// following block is fully preprocessed out, leaving the original IDU logic
+// and its timing unchanged.
+`ifdef KLDJ_EXT_ENABLE
+wire       zb_hit;
+wire [7:0] zb_uop;
+wire [1:0] zb_op2_sel;
+
+KLDJ_zb_decode #(
+     .GROUP  (`KLDJ_ZB_GROUP_SEL)
+    ,.ONLY_OP(`KLDJ_CFG_OP      )
+) u_KLDJ_zb_decode (
+     .inst   (inst      )
+    ,.hit    (zb_hit    )
+    ,.uop    (zb_uop    )
+    ,.op2_sel(zb_op2_sel)
+);
+`endif
+
 reg                         rs1_ren_r;
 reg                         rs2_ren_r;
 reg [`KLDJ_REGADDR]         rs1_addr_r;
@@ -221,6 +241,20 @@ always @(*) begin
     data4_r    = `KLDJ_ZERO32;
     id_ls_ctl_r = 4'd0;
 
+`ifdef KLDJ_EXT_ENABLE
+    if (zb_hit) begin
+        // All supported RV32 Zb encodings are OP or OP-IMM, hence the
+        // existing generic rs1/rs2 read-enable and forwarding machinery is
+        // already correct.  Only data2 needs an explicit IMM5 selection.
+        exu_op_r = `KLDJ_EXU_ZB_TAG | {10'd0, zb_uop};
+        data1_r  = rs1_data;
+        case (zb_op2_sel)
+            `KLDJ_ZB_OP2_RS2:  data2_r = rs2_data;
+            `KLDJ_ZB_OP2_IMM5: data2_r = {27'd0, inst[24:20]};
+            default:            data2_r = `KLDJ_ZERO32;
+        endcase
+    end else begin
+`endif
     case (1'b1)
         //---------- I-type ALU ----------//
         inst_addi: begin
@@ -570,6 +604,9 @@ always @(*) begin
 
         default: ;  // NOP — all defaults from above
     endcase
+`ifdef KLDJ_EXT_ENABLE
+    end
+`endif
 end
 
 assign rs1_ren  = rs1_ren_r;

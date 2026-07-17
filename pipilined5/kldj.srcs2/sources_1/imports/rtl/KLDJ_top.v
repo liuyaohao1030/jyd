@@ -1,4 +1,5 @@
 `include "define.v"
+`include "zb/zb_cfg.vh"
 
 module KLDJ_top #(
     // A combinational IROM -> static-JAL -> PC feedback path does not close
@@ -7,9 +8,10 @@ module KLDJ_top #(
     // may explicitly override this parameter when that performance trade-off
     // is desired.
     parameter ENABLE_STATIC_JAL_PRED = 1'b0,
-    // The board configuration uses RAS prediction.  Keep this switch only
-    // for the RAS-on/RAS-off benchmark, with the board-aligned default.
-    parameter ENABLE_RAS_PRED = 1'b1,
+    // RAS prediction adds an asynchronous IROM -> PC feedback path.  Keep it
+    // disabled for the timing-constrained board build; simulations or a
+    // timing-closed lower-frequency build may explicitly enable it.
+    parameter ENABLE_RAS_PRED = 1'b0,
     parameter RAS_DEPTH       = 8
 )(
      input wire                  clk
@@ -169,6 +171,9 @@ module KLDJ_top #(
     wire                         load_use_stall;
     wire                         div_stall;
     wire                         mul_stall;
+`ifdef KLDJ_EXT_ENABLE
+    wire                         zb_stall;
+`endif
     wire                         ex_stall;
     wire                         frontend_stall;
 
@@ -473,6 +478,9 @@ module KLDJ_top #(
         ,.ex_mem_addr (ex_mem_addr_pre       )
         ,.div_stall   (div_stall             )
         ,.mul_stall   (mul_stall             )
+`ifdef KLDJ_EXT_ENABLE
+        ,.zb_stall    (zb_stall              )
+`endif
     );
 
     // A redirect from EX2 squashes the younger instruction currently in EX.
@@ -485,7 +493,11 @@ module KLDJ_top #(
                                  (id_ex_exu_op == `KLDJ_EXU_ECALL) ||
                                  (id_ex_exu_op == `KLDJ_EXU_MRET);
 
-    assign ex_stall = div_stall || mul_stall;
+    assign ex_stall = div_stall || mul_stall
+`ifdef KLDJ_EXT_ENABLE
+                    || zb_stall
+`endif
+                    ;
 
     // EX2 control-transfer result register.  An EX2 redirect has priority so
     // a wrong-path control transfer cannot be captured while the frontend is

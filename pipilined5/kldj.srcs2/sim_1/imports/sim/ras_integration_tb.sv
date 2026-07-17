@@ -27,7 +27,9 @@ module ras_integration_tb;
 
     always #5 clk = ~clk;
 
-    KLDJ_top dut (
+    KLDJ_top #(
+        .ENABLE_RAS_PRED(1'b1)
+    ) dut (
          .clk          (clk          )
         ,.rst          (rst          )
         ,.tb_if_inst   (inst_rdata   )

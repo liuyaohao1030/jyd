@@ -1,4 +1,5 @@
 `include "../define.v"
+`include "../zb/zb_cfg.vh"
 
 module KLDJ_exu(
      input  wire                clk
@@ -32,6 +33,9 @@ module KLDJ_exu(
     ,output wire [`KLDJ_DATA]   ex_mem_addr
     ,output wire                div_stall
     ,output wire                mul_stall
+`ifdef KLDJ_EXT_ENABLE
+    ,output wire                zb_stall
+`endif
 );
 
     wire [`KLDJ_DATA] alu_res;
@@ -99,6 +103,37 @@ module KLDJ_exu(
 
     assign mul_stall = valid && is_mul_op && !mul_done;
     assign div_stall = valid && is_div_op && !div_done;  
+
+`ifdef KLDJ_EXT_ENABLE
+    // A tagged micro-op bypasses the base ALU result only for the selected Zb
+    // instruction.  Non-extension operations retain the original datapath.
+    wire        is_zb_op = exu_op[17];
+    wire [7:0]  zb_uop   = exu_op[7:0];
+    wire        zb_busy;
+    wire        zb_done;
+    wire [31:0] zb_result;
+    wire        zb_start = valid && is_zb_op && !zb_busy && !zb_done;
+
+    KLDJ_zb_exec #(
+         .GROUP  (`KLDJ_ZB_GROUP_SEL)
+        ,.ONLY_OP(`KLDJ_CFG_OP      )
+    ) u_KLDJ_zb_exec (
+         .clk   (clk       )
+        ,.rst   (rst       )
+        ,.start (zb_start  )
+        ,.uop   (zb_uop    )
+        ,.rs1   (data1     )
+        ,.rs2   (data2     )
+        ,.result(zb_result )
+        ,.busy  (zb_busy   )
+        ,.done  (zb_done   )
+    );
+
+    // Simple Zb operations report done combinationally and do not stall.  The
+    // iterative Zbc unit holds the same ID/EX instruction until its result is
+    // valid, using the existing MUL/DIV long-operation protocol.
+    assign zb_stall = valid && is_zb_op && !zb_done;
+`endif
     
     wire is_ge_res  = cmp_res[3];
     wire is_ne_res  = cmp_res[2];
@@ -148,12 +183,17 @@ module KLDJ_exu(
     // 对于普通指令和访存指令（基址计算），输出 ALU 的计算结果
     // 对于 JAL/JALR，输出 data3 (即 snpc)
     // 对于 CSR 指令，输出旧 CSR 值 (写入 rd)
-    assign exu_res = is_mul_op ? mul_result : 
-                     is_div_op ? div_result : 
-                     (exu_op == 18'h9 | exu_op == 18'h1c) ? data3 :
-                     csr_op ? csr_rdata :
-                     is_load_or_store ? load_store_addr : 
-                     alu_res;
+    wire [`KLDJ_DATA] normal_exu_res = is_mul_op ? mul_result :
+                                      is_div_op ? div_result :
+                                      (exu_op == 18'h9 | exu_op == 18'h1c) ? data3 :
+                                      csr_op ? csr_rdata :
+                                      is_load_or_store ? load_store_addr :
+                                      alu_res;
+`ifdef KLDJ_EXT_ENABLE
+    assign exu_res = is_zb_op ? zb_result : normal_exu_res;
+`else
+    assign exu_res = normal_exu_res;
+`endif
 
     // mret also triggers a jump
     assign exu_jump = (exu_op == 18'h9 | exu_op == 18'h1c) | branch_taken | is_mret;

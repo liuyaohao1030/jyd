@@ -1,0 +1,368 @@
+// Compile-time configuration for the optional RV32 Zb plug-in.
+//
+// Default: define none of KLDJ_CFG_ZBA/KLDJ_CFG_ZBB/KLDJ_CFG_ZBC/
+// KLDJ_CFG_ZBS/KLDJ_CFG_ZBKB/KLDJ_CFG_ZBKX.  In that configuration the
+// IDU/EXU integration is preprocessed out, so the base core is unchanged.
+//
+// Select exactly one group at compile time, for example:
+//   iverilog ... -DKLDJ_CFG_ZBS
+// Optionally select one mnemonic inside that group with KLDJ_CFG_OP, e.g.
+//   -DKLDJ_CFG_ZBS -DKLDJ_CFG_OP=8'h43
+// KLDJ_CFG_OP defaults to ALL, which is convenient for directed regression.
+
+
+
+
+// Group IDs.
+
+
+
+
+
+
+
+
+// A tagged EXU micro-op uses exu_op[17], leaving all existing micro-op values
+// (currently below 18'h40) untouched.
+
+
+// Operand-2 selection produced by the extension decoder.
+
+
+
+
+// Uop IDs.  They are unique across all groups so one optional numeric
+// KLDJ_CFG_OP selector is sufficient.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Convert command-line group defines into constants that RTL can consume.
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+  
+  
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+// Decode exactly one compile-time-selected RV32 Zb group.  The decoder is
+// deliberately independent from the base IDU case tree: when no KLDJ_CFG_*
+// define is present, this module is not instantiated at all.
+module KLDJ_zb_decode #(
+    parameter [2:0] GROUP   = 3'd0,
+    parameter [7:0] ONLY_OP = 8'hff
+)(
+     input  wire [31:0] inst
+    ,output reg         hit
+    ,output reg [7:0]   uop
+    ,output reg [1:0]   op2_sel
+);
+
+    localparam [6:0] OP_RTYPE = 7'b0110011;
+    localparam [6:0] OP_ITYPE = 7'b0010011;
+
+    wire [6:0] opcode = inst[6:0];
+    wire [2:0] funct3 = inst[14:12];
+    wire [6:0] funct7 = inst[31:25];
+    wire [4:0] rs2    = inst[24:20];
+
+    wire rtype = (opcode == OP_RTYPE);
+    wire itype = (opcode == OP_ITYPE);
+
+    function op_allowed;
+        input [7:0] candidate;
+        begin
+            op_allowed = (ONLY_OP == 8'hff) ||
+                         (ONLY_OP == candidate);
+        end
+    endfunction
+
+
+    initial begin
+        if (
+    (0 + 0 + 1 +
+     0 + 0 + 0) != 1) begin
+            $fatal(1, "Zb configuration must select exactly one KLDJ_CFG_* group");
+        end
+    end
+
+
+    always @(*) begin
+        hit     = 1'b0;
+        uop     = 8'd0;
+        op2_sel = 2'd2;
+
+        case (GROUP)
+            // Zba: RV32 has sh1add/sh2add/sh3add only.  The .uw forms are
+            // RV64-only and intentionally absent.
+            3'd1: begin
+                if (rtype && (funct7 == 7'b0010000) && (funct3 == 3'b010) &&
+                    op_allowed(8'h01)) begin
+                    hit = 1'b1; uop = 8'h01;
+                    op2_sel = 2'd0;
+                end else if (rtype && (funct7 == 7'b0010000) && (funct3 == 3'b100) &&
+                             op_allowed(8'h02)) begin
+                    hit = 1'b1; uop = 8'h02;
+                    op2_sel = 2'd0;
+                end else if (rtype && (funct7 == 7'b0010000) && (funct3 == 3'b110) &&
+                             op_allowed(8'h03)) begin
+                    hit = 1'b1; uop = 8'h03;
+                    op2_sel = 2'd0;
+                end
+            end
+
+            3'd2: begin
+                if (rtype && (funct7 == 7'b0100000) && (funct3 == 3'b111) &&
+                    op_allowed(8'h10)) begin
+                    hit = 1'b1; uop = 8'h10; op2_sel = 2'd0;
+                end else if (rtype && (funct7 == 7'b0100000) && (funct3 == 3'b110) &&
+                             op_allowed(8'h11)) begin
+                    hit = 1'b1; uop = 8'h11; op2_sel = 2'd0;
+                end else if (rtype && (funct7 == 7'b0100000) && (funct3 == 3'b100) &&
+                             op_allowed(8'h12)) begin
+                    hit = 1'b1; uop = 8'h12; op2_sel = 2'd0;
+                end else if (itype && (funct3 == 3'b001) && (inst[31:20] == 12'h600) &&
+                             op_allowed(8'h13)) begin
+                    hit = 1'b1; uop = 8'h13;
+                end else if (itype && (funct3 == 3'b001) && (inst[31:20] == 12'h601) &&
+                             op_allowed(8'h14)) begin
+                    hit = 1'b1; uop = 8'h14;
+                end else if (itype && (funct3 == 3'b001) && (inst[31:20] == 12'h602) &&
+                             op_allowed(8'h15)) begin
+                    hit = 1'b1; uop = 8'h15;
+                end else if (rtype && (funct7 == 7'b0000101) && (funct3 == 3'b110) &&
+                             op_allowed(8'h16)) begin
+                    hit = 1'b1; uop = 8'h16; op2_sel = 2'd0;
+                end else if (rtype && (funct7 == 7'b0000101) && (funct3 == 3'b111) &&
+                             op_allowed(8'h17)) begin
+                    hit = 1'b1; uop = 8'h17; op2_sel = 2'd0;
+                end else if (rtype && (funct7 == 7'b0000101) && (funct3 == 3'b100) &&
+                             op_allowed(8'h18)) begin
+                    hit = 1'b1; uop = 8'h18; op2_sel = 2'd0;
+                end else if (rtype && (funct7 == 7'b0000101) && (funct3 == 3'b101) &&
+                             op_allowed(8'h19)) begin
+                    hit = 1'b1; uop = 8'h19; op2_sel = 2'd0;
+                end else if (itype && (funct3 == 3'b001) && (inst[31:20] == 12'h604) &&
+                             op_allowed(8'h1a)) begin
+                    hit = 1'b1; uop = 8'h1a;
+                end else if (itype && (funct3 == 3'b001) && (inst[31:20] == 12'h605) &&
+                             op_allowed(8'h1b)) begin
+                    hit = 1'b1; uop = 8'h1b;
+                end else if (rtype && (funct7 == 7'b0000100) && (funct3 == 3'b100) &&
+                             (rs2 == 5'd0) && op_allowed(8'h1c)) begin
+                    hit = 1'b1; uop = 8'h1c;
+                end else if (rtype && (funct7 == 7'b0110000) && (funct3 == 3'b001) &&
+                             op_allowed(8'h1d)) begin
+                    hit = 1'b1; uop = 8'h1d; op2_sel = 2'd0;
+                end else if (rtype && (funct7 == 7'b0110000) && (funct3 == 3'b101) &&
+                             op_allowed(8'h1e)) begin
+                    hit = 1'b1; uop = 8'h1e; op2_sel = 2'd0;
+                end else if (itype && (funct7 == 7'b0110000) && (funct3 == 3'b101) &&
+                             op_allowed(8'h1f)) begin
+                    hit = 1'b1; uop = 8'h1f; op2_sel = 2'd1;
+                end else if (itype && (funct3 == 3'b101) && (inst[31:20] == 12'h287) &&
+                             op_allowed(8'h20)) begin
+                    hit = 1'b1; uop = 8'h20;
+                end else if (itype && (funct3 == 3'b101) && (inst[31:20] == 12'h698) &&
+                             op_allowed(8'h21)) begin
+                    hit = 1'b1; uop = 8'h21;
+                end
+            end
+
+            3'd3: begin
+                if (rtype && (funct7 == 7'b0000101) && (funct3 == 3'b001) &&
+                    op_allowed(8'h30)) begin
+                    hit = 1'b1; uop = 8'h30; op2_sel = 2'd0;
+                end else if (rtype && (funct7 == 7'b0000101) && (funct3 == 3'b011) &&
+                             op_allowed(8'h31)) begin
+                    hit = 1'b1; uop = 8'h31; op2_sel = 2'd0;
+                end else if (rtype && (funct7 == 7'b0000101) && (funct3 == 3'b010) &&
+                             op_allowed(8'h32)) begin
+                    hit = 1'b1; uop = 8'h32; op2_sel = 2'd0;
+                end
+            end
+
+            3'd4: begin
+                if (rtype && (funct7 == 7'b0010100) && (funct3 == 3'b001) &&
+                    op_allowed(8'h40)) begin
+                    hit = 1'b1; uop = 8'h40; op2_sel = 2'd0;
+                end else if (rtype && (funct7 == 7'b0100100) && (funct3 == 3'b001) &&
+                             op_allowed(8'h41)) begin
+                    hit = 1'b1; uop = 8'h41; op2_sel = 2'd0;
+                end else if (rtype && (funct7 == 7'b0110100) && (funct3 == 3'b001) &&
+                             op_allowed(8'h42)) begin
+                    hit = 1'b1; uop = 8'h42; op2_sel = 2'd0;
+                end else if (rtype && (funct7 == 7'b0100100) && (funct3 == 3'b101) &&
+                             op_allowed(8'h43)) begin
+                    hit = 1'b1; uop = 8'h43; op2_sel = 2'd0;
+                end else if (itype && (funct7 == 7'b0010100) && (funct3 == 3'b001) &&
+                             op_allowed(8'h44)) begin
+                    hit = 1'b1; uop = 8'h44; op2_sel = 2'd1;
+                end else if (itype && (funct7 == 7'b0100100) && (funct3 == 3'b001) &&
+                             op_allowed(8'h45)) begin
+                    hit = 1'b1; uop = 8'h45; op2_sel = 2'd1;
+                end else if (itype && (funct7 == 7'b0110100) && (funct3 == 3'b001) &&
+                             op_allowed(8'h46)) begin
+                    hit = 1'b1; uop = 8'h46; op2_sel = 2'd1;
+                end else if (itype && (funct7 == 7'b0100100) && (funct3 == 3'b101) &&
+                             op_allowed(8'h47)) begin
+                    hit = 1'b1; uop = 8'h47; op2_sel = 2'd1;
+                end
+            end
+
+            // Zbkb overlaps Zbb for several operations.  Keeping these
+            // encodings in the Zbkb selector matters for a -march=..._zbkb
+            // test binary even if the same arithmetic is also useful in Zbb.
+            3'd5: begin
+                if (rtype && (funct7 == 7'b0100000) && (funct3 == 3'b111) &&
+                    op_allowed(8'h10)) begin
+                    hit = 1'b1; uop = 8'h10; op2_sel = 2'd0;
+                end else if (rtype && (funct7 == 7'b0100000) && (funct3 == 3'b110) &&
+                             op_allowed(8'h11)) begin
+                    hit = 1'b1; uop = 8'h11; op2_sel = 2'd0;
+                end else if (rtype && (funct7 == 7'b0100000) && (funct3 == 3'b100) &&
+                             op_allowed(8'h12)) begin
+                    hit = 1'b1; uop = 8'h12; op2_sel = 2'd0;
+                end else if (rtype && (funct7 == 7'b0110000) && (funct3 == 3'b001) &&
+                             op_allowed(8'h1d)) begin
+                    hit = 1'b1; uop = 8'h1d; op2_sel = 2'd0;
+                end else if (rtype && (funct7 == 7'b0110000) && (funct3 == 3'b101) &&
+                             op_allowed(8'h1e)) begin
+                    hit = 1'b1; uop = 8'h1e; op2_sel = 2'd0;
+                end else if (itype && (funct7 == 7'b0110000) && (funct3 == 3'b101) &&
+                             op_allowed(8'h1f)) begin
+                    hit = 1'b1; uop = 8'h1f; op2_sel = 2'd1;
+                end else if (itype && (funct3 == 3'b101) && (inst[31:20] == 12'h698) &&
+                             op_allowed(8'h21)) begin
+                    hit = 1'b1; uop = 8'h21;
+                end else if (itype && (funct3 == 3'b101) && (inst[31:20] == 12'h687) &&
+                             op_allowed(8'h50)) begin
+                    hit = 1'b1; uop = 8'h50;
+                end else if (rtype && (funct7 == 7'b0000100) && (funct3 == 3'b100) &&
+                             op_allowed(8'h51)) begin
+                    hit = 1'b1; uop = 8'h51; op2_sel = 2'd0;
+                end else if (rtype && (funct7 == 7'b0000100) && (funct3 == 3'b111) &&
+                             op_allowed(8'h52)) begin
+                    hit = 1'b1; uop = 8'h52; op2_sel = 2'd0;
+                end else if (itype && (funct3 == 3'b001) && (inst[31:20] == 12'h08f) &&
+                             op_allowed(8'h53)) begin
+                    hit = 1'b1; uop = 8'h53;
+                end else if (itype && (funct3 == 3'b101) && (inst[31:20] == 12'h08f) &&
+                             op_allowed(8'h54)) begin
+                    hit = 1'b1; uop = 8'h54;
+                end
+            end
+
+            3'd6: begin
+                if (rtype && (funct7 == 7'b0010100) && (funct3 == 3'b010) &&
+                    op_allowed(8'h60)) begin
+                    hit = 1'b1; uop = 8'h60; op2_sel = 2'd0;
+                end else if (rtype && (funct7 == 7'b0010100) && (funct3 == 3'b100) &&
+                             op_allowed(8'h61)) begin
+                    hit = 1'b1; uop = 8'h61; op2_sel = 2'd0;
+                end
+            end
+
+            default: ;
+        endcase
+    end
+
+endmodule

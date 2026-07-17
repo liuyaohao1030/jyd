@@ -9,6 +9,8 @@ BUILD_DIR="$SCRIPT_DIR/build"
 TEST="${1:-rv32i}"
 MAX_SECONDS="${2:-60}"
 EXTRA_FILES=()
+DEFINES=()
+RTL_LOCAL_CONFIG=0
 
 case "$TEST" in
     rv32i|i|KLDJ_top_tb)
@@ -81,19 +83,86 @@ case "$TEST" in
         )
         PASS_PATTERN="DRAM DRIVER TEST PASSED"
         ;;
+    zba)
+        TEST="zba"
+        TOP="KLDJ_zb_tb"
+        TB_FILE="$TB_DIR/KLDJ_zb_tb.sv"
+        PASS_PATTERN="ZB_ZBA_PASS"
+        DEFINES=(-DKLDJ_CFG_ZBA)
+        ;;
+    zbb)
+        TEST="zbb"
+        TOP="KLDJ_zb_tb"
+        TB_FILE="$TB_DIR/KLDJ_zb_tb.sv"
+        PASS_PATTERN="ZB_ZBB_PASS"
+        DEFINES=(-DKLDJ_CFG_ZBB)
+        ;;
+    zbc)
+        TEST="zbc"
+        TOP="KLDJ_zb_tb"
+        TB_FILE="$TB_DIR/KLDJ_zb_tb.sv"
+        PASS_PATTERN="ZB_ZBC_PASS"
+        DEFINES=(-DKLDJ_CFG_ZBC)
+        ;;
+    zbs)
+        TEST="zbs"
+        TOP="KLDJ_zb_tb"
+        TB_FILE="$TB_DIR/KLDJ_zb_tb.sv"
+        PASS_PATTERN="ZB_ZBS_PASS"
+        DEFINES=(-DKLDJ_CFG_ZBS)
+        ;;
+    zbkb)
+        TEST="zbkb"
+        TOP="KLDJ_zb_tb"
+        TB_FILE="$TB_DIR/KLDJ_zb_tb.sv"
+        PASS_PATTERN="ZB_ZBKB_PASS"
+        DEFINES=(-DKLDJ_CFG_ZBKB)
+        ;;
+    zbkx)
+        TEST="zbkx"
+        TOP="KLDJ_zb_tb"
+        TB_FILE="$TB_DIR/KLDJ_zb_tb.sv"
+        PASS_PATTERN="ZB_ZBKX_PASS"
+        DEFINES=(-DKLDJ_CFG_ZBKX)
+        ;;
+    rtl-zb|rtl_zb|zb-rtl)
+        TEST="rtl-zb"
+        TOP="KLDJ_zb_tb"
+        TB_FILE="$TB_DIR/KLDJ_zb_tb.sv"
+        PASS_PATTERN="ZB_RTL_PASS"
+        RTL_LOCAL_CONFIG=1
+        ;;
+    zb-all|zball)
+        for group in zba zbb zbc zbs zbkb zbkx; do
+            "$SCRIPT_DIR/sim.sh" "$group" "$MAX_SECONDS"
+        done
+        exit 0
+        ;;
     -h|--help|help)
-        echo "Usage: $0 [rv32i|rv32m|irom-v2|load-dep|ex2-ctrl|bpu|bpu-integration|ex-bpu-ctrl|ras|ras-integration|dram-driver] [timeout_seconds]"
+        echo "Usage: $0 [rv32i|rv32m|irom-v2|load-dep|ex2-ctrl|bpu|bpu-integration|ex-bpu-ctrl|ras|ras-integration|dram-driver|zba|zbb|zbc|zbs|zbkb|zbkx|rtl-zb|zb-all] [timeout_seconds]"
         echo "Examples:"
         echo "  $0 rv32i"
         echo "  $0 rv32m 120"
+        echo "  $0 rtl-zb 60  # read the source-only selector in rtl/zb/zb_cfg.vh"
         exit 0
         ;;
     *)
         echo "Unknown test: $TEST"
-        echo "Usage: $0 [rv32i|rv32m|irom-v2|load-dep|ex2-ctrl|bpu|bpu-integration|ex-bpu-ctrl|ras|ras-integration|dram-driver] [timeout_seconds]"
+        echo "Usage: $0 [rv32i|rv32m|irom-v2|load-dep|ex2-ctrl|bpu|bpu-integration|ex-bpu-ctrl|ras|ras-integration|dram-driver|zba|zbb|zbc|zbs|zbkb|zbkx|rtl-zb|zb-all] [timeout_seconds]"
         exit 2
         ;;
 esac
+
+# Optional one-instruction build.  Example:
+#   ZB_OP="8'h43" bash ./sim.sh zbs
+# The Zb testbench automatically emits only the chosen instruction vector.
+if [[ -n "${ZB_OP:-}" ]]; then
+    if [[ "$RTL_LOCAL_CONFIG" == "1" ]]; then
+        echo "rtl-zb reads KLDJ_RTL_EXT_OP from rtl/zb/zb_cfg.vh; do not set ZB_OP."
+        exit 2
+    fi
+    DEFINES+=("-DKLDJ_CFG_OP=${ZB_OP}")
+fi
 
 SIM_OUT="$BUILD_DIR/${TEST}.vvp"
 SIM_LOG="$BUILD_DIR/${TEST}.log"
@@ -103,16 +172,19 @@ mkdir -p "$BUILD_DIR"
 echo "=== Compile ${TEST} (${TOP}) ==="
 iverilog -g2012 \
     -s "$TOP" \
+    "${DEFINES[@]}" \
     -I "$RTL_DIR" \
     -I "$RTL_DIR/alu" \
     -I "$RTL_DIR/pipe" \
     -I "$RTL_DIR/stage" \
+    -I "$RTL_DIR/zb" \
     -I "$RTL_DIR/util" \
     -o "$SIM_OUT" \
     "$RTL_DIR"/*.v \
     "$RTL_DIR"/alu/*.v \
     "$RTL_DIR"/pipe/*.v \
     "$RTL_DIR"/stage/*.v \
+    "$RTL_DIR"/zb/*.v \
     "$RTL_DIR"/util/*.v \
     "${EXTRA_FILES[@]}" \
     "$TB_FILE"

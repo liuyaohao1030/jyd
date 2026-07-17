@@ -49,7 +49,12 @@ module student_top#(
     // 16KB = 2^12 * 32bit
     assign inst_addr = pc[13:2];
 
-    KLDJ_top u_KLDJ_top (
+    // Keep the 200 MHz board build on the timing-safe path.  RAS remains a
+    // compile-time experiment in KLDJ_top and can be enabled in a slower,
+    // timing-closed build.
+    KLDJ_top #(
+        .ENABLE_RAS_PRED(1'b0)
+    ) u_KLDJ_top (
         .clk            (w_cpu_clk),
         .rst            (w_clk_rst),
 
