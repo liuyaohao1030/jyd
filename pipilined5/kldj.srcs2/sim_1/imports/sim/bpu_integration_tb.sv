@@ -23,7 +23,7 @@ module bpu_integration_tb;
          .clk(clk), .rst(rst), .tb_if_inst(inst_rdata), .tb_if_pc(if_pc)
         ,.tb_ex_jump(), .tb_ex_jump_pc(), .tb_ex_res()
         ,.mem_addr(mem_addr), .mem_wdata(mem_wdata), .mem_we(mem_we), .mem_be(mem_be)
-        ,.mem_rdata(mem_rdata), .core_clk_o()
+        ,.mem_rdata(mem_rdata), .mem_load_rdata(mem_rdata), .core_clk_o()
         ,.perf_cycle_count(perf_unused[0]), .perf_instret_count(perf_unused[1])
         ,.perf_frontend_stall_count(perf_unused[2]), .perf_load_use_stall_count(perf_unused[3])
         ,.perf_mul_stall_count(perf_unused[4]), .perf_div_stall_count(perf_unused[5])

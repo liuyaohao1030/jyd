@@ -10,7 +10,10 @@ module KLDJ_top #(
     // Experiment switch for the six-stage load-return path.  Keep the
     // timing-closed legacy behavior as the default until implementation STA
     // approves the registered MEM2 load-forward path.
-    parameter ENABLE_MEM2_LOAD_FWD = 1'b0
+    parameter ENABLE_MEM2_LOAD_FWD = 1'b0,
+    // Preserve the one-bubble contract for aligned DRAM LW while allowing
+    // byte/half/MMIO loads to use the conservative raw-response path.
+    parameter ENABLE_FAST_DRAM_LW_FWD = 1'b0
 )(
      input wire                  clk
     ,input wire                  rst
@@ -24,6 +27,7 @@ module KLDJ_top #(
     ,output wire                 mem_we
     ,output wire [3:0]           mem_be
     ,input  wire [`KLDJ_DATA]    mem_rdata
+    ,input  wire [`KLDJ_DATA]    mem_load_rdata
     ,output wire                 core_clk_o
     // Performance counter outputs
     ,output wire [31:0]          perf_cycle_count
@@ -39,6 +43,7 @@ module KLDJ_top #(
 
     localparam [`KLDJ_INST] KLDJ_NOP = 32'h00000013;
     localparam BPU_INDEX_WIDTH = 6;
+    localparam [13:0] DRAM_ADDR_PREFIX = 14'h2004;
 
     // Clock and reset
     wire                         core_clk;
@@ -167,6 +172,8 @@ module KLDJ_top #(
     wire [1:0]                   ex_mem_addr_low;
     wire                         ex_mem_load_op;
     wire                         ex_mem_forward_valid;
+    wire                         ex_mem_fast_lw;
+    wire                         ex_mem_load_can_forward;
 
     // MEM1/MEM2 pipeline register outputs
     wire                         mem2_valid;
@@ -181,9 +188,25 @@ module KLDJ_top #(
     wire [`KLDJ_DATA]            mem2_forward_data;
     wire [`KLDJ_DATA]            mem2_ex_forward_data;
     wire                         mem2_forward_valid;
+    wire                         mem2_fast_lw;
 
-    assign mem2_ex_forward_data = ENABLE_MEM2_LOAD_FWD ?
-                                 mem2_forward_data : mem2_exu_res;
+    // In fast mode the bridge response register and MEM2 metadata are written
+    // on the same edge.  Read that response directly during the following EX
+    // cycle; capturing it again in pipe_mem1_mem2 would shift it by one cycle.
+    assign mem2_ex_forward_data =
+        (ENABLE_MEM2_LOAD_FWD && ENABLE_FAST_DRAM_LW_FWD && mem2_fast_lw) ?
+            mem_load_rdata :
+        ENABLE_MEM2_LOAD_FWD ? mem2_forward_data : mem2_exu_res;
+
+    // Classify the registered EX/MEM request locally.  This removes the
+    // timing-sensitive cross-hierarchy response tag from stall and forwarding
+    // control while exactly matching perip_bridge's DRAM address window.
+    assign ex_mem_fast_lw = ENABLE_MEM2_LOAD_FWD && ENABLE_FAST_DRAM_LW_FWD &&
+                            ex_mem_valid && ex_mem_load_op &&
+                            (ex_mem_ls_ctl == 4'b1110) &&
+                            (ex_mem_exu_res[31:18] == DRAM_ADDR_PREFIX);
+    assign ex_mem_load_can_forward = ENABLE_MEM2_LOAD_FWD &&
+                                     (!ENABLE_FAST_DRAM_LW_FWD || ex_mem_fast_lw);
 
     // MEM2 stage wires
     wire [`KLDJ_DATA]            mem_stage_wb_data;
@@ -349,6 +372,8 @@ module KLDJ_top #(
         ,.ex_mem_valid     (ex_mem_valid       )
         ,.ex_mem_rd_addr   (ex_mem_rd_addr     )
         ,.ex_mem_wb_ctl    (ex_mem_wb_ctl      )
+        ,.ex_mem_load_op   (ex_mem_load_op     )
+        ,.ex_mem_load_can_forward(ex_mem_load_can_forward)
         ,.mem2_valid       (mem2_valid         )
         ,.mem2_rd_addr     (mem2_rd_addr       )
         ,.mem2_wb_ctl      (mem2_wb_ctl        )
@@ -391,7 +416,8 @@ module KLDJ_top #(
 
     // EX forwarding and MUX
     ex_forward #(
-         .ENABLE_MEM2_LOAD_FWD(ENABLE_MEM2_LOAD_FWD)
+         .ENABLE_MEM2_LOAD_FWD     (ENABLE_MEM2_LOAD_FWD)
+        ,.ENABLE_FAST_DRAM_LW_FWD  (ENABLE_FAST_DRAM_LW_FWD)
     ) u_ex_forward(
          .id_ex_valid          (id_ex_valid          )
         ,.id_ex_rd_addr        (id_ex_rd_addr        )
@@ -399,6 +425,7 @@ module KLDJ_top #(
         ,.ex_mem_valid         (ex_mem_valid         )
         ,.ex_mem_rd_addr       (ex_mem_rd_addr       )
         ,.ex_mem_load_op       (ex_mem_load_op       )
+        ,.ex_mem_fast_lw       (ex_mem_fast_lw       )
         ,.id_ex_rs1_fwd_sel    (id_ex_rs1_fwd_sel    )
         ,.id_ex_rs2_fwd_sel    (id_ex_rs2_fwd_sel    )
         ,.id_ex_data1          (id_ex_data1          )
@@ -540,7 +567,8 @@ module KLDJ_top #(
     // MEM1/MEM2 response register.  mem_rdata is synchronous and is aligned
     // with the EX/MEM metadata at this edge.
     pipe_mem1_mem2 #(
-         .ENABLE_MEM2_LOAD_FWD(ENABLE_MEM2_LOAD_FWD)
+         .ENABLE_MEM2_LOAD_FWD     (ENABLE_MEM2_LOAD_FWD)
+        ,.ENABLE_FAST_DRAM_LW_FWD  (ENABLE_FAST_DRAM_LW_FWD)
     ) u_pipe_mem1_mem2(
          .clk               (core_clk            )
         ,.rst               (core_rst            )
@@ -553,6 +581,7 @@ module KLDJ_top #(
         ,.ex_mem_exu_res    (ex_mem_exu_res      )
         ,.ex_mem_addr_low   (ex_mem_addr_low     )
         ,.mem_rdata         (mem_rdata           )
+        ,.ex_mem_fast_lw    (ex_mem_fast_lw      )
         ,.mem2_valid        (mem2_valid          )
         ,.mem2_pc           (mem2_pc             )
         ,.mem2_rd_addr      (mem2_rd_addr        )
@@ -564,11 +593,13 @@ module KLDJ_top #(
         ,.mem2_mem_rdata    (mem2_mem_rdata      )
         ,.mem2_forward_data (mem2_forward_data   )
         ,.mem2_forward_valid(mem2_forward_valid  )
+        ,.mem2_fast_lw      (mem2_fast_lw        )
     );
 
     // MEM2 stage (legacy formatter or registered early-formatted load value)
     mem_stage_top #(
-         .ENABLE_MEM2_LOAD_FWD(ENABLE_MEM2_LOAD_FWD)
+         .ENABLE_MEM2_LOAD_FWD     (ENABLE_MEM2_LOAD_FWD)
+        ,.ENABLE_FAST_DRAM_LW_FWD  (ENABLE_FAST_DRAM_LW_FWD)
     ) u_mem_stage_top(
          .mem2_valid          (mem2_valid          )
         ,.mem2_load_op        (mem2_load_op        )
@@ -576,7 +607,9 @@ module KLDJ_top #(
         ,.mem2_exu_res        (mem2_exu_res        )
         ,.mem2_addr_low       (mem2_addr_low       )
         ,.mem2_mem_rdata      (mem2_mem_rdata      )
+        ,.mem_load_rdata      (mem_load_rdata      )
         ,.mem2_forward_data   (mem2_forward_data   )
+        ,.mem2_fast_lw        (mem2_fast_lw        )
         ,.mem2_wb_ctl         (mem2_wb_ctl         )
         ,.mem_stage_wb_data  (mem_stage_wb_data   )
         ,.mem_stage_wb_ctl   (mem_stage_wb_ctl    )

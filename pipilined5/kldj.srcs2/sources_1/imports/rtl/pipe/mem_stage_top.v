@@ -1,7 +1,8 @@
 `include "../define.v"
 
 module mem_stage_top #(
-     parameter ENABLE_MEM2_LOAD_FWD = 1'b0
+     parameter ENABLE_MEM2_LOAD_FWD = 1'b0,
+     parameter ENABLE_FAST_DRAM_LW_FWD = 1'b0
 )(
      // from MEM1/MEM2 pipeline register
      input wire                  mem2_valid
@@ -10,7 +11,9 @@ module mem_stage_top #(
     ,input wire [`KLDJ_DATA]     mem2_exu_res
     ,input wire [1:0]            mem2_addr_low
     ,input wire [`KLDJ_DATA]     mem2_mem_rdata
+    ,input wire [`KLDJ_DATA]     mem_load_rdata
     ,input wire [`KLDJ_DATA]     mem2_forward_data
+    ,input wire                  mem2_fast_lw
     ,input wire                  mem2_wb_ctl
     // outputs to forwarding, WBU and MEM2/WB pipeline
     ,output wire [`KLDJ_DATA]    mem_stage_wb_data
@@ -18,7 +21,21 @@ module mem_stage_top #(
 );
 
     generate
-        if (ENABLE_MEM2_LOAD_FWD) begin : g_registered_load_data
+        if (ENABLE_MEM2_LOAD_FWD && ENABLE_FAST_DRAM_LW_FWD) begin : g_fast_dram_lw
+            wire [`KLDJ_DATA] lsu_res;
+
+            KLDJ_lsu lsu3(
+                 .ls_ctl       (mem2_ls_ctl           )
+                ,.addr_low     (mem2_addr_low         )
+                ,.mem_rdata    (mem_load_rdata        )
+                ,.lsu_res      (lsu_res               )
+            );
+
+            // The bridge response register is aligned with current MEM2
+            // metadata.  LW passes through unchanged; byte/half/MMIO loads are
+            // formatted here and retain their conservative second interlock.
+            assign mem_stage_wb_data = mem2_load_op ? lsu_res : mem2_exu_res;
+        end else if (ENABLE_MEM2_LOAD_FWD) begin : g_registered_load_data
             // pipe_mem1_mem2 already selected/extended the load before its
             // output register.  WB and EX forwarding therefore share exactly
             // the same architectural value.

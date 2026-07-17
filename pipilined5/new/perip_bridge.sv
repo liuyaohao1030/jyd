@@ -29,6 +29,10 @@ module perip_bridge(
     input  logic         perip_wen          ,
     input  logic [3:0]   perip_be           ,
     output logic [31:0]  perip_rdata        ,
+    // Registered load response used by the CPU's MEM2 stage.  Moving this
+    // boundary next to the bridge keeps the BRAM return off a long cross-block
+    // path without adding an architectural load cycle.
+    output logic [31:0]  mem_load_rdata     ,
 
     input  logic [63:0]  virtual_sw_input   ,
     input  logic [7:0]   virtual_key_input  ,
@@ -49,6 +53,7 @@ module perip_bridge(
     logic [31:0] seg_wdata, cnt_rdata, cnt_rdata_q, mmio_rdata_q, dram_rdata;
     logic [39:0] seg_output;
     logic cnt_enable_cfg;
+    wire [31:0] response_rdata;
 
     wire is_dram_addr = (perip_addr[31:18] == 14'h2004);
     wire is_mmio_base = (perip_addr[31:8] == 24'h802000);
@@ -99,6 +104,7 @@ module perip_bridge(
             rd_is_cnt_q  <= 1'b0;
             mmio_rdata_q <= 32'h0;
             cnt_rdata_q  <= 32'h0;
+            mem_load_rdata <= 32'h0;
         end else begin
             rd_is_dram_q <= (~perip_wen) && is_dram_addr;
             rd_is_sw0_q  <= (~perip_wen) && is_sw0_addr;
@@ -107,6 +113,7 @@ module perip_bridge(
             rd_is_seg_q  <= (~perip_wen) && is_seg_addr;
             rd_is_cnt_q  <= (~perip_wen) && is_cnt_addr;
             cnt_rdata_q  <= cnt_rdata;
+            mem_load_rdata <= response_rdata;
 
             if (is_mmio_base) begin
                 case (mmio_off)
@@ -158,11 +165,12 @@ module perip_bridge(
         .perip_rdata        (cnt_rdata)
     );
 
-    assign perip_rdata =
+    assign response_rdata =
         rd_is_dram_q ? dram_rdata :
         rd_is_cnt_q  ? cnt_rdata_q :
         (rd_is_sw0_q || rd_is_sw1_q || rd_is_key_q || rd_is_seg_q) ? mmio_rdata_q :
         32'h0;
+    assign perip_rdata = response_rdata;
 
     assign virtual_led_output = LED;
     assign virtual_seg_output = seg_output;

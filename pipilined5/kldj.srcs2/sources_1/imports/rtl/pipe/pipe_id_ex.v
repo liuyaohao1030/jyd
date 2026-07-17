@@ -32,6 +32,8 @@ module pipe_id_ex #(
     ,input wire                  ex_mem_valid
     ,input wire [`KLDJ_REGADDR]  ex_mem_rd_addr
     ,input wire                  ex_mem_wb_ctl
+    ,input wire                  ex_mem_load_op
+    ,input wire                  ex_mem_load_can_forward
     ,input wire                  mem2_valid
     ,input wire [`KLDJ_REGADDR]  mem2_rd_addr
     ,input wire                  mem2_wb_ctl
@@ -96,7 +98,11 @@ module pipe_id_ex #(
     // A value currently in MEM/WB is already covered by regfile write-through.
     wire id_ex_fwd_candidate = id_ex_valid && id_ex_wb_ctl && !id_ex_load_op &&
                                (id_ex_rd_addr != 5'd0);
+    // A load in EX/MEM may select FWD_MEM2 only when the response is known to
+    // be the registered fast DRAM-LW result.  Slow loads wait one more cycle
+    // and are selected from MEM/WB instead.
     wire ex_mem_fwd_candidate = ex_mem_valid && ex_mem_wb_ctl &&
+                                (!ex_mem_load_op || ex_mem_load_can_forward) &&
                                 (ex_mem_rd_addr != 5'd0);
     wire mem2_fwd_candidate = mem2_valid && mem2_wb_ctl &&
                               (mem2_rd_addr != 5'd0);

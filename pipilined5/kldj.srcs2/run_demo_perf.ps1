@@ -3,6 +3,8 @@ param(
     [string]$Version = 'both',
     [switch]$SixStaticJal,
     [switch]$SixMem2LoadFwd,
+    [switch]$SixFastDramLwFwd,
+    [switch]$SmallMatrix,
     [switch]$ToCompletion,
     [switch]$DumpVcd
 )
@@ -38,6 +40,13 @@ foreach ($file in @($Tb, $IromCoe, $DramCoe) + $PeripheralFiles) {
 $Variants = if ($Version -eq 'both') { @('six', 'pipeline5') } else { @($Version) }
 $Results = @()
 
+if ($SixFastDramLwFwd) {
+    $SixMem2LoadFwd = $true
+}
+if ($SmallMatrix) {
+    $ToCompletion = $true
+}
+
 foreach ($Variant in $Variants) {
     $RtlDir = if ($Variant -eq 'six') {
         Join-Path $Root 'sources_1\imports\rtl'
@@ -45,10 +54,14 @@ foreach ($Variant in $Variants) {
         Join-Path $Root 'pipeline5'
     }
     $RunLabel = if ($Variant -eq 'six') {
-        if ($SixStaticJal -and $SixMem2LoadFwd) {
+        if ($SixStaticJal -and $SixFastDramLwFwd) {
+            'six_static_jal_fast_dram_lw_fwd'
+        } elseif ($SixStaticJal -and $SixMem2LoadFwd) {
             'six_static_jal_mem2_load_fwd'
         } elseif ($SixStaticJal) {
             'six_static_jal'
+        } elseif ($SixFastDramLwFwd) {
+            'six_fast_dram_lw_fwd'
         } elseif ($SixMem2LoadFwd) {
             'six_mem2_load_fwd'
         } else {
@@ -56,6 +69,9 @@ foreach ($Variant in $Variants) {
         }
     } else {
         $Variant
+    }
+    if ($SmallMatrix) {
+        $RunLabel += '_small_matrix'
     }
     $WorkDir = Join-Path $BuildRoot $RunLabel
     $Snapshot = "demo_perf_${RunLabel}_sim"
@@ -83,6 +99,9 @@ foreach ($Variant in $Variants) {
     if (($Variant -eq 'six') -and $SixMem2LoadFwd) {
         $CompileArgs += @('-d', 'SIX_MEM2_LOAD_FWD')
     }
+    if (($Variant -eq 'six') -and $SixFastDramLwFwd) {
+        $CompileArgs += @('-d', 'SIX_FAST_DRAM_LW_FWD')
+    }
     # The six-stage-only diagnostics reference its additional MEM2 interlock.
     # Keep the pipeline5 elaboration independent of those hierarchy names.
     if ($Variant -eq 'six') {
@@ -90,6 +109,9 @@ foreach ($Variant in $Variants) {
     }
     if ($ToCompletion) {
         $CompileArgs += @('-d', 'BENCH_TO_COMPLETION')
+    }
+    if ($SmallMatrix) {
+        $CompileArgs += @('-d', 'BENCH_SMALL_MATRIX')
     }
     if ($DumpVcd) {
         $CompileArgs += @('-d', 'BENCH_DUMP_VCD')

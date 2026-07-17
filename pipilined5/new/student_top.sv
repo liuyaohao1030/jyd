@@ -42,7 +42,7 @@ module student_top#(
     logic [31:0] instruction;
 
     // perip
-    logic [31:0] perip_addr, perip_wdata, perip_rdata;
+    logic [31:0] perip_addr, perip_wdata, perip_rdata, mem_load_rdata;
     logic perip_wen;
     logic [3:0] cpu_mem_be;
 
@@ -50,8 +50,9 @@ module student_top#(
     assign inst_addr = pc[13:2];
 
     KLDJ_top #(
-    .ENABLE_MEM2_LOAD_FWD(1'b1)
-) u_KLDJ_top (
+         .ENABLE_MEM2_LOAD_FWD      (1'b1)
+        ,.ENABLE_FAST_DRAM_LW_FWD   (1'b1)
+    ) u_KLDJ_top (
         .clk            (w_cpu_clk),
         .rst            (w_clk_rst),
 
@@ -63,6 +64,7 @@ module student_top#(
         .mem_we         (perip_wen),
         .mem_be         (cpu_mem_be),
         .mem_rdata      (perip_rdata),
+        .mem_load_rdata (mem_load_rdata),
 
         .tb_ex_jump     (),
         .tb_ex_jump_pc  (),
@@ -84,6 +86,7 @@ module student_top#(
         .perip_wen          (perip_wen),
         .perip_be           (cpu_mem_be),
         .perip_rdata        (perip_rdata),
+        .mem_load_rdata     (mem_load_rdata),
         .virtual_sw_input   (virtual_sw),
         .virtual_key_input  (virtual_key),
         .virtual_seg_output (virtual_seg),

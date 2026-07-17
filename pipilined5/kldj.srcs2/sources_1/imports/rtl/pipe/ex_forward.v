@@ -3,7 +3,10 @@
 module ex_forward #(
      // When enabled, MEM2 carries a registered, already formatted load value.
      // This makes FWD_MEM2 valid for loads and removes the second bubble.
-     parameter ENABLE_MEM2_LOAD_FWD = 1'b0
+     parameter ENABLE_MEM2_LOAD_FWD = 1'b0,
+     // In the fast-return configuration only aligned DRAM LW is eligible for
+     // the one-bubble FWD_MEM2 path.
+     parameter ENABLE_FAST_DRAM_LW_FWD = 1'b0
 )(
      // from ID/EX pipeline register
      input wire                  id_ex_valid
@@ -13,6 +16,7 @@ module ex_forward #(
     ,input wire                  ex_mem_valid
     ,input wire [`KLDJ_REGADDR]  ex_mem_rd_addr
     ,input wire                  ex_mem_load_op
+    ,input wire                  ex_mem_fast_lw
     ,input wire [1:0]            id_ex_rs1_fwd_sel
     ,input wire [1:0]            id_ex_rs2_fwd_sel
     ,input wire [`KLDJ_DATA]     id_ex_data1
@@ -57,8 +61,15 @@ module ex_forward #(
                            ((id_reg_rs1_ren && (id_reg_rs1_addr == ex_mem_rd_addr)) ||
                             (id_reg_rs2_ren && (id_reg_rs2_addr == ex_mem_rd_addr)));
 
-    assign load_use_stall = id_ex_load_use ||
-                            (!ENABLE_MEM2_LOAD_FWD && ex_mem_load_use);
+    // Legacy mode blocks every EX/MEM load-use pair.  The fast-LW mode keeps
+    // that second interlock for byte/half/MMIO loads, whose value is only
+    // available from MEM/WB, while preserving one-bubble DRAM LW forwarding.
+    wire ex_mem_load_needs_second_stall = ex_mem_load_use &&
+                                          (!ENABLE_MEM2_LOAD_FWD ||
+                                           (ENABLE_FAST_DRAM_LW_FWD &&
+                                            !ex_mem_fast_lw));
+
+    assign load_use_stall = id_ex_load_use || ex_mem_load_needs_second_stall;
 
     localparam [1:0] FWD_EX_MEM = 2'b01;
     localparam [1:0] FWD_MEM2   = 2'b10;

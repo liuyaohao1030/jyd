@@ -28,6 +28,11 @@ module KLDJ_demo_perf_tb;
 `else
     localparam TB_ENABLE_MEM2_LOAD_FWD = 1'b0;
 `endif
+`ifdef SIX_FAST_DRAM_LW_FWD
+    localparam TB_ENABLE_FAST_DRAM_LW_FWD = 1'b1;
+`else
+    localparam TB_ENABLE_FAST_DRAM_LW_FWD = 1'b0;
+`endif
 `ifdef BENCH_TO_COMPLETION
     localparam integer DEFAULT_MAX_CYCLES     = 20_000_000;
     localparam integer MEASURE_INSTRET_LIMIT  = 0;
@@ -54,6 +59,7 @@ module KLDJ_demo_perf_tb;
     wire        mem_we;
     wire [3:0]  mem_be;
     wire [31:0] mem_rdata;
+    wire [31:0] mem_load_rdata;
     wire [31:0] virtual_led;
     wire [39:0] virtual_seg;
 
@@ -113,6 +119,7 @@ module KLDJ_demo_perf_tb;
     KLDJ_top #(
          .ENABLE_STATIC_JAL_PRED(TB_ENABLE_STATIC_JAL_PRED)
         ,.ENABLE_MEM2_LOAD_FWD(TB_ENABLE_MEM2_LOAD_FWD)
+        ,.ENABLE_FAST_DRAM_LW_FWD(TB_ENABLE_FAST_DRAM_LW_FWD)
     ) u_dut (
 `else
     KLDJ_top u_dut (
@@ -129,6 +136,7 @@ module KLDJ_demo_perf_tb;
         ,.mem_we       (mem_we       )
         ,.mem_be       (mem_be       )
         ,.mem_rdata    (mem_rdata    )
+        ,.mem_load_rdata(mem_load_rdata)
         ,.core_clk_o   (             )
     );
 
@@ -144,6 +152,7 @@ module KLDJ_demo_perf_tb;
         ,.perip_wen          (mem_we       )
         ,.perip_be           (mem_be       )
         ,.perip_rdata        (mem_rdata    )
+        ,.mem_load_rdata     (mem_load_rdata)
         ,.virtual_sw_input   (virtual_sw   )
         ,.virtual_key_input  (virtual_key  )
         ,.virtual_seg_output (virtual_seg  )
@@ -265,6 +274,7 @@ module KLDJ_demo_perf_tb;
         string irom_coe;
         string dram_coe;
         integer i;
+        integer matrix_bound_patches;
 
         rst         = `KLDJ_RSTABLE;
         virtual_sw  = 64'd0;
@@ -287,6 +297,28 @@ module KLDJ_demo_perf_tb;
         load_coe(irom_coe, 0);
         load_coe(dram_coe, 1);
 
+`ifdef BENCH_SMALL_MATRIX
+        // Keep the production COE untouched while making the full demo path
+        // practical for RTL simulation.  The twelve 79 bounds belong to the
+        // matrix generate/multiply/compare loops; 0x80000f58 is the outer
+        // ten-round bound.  The same algorithms and memory dependencies run
+        // with a 2x2 matrix for one round.
+        matrix_bound_patches = 0;
+        for (i = 0; i < 4096; i = i + 1) begin
+            if (inst_mem[i] == 32'h04f0_0793) begin
+                inst_mem[i] = 32'h0010_0793;
+                matrix_bound_patches = matrix_bound_patches + 1;
+            end
+        end
+        if (matrix_bound_patches != 12)
+            $fatal(1, "Small-matrix patch found %0d bounds, expected 12",
+                   matrix_bound_patches);
+        if (inst_mem[12'h3d6] != 32'h0090_0793)
+            $fatal(1, "Small-matrix outer bound has unexpected instruction 0x%08x",
+                   inst_mem[12'h3d6]);
+        inst_mem[12'h3d6] = 32'h0000_0793;
+`endif
+
         repeat (5) @(posedge clk);
         @(negedge clk);
         rst = ~`KLDJ_RSTABLE;
@@ -303,6 +335,14 @@ module KLDJ_demo_perf_tb;
         $display("DEMO_PERF_SIX_LOAD_DETAIL id_ex=%0d ex_mem_raw=%0d ex_mem_maskable=%0d",
                  id_ex_load_use_count, ex_mem_load_use_count,
                  ex_mem_load_use_maskable_count);
+`endif
+`ifdef BENCH_SMALL_MATRIX
+        if (!terminal_reached)
+            $fatal(1, "Small-matrix demo did not reach terminal PC");
+        if (virtual_led !== 32'h078b_7323)
+            $fatal(1, "Small-matrix demo LED mismatch: got 0x%08x expected check 0x078b7323",
+                   virtual_led);
+        $display("DEMO_SMALL_MATRIX_PASS led=0x%08x", virtual_led);
 `endif
         $display("DEMO_PERF_PASS");
         $finish;

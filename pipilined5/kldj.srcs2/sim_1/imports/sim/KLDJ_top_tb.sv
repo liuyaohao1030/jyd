@@ -107,6 +107,7 @@ module KLDJ_top_tb;
         ,.mem_we       (mem_we        )
         ,.mem_be       (mem_be        )
         ,.mem_rdata    (mem_rdata     )
+        ,.mem_load_rdata(mem_rdata    )
         ,.core_clk_o   (core_clk_o    )
         ,.perf_cycle_count         (perf_cycle_count          )
         ,.perf_instret_count       (perf_instret_count        )

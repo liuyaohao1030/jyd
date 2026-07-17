@@ -12,7 +12,12 @@
 // -----------------------------------------------------------------------------
 module KLDJ_load_dep_tb;
 
+`ifdef FAST_DRAM_LW_FWD
+    // Match perip_bridge's DRAM decode: addr[31:18] == 14'h2004.
+    localparam [31:0] DATA_BASE = 32'h8010_1000;
+`else
     localparam [31:0] DATA_BASE = 32'h8000_1000;
+`endif
     localparam [31:0] DONE_ADDR = DATA_BASE + 32'h0000_0044;
 
     localparam [6:0] OP_RTYPE  = 7'b0110011;
@@ -33,11 +38,15 @@ module KLDJ_load_dep_tb;
     localparam [2:0] F3_LHU     = 3'b101;
     localparam [2:0] F3_SW      = 3'b010;
 
-`ifdef SIX_MEM2_LOAD_FWD
-    localparam integer EXPECT_LOAD_USE_STALLS = 9;
+`ifdef FAST_DRAM_LW_FWD
+    // Five original immediate LW consumers plus twenty matrix-loop consumers
+    // retain one bubble.  Four byte/halfword consumers take two bubbles.
+    localparam integer EXPECT_LOAD_USE_STALLS = 33;
+`elsif SIX_MEM2_LOAD_FWD
+    localparam integer EXPECT_LOAD_USE_STALLS = 29;
     localparam [1:0] EXPECT_LOAD_FWD_SEL = 2'b10; // FWD_MEM2
 `else
-    localparam integer EXPECT_LOAD_USE_STALLS = 19;
+    localparam integer EXPECT_LOAD_USE_STALLS = 59;
     localparam [1:0] EXPECT_LOAD_FWD_SEL = 2'b11; // FWD_MEM_WB
 `endif
 
@@ -46,6 +55,7 @@ module KLDJ_load_dep_tb;
     reg [31:0] inst_mem [0:255];
     reg [31:0] data_mem [0:255];
     reg [31:0] mem_rdata;
+    reg [31:0] mem_load_rdata;
 
     wire [31:0] if_pc;
     wire [31:0] inst_rdata;
@@ -89,7 +99,10 @@ module KLDJ_load_dep_tb;
 
 `ifdef SIX_MEM2_LOAD_FWD
     KLDJ_top #(
-        .ENABLE_MEM2_LOAD_FWD(1'b1)
+         .ENABLE_MEM2_LOAD_FWD(1'b1)
+`ifdef FAST_DRAM_LW_FWD
+        ,.ENABLE_FAST_DRAM_LW_FWD(1'b1)
+`endif
     ) u_dut (
 `else
     KLDJ_top u_dut (
@@ -106,6 +119,7 @@ module KLDJ_load_dep_tb;
         ,.mem_we       (mem_we       )
         ,.mem_be       (mem_be       )
         ,.mem_rdata    (mem_rdata    )
+        ,.mem_load_rdata(mem_load_rdata)
         ,.core_clk_o   (             )
         ,.perf_cycle_count          (             )
         ,.perf_instret_count        (             )
@@ -129,6 +143,7 @@ module KLDJ_load_dep_tb;
             if (mem_be[3]) data_mem[mem_addr[9:2]][31:24] <= mem_wdata[31:24];
         end
         mem_rdata <= data_mem[mem_addr[9:2]];
+        mem_load_rdata <= mem_rdata;
     end
 
     function [31:0] rv_itype;
@@ -216,6 +231,21 @@ module KLDJ_load_dep_tb;
         end
     endfunction
 
+    function [1:0] expected_load_fwd_sel;
+        input [31:0] pc;
+        begin
+`ifdef FAST_DRAM_LW_FWD
+            if ((pc == pc_lb_consumer)  || (pc == pc_lbu_consumer) ||
+                (pc == pc_lh_consumer)  || (pc == pc_lhu_consumer))
+                expected_load_fwd_sel = 2'b11; // FWD_MEM_WB
+            else
+                expected_load_fwd_sel = 2'b10; // FWD_MEM2
+`else
+            expected_load_fwd_sel = EXPECT_LOAD_FWD_SEL;
+`endif
+        end
+    endfunction
+
     task emit;
         input [31:0] inst;
         begin
@@ -272,16 +302,16 @@ module KLDJ_load_dep_tb;
             is_load_consumer(u_dut.id_ex_pc)) begin
             consumer_seen_count = consumer_seen_count + 1;
             if (is_rs2_load_consumer(u_dut.id_ex_pc)) begin
-                if (u_dut.id_ex_rs2_fwd_sel !== EXPECT_LOAD_FWD_SEL) begin
+                if (u_dut.id_ex_rs2_fwd_sel !== expected_load_fwd_sel(u_dut.id_ex_pc)) begin
                     $display("[LOAD_DEP_FAIL] rs2 selector at PC 0x%08x: got %b expected %b",
-                             u_dut.id_ex_pc, u_dut.id_ex_rs2_fwd_sel,
-                             EXPECT_LOAD_FWD_SEL);
+                              u_dut.id_ex_pc, u_dut.id_ex_rs2_fwd_sel,
+                              expected_load_fwd_sel(u_dut.id_ex_pc));
                     failure_count = failure_count + 1;
                 end
-            end else if (u_dut.id_ex_rs1_fwd_sel !== EXPECT_LOAD_FWD_SEL) begin
+            end else if (u_dut.id_ex_rs1_fwd_sel !== expected_load_fwd_sel(u_dut.id_ex_pc)) begin
                 $display("[LOAD_DEP_FAIL] rs1 selector at PC 0x%08x: got %b expected %b",
-                         u_dut.id_ex_pc, u_dut.id_ex_rs1_fwd_sel,
-                         EXPECT_LOAD_FWD_SEL);
+                          u_dut.id_ex_pc, u_dut.id_ex_rs1_fwd_sel,
+                          expected_load_fwd_sel(u_dut.id_ex_pc));
                 failure_count = failure_count + 1;
             end
         end
@@ -298,6 +328,7 @@ module KLDJ_load_dep_tb;
             data_mem[i] = 32'd0;
         end
         mem_rdata = 32'd0;
+        mem_load_rdata = 32'd0;
 
         // Sources.  The byte layout of word 0 is [80 ff 7f 01].
         data_mem[0] = 32'h80ff_7f01;
@@ -306,7 +337,11 @@ module KLDJ_load_dep_tb;
 
         idx = 0;
         // x1 = DATA_BASE
+`ifdef FAST_DRAM_LW_FWD
+        emit({20'h80101, 5'd1, OP_LUI});
+`else
         emit({20'h80001, 5'd1, OP_LUI});
+`endif
 
         // lw -> ALU
         emit(rv_itype(12'h000, 5'd1, F3_LW, 5'd2, OP_LOAD));
@@ -374,6 +409,18 @@ module KLDJ_load_dep_tb;
         emit(rv_itype(12'h001, 5'd2, F3_ADD_SUB, 5'd3, OP_ITYPE));
         emit(rv_stype(12'h040, 5'd3, 5'd1, F3_SW, OP_STORE));
 
+        // Demo matrix-loop pattern: increment a DRAM stack word, store it,
+        // immediately reload the same address, and consume that load.  The
+        // first broken fast-return build failed this sequence on hardware.
+        for (i = 0; i < 10; i = i + 1) begin
+            emit(rv_itype(12'h050, 5'd1, F3_LW, 5'd2, OP_LOAD));
+            emit(rv_itype(12'h001, 5'd2, F3_ADD_SUB, 5'd2, OP_ITYPE));
+            emit(rv_stype(12'h050, 5'd2, 5'd1, F3_SW, OP_STORE));
+            emit(rv_itype(12'h050, 5'd1, F3_LW, 5'd3, OP_LOAD));
+            emit(rv_itype(12'h000, 5'd3, F3_ADD_SUB, 5'd4, OP_ITYPE));
+            emit(rv_stype(12'h054, 5'd4, 5'd1, F3_SW, OP_STORE));
+        end
+
         // Completion store followed by a stable self-loop.
         emit(rv_itype(12'h001, 5'd0, F3_ADD_SUB, 5'd31, OP_ITYPE));
         emit(rv_stype(12'h044, 5'd31, 5'd1, F3_SW, OP_STORE));
@@ -383,7 +430,9 @@ module KLDJ_load_dep_tb;
             rv_jtype((jalr_after_idx - jalr_wrong_jump_idx) * 4, 5'd0, OP_JAL);
         data_mem[3] = pc_for_index(jalr_target_idx);
 
-`ifdef SIX_MEM2_LOAD_FWD
+`ifdef FAST_DRAM_LW_FWD
+        $display("[LOAD_DEP] running fast-DRAM-LW plus conservative subword forwarding contract");
+`elsif SIX_MEM2_LOAD_FWD
         $display("[LOAD_DEP] running MEM2 formatted-load forwarding contract");
 `else
         $display("[LOAD_DEP] running baseline two-bubble load contract");
@@ -404,20 +453,22 @@ module KLDJ_load_dep_tb;
         check_word(14, 32'h0000_0100, "lbu");
         check_word(15, 32'hffff_8100, "lh-signed");
         check_word(16, 32'h0000_8100, "lhu");
+        check_word(20, 32'h0000_000a, "matrix-loop store-load counter");
+        check_word(21, 32'h0000_000a, "matrix-loop reloaded value");
 
         if (consumer_seen_count != 10) begin
             $display("[LOAD_DEP_FAIL] observed %0d load consumers, expected 10",
                      consumer_seen_count);
             failure_count = failure_count + 1;
         end
-        if (id_ex_load_use_count != 9) begin
-            $display("[LOAD_DEP_FAIL] ID/EX hazards=%0d, expected 9",
-                     id_ex_load_use_count);
+        if (id_ex_load_use_count != 29) begin
+            $display("[LOAD_DEP_FAIL] ID/EX hazards=%0d, expected 29",
+                      id_ex_load_use_count);
             failure_count = failure_count + 1;
         end
-        if (ex_mem_load_use_count != 10) begin
-            $display("[LOAD_DEP_FAIL] raw EX/MEM hazards=%0d, expected 10",
-                     ex_mem_load_use_count);
+        if (ex_mem_load_use_count != 30) begin
+            $display("[LOAD_DEP_FAIL] raw EX/MEM hazards=%0d, expected 30",
+                      ex_mem_load_use_count);
             failure_count = failure_count + 1;
         end
         if (load_use_stall_count != EXPECT_LOAD_USE_STALLS) begin
