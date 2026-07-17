@@ -25,8 +25,6 @@ module pipe_id_ex #(
     ,input wire [`KLDJ_DATA]     id_data2
     ,input wire [`KLDJ_DATA]     id_data3
     ,input wire [`KLDJ_DATA]     id_data4
-    ,input wire [`KLDJ_DATA]     reg_id_rs1_data
-    ,input wire [`KLDJ_DATA]     reg_id_rs2_data
     // Current downstream metadata.  These comparisons are performed in ID
     // and the resulting selectors are registered for the following EX cycle.
     ,input wire                  ex_mem_valid
@@ -51,7 +49,6 @@ module pipe_id_ex #(
     ,output reg [`KLDJ_PC]       id_ex_pred_target
     ,output reg [BPU_INDEX_WIDTH-1:0] id_ex_pred_pht_idx
     ,output reg [`KLDJ_REGADDR]  id_ex_rs1_addr
-    ,output reg [`KLDJ_REGADDR]  id_ex_rs2_addr
     ,output reg [`KLDJ_REGADDR]  id_ex_rd_addr
     ,output reg                  id_ex_rs1_ren
     ,output reg                  id_ex_rs2_ren
@@ -63,8 +60,6 @@ module pipe_id_ex #(
     ,output reg [`KLDJ_DATA]     id_ex_data2
     ,output reg [`KLDJ_DATA]     id_ex_data3
     ,output reg [`KLDJ_DATA]     id_ex_data4
-    ,output reg [`KLDJ_DATA]     id_ex_rs1_data
-    ,output reg [`KLDJ_DATA]     id_ex_rs2_data
     // CSR signals to EX
     ,output reg [11:0]           id_ex_csr_addr
     ,output reg                  id_ex_csr_op
@@ -180,7 +175,6 @@ module pipe_id_ex #(
             id_ex_pred_target <= `KLDJ_ZERO32;
             id_ex_pred_pht_idx <= {BPU_INDEX_WIDTH{1'b0}};
             id_ex_rs1_addr <= 5'd0;
-            id_ex_rs2_addr <= 5'd0;
             id_ex_rd_addr  <= 5'd0;
             id_ex_exu_op   <= 18'd0;
             id_ex_alu_ctrl <= 10'd0;
@@ -189,8 +183,6 @@ module pipe_id_ex #(
             id_ex_data2    <= `KLDJ_ZERO32;
             id_ex_data3    <= `KLDJ_ZERO32;
             id_ex_data4    <= `KLDJ_ZERO32;
-            id_ex_rs1_data <= `KLDJ_ZERO32;
-            id_ex_rs2_data <= `KLDJ_ZERO32;
             id_ex_csr_addr <= 12'b0;
             id_ex_csr_zimm <= 5'b0;
         // Keep all ID/EX payload state intact while EX is stalled.  The
@@ -206,7 +198,6 @@ module pipe_id_ex #(
             id_ex_pred_target <= if_id_valid ? if_id_pred_target : `KLDJ_ZERO32;
             id_ex_pred_pht_idx <= if_id_valid ? if_id_pred_pht_idx : {BPU_INDEX_WIDTH{1'b0}};
             id_ex_rs1_addr <= id_reg_rs1_addr;
-            id_ex_rs2_addr <= id_reg_rs2_addr;
             id_ex_rd_addr  <= id_reg_rd_addr;
             id_ex_exu_op   <= id_exu_op;
             id_ex_alu_ctrl <= if_id_valid ? id_alu_ctrl : 10'd0;
@@ -215,8 +206,6 @@ module pipe_id_ex #(
             id_ex_data2    <= id_data2;
             id_ex_data3    <= id_data3;
             id_ex_data4    <= id_data4;
-            id_ex_rs1_data <= reg_id_rs1_data;
-            id_ex_rs2_data <= reg_id_rs2_data;
             id_ex_csr_addr <= id_csr_addr;
             id_ex_csr_zimm <= id_csr_zimm;
         end

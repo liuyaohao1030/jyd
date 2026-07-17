@@ -9,7 +9,6 @@ BUILD_DIR="$SCRIPT_DIR/build"
 TEST="${1:-rv32i}"
 MAX_SECONDS="${2:-60}"
 EXTRA_FILES=()
-IVERILOG_DEFINES=()
 
 case "$TEST" in
     rv32i|i|KLDJ_top_tb)
@@ -34,13 +33,6 @@ case "$TEST" in
         TEST="load-dep"
         TOP="KLDJ_load_dep_tb"
         TB_FILE="$TB_DIR/KLDJ_load_dep_tb.sv"
-        PASS_PATTERN="LOAD_DEP_REGRESSION_PASS"
-        ;;
-    load-dep-mem2|load_dep_mem2)
-        TEST="load-dep-mem2"
-        TOP="KLDJ_load_dep_tb"
-        TB_FILE="$TB_DIR/KLDJ_load_dep_tb.sv"
-        IVERILOG_DEFINES=(-DSIX_MEM2_LOAD_FWD)
         PASS_PATTERN="LOAD_DEP_REGRESSION_PASS"
         ;;
     ex2-ctrl|ex2_ctrl|KLDJ_ex2_ctrl_tb)
@@ -90,7 +82,7 @@ case "$TEST" in
         PASS_PATTERN="DRAM DRIVER TEST PASSED"
         ;;
     -h|--help|help)
-        echo "Usage: $0 [rv32i|rv32m|irom-v2|load-dep|load-dep-mem2|ex2-ctrl|bpu|bpu-integration|ex-bpu-ctrl|ras|ras-integration|dram-driver] [timeout_seconds]"
+        echo "Usage: $0 [rv32i|rv32m|irom-v2|load-dep|ex2-ctrl|bpu|bpu-integration|ex-bpu-ctrl|ras|ras-integration|dram-driver] [timeout_seconds]"
         echo "Examples:"
         echo "  $0 rv32i"
         echo "  $0 rv32m 120"
@@ -98,7 +90,7 @@ case "$TEST" in
         ;;
     *)
         echo "Unknown test: $TEST"
-        echo "Usage: $0 [rv32i|rv32m|irom-v2|load-dep|load-dep-mem2|ex2-ctrl|bpu|bpu-integration|ex-bpu-ctrl|ras|ras-integration|dram-driver] [timeout_seconds]"
+        echo "Usage: $0 [rv32i|rv32m|irom-v2|load-dep|ex2-ctrl|bpu|bpu-integration|ex-bpu-ctrl|ras|ras-integration|dram-driver] [timeout_seconds]"
         exit 2
         ;;
 esac
@@ -110,7 +102,6 @@ mkdir -p "$BUILD_DIR"
 
 echo "=== Compile ${TEST} (${TOP}) ==="
 iverilog -g2012 \
-    "${IVERILOG_DEFINES[@]}" \
     -s "$TOP" \
     -I "$RTL_DIR" \
     -I "$RTL_DIR/alu" \

@@ -7,14 +7,9 @@ module KLDJ_top #(
     // may explicitly override this parameter when that performance trade-off
     // is desired.
     parameter ENABLE_STATIC_JAL_PRED = 1'b0,
-    // Experiment switch for the six-stage load-return path.  Keep the
-    // timing-closed legacy behavior as the default until implementation STA
-    // approves the registered MEM2 load-forward path.
-    parameter ENABLE_MEM2_LOAD_FWD = 1'b0,
-    // IF-level return prediction adds an IROM/decode/PC feedback path.  Keep
-    // it disabled in the timing-closed 200 MHz default build; simulations or
-    // a re-timed implementation can opt in explicitly.
-    parameter ENABLE_RAS_PRED = 1'b0,
+    // The board configuration uses RAS prediction.  Keep this switch only
+    // for the RAS-on/RAS-off benchmark, with the board-aligned default.
+    parameter ENABLE_RAS_PRED = 1'b1,
     parameter RAS_DEPTH       = 8
 )(
      input wire                  clk
@@ -71,7 +66,6 @@ module KLDJ_top #(
     wire                         if_ras_return;
     wire                         if_ras_pred_taken;
     wire [BPU_INDEX_WIDTH-1:0]   if_pred_pht_idx;
-    wire                         if_btb_hit;
 
     // IF/ID pipeline register outputs
     wire                         if_id_valid;
@@ -109,7 +103,6 @@ module KLDJ_top #(
     wire [`KLDJ_PC]              id_ex_pred_target;
     wire [BPU_INDEX_WIDTH-1:0]   id_ex_pred_pht_idx;
     wire [`KLDJ_REGADDR]         id_ex_rs1_addr;
-    wire [`KLDJ_REGADDR]         id_ex_rs2_addr;
     wire [`KLDJ_REGADDR]         id_ex_rd_addr;
     wire                         id_ex_rs1_ren;
     wire                         id_ex_rs2_ren;
@@ -121,8 +114,6 @@ module KLDJ_top #(
     wire [`KLDJ_DATA]            id_ex_data2;
     wire [`KLDJ_DATA]            id_ex_data3;
     wire [`KLDJ_DATA]            id_ex_data4;
-    wire [`KLDJ_DATA]            id_ex_rs1_data;
-    wire [`KLDJ_DATA]            id_ex_rs2_data;
     wire                         id_ex_load_op;
     wire                         id_ex_store_op;
     wire                         id_ex_rs2_to_data2;
@@ -166,7 +157,6 @@ module KLDJ_top #(
     reg [`KLDJ_PC]               ex2_mtvec_val;
 
     wire                         ex_redirect;
-    wire                         ex_actual_taken;
     wire [`KLDJ_PC]              ex_correct_pc;
     wire                         bpu_update_valid;
     wire [`KLDJ_PC]              bpu_update_pc;
@@ -213,23 +203,11 @@ module KLDJ_top #(
     wire [1:0]                   mem2_addr_low;
     wire [`KLDJ_DATA]            mem2_mem_rdata;
     wire [`KLDJ_DATA]            mem2_forward_data;
-    wire [`KLDJ_DATA]            mem2_ex_forward_data;
     wire                         mem2_forward_valid;
-
-    assign mem2_ex_forward_data = ENABLE_MEM2_LOAD_FWD ?
-                                 mem2_forward_data : mem2_exu_res;
 
     // MEM2 stage wires
     wire [`KLDJ_DATA]            mem_stage_wb_data;
     wire                         mem_stage_wb_ctl;
-
-    // EX-stage memory request wires
-    wire                         ex_req_load;
-    wire                         ex_req_store;
-    wire                         ex_req_mem;
-    wire [1:0]                   ex_req_size;
-    wire [3:0]                   ex_req_be;
-    wire [`KLDJ_DATA]            ex_req_wdata;
 
     // MEM/WB pipeline register outputs
     wire                         mem_wb_valid;
@@ -237,11 +215,8 @@ module KLDJ_top #(
     wire [`KLDJ_REGADDR]         mem_wb_rd_addr;
     wire                         mem_wb_wb_ctl;
     wire [`KLDJ_DATA]            mem_wb_wb_data;
-    wire                         mem_wb_forward_valid;
-
     // WB wires
     wire [`KLDJ_DATA]            wb_reg_rd_data;
-    wire                         wb_wen;
 
     // WB commit observation point outputs
     wire                         wb_commit_valid;
@@ -292,7 +267,6 @@ module KLDJ_top #(
         ,.lookup_pc    (if_pc             )
         ,.pred_taken   (bpu_pred_taken    )
         ,.pred_target  (bpu_pred_target   )
-        ,.btb_hit      (if_btb_hit        )
         ,.lookup_pht_idx(if_pred_pht_idx  )
         ,.update_valid (bpu_update_valid  )
         ,.update_pc    (bpu_update_pc     )
@@ -397,8 +371,6 @@ module KLDJ_top #(
         ,.id_data2        (id_data2          )
         ,.id_data3        (id_data3          )
         ,.id_data4        (id_data4          )
-        ,.reg_id_rs1_data (reg_id_rs1_data   )
-        ,.reg_id_rs2_data (reg_id_rs2_data   )
         ,.ex_mem_valid     (ex_mem_valid       )
         ,.ex_mem_rd_addr   (ex_mem_rd_addr     )
         ,.ex_mem_wb_ctl    (ex_mem_wb_ctl      )
@@ -418,7 +390,6 @@ module KLDJ_top #(
         ,.id_ex_pred_target(id_ex_pred_target)
         ,.id_ex_pred_pht_idx(id_ex_pred_pht_idx)
         ,.id_ex_rs1_addr  (id_ex_rs1_addr    )
-        ,.id_ex_rs2_addr  (id_ex_rs2_addr    )
         ,.id_ex_rd_addr   (id_ex_rd_addr     )
         ,.id_ex_rs1_ren   (id_ex_rs1_ren     )
         ,.id_ex_rs2_ren   (id_ex_rs2_ren     )
@@ -430,8 +401,6 @@ module KLDJ_top #(
         ,.id_ex_data2     (id_ex_data2       )
         ,.id_ex_data3     (id_ex_data3       )
         ,.id_ex_data4     (id_ex_data4       )
-        ,.id_ex_rs1_data  (id_ex_rs1_data    )
-        ,.id_ex_rs2_data  (id_ex_rs2_data    )
         ,.id_ex_load_op   (id_ex_load_op     )
         ,.id_ex_store_op  (id_ex_store_op    )
         ,.id_ex_rs2_to_data2(id_ex_rs2_to_data2)
@@ -444,7 +413,7 @@ module KLDJ_top #(
 
     // EX forwarding and MUX
     ex_forward #(
-         .ENABLE_MEM2_LOAD_FWD(ENABLE_MEM2_LOAD_FWD)
+         .ENABLE_MEM2_LOAD_FWD(1'b1)
     ) u_ex_forward(
          .id_ex_valid          (ex_current_valid     )
         ,.id_ex_rd_addr        (id_ex_rd_addr        )
@@ -459,7 +428,7 @@ module KLDJ_top #(
         ,.id_ex_data3          (id_ex_data3          )
         ,.id_ex_data4          (id_ex_data4          )
         ,.ex_mem_exu_res       (ex_mem_exu_res       )
-        ,.mem2_forward_data    (mem2_ex_forward_data )
+        ,.mem2_forward_data    (mem2_forward_data    )
         ,.mem_wb_wb_data       (mem_wb_wb_data       )
         ,.if_id_valid          (if_id_valid          )
         ,.id_reg_rs1_addr      (id_reg_rs1_addr      )
@@ -580,7 +549,6 @@ module KLDJ_top #(
         ,.is_ecall          (ex2_is_ecall      )
         ,.is_mret           (ex2_is_mret       )
         ,.mtvec_val         (ex2_mtvec_val     )
-        ,.ex_actual_taken   (ex_actual_taken   )
         ,.ex_correct_pc     (ex_correct_pc     )
         ,.ex_redirect       (ex_redirect       )
         ,.bpu_update_valid  (bpu_update_valid  )
@@ -653,7 +621,7 @@ module KLDJ_top #(
     // MEM1/MEM2 response register.  mem_rdata is synchronous and is aligned
     // with the EX/MEM metadata at this edge.
     pipe_mem1_mem2 #(
-         .ENABLE_MEM2_LOAD_FWD(ENABLE_MEM2_LOAD_FWD)
+         .ENABLE_MEM2_LOAD_FWD(1'b1)
     ) u_pipe_mem1_mem2(
          .clk               (core_clk            )
         ,.rst               (core_rst            )
@@ -679,9 +647,9 @@ module KLDJ_top #(
         ,.mem2_forward_valid(mem2_forward_valid  )
     );
 
-    // MEM2 stage (legacy formatter or registered early-formatted load value)
+    // MEM2 stage consumes the registered, formatted load value.
     mem_stage_top #(
-         .ENABLE_MEM2_LOAD_FWD(ENABLE_MEM2_LOAD_FWD)
+         .ENABLE_MEM2_LOAD_FWD(1'b1)
     ) u_mem_stage_top(
          .mem2_valid          (mem2_valid          )
         ,.mem2_load_op        (mem2_load_op        )
@@ -709,15 +677,13 @@ module KLDJ_top #(
         ,.mem_wb_rd_addr    (mem_wb_rd_addr      )
         ,.mem_wb_wb_ctl     (mem_wb_wb_ctl       )
         ,.mem_wb_wb_data    (mem_wb_wb_data      )
-        ,.mem_wb_forward_valid(mem_wb_forward_valid)
     );
 
     // WB stage
     KLDJ_wbu wbu4(
-         .wb_ctl      (mem_stage_wb_ctl      )
+        .wb_ctl      (mem_stage_wb_ctl      )
         ,.exu_res     (mem_stage_wb_data     )
         ,.wb_data     (wb_reg_rd_data        )
-        ,.wb_wen      (wb_wen                )
     );
 
     // Regfile
@@ -757,39 +723,4 @@ module KLDJ_top #(
     assign tb_ex_res    = wb_commit_valid ? wb_commit_wb_data : `KLDJ_ZERO32;
     assign tb_if_pc     = if_pc;
 
-/*
-    // ========================================================
-    // Performance counters
-    // ========================================================
-    wire perf_event_instret        = mem_wb_valid;
-    wire perf_event_frontend_stall = frontend_stall;
-    wire perf_event_load_use_stall = load_use_stall;
-    wire perf_event_mul_stall      = mul_stall;
-    wire perf_event_div_stall      = div_stall;
-    wire perf_event_redirect       = ex_redirect;
-    wire perf_event_load           = ex_current_valid && !ex_stall && ex_req_load;
-    wire perf_event_store          = ex_current_valid && !ex_stall && ex_req_store;
-
-    KLDJ_perf_counters u_perf_counters(
-         .clk                      (core_clk                  )
-        ,.rst                      (core_rst                  )
-        ,.event_instret            (perf_event_instret        )
-        ,.event_frontend_stall     (perf_event_frontend_stall )
-        ,.event_load_use_stall     (perf_event_load_use_stall )
-        ,.event_mul_stall          (perf_event_mul_stall      )
-        ,.event_div_stall          (perf_event_div_stall      )
-        ,.event_redirect           (perf_event_redirect       )
-        ,.event_load               (perf_event_load           )
-        ,.event_store              (perf_event_store          )
-        ,.perf_cycle_count         (perf_cycle_count          )
-        ,.perf_instret_count       (perf_instret_count        )
-        ,.perf_frontend_stall_count(perf_frontend_stall_count )
-        ,.perf_load_use_stall_count(perf_load_use_stall_count )
-        ,.perf_mul_stall_count     (perf_mul_stall_count      )
-        ,.perf_div_stall_count     (perf_div_stall_count      )
-        ,.perf_redirect_count      (perf_redirect_count       )
-        ,.perf_load_count          (perf_load_count           )
-        ,.perf_store_count         (perf_store_count          )
-    );
-*/
 endmodule

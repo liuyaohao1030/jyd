@@ -17,6 +17,7 @@ module ex_mem_req_ctrl(
 
     wire       ex_req_load;
     wire       ex_req_store;
+    wire       ex_is_mem_op;
     wire       ex_req_mem;
     wire [1:0] ex_req_size;
     wire [3:0] ex_req_be;
@@ -24,7 +25,8 @@ module ex_mem_req_ctrl(
 
     assign ex_req_load  = id_ex_load_op;
     assign ex_req_store = id_ex_store_op;
-    assign ex_req_mem   = id_ex_valid && !ex_stall && (ex_req_load || ex_req_store);
+    assign ex_is_mem_op = ex_req_load || ex_req_store;
+    assign ex_req_mem   = id_ex_valid && !ex_stall && ex_is_mem_op;
     assign ex_req_size  = id_ex_ls_ctl[1:0];
     assign ex_req_be    = (ex_req_size == 2'b00) ? (4'b0001 << ex_mem_addr_pre[1:0]) :
                           (ex_req_size == 2'b01) ? (4'b0011 << {ex_mem_addr_pre[1], 1'b0}) :
@@ -33,7 +35,13 @@ module ex_mem_req_ctrl(
                           (ex_req_size == 2'b01) ? {2{ex_store_wdata[15:0]}} :
                           ex_store_wdata;
 
-    assign mem_addr  = ex_req_mem ? ex_mem_addr_pre : `KLDJ_ZERO32;
+    // The bridge/BRAM read port is always active and a read has no side
+    // effect.  Do not make its address depend on request validity: that
+    // validity includes the EX2 redirect squash signal, which otherwise fans
+    // out through a 32-bit address mux into every BRAM read-address pin.
+    // Stores remain fully protected by mem_we below; a flushed load/store can
+    // only issue a harmless, unconsumed read.
+    assign mem_addr  = ex_is_mem_op ? ex_mem_addr_pre : `KLDJ_ZERO32;
     assign mem_wdata = (id_ex_valid && !ex_stall && ex_req_store) ? ex_req_wdata : `KLDJ_ZERO32;
     assign mem_we    = id_ex_valid && !ex_stall && ex_req_store;
     assign mem_be    = ex_req_mem ? ex_req_be : 4'b0000;

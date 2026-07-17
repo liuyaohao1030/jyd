@@ -51,10 +51,7 @@ module KLDJ_ex2_ctrl_tb;
     integer i;
 
     // Exercise the board-facing six-stage profile as well as the EX2 logic.
-    KLDJ_top #(
-         .ENABLE_MEM2_LOAD_FWD(1'b1)
-        ,.ENABLE_RAS_PRED     (1'b1)
-    ) dut (
+    KLDJ_top dut (
          .clk          (clk          )
         ,.rst          (rst          )
         ,.tb_if_inst   (inst_rdata   )

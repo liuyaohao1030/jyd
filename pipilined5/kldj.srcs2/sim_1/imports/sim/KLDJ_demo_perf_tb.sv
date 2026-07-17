@@ -23,11 +23,6 @@ module KLDJ_demo_perf_tb;
 `else
     localparam TB_ENABLE_STATIC_JAL_PRED = 1'b0;
 `endif
-`ifdef SIX_MEM2_LOAD_FWD
-    localparam TB_ENABLE_MEM2_LOAD_FWD = 1'b1;
-`else
-    localparam TB_ENABLE_MEM2_LOAD_FWD = 1'b0;
-`endif
 `ifdef SIX_RAS_PRED
     localparam TB_ENABLE_RAS_PRED = 1'b1;
 `else
@@ -127,7 +122,6 @@ module KLDJ_demo_perf_tb;
     // runner remains the production-equivalent baseline.
     KLDJ_top #(
          .ENABLE_STATIC_JAL_PRED(TB_ENABLE_STATIC_JAL_PRED)
-        ,.ENABLE_MEM2_LOAD_FWD(TB_ENABLE_MEM2_LOAD_FWD)
         ,.ENABLE_RAS_PRED       (TB_ENABLE_RAS_PRED       )
     ) u_dut (
 `else

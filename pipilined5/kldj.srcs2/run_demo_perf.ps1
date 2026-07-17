@@ -2,7 +2,6 @@ param(
     [ValidateSet('six', 'pipeline5', 'both')]
     [string]$Version = 'both',
     [switch]$SixStaticJal,
-    [switch]$SixMem2LoadFwd,
     [switch]$SixRas,
     [switch]$ToCompletion,
     [switch]$DumpVcd
@@ -48,7 +47,6 @@ foreach ($Variant in $Variants) {
     $RunLabel = if ($Variant -eq 'six') {
         $Features = @()
         if ($SixStaticJal) { $Features += 'static_jal' }
-        if ($SixMem2LoadFwd) { $Features += 'mem2_load_fwd' }
         if ($SixRas) { $Features += 'ras' }
         if ($Features.Count -eq 0) { 'six' } else { 'six_' + ($Features -join '_') }
     } else {
@@ -76,9 +74,6 @@ foreach ($Variant in $Variants) {
     )
     if (($Variant -eq 'six') -and $SixStaticJal) {
         $CompileArgs += @('-d', 'SIX_STATIC_JAL_PRED')
-    }
-    if (($Variant -eq 'six') -and $SixMem2LoadFwd) {
-        $CompileArgs += @('-d', 'SIX_MEM2_LOAD_FWD')
     }
     if (($Variant -eq 'six') -and $SixRas) {
         $CompileArgs += @('-d', 'SIX_RAS_PRED')

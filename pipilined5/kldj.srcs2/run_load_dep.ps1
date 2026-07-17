@@ -1,5 +1,4 @@
 param(
-    [switch]$Mem2LoadFwd,
     [switch]$DumpVcd
 )
 
@@ -7,7 +6,7 @@ $ErrorActionPreference = 'Stop'
 $Root = Split-Path -Parent $MyInvocation.MyCommand.Path
 $RtlDir = Join-Path $Root 'sources_1\imports\rtl'
 $Tb = Join-Path $Root 'sim_1\imports\sim\KLDJ_load_dep_tb.sv'
-$Label = if ($Mem2LoadFwd) { 'mem2_load_fwd' } else { 'baseline' }
+$Label = 'forced_mem2_load_fwd'
 $WorkDir = Join-Path $Root ("build\load_dep\{0}" -f $Label)
 $Snapshot = "load_dep_${Label}_sim"
 
@@ -36,9 +35,6 @@ $CompileArgs = @(
     '-i', (Join-Path $RtlDir 'stage'),
     '-i', (Join-Path $RtlDir 'util')
 )
-if ($Mem2LoadFwd) {
-    $CompileArgs += @('-d', 'SIX_MEM2_LOAD_FWD')
-}
 if ($DumpVcd) {
     $CompileArgs += @('-d', 'LOAD_DEP_DUMP_VCD')
 }

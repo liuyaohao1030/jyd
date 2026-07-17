@@ -124,9 +124,10 @@ module KLDJ_top_tb;
     reg [31:0] load_jalr_load_pc;
     reg [31:0] load_jalr_consumer_pc;
     reg [31:0] load_div_pc;
-    integer ex_mem_load_interlock_seen = 0;
+    integer ex_mem_load_hazard_seen = 0;
+    integer mem2_load_forward_seen = 0;
     integer load_jalr_stall_count = 0;
-    integer load_jalr_memwb_select_seen = 0;
+    integer load_jalr_mem2_select_seen = 0;
     integer ex_stall_load_interlock_seen = 0;
     integer static_jal_prediction_seen = 0;
 
@@ -159,25 +160,26 @@ module KLDJ_top_tb;
                  (u_dut.mem2_rd_addr != 5'd0)))
                 $fatal(1, "mem2_forward_valid registered control mismatch");
 
-            // FWD_MEM2 is intentionally a raw non-load EX result.  A load
-            // dependency must have been held until FWD_MEM_WB is selected.
+            // MEM2 now carries a registered, formatted load value.  A direct
+            // load consumer is therefore allowed to use FWD_MEM2.
             if (!u_dut.ex_stall && u_dut.id_ex_valid && u_dut.mem2_valid &&
                 u_dut.mem2_load_op &&
                 ((u_dut.id_ex_rs1_ren && (u_dut.id_ex_rs1_fwd_sel == 2'b10)) ||
                  (u_dut.id_ex_rs2_ren && (u_dut.id_ex_rs2_fwd_sel == 2'b10))))
-                $fatal(1, "a MEM2 load reached the raw FWD_MEM2 data path");
+                mem2_load_forward_seen = mem2_load_forward_seen + 1;
 
-            // A dependency while the producer is in EX/MEM must be held so
-            // the consumer cannot use the raw MEM2 load response in EX.
+            // The forced MEM2 forwarding mode removes the legacy second
+            // interlock.  An EX/MEM load hazard alone must not stall IF/ID.
             if (u_dut.ex_mem_valid && u_dut.ex_mem_load_op &&
                 (u_dut.ex_mem_rd_addr != 5'd0) && u_dut.if_id_valid &&
                 ((u_dut.id_reg_rs1_ren &&
                   (u_dut.id_reg_rs1_addr == u_dut.ex_mem_rd_addr)) ||
                  (u_dut.id_reg_rs2_ren &&
                   (u_dut.id_reg_rs2_addr == u_dut.ex_mem_rd_addr)))) begin
-                ex_mem_load_interlock_seen = ex_mem_load_interlock_seen + 1;
-                if (u_dut.load_use_stall !== 1'b1)
-                    $fatal(1, "EX/MEM load dependency was not interlocked");
+                ex_mem_load_hazard_seen = ex_mem_load_hazard_seen + 1;
+                if (!u_dut.u_ex_forward.id_ex_load_use &&
+                    (u_dut.load_use_stall !== 1'b0))
+                    $fatal(1, "legacy EX/MEM load interlock remained active");
             end
 
             // Static JAL must not override the BPU result in the 200 MHz
@@ -190,8 +192,8 @@ module KLDJ_top_tb;
                     $fatal(1, "static JAL still drives if_pred_target");
             end
 
-            // The directed load->JALR case must stall once with the producer
-            // in ID/EX and once in EX/MEM, then use MEM/WB forwarding.
+            // The directed load->JALR case stalls once for the producer in
+            // ID/EX, then uses the registered MEM2 load value.
             if (u_dut.load_use_stall && u_dut.if_id_valid &&
                 (u_dut.if_id_pc == load_jalr_consumer_pc) &&
                 ((u_dut.id_ex_valid && (u_dut.id_ex_pc == load_jalr_load_pc)) ||
@@ -199,13 +201,13 @@ module KLDJ_top_tb;
                 load_jalr_stall_count = load_jalr_stall_count + 1;
 
             if (u_dut.id_ex_valid && (u_dut.id_ex_pc == load_jalr_consumer_pc)) begin
-                load_jalr_memwb_select_seen = load_jalr_memwb_select_seen + 1;
-                if (u_dut.id_ex_rs1_fwd_sel !== 2'b11)
-                    $fatal(1, "load->JALR did not select MEM/WB forwarding");
+                load_jalr_mem2_select_seen = load_jalr_mem2_select_seen + 1;
+                if (u_dut.id_ex_rs1_fwd_sel !== 2'b10)
+                    $fatal(1, "load->JALR did not select MEM2 forwarding");
             end
 
-            // A second-stage load interlock may coexist with a long-latency
-            // EX operation.  In that case ID/EX must retain the mul/div until
+            // A first-stage load interlock may coexist with a long-latency EX
+            // operation.  In that case ID/EX must retain the mul/div until
             // ex_stall drops; Group 16 checks the resulting divide value.
             if (u_dut.ex_stall && u_dut.load_use_stall &&
                 u_dut.id_ex_valid && (u_dut.id_ex_pc == load_div_pc))
@@ -987,28 +989,36 @@ module KLDJ_top_tb;
 
         $display("--- Group 15: load -> JALR interlock ---");
         check_mem(32'h8000107C, 32'h00000065, "load->JALR reached correct target");
-        if (ex_mem_load_interlock_seen == 0) begin
-            $display("[FAIL] EX/MEM load interlock was never exercised");
+        if (ex_mem_load_hazard_seen == 0) begin
+            $display("[FAIL] EX/MEM load hazard was never exercised");
             fail_count = fail_count + 1;
         end else begin
-            $display("[PASS] EX/MEM load interlock observed %0d time(s)",
-                     ex_mem_load_interlock_seen);
+            $display("[PASS] EX/MEM load hazard observed %0d time(s) without a second stall",
+                     ex_mem_load_hazard_seen);
             pass_count = pass_count + 1;
         end
-        if (load_jalr_stall_count != 2) begin
-            $display("[FAIL] load->JALR stall count = %0d (expected 2)",
+        if (mem2_load_forward_seen == 0) begin
+            $display("[FAIL] a formatted MEM2 load was never forwarded");
+            fail_count = fail_count + 1;
+        end else begin
+            $display("[PASS] formatted MEM2 load forwarding observed %0d time(s)",
+                     mem2_load_forward_seen);
+            pass_count = pass_count + 1;
+        end
+        if (load_jalr_stall_count != 1) begin
+            $display("[FAIL] load->JALR stall count = %0d (expected 1)",
                      load_jalr_stall_count);
             fail_count = fail_count + 1;
         end else begin
-            $display("[PASS] load->JALR stalled exactly twice");
+            $display("[PASS] load->JALR stalled exactly once");
             pass_count = pass_count + 1;
         end
-        if (load_jalr_memwb_select_seen != 1) begin
-            $display("[FAIL] load->JALR MEM/WB selector observation count = %0d (expected 1)",
-                     load_jalr_memwb_select_seen);
+        if (load_jalr_mem2_select_seen != 1) begin
+            $display("[FAIL] load->JALR MEM2 selector observation count = %0d (expected 1)",
+                     load_jalr_mem2_select_seen);
             fail_count = fail_count + 1;
         end else begin
-            $display("[PASS] load->JALR selected MEM/WB forwarding");
+            $display("[PASS] load->JALR selected MEM2 forwarding");
             pass_count = pass_count + 1;
         end
         if (static_jal_prediction_seen == 0) begin
@@ -1020,17 +1030,17 @@ module KLDJ_top_tb;
             pass_count = pass_count + 1;
         end
 
-        $display("--- Group 16: load interlock during DIV stall ---");
+        $display("--- Group 16: load hazard during DIV stall ---");
         check_mem(32'h80001084, 32'h00000008,
                   "load consumer survives concurrent DIV stall");
         check_mem(32'h80001088, 32'h00000004,
                   "DIV survives concurrent load interlock");
-        if (ex_stall_load_interlock_seen == 0) begin
-            $display("[FAIL] concurrent EX-stall/load-interlock case was not exercised");
+        if (ex_stall_load_interlock_seen != 0) begin
+            $display("[FAIL] legacy second-stage load interlock remained during DIV stall (%0d time(s))",
+                     ex_stall_load_interlock_seen);
             fail_count = fail_count + 1;
         end else begin
-            $display("[PASS] concurrent EX-stall/load-interlock observed %0d time(s)",
-                     ex_stall_load_interlock_seen);
+            $display("[PASS] no legacy second-stage load interlock during DIV stall");
             pass_count = pass_count + 1;
         end
 

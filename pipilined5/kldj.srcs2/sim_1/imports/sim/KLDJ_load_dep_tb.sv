@@ -6,9 +6,8 @@
 // Six-stage load-dependency regression
 //
 // This bench intentionally uses a synchronous data RAM.  It is therefore a
-// correctness and cycle-contract guard for the MEM1 -> MEM2 load-return path,
-// not a behavioural-array shortcut.  Compile with SIX_MEM2_LOAD_FWD after the
-// experimental early-format/MEM2-forward implementation is present.
+// correctness and cycle-contract guard for the forced MEM1 -> MEM2
+// formatted-load forwarding path, not a behavioural-array shortcut.
 // -----------------------------------------------------------------------------
 module KLDJ_load_dep_tb;
 
@@ -33,13 +32,8 @@ module KLDJ_load_dep_tb;
     localparam [2:0] F3_LHU     = 3'b101;
     localparam [2:0] F3_SW      = 3'b010;
 
-`ifdef SIX_MEM2_LOAD_FWD
     localparam integer EXPECT_LOAD_USE_STALLS = 9;
     localparam [1:0] EXPECT_LOAD_FWD_SEL = 2'b10; // FWD_MEM2
-`else
-    localparam integer EXPECT_LOAD_USE_STALLS = 19;
-    localparam [1:0] EXPECT_LOAD_FWD_SEL = 2'b11; // FWD_MEM_WB
-`endif
 
     reg clk;
     reg rst;
@@ -87,13 +81,7 @@ module KLDJ_load_dep_tb;
     initial clk = 1'b0;
     always #5 clk = ~clk;
 
-`ifdef SIX_MEM2_LOAD_FWD
-    KLDJ_top #(
-        .ENABLE_MEM2_LOAD_FWD(1'b1)
-    ) u_dut (
-`else
     KLDJ_top u_dut (
-`endif
          .clk          (clk          )
         ,.rst          (rst          )
         ,.tb_if_inst   (inst_rdata   )
@@ -383,11 +371,7 @@ module KLDJ_load_dep_tb;
             rv_jtype((jalr_after_idx - jalr_wrong_jump_idx) * 4, 5'd0, OP_JAL);
         data_mem[3] = pc_for_index(jalr_target_idx);
 
-`ifdef SIX_MEM2_LOAD_FWD
         $display("[LOAD_DEP] running MEM2 formatted-load forwarding contract");
-`else
-        $display("[LOAD_DEP] running baseline two-bubble load contract");
-`endif
         repeat (5) @(posedge clk);
         @(negedge clk);
         rst = ~`KLDJ_RSTABLE;

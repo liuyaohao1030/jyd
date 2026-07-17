@@ -49,11 +49,7 @@ module student_top#(
     // 16KB = 2^12 * 32bit
     assign inst_addr = pc[13:2];
 
-    KLDJ_top #(
-         .ENABLE_MEM2_LOAD_FWD(1'b1)
-        ,.ENABLE_RAS_PRED     (1'b1)
-        ,.RAS_DEPTH           (8)
-    ) u_KLDJ_top (
+    KLDJ_top u_KLDJ_top (
         .clk            (w_cpu_clk),
         .rst            (w_clk_rst),
 
