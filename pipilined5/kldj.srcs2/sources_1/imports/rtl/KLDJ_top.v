@@ -143,6 +143,28 @@ module KLDJ_top #(
     wire [`KLDJ_PC]              exu_jump_pc_raw;
     wire [`KLDJ_DATA]            exu_data;
     wire [`KLDJ_DATA]            ex_mem_addr_pre;
+    wire                         ex_current_valid;
+    wire                         id_ex_is_control_op;
+
+    // EX2 holds only control-transfer results.  Registering this boundary
+    // removes the EX/MEM-forwarding -> ALU comparator -> PC feedback cone
+    // from the redirect path.
+    reg                          ex2_valid;
+    reg [`KLDJ_PC]               ex2_pc;
+    reg [`KLDJ_PC]               ex2_snpc;
+    reg                          ex2_pred_taken;
+    reg [`KLDJ_PC]               ex2_pred_target;
+    reg [BPU_INDEX_WIDTH-1:0]    ex2_pred_pht_idx;
+    reg [17:0]                   ex2_exu_op;
+    reg [`KLDJ_REGADDR]          ex2_rd_addr;
+    reg [`KLDJ_REGADDR]          ex2_rs1_addr;
+    reg [`KLDJ_DATA]             ex2_data2;
+    reg                          ex2_jump_raw;
+    reg [`KLDJ_PC]               ex2_jump_pc_raw;
+    reg                          ex2_is_ecall;
+    reg                          ex2_is_mret;
+    reg [`KLDJ_PC]               ex2_mtvec_val;
+
     wire                         ex_redirect;
     wire                         ex_actual_taken;
     wire [`KLDJ_PC]              ex_correct_pc;
@@ -155,8 +177,6 @@ module KLDJ_top #(
     wire                         ras_pop;
     wire [`KLDJ_PC]              ras_push_addr;
     wire                         load_use_stall;
-    wire                         control_dep_stall;
-    wire                         pipeline_hazard_stall;
     wire                         div_stall;
     wire                         mul_stall;
     wire                         ex_stall;
@@ -389,9 +409,8 @@ module KLDJ_top #(
         ,.id_csr_op       (id_csr_op         )
         ,.id_csr_zimm     (id_csr_zimm       )
         ,.ex_redirect     (ex_redirect       )
-        ,.load_use_stall  (pipeline_hazard_stall)
+        ,.load_use_stall  (load_use_stall    )
         ,.ex_stall        (ex_stall          )
-        ,.control_dep_stall(control_dep_stall )
         ,.id_ex_valid     (id_ex_valid       )
         ,.id_ex_pc        (id_ex_pc          )
         ,.id_ex_snpc      (id_ex_snpc        )
@@ -427,7 +446,7 @@ module KLDJ_top #(
     ex_forward #(
          .ENABLE_MEM2_LOAD_FWD(ENABLE_MEM2_LOAD_FWD)
     ) u_ex_forward(
-         .id_ex_valid          (id_ex_valid          )
+         .id_ex_valid          (ex_current_valid     )
         ,.id_ex_rd_addr        (id_ex_rd_addr        )
         ,.id_ex_load_op        (id_ex_load_op        )
         ,.ex_mem_valid         (ex_mem_valid         )
@@ -459,7 +478,7 @@ module KLDJ_top #(
     KLDJ_exu exu2(
         .clk          (core_clk              )
         ,.rst         (core_rst              )
-        ,.valid       (id_ex_valid           )
+        ,.valid       (ex_current_valid      )
         ,.data1       (ex_data1              )
         ,.data2       (ex_data2              )
         ,.data3       (ex_data3              )
@@ -487,25 +506,80 @@ module KLDJ_top #(
         ,.mul_stall   (mul_stall             )
     );
 
-    // EX redirect and BPU update control
+    // A redirect from EX2 squashes the younger instruction currently in EX.
+    // Do this at every side-effect boundary, not only at IF/ID and ID/EX.
+    assign ex_current_valid = id_ex_valid && !ex_redirect;
+    assign id_ex_is_control_op = ((id_ex_exu_op >= 18'h14) &&
+                                  (id_ex_exu_op <= 18'h19)) ||
+                                 (id_ex_exu_op == 18'h1c) ||
+                                 (id_ex_exu_op == 18'h09) ||
+                                 (id_ex_exu_op == `KLDJ_EXU_ECALL) ||
+                                 (id_ex_exu_op == `KLDJ_EXU_MRET);
+
+    assign ex_stall = div_stall || mul_stall;
+
+    // EX2 control-transfer result register.  An EX2 redirect has priority so
+    // a wrong-path control transfer cannot be captured while the frontend is
+    // being repaired.  A mul/div stall likewise cannot advance an EX result.
+    always @(posedge core_clk) begin
+        if(core_rst == `KLDJ_RSTABLE) begin
+            ex2_valid        <= 1'b0;
+            ex2_pc           <= `KLDJ_ZERO32;
+            ex2_snpc         <= `KLDJ_ZERO32;
+            ex2_pred_taken   <= 1'b0;
+            ex2_pred_target  <= `KLDJ_ZERO32;
+            ex2_pred_pht_idx <= {BPU_INDEX_WIDTH{1'b0}};
+            ex2_exu_op       <= 18'd0;
+            ex2_rd_addr      <= 5'd0;
+            ex2_rs1_addr     <= 5'd0;
+            ex2_data2        <= `KLDJ_ZERO32;
+            ex2_jump_raw     <= 1'b0;
+            ex2_jump_pc_raw  <= `KLDJ_ZERO32;
+            ex2_is_ecall     <= 1'b0;
+            ex2_is_mret      <= 1'b0;
+            ex2_mtvec_val    <= `KLDJ_ZERO32;
+        end else if(ex_redirect || ex_stall) begin
+            ex2_valid <= 1'b0;
+        end else begin
+            ex2_valid <= ex_current_valid && id_ex_is_control_op;
+            if(ex_current_valid && id_ex_is_control_op) begin
+                ex2_pc           <= id_ex_pc;
+                ex2_snpc         <= id_ex_snpc;
+                ex2_pred_taken   <= id_ex_pred_taken;
+                ex2_pred_target  <= id_ex_pred_target;
+                ex2_pred_pht_idx <= id_ex_pred_pht_idx;
+                ex2_exu_op       <= id_ex_exu_op;
+                ex2_rd_addr      <= id_ex_rd_addr;
+                ex2_rs1_addr     <= id_ex_rs1_addr;
+                ex2_data2        <= id_ex_data2;
+                ex2_jump_raw     <= exu_jump_raw;
+                ex2_jump_pc_raw  <= exu_jump_pc_raw;
+                ex2_is_ecall     <= is_ecall;
+                ex2_is_mret      <= is_mret;
+                ex2_mtvec_val    <= mtvec_val;
+            end
+        end
+    end
+
+    // EX2 redirect and BPU update control
     ex_bpu_ctrl #(
          .BPU_INDEX_WIDTH(BPU_INDEX_WIDTH)
     ) u_ex_bpu_ctrl(
-         .id_ex_valid       (id_ex_valid       )
-        ,.id_ex_pc          (id_ex_pc          )
-        ,.id_ex_snpc        (id_ex_snpc        )
-        ,.id_ex_pred_taken  (id_ex_pred_taken  )
-        ,.id_ex_pred_target (id_ex_pred_target )
-        ,.id_ex_pred_pht_idx(id_ex_pred_pht_idx)
-        ,.id_ex_exu_op      (id_ex_exu_op      )
-        ,.id_ex_rd_addr     (id_ex_rd_addr     )
-        ,.id_ex_rs1_addr    (id_ex_rs1_addr    )
-        ,.id_ex_data2       (id_ex_data2       )
-        ,.exu_jump_raw      (exu_jump_raw      )
-        ,.exu_jump_pc_raw   (exu_jump_pc_raw   )
-        ,.is_ecall          (is_ecall          )
-        ,.is_mret           (is_mret           )
-        ,.mtvec_val         (mtvec_val         )
+         .id_ex_valid       (ex2_valid         )
+        ,.id_ex_pc          (ex2_pc            )
+        ,.id_ex_snpc        (ex2_snpc          )
+        ,.id_ex_pred_taken  (ex2_pred_taken    )
+        ,.id_ex_pred_target (ex2_pred_target   )
+        ,.id_ex_pred_pht_idx(ex2_pred_pht_idx  )
+        ,.id_ex_exu_op      (ex2_exu_op        )
+        ,.id_ex_rd_addr     (ex2_rd_addr       )
+        ,.id_ex_rs1_addr    (ex2_rs1_addr      )
+        ,.id_ex_data2       (ex2_data2         )
+        ,.exu_jump_raw      (ex2_jump_raw      )
+        ,.exu_jump_pc_raw   (ex2_jump_pc_raw   )
+        ,.is_ecall          (ex2_is_ecall      )
+        ,.is_mret           (ex2_is_mret       )
+        ,.mtvec_val         (ex2_mtvec_val     )
         ,.ex_actual_taken   (ex_actual_taken   )
         ,.ex_correct_pc     (ex_correct_pc     )
         ,.ex_redirect       (ex_redirect       )
@@ -519,16 +593,11 @@ module KLDJ_top #(
         ,.ras_push_addr     (ras_push_addr     )
     );
 
-    assign ex_stall = div_stall || mul_stall;
-    // In addition to ordinary load-use handling, delay a control transfer
-    // that would otherwise use the direct EX/MEM bypass.  pipe_id_ex injects
-    // the bubble while IF/ID and IFU hold the control-transfer instruction.
-    assign pipeline_hazard_stall = load_use_stall || control_dep_stall;
-    assign frontend_stall = pipeline_hazard_stall || ex_stall;
+    assign frontend_stall = load_use_stall || ex_stall;
 
     // EX-stage BRAM request control
     ex_mem_req_ctrl u_ex_mem_req_ctrl(
-         .id_ex_valid    (id_ex_valid      )
+         .id_ex_valid    (ex_current_valid )
         ,.ex_stall       (ex_stall         )
         ,.id_ex_load_op  (id_ex_load_op    )
         ,.id_ex_store_op (id_ex_store_op   )
@@ -547,12 +616,12 @@ module KLDJ_top #(
         ,.rst       (core_rst              )
         ,.csr_raddr (id_ex_csr_addr        )
         ,.csr_rdata (csr_rdata             )
-        ,.csr_we    (csr_we && id_ex_valid  )
+        ,.csr_we    (csr_we && ex_current_valid)
         ,.csr_waddr (id_ex_csr_addr        )
         ,.csr_wdata (csr_wdata             )
-        ,.ecall_en  (is_ecall && id_ex_valid)
+        ,.ecall_en  (is_ecall && ex_current_valid)
         ,.ecall_pc  (id_ex_pc              )
-        ,.mret_en   (is_mret && id_ex_valid )
+        ,.mret_en   (is_mret && ex_current_valid)
         ,.mret_pc   (mret_pc               )
         ,.mtvec_val (mtvec_val             )
     );
@@ -561,7 +630,7 @@ module KLDJ_top #(
     pipe_ex_mem u_pipe_ex_mem(
          .clk               (core_clk            )
         ,.rst               (core_rst            )
-        ,.id_ex_valid       (id_ex_valid         )
+        ,.id_ex_valid       (ex_current_valid    )
         ,.id_ex_pc          (id_ex_pc            )
         ,.id_ex_rd_addr     (id_ex_rd_addr       )
         ,.id_ex_wb_ctl      (id_ex_wb_ctl        )
@@ -698,8 +767,8 @@ module KLDJ_top #(
     wire perf_event_mul_stall      = mul_stall;
     wire perf_event_div_stall      = div_stall;
     wire perf_event_redirect       = ex_redirect;
-    wire perf_event_load           = id_ex_valid && !ex_stall && ex_req_load;
-    wire perf_event_store          = id_ex_valid && !ex_stall && ex_req_store;
+    wire perf_event_load           = ex_current_valid && !ex_stall && ex_req_load;
+    wire perf_event_store          = ex_current_valid && !ex_stall && ex_req_store;
 
     KLDJ_perf_counters u_perf_counters(
          .clk                      (core_clk                  )

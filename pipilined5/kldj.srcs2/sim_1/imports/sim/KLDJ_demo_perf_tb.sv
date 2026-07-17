@@ -109,12 +109,12 @@ module KLDJ_demo_perf_tb;
                                          !u_dut.id_ex_load_op &&
                                          (u_dut.id_ex_rd_addr != 5'd0) &&
                                          (u_dut.id_ex_rd_addr == u_dut.ex_mem_rd_addr);
-    assign tb_ex_ras_return = u_dut.id_ex_valid &&
-                              (u_dut.id_ex_exu_op == 18'h09) &&
-                              (u_dut.id_ex_rd_addr == 5'd0) &&
-                              ((u_dut.id_ex_rs1_addr == 5'd1) ||
-                               (u_dut.id_ex_rs1_addr == 5'd5)) &&
-                              (u_dut.id_ex_data2 == 32'd0);
+    assign tb_ex_ras_return = u_dut.ex2_valid &&
+                              (u_dut.ex2_exu_op == 18'h09) &&
+                              (u_dut.ex2_rd_addr == 5'd0) &&
+                              ((u_dut.ex2_rs1_addr == 5'd1) ||
+                               (u_dut.ex2_rs1_addr == 5'd5)) &&
+                              (u_dut.ex2_data2 == 32'd0);
 `endif
 
     initial clk     = 1'b0;
@@ -249,8 +249,8 @@ module KLDJ_demo_perf_tb;
 `ifdef BENCH_SIX_STAGE
             if (tb_ex_ras_return) begin
                 ras_return_count <= ras_return_count + 1;
-                if (u_dut.id_ex_pred_taken &&
-                    (u_dut.id_ex_pred_target == u_dut.exu_jump_pc_raw) &&
+                if (u_dut.ex2_pred_taken &&
+                    (u_dut.ex2_pred_target == u_dut.ex2_jump_pc_raw) &&
                     !u_dut.ex_redirect)
                     ras_pred_hit_count <= ras_pred_hit_count + 1;
                 else
@@ -258,10 +258,10 @@ module KLDJ_demo_perf_tb;
             end
 `endif
             load_count           <= load_count +
-                                    (u_dut.id_ex_valid && !u_dut.ex_stall &&
+                                    (u_dut.ex_current_valid && !u_dut.ex_stall &&
                                      u_dut.id_ex_load_op);
             store_count          <= store_count +
-                                     (u_dut.id_ex_valid && !u_dut.ex_stall &&
+                                     (u_dut.ex_current_valid && !u_dut.ex_stall &&
                                       u_dut.id_ex_store_op);
 `ifdef BENCH_SIX_STAGE
             id_ex_load_use_count <= id_ex_load_use_count + tb_id_ex_load_use;

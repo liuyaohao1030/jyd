@@ -43,8 +43,6 @@ module pipe_id_ex #(
     ,input wire                  ex_redirect
     ,input wire                  load_use_stall
     ,input wire                  ex_stall
-    // One-cycle interlock for direct EX/MEM forwarding into a control transfer.
-    ,output wire                 control_dep_stall
     // pipeline register outputs
     ,output reg                  id_ex_valid
     ,output reg [`KLDJ_PC]       id_ex_pc
@@ -130,25 +128,6 @@ module pipe_id_ex #(
                                       id_rs2_from_mem2   ? FWD_MEM2 :
                                       id_rs2_from_mem_wb ? FWD_MEM_WB :
                                                            FWD_NONE;
-
-    // A branch/JALR resolved in the next EX cycle must not consume a value
-    // directly from the current ID/EX producer.  That route is the long
-    // EX/MEM -> forwarding MUX -> comparator -> redirect/PC timing cone.
-    //
-    // Hold this instruction in IF/ID for one cycle instead.  The producer
-    // then advances to MEM2, and the re-evaluated selector becomes FWD_MEM2.
-    // Conditional branches use both source operands; JALR uses rs1 only.
-    // Ordinary ALU consumers retain the zero-bubble EX/MEM forwarding path.
-    wire id_is_cond_branch = (id_exu_op >= 18'h14) &&
-                             (id_exu_op <= 18'h19);
-    wire id_is_jalr        = (id_exu_op == 18'h09);
-    wire id_control_dep_rs1 = (id_is_cond_branch || id_is_jalr) &&
-                               (id_rs1_fwd_sel_next == FWD_EX_MEM);
-    wire id_control_dep_rs2 = id_is_cond_branch &&
-                               (id_rs2_fwd_sel_next == FWD_EX_MEM);
-
-    assign control_dep_stall = if_id_valid &&
-                               (id_control_dep_rs1 || id_control_dep_rs2);
 
     always@(posedge clk) begin
         if(rst == `KLDJ_RSTABLE) begin

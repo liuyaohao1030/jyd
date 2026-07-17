@@ -18,7 +18,7 @@ set BASE_REPORT_DIR [file dirname [file normalize [info script]]]
 #   p1_2a_ex_side_is_dram_150mhz
 #   baseline_150mhz
 #   jal_id_redirect_160mhz
-set RUN_TAG "agu_fwd_predecode_200mhz"
+set RUN_TAG "ex2_branch_resolve_200mhz"
 
 # 如果你主要关注某个 clock，可以填 clock 名字
 # 不确定 clock 名字时，先留空，脚本会导出全局 timing

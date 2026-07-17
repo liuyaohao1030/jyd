@@ -41,9 +41,9 @@ module bpu_integration_tb;
         mem_rdata <= data_mem[mem_addr[9:2]];
 
         if (dut.bpu_update_valid &&
-            (dut.id_ex_exu_op >= 18'h14) && (dut.id_ex_exu_op <= 18'h19)) begin
+            (dut.ex2_exu_op >= 18'h14) && (dut.ex2_exu_op <= 18'h19)) begin
             branch_updates <= branch_updates + 1;
-            if (dut.id_ex_pred_taken && dut.exu_jump_raw && !dut.ex_redirect)
+            if (dut.ex2_pred_taken && dut.ex2_jump_raw && !dut.ex_redirect)
                 dynamic_pred_hits <= dynamic_pred_hits + 1;
         end
     end

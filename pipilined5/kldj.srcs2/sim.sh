@@ -18,11 +18,11 @@ case "$TEST" in
         TB_FILE="$TB_DIR/KLDJ_top_tb.sv"
         PASS_PATTERN="ALL TESTS PASSED"
         ;;
-    rv32m|m|rv32m_supported_instr_tb)
+    rv32m|m|m-ext|m_ext|m_ext_ip_wrapper_tb)
         TEST="rv32m"
-        TOP="rv32m_supported_instr_tb"
-        TB_FILE="$TB_DIR/rv32m_supported_instr_tb.sv"
-        PASS_PATTERN="rv32m supported pipeline test passed"
+        TOP="m_ext_ip_wrapper_tb"
+        TB_FILE="$TB_DIR/m_ext_ip_wrapper_tb.sv"
+        PASS_PATTERN="m_ext_ip_wrapper_tb passed"
         ;;
     irom-v2|iromv2|perf)
         TEST="irom-v2"
@@ -43,11 +43,11 @@ case "$TEST" in
         IVERILOG_DEFINES=(-DSIX_MEM2_LOAD_FWD)
         PASS_PATTERN="LOAD_DEP_REGRESSION_PASS"
         ;;
-    control-dep|control_dep|KLDJ_control_dep_tb)
-        TEST="control-dep"
-        TOP="KLDJ_control_dep_tb"
-        TB_FILE="$TB_DIR/KLDJ_control_dep_tb.sv"
-        PASS_PATTERN="CONTROL_DEP_INTERLOCK_PASS"
+    ex2-ctrl|ex2_ctrl|KLDJ_ex2_ctrl_tb)
+        TEST="ex2-ctrl"
+        TOP="KLDJ_ex2_ctrl_tb"
+        TB_FILE="$TB_DIR/KLDJ_ex2_ctrl_tb.sv"
+        PASS_PATTERN="EX2_CTRL_PIPELINE_PASS"
         ;;
     bpu|bpu_tb)
         TEST="bpu"
@@ -90,7 +90,7 @@ case "$TEST" in
         PASS_PATTERN="DRAM DRIVER TEST PASSED"
         ;;
     -h|--help|help)
-        echo "Usage: $0 [rv32i|rv32m|irom-v2|load-dep|load-dep-mem2|control-dep|bpu|bpu-integration|ex-bpu-ctrl|ras|ras-integration|dram-driver] [timeout_seconds]"
+        echo "Usage: $0 [rv32i|rv32m|irom-v2|load-dep|load-dep-mem2|ex2-ctrl|bpu|bpu-integration|ex-bpu-ctrl|ras|ras-integration|dram-driver] [timeout_seconds]"
         echo "Examples:"
         echo "  $0 rv32i"
         echo "  $0 rv32m 120"
@@ -98,7 +98,7 @@ case "$TEST" in
         ;;
     *)
         echo "Unknown test: $TEST"
-        echo "Usage: $0 [rv32i|rv32m|irom-v2|load-dep|load-dep-mem2|control-dep|bpu|bpu-integration|ex-bpu-ctrl|ras|ras-integration|dram-driver] [timeout_seconds]"
+        echo "Usage: $0 [rv32i|rv32m|irom-v2|load-dep|load-dep-mem2|ex2-ctrl|bpu|bpu-integration|ex-bpu-ctrl|ras|ras-integration|dram-driver] [timeout_seconds]"
         exit 2
         ;;
 esac
