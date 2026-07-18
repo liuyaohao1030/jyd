@@ -23,8 +23,8 @@ python3 demo/zb_irom/gen_irom_zb_variants.py
 | Zbkx | `irom-v2-zbkx.coe` | 2 | `0x5A5A0006` |
 
 失败时，LED/数码管保持 `0xE0GG00NN`：`GG` 是扩展组编号（01 至 06），
-`NN` 是该组内失败的第一个指令序号。成功代码会保持约一秒，随后原应用从其
-正常启动路径继续；失败则永久停留，便于观察。
+`NN` 是该组内失败的第一个指令序号。标准映像的成功代码会保持一段时间，随后
+原应用从其正常启动路径继续；失败则永久停留，便于观察。
 
 ## 上板流程
 
@@ -59,6 +59,24 @@ bash ./sim_zb_irom_board.sh zba
 该回归沿用 `student_top` 的 `KLDJ_top -> perip_bridge` 路径，并检查 IROM
 自检程序实际写出的 LED 成功码。测试台还会拒绝“未开启、开启多个组、选择了
 错误 COE、或 OP 不是 ALL”的组合。
+
+## Zbkx 成功码停住时的快速恢复映像
+
+若板上的标准 `irom-v2-zbkx.coe` 在显示 `5A5A0006` 后没有恢复原程序，请先用
+下列命令生成并使用快速映像：
+
+```bash
+python3 demo/zb_irom/gen_irom_zb_variants.py \
+  --group zbkx --pass-hold-iterations 0 --name-suffix=-quick
+```
+
+把 IROM 初始化文件改为 `irom-v2-zbkx-quick.coe`，并保持 RTL 只开启 Zbkx。
+该映像仍测试 `xperm4` 和 `xperm8`，但成功后不执行长等待循环，而是立即恢复
+原程序。因此它的正常通过现象是原有的“通过指令数/运行时间”继续更新；成功码
+可能短到看不见。失败时仍会永久显示 `E0060001` 或 `E0060002`。
+
+若快速映像也无法恢复原程序，则问题不在成功码等待循环，应检查该 Zbkx bitstream
+的 IROM 初始化是否已重新生成，以及实现时序是否满足要求（WNS 必须不小于 0）。
 
 ## 保持原应用行为的方式
 

@@ -3,8 +3,9 @@
 
 The source demo/irom-v2.coe is never edited.  Every generated image patches
 only reset word 0 to jump to a small self-test stored in unused IROM space.
-On success the self-test shows a group-specific code on LED/SEG, restores the
-reset-visible GPR state, and resumes the original image at 0x8000_0004.
+On success the self-test shows a group-specific code on LED/SEG, optionally
+holds it for board observation, restores the reset-visible GPR state, and
+resumes the original image at 0x8000_0004.
 On failure it leaves a group/test-index failure code displayed forever.
 """
 
@@ -284,17 +285,24 @@ def emit_mmio_code(asm: Assembler, code: int) -> None:
     asm.emit(s_type(0, RS1, LED_BASE))
 
 
-def build_test_program(group: str) -> Tuple[List[int], List[str], int, Dict[str, int]]:
+def build_test_program(
+    group: str, pass_hold_iterations: int = PASS_HOLD_ITERATIONS
+) -> Tuple[List[int], List[str], int, Dict[str, int]]:
+    if pass_hold_iterations < 0:
+        raise ValueError("pass_hold_iterations must not be negative")
     group_id = GROUPS[group]
     asm = Assembler(TEST_PC)
     tests = emit_group_tests(asm, group)
     pass_led = 0x5A5A_0000 | group_id
 
     emit_mmio_code(asm, pass_led)
-    asm.li(LED_BASE, PASS_HOLD_ITERATIONS)
-    asm.label("pass_hold")
-    asm.emit(i_type(-1, LED_BASE, 0b000, LED_BASE))
-    asm.bne(LED_BASE, 0, "pass_hold")
+    # A zero hold is useful for a board diagnostic: it proves that the
+    # self-test can return to the demo without exercising a long tight loop.
+    if pass_hold_iterations != 0:
+        asm.li(LED_BASE, pass_hold_iterations)
+        asm.label("pass_hold")
+        asm.emit(i_type(-1, LED_BASE, 0b000, LED_BASE))
+        asm.bne(LED_BASE, 0, "pass_hold")
 
     # Recreate the architecture-visible reset state expected by the original
     # startup.  The replaced AUIPC at 0x8000_0000 set sp to 0x8012_1000;
@@ -318,11 +326,15 @@ def build_test_program(group: str) -> Tuple[List[int], List[str], int, Dict[str,
     return asm.words, tests, pass_led, {
         "test_start_pc": TEST_PC,
         "test_word": TEST_WORD,
-        "pass_hold_iterations": PASS_HOLD_ITERATIONS,
+        "pass_hold_iterations": pass_hold_iterations,
     }
 
 
-def make_variant(source_words: List[int], group: str) -> Tuple[List[int], List[str], int, Dict[str, int]]:
+def make_variant(
+    source_words: List[int],
+    group: str,
+    pass_hold_iterations: int = PASS_HOLD_ITERATIONS,
+) -> Tuple[List[int], List[str], int, Dict[str, int]]:
     if len(source_words) > TEST_WORD:
         raise ValueError(
             f"demo image is {len(source_words)} words, overlapping test area word {TEST_WORD}"
@@ -330,7 +342,7 @@ def make_variant(source_words: List[int], group: str) -> Tuple[List[int], List[s
     if source_words[0] != 0x0012_1117 or source_words[1] != 0x0501_0113:
         raise ValueError("unexpected demo startup words; refusing to patch a different program")
 
-    program, tests, pass_led, details = build_test_program(group)
+    program, tests, pass_led, details = build_test_program(group, pass_hold_iterations)
     image = list(source_words)
     image[0] = j_type(TEST_PC - BASE_PC, 0)
     image.extend([NOP] * (TEST_WORD - len(image)))
@@ -365,7 +377,23 @@ def main() -> None:
         default=script_dir,
         help="directory for generated COE files and manifest",
     )
+    parser.add_argument(
+        "--pass-hold-iterations",
+        type=int,
+        default=PASS_HOLD_ITERATIONS,
+        help="success-code loop count; use 0 to return to the demo immediately",
+    )
+    parser.add_argument(
+        "--name-suffix",
+        default="",
+        help="optional safe suffix before .coe, for example -quick",
+    )
     args = parser.parse_args()
+
+    if args.pass_hold_iterations < 0:
+        raise SystemExit("--pass-hold-iterations must not be negative")
+    if not re.fullmatch(r"(?:-[A-Za-z0-9][A-Za-z0-9_-]*)?", args.name_suffix):
+        raise SystemExit("--name-suffix must be empty or look like -quick")
 
     source_bytes = source_path.read_bytes()
     source_hash = hashlib.sha256(source_bytes).hexdigest()
@@ -386,8 +414,10 @@ def main() -> None:
     }
 
     for group in selected_groups:
-        image, tests, pass_led, details = make_variant(source_words, group)
-        output_path = args.output_dir / f"irom-v2-{group}.coe"
+        image, tests, pass_led, details = make_variant(
+            source_words, group, args.pass_hold_iterations
+        )
+        output_path = args.output_dir / f"irom-v2-{group}{args.name_suffix}.coe"
         write_coe(output_path, image)
         if parse_coe(output_path) != image:
             raise AssertionError(f"COE round-trip verification failed: {output_path}")
@@ -404,7 +434,7 @@ def main() -> None:
             f"pass LED=0x{pass_led:08x}, {output_path}"
         )
 
-    manifest_path = args.output_dir / "irom-v2-zb-manifest.json"
+    manifest_path = args.output_dir / f"irom-v2-zb-manifest{args.name_suffix}.json"
     manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     print(f"[ZB_IROM] wrote {manifest_path}")
 

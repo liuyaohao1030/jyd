@@ -1,0 +1,25 @@
+{
+  "source": "demo/irom-v2.coe",
+  "source_sha256": "0cea80f2ca36e2672ac8d1e3d0087f88dc24b5a33a177c74b47330b0637c6a1b",
+  "source_word_count": 2216,
+  "base_pc": "0x80000000",
+  "variants": {
+    "zbkx": {
+      "coe": "irom-v2-zbkx-quick.coe",
+      "group_id": 6,
+      "pass_led": "0x5a5a0006",
+      "tests": [
+        "xperm4",
+        "xperm8"
+      ],
+      "test_start_pc": "0x80002400",
+      "test_word": 2304,
+      "pass_hold_iterations": 0,
+      "patched_word_index": 0,
+      "source_words_preserved_from_index": 1,
+      "original_word_0": "0x00121117",
+      "patched_word_0": "0x4000206f",
+      "word_count": 2373
+    }
+  }
+}
