@@ -1,0 +1,144 @@
+{
+  "source": "demo/irom-v2.coe",
+  "source_sha256": "0cea80f2ca36e2672ac8d1e3d0087f88dc24b5a33a177c74b47330b0637c6a1b",
+  "source_word_count": 2216,
+  "base_pc": "0x80000000",
+  "variants": {
+    "zba": {
+      "coe": "irom-v2-zba.coe",
+      "group_id": 1,
+      "pass_led": "0x5a5a0001",
+      "tests": [
+        "sh1add",
+        "sh2add",
+        "sh3add"
+      ],
+      "test_start_pc": "0x80002400",
+      "test_word": 2304,
+      "pass_hold_iterations": 100000000,
+      "patched_word_index": 0,
+      "source_words_preserved_from_index": 1,
+      "original_word_0": "0x00121117",
+      "patched_word_0": "0x4000206f",
+      "word_count": 2387
+    },
+    "zbb": {
+      "coe": "irom-v2-zbb.coe",
+      "group_id": 2,
+      "pass_led": "0x5a5a0002",
+      "tests": [
+        "andn",
+        "orn",
+        "xnor",
+        "clz",
+        "ctz",
+        "cpop",
+        "max",
+        "maxu",
+        "min",
+        "minu",
+        "sext.b",
+        "sext.h",
+        "zext.h",
+        "rol",
+        "ror",
+        "rori",
+        "orc.b",
+        "rev8"
+      ],
+      "test_start_pc": "0x80002400",
+      "test_word": 2304,
+      "pass_hold_iterations": 100000000,
+      "patched_word_index": 0,
+      "source_words_preserved_from_index": 1,
+      "original_word_0": "0x00121117",
+      "patched_word_0": "0x4000206f",
+      "word_count": 2565
+    },
+    "zbc": {
+      "coe": "irom-v2-zbc.coe",
+      "group_id": 3,
+      "pass_led": "0x5a5a0003",
+      "tests": [
+        "clmul",
+        "clmulh",
+        "clmulr"
+      ],
+      "test_start_pc": "0x80002400",
+      "test_word": 2304,
+      "pass_hold_iterations": 100000000,
+      "patched_word_index": 0,
+      "source_words_preserved_from_index": 1,
+      "original_word_0": "0x00121117",
+      "patched_word_0": "0x4000206f",
+      "word_count": 2387
+    },
+    "zbs": {
+      "coe": "irom-v2-zbs.coe",
+      "group_id": 4,
+      "pass_led": "0x5a5a0004",
+      "tests": [
+        "bset",
+        "bclr",
+        "binv",
+        "bext",
+        "bseti",
+        "bclri",
+        "binvi",
+        "bexti"
+      ],
+      "test_start_pc": "0x80002400",
+      "test_word": 2304,
+      "pass_hold_iterations": 100000000,
+      "patched_word_index": 0,
+      "source_words_preserved_from_index": 1,
+      "original_word_0": "0x00121117",
+      "patched_word_0": "0x4000206f",
+      "word_count": 2441
+    },
+    "zbkb": {
+      "coe": "irom-v2-zbkb.coe",
+      "group_id": 5,
+      "pass_led": "0x5a5a0005",
+      "tests": [
+        "andn",
+        "orn",
+        "xnor",
+        "rol",
+        "ror",
+        "rori",
+        "rev8",
+        "brev8",
+        "pack",
+        "packh",
+        "zip",
+        "unzip"
+      ],
+      "test_start_pc": "0x80002400",
+      "test_word": 2304,
+      "pass_hold_iterations": 100000000,
+      "patched_word_index": 0,
+      "source_words_preserved_from_index": 1,
+      "original_word_0": "0x00121117",
+      "patched_word_0": "0x4000206f",
+      "word_count": 2495
+    },
+    "zbkx": {
+      "coe": "irom-v2-zbkx.coe",
+      "group_id": 6,
+      "pass_led": "0x5a5a0006",
+      "tests": [
+        "xperm4",
+        "xperm8"
+      ],
+      "test_start_pc": "0x80002400",
+      "test_word": 2304,
+      "pass_hold_iterations": 100000000,
+      "patched_word_index": 0,
+      "source_words_preserved_from_index": 1,
+      "original_word_0": "0x00121117",
+      "patched_word_0": "0x4000206f",
+      "word_count": 2377
+    }
+  }
+}

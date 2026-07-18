@@ -12,6 +12,16 @@ EXTRA_FILES=()
 DEFINES=()
 RTL_LOCAL_CONFIG=0
 
+run_zb_one() {
+    local group="$1"
+    local op="$2"
+    local mnemonic="$3"
+
+    echo ""
+    echo "=== Single-instruction Zb regression: ${group}.${mnemonic} (${op}) ==="
+    ZB_OP="$op" "$SCRIPT_DIR/sim.sh" "$group" "$MAX_SECONDS"
+}
+
 case "$TEST" in
     rv32i|i|KLDJ_top_tb)
         TEST="rv32i"
@@ -138,17 +148,77 @@ case "$TEST" in
         done
         exit 0
         ;;
+    zb-one-all|zb-one-each|zb-each)
+        # One independent compile/simulation per RV32 instruction.  The
+        # numeric value is the corresponding KLDJ_ZB_OP_* value in zb_cfg.vh.
+        run_zb_one zba  "8'h01" sh1add
+        run_zb_one zba  "8'h02" sh2add
+        run_zb_one zba  "8'h03" sh3add
+
+        run_zb_one zbb  "8'h10" andn
+        run_zb_one zbb  "8'h11" orn
+        run_zb_one zbb  "8'h12" xnor
+        run_zb_one zbb  "8'h13" clz
+        run_zb_one zbb  "8'h14" ctz
+        run_zb_one zbb  "8'h15" cpop
+        run_zb_one zbb  "8'h16" max
+        run_zb_one zbb  "8'h17" maxu
+        run_zb_one zbb  "8'h18" min
+        run_zb_one zbb  "8'h19" minu
+        run_zb_one zbb  "8'h1a" sext_b
+        run_zb_one zbb  "8'h1b" sext_h
+        run_zb_one zbb  "8'h1c" zext_h
+        run_zb_one zbb  "8'h1d" rol
+        run_zb_one zbb  "8'h1e" ror
+        run_zb_one zbb  "8'h1f" rori
+        run_zb_one zbb  "8'h20" orc_b
+        run_zb_one zbb  "8'h21" rev8
+
+        run_zb_one zbc  "8'h30" clmul
+        run_zb_one zbc  "8'h31" clmulh
+        run_zb_one zbc  "8'h32" clmulr
+
+        run_zb_one zbs  "8'h40" bset
+        run_zb_one zbs  "8'h41" bclr
+        run_zb_one zbs  "8'h42" binv
+        run_zb_one zbs  "8'h43" bext
+        run_zb_one zbs  "8'h44" bseti
+        run_zb_one zbs  "8'h45" bclri
+        run_zb_one zbs  "8'h46" binvi
+        run_zb_one zbs  "8'h47" bexti
+
+        run_zb_one zbkb "8'h10" andn
+        run_zb_one zbkb "8'h11" orn
+        run_zb_one zbkb "8'h12" xnor
+        run_zb_one zbkb "8'h1d" rol
+        run_zb_one zbkb "8'h1e" ror
+        run_zb_one zbkb "8'h1f" rori
+        run_zb_one zbkb "8'h21" rev8
+        run_zb_one zbkb "8'h50" brev8
+        run_zb_one zbkb "8'h51" pack
+        run_zb_one zbkb "8'h52" packh
+        run_zb_one zbkb "8'h53" zip
+        run_zb_one zbkb "8'h54" unzip
+
+        run_zb_one zbkx "8'h60" xperm4
+        run_zb_one zbkx "8'h61" xperm8
+
+        echo ""
+        echo "=== ZB_ONE_ALL_PASS: 46 single-instruction configurations passed ==="
+        exit 0
+        ;;
     -h|--help|help)
-        echo "Usage: $0 [rv32i|rv32m|irom-v2|load-dep|ex2-ctrl|bpu|bpu-integration|ex-bpu-ctrl|ras|ras-integration|dram-driver|zba|zbb|zbc|zbs|zbkb|zbkx|rtl-zb|zb-all] [timeout_seconds]"
+        echo "Usage: $0 [rv32i|rv32m|irom-v2|load-dep|ex2-ctrl|bpu|bpu-integration|ex-bpu-ctrl|ras|ras-integration|dram-driver|zba|zbb|zbc|zbs|zbkb|zbkx|rtl-zb|zb-all|zb-one-all] [timeout_seconds]"
         echo "Examples:"
         echo "  $0 rv32i"
         echo "  $0 rv32m 120"
         echo "  $0 rtl-zb 60  # read the source-only selector in rtl/zb/zb_cfg.vh"
+        echo "  $0 zb-one-all 60  # test all 46 RV32 Zb instructions one at a time"
         exit 0
         ;;
     *)
         echo "Unknown test: $TEST"
-        echo "Usage: $0 [rv32i|rv32m|irom-v2|load-dep|ex2-ctrl|bpu|bpu-integration|ex-bpu-ctrl|ras|ras-integration|dram-driver|zba|zbb|zbc|zbs|zbkb|zbkx|rtl-zb|zb-all] [timeout_seconds]"
+        echo "Usage: $0 [rv32i|rv32m|irom-v2|load-dep|ex2-ctrl|bpu|bpu-integration|ex-bpu-ctrl|ras|ras-integration|dram-driver|zba|zbb|zbc|zbs|zbkb|zbkx|rtl-zb|zb-all|zb-one-all] [timeout_seconds]"
         exit 2
         ;;
 esac

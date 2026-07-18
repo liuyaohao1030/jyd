@@ -1,0 +1,69 @@
+# irom-v2 Zb 上板自检映像
+
+`demo/irom-v2.coe` 保持不变。本目录的六个 `irom-v2-<group>.coe` 是单独的
+上板测试映像：每个映像只含一个 Zb 扩展组的指令，且必须与同组的 RTL 配置
+配对使用。
+
+生成命令：
+
+```bash
+python3 demo/zb_irom/gen_irom_zb_variants.py
+```
+
+生成器固定校验当前基准映像的 SHA-256；因此不会意外从已改动的上板程序生成
+测试映像。清单文件 `irom-v2-zb-manifest.json` 列出每个映像中的指令。
+
+| RTL 组 | IROM 初始化文件 | 覆盖的指令数 | 成功 LED/数码管值 |
+| --- | --- | ---: | --- |
+| Zba | `irom-v2-zba.coe` | 3 | `0x5A5A0001` |
+| Zbb | `irom-v2-zbb.coe` | 18 | `0x5A5A0002` |
+| Zbc | `irom-v2-zbc.coe` | 3 | `0x5A5A0003` |
+| Zbs | `irom-v2-zbs.coe` | 8 | `0x5A5A0004` |
+| Zbkb | `irom-v2-zbkb.coe` | 12 | `0x5A5A0005` |
+| Zbkx | `irom-v2-zbkx.coe` | 2 | `0x5A5A0006` |
+
+失败时，LED/数码管保持 `0xE0GG00NN`：`GG` 是扩展组编号（01 至 06），
+`NN` 是该组内失败的第一个指令序号。成功代码会保持约一秒，随后原应用从其
+正常启动路径继续；失败则永久停留，便于观察。
+
+## 上板流程
+
+以 Zba 为例：
+
+1. 在 `sources_1/imports/rtl/zb/zb_cfg.vh` 中只启用 Zba，并保持 OP 为 ALL：
+
+   ```verilog
+   `define KLDJ_RTL_EXT_ENABLE
+   `define KLDJ_RTL_EXT_GROUP `KLDJ_ZB_GROUP_ZBA
+   `define KLDJ_RTL_EXT_OP    `KLDJ_ZB_OP_ALL
+   ```
+
+2. 将 IROM IP 的初始化文件改为 `demo/zb_irom/irom-v2-zba.coe`，重新生成 IP
+   输出产品，并重新执行综合、实现、生成 bitstream、下载开发板。
+3. 观察 LED/数码管中的 `0x5A5A0001`。任何 `0xE...` 值表示失败。
+4. 对其余五组重复以上步骤；每次必须只选择一个 RTL 组和对应的一个 COE。
+5. 验证结束后，把 IROM 初始化文件恢复为 `demo/irom-v2.coe`，并注释
+   `KLDJ_RTL_EXT_ENABLE` 以恢复原始上板配置。
+
+COE 文件本身不能给已生成的 bitstream 增加 Zb 硬件；每个测试映像都必须与
+对应 Zb 配置重新综合出的 bitstream 配对。
+
+## 仿真
+
+先按上面的方式选择一个 RTL 组，再运行同名命令：
+
+```bash
+bash ./sim_zb_irom_board.sh zba
+```
+
+该回归沿用 `student_top` 的 `KLDJ_top -> perip_bridge` 路径，并检查 IROM
+自检程序实际写出的 LED 成功码。测试台还会拒绝“未开启、开启多个组、选择了
+错误 COE、或 OP 不是 ALL”的组合。
+
+## 保持原应用行为的方式
+
+每个变体只改写它自己的第 0 个 IROM 字为跳转，并把自检代码放在原映像未使用
+的 `0x8000_2400` 开始处。自检成功后会清空测试使用的通用寄存器、等价重建
+原启动指令设置的 `sp=0x80121000`，然后跳回原映像的 `0x8000_0004`。因此
+原始 `demo/irom-v2.coe` 不会被修改，且测试变体在显示成功码后按冷启动语义
+继续运行原应用。
