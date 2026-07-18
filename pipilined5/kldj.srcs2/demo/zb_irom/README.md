@@ -78,6 +78,17 @@ python3 demo/zb_irom/gen_irom_zb_variants.py \
 若快速映像也无法恢复原程序，则问题不在成功码等待循环，应检查该 Zbkx bitstream
 的 IROM 初始化是否已重新生成，以及实现时序是否满足要求（WNS 必须不小于 0）。
 
+若需要肉眼确认成功码，同时又不希望标准映像停留太久，可生成并使用
+`irom-v2-zbkx-visible.coe`：
+
+```bash
+python3 demo/zb_irom/gen_irom_zb_variants.py \
+  --group zbkx --pass-hold-iterations 20000000 --name-suffix=-visible
+```
+
+该映像会显示 `5A5A0006` 约数百毫秒，然后通过同一条 Zbkx 专用 JALR trampoline
+恢复原来的计数程序。它只影响 Zbkx 映像。
+
 ## 保持原应用行为的方式
 
 每个变体只改写它自己的第 0 个 IROM 字为跳转，并把自检代码放在原映像未使用
