@@ -311,7 +311,14 @@ def build_test_program(
         if register != 2:
             asm.emit(i_type(0, 0, 0b000, register))
     asm.emit(u_type(0x80121, 2))
-    asm.jal_absolute(0, BASE_PC + 4)
+    if group == "zbkx":
+        # Zbkx alone uses an absolute JALR trampoline.  Its previous return
+        # was a group-length-specific large negative JAL observed to stall on
+        # the board; leave the five already-working group images unchanged.
+        asm.li(LED_BASE, BASE_PC + 4)
+        asm.emit(i_type(0, LED_BASE, 0b000, 0, opcode=0x67))
+    else:
+        asm.jal_absolute(0, BASE_PC + 4)
 
     for index, _name in enumerate(tests, start=1):
         asm.label(f"fail_{index}")
