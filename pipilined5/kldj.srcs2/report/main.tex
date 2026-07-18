@@ -1,0 +1,878 @@
+\documentclass[UTF8,zihao=-4,a4paper]{ctexart}
+
+\usepackage[a4paper,left=2.6cm,right=2.6cm,top=2.35cm,bottom=2.45cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{array,booktabs,longtable,tabularx}
+\usepackage{graphicx,float,caption}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{url}
+
+% -----------------------------------------------------------------------------
+% 封面信息：沿用初赛设计报告的填写方式，可按本次参赛信息直接修改。
+% -----------------------------------------------------------------------------
+\newcommand{\ContestEdition}{第十届}
+\newcommand{\ContestName}{全国大学生集成电路创新创业大赛}
+\newcommand{\ReportType}{设计报告}
+\newcommand{\ContestTrack}{“竞业达”企业命题}
+\newcommand{\ReportTitle}{基于分支预测与系统控制机制的 RISC-V 流水线处理器}
+\newcommand{\TeamID}{CICC1000288}
+\newcommand{\TeamName}{卡了电竞}
+\newcommand{\CoverUnderline}{\underline{\makebox[7.8cm][l]{\strut}}}
+% 封面作品名在同一填写区域内堆叠两行，底部仅保留一条横线。
+\newcommand{\CoverProjectName}{%
+  \begin{minipage}[t]{7.8cm}
+    \vspace{-1.65em}
+    \setlength{\parskip}{0pt}
+    \setlength{\baselineskip}{1.28em}
+    \raggedright
+    基于分支预测与系统控制机制的\par
+    RISC-V 流水线处理器\par
+    \vspace{-1.65em}\CoverUnderline
+  \end{minipage}%
+}
+
+\definecolor{linkblue}{RGB}{32,92,160}
+\definecolor{codegray}{RGB}{247,247,247}
+\definecolor{codegreen}{RGB}{20,115,70}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  citecolor=black,
+  urlcolor=black,
+  pdftitle={\ReportTitle},
+  pdfauthor={\TeamName}
+}
+
+% 与初赛报告保持一致：正文使用衬线字体，封面标题使用无衬线黑体。
+\setmainfont{Liberation Serif}
+\setCJKmainfont{Noto Serif CJK JP}
+\setCJKsansfont{Noto Sans CJK JP}
+\newCJKfontfamily\CoverFont[BoldFont={Noto Sans CJK JP Black}]{Noto Sans CJK JP}
+
+\setstretch{1.35}
+\setlength{\headheight}{14pt}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.15em}
+\setlist[itemize]{leftmargin=2.2em,itemsep=0.2em,topsep=0.3em}
+\setlist[enumerate]{leftmargin=2.4em,itemsep=0.2em,topsep=0.3em}
+\captionsetup{font=small,labelsep=quad}
+\numberwithin{table}{section}
+\numberwithin{figure}{section}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{\small \ReportTitle}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\lstset{
+  basicstyle=\ttfamily\small,
+  backgroundcolor=\color{codegray},
+  keywordstyle=\color{linkblue},
+  commentstyle=\color{codegreen},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  frame=single,
+  rulecolor=\color{gray!45},
+  breaklines=true,
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false
+}
+
+\newcommand{\code}[1]{\texttt{#1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+
+% 按“PDF、PNG、JPG、JPEG”的顺序寻找图片；没有图片时显示占位框。
+\newcommand{\insertfigureorplaceholder}[2]{%
+  \IfFileExists{#1.pdf}{\includegraphics[width=0.94\textwidth]{#1.pdf}}{%
+  \IfFileExists{#1.png}{\includegraphics[width=0.94\textwidth]{#1.png}}{%
+  \IfFileExists{#1.jpg}{\includegraphics[width=0.94\textwidth]{#1.jpg}}{%
+  \IfFileExists{#1.jpeg}{\includegraphics[width=0.94\textwidth]{#1.jpeg}}{%
+  \fbox{\parbox[c][5.4cm][c]{0.90\textwidth}{\centering
+    \large #2\\[0.8em]
+    \normalsize 将图片放入 \texttt{figures/} 后重新编译
+  }}}}}}
+}
+
+\begin{document}
+
+% -----------------------------------------------------------------------------
+% 封面
+% -----------------------------------------------------------------------------
+\begin{titlepage}
+  \thispagestyle{empty}
+  \centering
+  \vspace*{1.15cm}
+  \includegraphics[width=3.25cm]{figures/contest_logo.png}\par
+  \vspace{1.35cm}
+  {\CoverFont\bfseries\zihao{2}\ContestEdition\par}
+  \vspace{0.55cm}
+  {\CoverFont\bfseries\zihao{1}\ContestName\par}
+  \vspace{2.05cm}
+
+  \renewcommand{\arraystretch}{2.05}
+  \begin{tabular}{@{}>{\CoverFont\zihao{4}}l@{\hspace{0.6em}}>{\CoverFont\zihao{4}}l@{}}
+    报告类型： & \underline{\makebox[7.8cm][l]{\ReportType}} \\
+    参赛杯赛： & \underline{\makebox[7.8cm][l]{\ContestTrack}} \\
+    作品名称： & \CoverProjectName \\
+    队伍编号： & \underline{\makebox[7.8cm][l]{\TeamID}} \\
+    团队名称： & \underline{\makebox[7.8cm][l]{\TeamName}} \\
+  \end{tabular}
+\end{titlepage}
+
+\pagenumbering{Roman}
+% 目录占两页，快速预览位于罗马页码 III；保持与初赛报告目录一致。
+\addtocontents{toc}{\protect\contentsline{section}{快速预览简介}{III}{}}
+\tableofcontents
+\clearpage
+
+\section*{快速预览简介}
+\noindent
+本作品面向“竞业达”企业命题，设计并实现了一款基于 RISC-V 的 32 位流水线
+CPU。处理器以顺序发射、顺序完成为基本执行方式，主数据通路由 IF、ID、EX、
+MEM1、MEM2、WB 六个阶段组成，并在控制转移路径中增加 EX2 结果寄存边界。
+在保持功能正确的基础上，设计加入了寄存器前递、load-use 停顿、预测错误恢复、
+同步访存响应、双端口 BRAM 写后读前递以及机器模式系统控制等机制。
+
+\noindent\textbf{关键技术}
+\begin{itemize}
+  \item \textbf{流水线数据通路：}完成取指、译码、执行、两级访存与写回的连接，
+        使用有效位控制指令推进、气泡插入和错误路径冲刷。
+  \item \textbf{数据冒险处理：}在 ID 阶段预计算前递选择，在 EX 阶段从 EX/MEM、
+        MEM2 与 MEM/WB 三个位置取得最新操作数；紧邻 load-use 相关只暂停一个周期。
+  \item \textbf{分支预测与恢复：}使用 gshare、两位饱和计数器表和 BTB 预测控制流，
+        在 EX2 同时核对方向和目标地址，错误时统一重定向 PC。
+  \item \textbf{同步存储系统：}使用 MEM1/MEM2 响应边界对接同步读存储器；系统层
+        通过真双端口 BRAM 与单项写缓冲处理读写并行和写后读相关。
+  \item \textbf{系统控制：}实现机器模式 CSR、\code{ecall} 入口状态保存和
+        \code{mret} 返回流程，保证系统控制转移与普通跳转共用冲刷机制。
+\end{itemize}
+
+\noindent\textbf{主要功能}
+\begin{itemize}
+  \item 支持常用 RV32I 整数、分支、跳转、载入和存储指令，以及 RV32M 乘、除、余数运算；
+  \item 支持 \code{CSRRW/CSRRS/CSRRC} 及其立即数形式，并实现 \code{mstatus}、
+        \code{mtvec}、\code{mepc}、\code{mcause} 与 \code{mscratch}；
+  \item 通过双端口 BRAM、BPU、\code{ecall/mret} 三组功能仿真观察关键状态和控制信号。
+\end{itemize}
+
+\noindent\textbf{作品亮点}
+\begin{itemize}
+  \item \textbf{结构清晰：}阶段模块、流水寄存器、运算单元和预测控制模块分层组织，
+        便于独立验证与后续扩展；
+  \item \textbf{控制完整：}对数据相关、长周期运算、预测错误和系统调用均设置了有效
+        位、停顿或重定向控制，避免错误路径产生副作用；
+  \item \textbf{报告可追溯：}正文按模块、信号和控制流程说明实现逻辑，仿真部分直接
+        对应双端口 BRAM、BPU 与 \code{ecall/mret} 三项验证内容。
+\end{itemize}
+
+\clearpage
+\pagenumbering{arabic}
+
+% -----------------------------------------------------------------------------
+\section*{RISC-V CPU 设计报告}
+\addcontentsline{toc}{section}{RISC-V CPU 设计报告}
+\section{项目概述}
+
+\subsection{项目背景}
+
+RISC-V 指令集采用开放、模块化的组织方式，适合用于处理器体系结构教学与 FPGA 原型
+验证\cite{riscv-unpriv}。与单周期实现相比，流水线处理器把取指、译码、执行、访存和
+写回分散到不同周期，使多条指令能够重叠执行；与此同时，数据相关、控制相关、同步
+存储器延迟以及长周期运算也成为必须显式处理的问题。
+
+本项目结合“竞业达”企业命题的处理器设计场景，围绕可综合、可仿真、可扩展的
+RISC-V CPU 展开实践。设计不仅需要完成指令功能，更需要构建一条能够连接 FPGA
+存储器和外设环境的完整执行通路：正常指令结果应按程序顺序写回，相关指令必须取得
+最新操作数，错误路径不能产生寄存器、存储器或 CSR 副作用，系统调用进入处理程序后
+还应能够正确返回。
+
+\subsection{设计目标}
+
+本项目的总体目标是使用 Verilog HDL 设计并实现一款结构清晰、功能正确、能够在
+仿真环境中观察关键流水线状态的 32 位 RISC-V 处理器。具体设计目标如下：
+
+\begin{enumerate}
+  \item \textbf{搭建完整流水线数据通路。}实现 IF、ID、EX、MEM1、MEM2、WB 六个
+        主阶段及 EX2 控制结果边界，完成取指、译码、执行、访存和写回流程。
+  \item \textbf{实现整数、访存和长周期运算。}支持常用 RV32I 指令、RV32M 乘除法，
+        并实现字节、半字、字访问及相应的数据格式化。
+  \item \textbf{处理流水线冒险。}通过前递、load-use 暂停、长周期运算保持与重定向冲刷，
+        解决数据相关和控制相关问题。
+  \item \textbf{实现动态控制流机制。}构建由 gshare、PHT、BTB 和返回地址栈组成的
+        前端预测结构，并在 EX2 对实际方向与目标进行核对和恢复。
+  \item \textbf{完成系统控制与存储验证。}实现 CSR、\code{ecall}、\code{mret} 和
+        双端口 BRAM 写后读前递，并以三组波形验证关键功能。
+\end{enumerate}
+
+\subsection{设计平台说明}
+
+\begin{table}[H]
+  \centering
+  \caption{设计平台说明表}
+  \label{tab:overview}
+  \begin{tabularx}{\textwidth}{>{\bfseries}p{3.5cm}X}
+    \toprule
+    项目 & 内容 \\
+    \midrule
+    开发平台 & Xilinx Vivado 2023.2 \\
+    设计语言 & Verilog HDL；系统集成与仿真接口使用 SystemVerilog \\
+    目标架构 & 面向 RV32I 基本整数功能，扩展 RV32M 乘除法与机器模式 CSR 控制 \\
+    数据位宽 & 32 位指令、32 位数据、32 个通用寄存器 \\
+    主流水线 & IF、ID、EX、MEM1、MEM2、WB 六级，另设 EX2 控制结果边界 \\
+    主要模块 & IFU、IDU、EXU、LSU、WBU、Regfile、BPU、CSR 与流水寄存器 \\
+    存储系统 & 16 KiB 指令存储空间；256 KiB 双端口数据 BRAM 与存储器映射外设 \\
+    验证方式 & 双端口 BRAM、BPU、\code{ecall/mret} 功能仿真与关键信号观察 \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+% -----------------------------------------------------------------------------
+\section{RISC-V CPU 架构设计}
+
+\subsection{RISC-V 指令集的支持情况}
+
+译码模块 \code{KLDJ\_idu} 直接解析 \code{opcode}、\code{funct3} 和
+\code{funct7}，并并行生成操作类型、寄存器地址、立即数和控制信号。其主要指令功能
+如表~\ref{tab:instructions} 所示。
+
+\begin{longtable}{p{3.0cm}p{4.2cm}p{7.0cm}}
+  \caption{处理器主要指令功能}\label{tab:instructions}\\
+  \toprule
+  类别 & 指令 & 功能说明 \\
+  \midrule
+  \endfirsthead
+  \toprule
+  类别 & 指令 & 功能说明 \\
+  \midrule
+  \endhead
+  立即数运算 & \code{ADDI, SLTI, SLTIU, XORI, ORI, ANDI} &
+  立即数算术、比较和逻辑运算 \\
+  移位运算 & \code{SLLI, SRLI, SRAI, SLL, SRL, SRA} &
+  逻辑左移、逻辑右移和算术右移 \\
+  寄存器运算 & \code{ADD, SUB, SLT, SLTU, XOR, OR, AND} &
+  双寄存器算术、比较和逻辑运算 \\
+  高位立即数 & \code{LUI, AUIPC} &
+  生成高位立即数或计算 PC 相对地址 \\
+  控制转移 & \code{JAL, JALR, BEQ, BNE, BLT, BGE, BLTU, BGEU} &
+  无条件跳转、间接跳转和六类条件分支 \\
+  载入 & \code{LB, LH, LW, LBU, LHU} &
+  字节、半字和字读取，并进行符号或零扩展 \\
+  存储 & \code{SB, SH, SW} &
+  通过四位字节使能完成字节、半字和字写入 \\
+  乘除法 & \code{MUL, MULH, MULHSU, MULHU, DIV, DIVU, REM, REMU} &
+  有符号/无符号乘法高低位、除法和余数运算 \\
+  CSR 访问 & \code{CSRRW, CSRRS, CSRRC, CSRRWI, CSRRSI, CSRRCI} &
+  CSR 交换、置位、清位及其立即数形式 \\
+  系统控制 & \code{ECALL, MRET} &
+  进入机器模式处理入口并从处理程序返回 \\
+  \bottomrule
+\end{longtable}
+
+\subsection{RISC-V CPU 的整体架构图}
+
+\begin{figure}[H]
+  \centering
+  \insertfigureorplaceholder{figures/cpu_architecture}{CPU 总体架构图占位}
+  \caption{RISC-V 流水线 CPU 总体架构图}
+  \label{fig:architecture}
+\end{figure}
+
+核心模块 \code{KLDJ\_top} 的外部接口可分为取指、数据访存和调试观察三组。指令由
+\code{tb\_if\_inst} 输入，当前取指 PC 通过 \code{tb\_if\_pc} 输出；数据侧输出
+\code{mem\_addr}、\code{mem\_wdata}、\code{mem\_we} 和四位
+\code{mem\_be}，同步读响应从 \code{mem\_rdata} 返回。调试端口输出重定向事件、
+目标地址和提交结果，用于测试平台观察，不参与体系结构状态更新。
+
+系统顶层将 PC 的 \code{[13:2]} 位连接到 4096 深度的指令存储器，因此指令空间容量
+为 16 KiB。数据请求先进入 \code{perip\_bridge}：\code{0x8010\_0000} 至
+\code{0x8013\_FFFF} 映射到 256 KiB 数据 BRAM；\code{0x8020\_0000} 区域映射到
+拨码开关、按键、数码管、LED 和计数器等外设。桥接模块把读地址类型寄存一拍，使同步
+DRAM 响应和 MMIO 响应在同一时序边界返回核心。
+
+\subsection{数据通路各模块的设计}
+
+\subsubsection{CPU 数据通路整体说明}
+
+主数据通路由六个阶段构成，阶段职责见表~\ref{tab:pipeline}。其中 EX2 只保存分支、
+跳转和系统控制指令的判定结果，和普通运算的 EX/MEM 数据通路并行，不应作为所有指令
+都经过的第七级。\code{pipe\_wb\_commit} 则是一个提交观察寄存器；寄存器堆的实际
+写入由 MEM/WB 状态驱动，因此该观察点也不改变体系结构写回级数。
+
+\begin{table}[H]
+  \centering
+  \caption{主流水线各阶段职责}
+  \label{tab:pipeline}
+  \begin{tabularx}{\textwidth}{>{\bfseries}p{1.7cm}p{3.3cm}X}
+    \toprule
+    阶段 & 主要模块 & 功能 \\
+    \midrule
+    IF & \code{KLDJ\_ifu}, \code{bpu} & 保存 PC，接收指令，计算顺序 PC 或预测目标 \\
+    ID & \code{KLDJ\_idu}, \code{KLDJ\_regfile} & 译码、立即数生成、寄存器读取、前递选择预计算 \\
+    EX & \code{KLDJ\_exu}, \code{ex\_forward} & ALU、比较、乘除法、地址生成和操作数前递 \\
+    MEM1 & \code{pipe\_ex\_mem} & 保存访存元数据，等待同步存储器响应 \\
+    MEM2 & \code{pipe\_mem1\_mem2}, \code{mem\_stage\_top} & 对载入数据选字节/半字并扩展，形成可前递结果 \\
+    WB & \code{pipe\_mem\_wb}, \code{KLDJ\_wbu} & 锁存写回数据并写入通用寄存器堆 \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+结合图~\ref{fig:architecture}，指令沿主通路从左向右推进，寄存器堆写回和三路前递
+构成数据反馈；BPU 在 IF 阶段提供预测，在 EX/EX2 边界接收实际结果并更新状态；控制
+转移错误时，重定向信号返回 IF，同时清除更年轻的流水线状态。数据存储器请求在 EX
+阶段发出，响应经过 MEM1/MEM2 边界寄存后再参与前递和写回。
+
+% -----------------------------------------------------------------------------
+\section{前端预测与控制通路设计}
+
+\subsection{PC 更新与优先级}
+
+\code{KLDJ\_ifu} 内部使用 32 位 \code{pc\_reg} 保存当前 PC，顺序地址为
+\begin{equation}
+  \mathrm{snpc}=\mathrm{PC}+4.
+\end{equation}
+若前端预测转移，则下一 PC 取预测目标，否则取 \code{snpc}。时序控制的优先级为：
+复位、执行级重定向、前端保持、正常预测/顺序更新。重定向高于停顿，保证即使流水线
+因数据相关或长周期运算保持，已经解析出的错误路径仍能立即触发恢复。
+
+IF/ID 寄存器除指令和 PC 外，还保存预测方向、预测目标与 PHT 索引。预测索引随指令
+进入 EX2，更新时使用取指当时的索引，而不是用已经变化的 GHR 重新计算，从而避免
+历史状态改变导致训练错误表项。
+
+\subsection{gshare 方向预测器}
+
+BPU 的索引宽度为 6，因此模式历史表 PHT 包含 64 个两位饱和计数器，全局历史寄存器
+GHR 也为 6 位。查表索引为
+\begin{equation}
+  i_{\mathrm{PHT}}=\mathrm{PC}[7:2]\oplus\mathrm{GHR}[5:0].
+  \label{eq:gshare}
+\end{equation}
+计数器最高位为 1 时预测跳转。未训练表项通过独立有效位识别，其默认值为
+\code{2'b01}，即弱不跳转。实际结果为跳转时计数器加一，为不跳转时减一，并在
+\code{00} 和 \code{11} 处饱和。每次有效的条件分支或直接跳转解析后，实际方向移入
+GHR。
+
+PHT 数据阵列不整体复位，只清除有效位。这一做法既能保证复位后预测状态确定，又便于
+综合工具将数据阵列映射为分布式存储器，避免为每个表项建立复位逻辑。
+
+\subsection{BTB、返回地址栈与预测目标}
+
+分支目标缓冲表 BTB 同样包含 64 项，以 \(\mathrm{PC}[7:2]\) 直接索引，每项保存高位
+标签和 32 位目标地址。只有 BTB 有效、标签匹配且 PHT 预测跳转时，BPU 才同时给出
+有效方向与目标。表项更新被寄存一拍，实际跳转时写入目标地址；不跳转结果只训练
+PHT，不破坏原有 BTB 目标。
+
+设计还包含深度为 8 的循环返回地址栈。以 \code{x1} 或 \code{x5} 为链接寄存器的
+\code{JAL/JALR} 可压入 \code{PC+4}，规范形式
+\code{jalr x0, 0(x1/x5)} 可弹栈。栈满时覆盖最旧项，空栈弹出无效，同周期弹出和压入
+则替换栈顶。板级默认配置保留栈的更新逻辑，但不让异步取指结果经返回地址预测直接
+反馈到 PC；该功能可通过顶层参数在适合的配置中启用。
+
+\subsection{解析、训练与错误恢复}
+
+条件分支、\code{JAL} 和 \code{JALR} 的实际方向与目标在 EX 形成，并经 EX2 寄存后
+交给 \code{ex\_bpu\_ctrl}。错误判断同时覆盖方向和目标：
+\begin{align}
+  \mathrm{direction\_miss} &= p_t \oplus a_t,\\
+  \mathrm{target\_miss} &= p_t\land a_t\land(P_{target}\ne A_{target}),\\
+  \mathrm{redirect} &= \mathrm{valid}\land
+  (\mathrm{direction\_miss}\lor\mathrm{target\_miss}),
+\end{align}
+其中 \(p_t\) 和 \(a_t\) 分别表示预测与实际是否转移。仅检查方向会漏掉“方向正确但
+目标错误”的间接跳转，因此目标比较是保证正确性的必要条件。
+
+发生重定向时，IF/ID 和 ID/EX 的有效位被清零，当前更年轻的 EX 指令也通过
+\code{ex\_current\_valid} 屏蔽。存储写使能、CSR 写使能和后续流水寄存器都由该有效
+信号保护，所以错误路径不会留下体系结构副作用。
+
+% -----------------------------------------------------------------------------
+\section{译码、执行与长周期运算设计}
+
+\subsection{译码与立即数生成}
+
+译码级并行生成 I、S、B、U 和 J 五种立即数，所有需要符号扩展的格式均从指令位 31
+复制符号位。控制逻辑采用并行 \code{case} 选择，不建立跨全部指令的深层优先链。
+译码结果包括 18 位内部操作码、10 位 ALU 控制、源/目的寄存器地址、读写使能、四路
+数据操作数以及四位访存控制。
+
+寄存器堆具有两个组合读端口和一个同步写端口，\code{x0} 始终保持为零。若同一周期
+写回地址与读地址相同，读端口直接返回写回数据，形成寄存器堆内部的 write-through
+旁路。这一机制覆盖 WB 到 ID 的相关，减少额外比较层级。
+
+\subsection{整数执行单元}
+
+\code{KLDJ\_alu} 将加减比较、逻辑与/或/异或、移位和小于比较拆分为独立子模块，
+再由 one-hot 风格的控制位选择结果。加法器同时输出等于、不等、小于和大于等于标志，
+条件分支直接复用这些标志。分支目标、直接跳转目标和访存地址分别为
+\begin{align}
+  A_{branch} &= \mathrm{PC}+\mathrm{imm}_B,\\
+  A_{jal} &= \mathrm{PC}+\mathrm{imm}_J,\\
+  A_{mem} &= \mathrm{rs1}+\mathrm{imm}.
+\end{align}
+\code{JALR} 目标为 \((\mathrm{rs1}+\mathrm{imm})\ \&\ \mathtt{0xFFFF\_FFFE}\)，
+即按指令语义清除最低位；\code{JAL/JALR} 写回值均为 \code{PC+4}。
+
+地址生成单独使用 \code{ls\_imm}，不经过存储数据的 rs2 前递多路器。这样，存储数据
+相关只影响待写数据，不会被误接入地址生成组合路径。
+
+\subsection{乘法与除法}
+
+四类乘法由 \code{mul\_ip\_wrapper} 统一处理。操作数先扩展为 33 位，根据
+\code{MULH}、\code{MULHSU} 和 \code{MULHU} 的符号组合选择符号扩展或零扩展，
+再从 66 位乘积中选择低 32 位或原始 32 位乘法结果的高 32 位。RTL 包装器通过
+\code{start/busy/done} 协议管理固定延迟乘法 IP，默认等待计数为 4 个周期。
+
+除法包装器把操作划分为 IDLE、LAUNCH、WAIT\_RESULT 和 DONE 四种状态。带符号运算
+先求绝对值，在 IP 返回商和余数后恢复符号。设计对两个边界条件作了显式处理：
+
+\begin{itemize}
+  \item 除数为零时，\code{DIV/DIVU} 返回全 1，\code{REM/REMU} 返回被除数；
+  \item \code{0x8000\_0000 / 0xFFFF\_FFFF} 的有符号溢出按指令语义返回，避免进入 IP。
+\end{itemize}
+
+乘除法未完成时，\code{mul\_stall} 或 \code{div\_stall} 拉高。此时 IF/ID 和 ID/EX
+保持原内容，EX/MEM 注入无效项，直至 \code{done} 有效后长周期指令才向后推进，因此
+同一条指令不会被重复发射。
+
+% -----------------------------------------------------------------------------
+\section{流水线冒险处理机制}
+
+\subsection{数据前递网络}
+
+数据前递由 \code{pipe\_id\_ex} 和 \code{ex\_forward} 协同完成。ID 阶段比较当前
+指令源寄存器与下游目的寄存器，并把两位前递选择随指令寄存。下一周期 EX 只需通过
+四选一多路器选择操作数，避免在 EX 的关键组合路径中再做多组 5 位地址比较。
+
+\begin{table}[H]
+  \centering
+  \caption{EX 阶段前递来源及优先级}
+  \label{tab:forwarding}
+  \begin{tabularx}{\textwidth}{>{\bfseries}p{2.2cm}p{3.2cm}X}
+    \toprule
+    选择编码 & 数据来源 & 适用情况 \\
+    \midrule
+    \code{00} & ID/EX 原始操作数 & 无相关或寄存器堆已提供最新值 \\
+    \code{01} & EX/MEM 运算结果 & 最近一条非载入生产者，优先级最高 \\
+    \code{10} & MEM2 前递值 & 更早的运算结果或已格式化载入结果 \\
+    \code{11} & MEM/WB 写回值 & 尚未由寄存器堆读出的写回数据 \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+rs1 和 rs2 各有独立选择器。存储指令的写数据使用与 rs2 相同的选择结果，但未前递
+基值取自专门保存的 \code{data3}，因此“计算地址”和“准备写数据”保持逻辑分离。
+
+\subsection{load-use 停顿}
+
+载入数据经过同步存储器后才能得到。如果 IF/ID 指令读取的源寄存器等于当前 ID/EX
+载入指令的目的寄存器，则产生 load-use 相关：
+\begin{equation}
+  \mathrm{stall}_{load}=V_L\land(rd_L\ne 0)\land V_C\land
+  \big[(R_1\land rs1_C=rd_L)\lor(R_2\land rs2_C=rd_L)\big].
+\end{equation}
+停顿期间 PC 与 IF/ID 保持，ID/EX 注入一个无效项。由于存储响应在进入 MEM2 前已经
+完成字节/半字选择和符号扩展，下一周期可从 \code{mem2\_forward\_data} 直接前递到
+EX，因此紧邻 load-use 相关只需一个气泡，而不必再等待到 WB。
+
+\subsection{停顿、冲刷与有效位}
+
+各级使用 \code{valid} 位区分真实指令和气泡。控制优先级可概括为：重定向冲刷高于
+长周期保持，长周期保持高于正常推进；load-use 在长周期运算结束后再注入气泡。该
+优先级避免乘除法执行过程中 ID/EX 内容被相关控制意外清除。
+
+对体系结构副作用的保护不是只在前端清除指令，而是在每个副作用边界使用有效位：
+寄存器写使能与 MEM/WB 有效状态绑定，存储写使能与 \code{ex\_current\_valid} 绑定，
+CSR 写入、\code{ecall} 状态保存也使用同一有效条件。这使流水线冲刷具有端到端的一致
+语义。
+
+% -----------------------------------------------------------------------------
+\section{访存通路与双端口 BRAM 设计}
+
+\subsection{载入存储请求生成}
+
+EX 阶段计算有效地址，并由 \code{ex\_mem\_req\_ctrl} 产生字节写使能。设地址低两位
+为 \(a_1a_0\)，请求大小为 byte、half 或 word，则
+\begin{equation}
+  \mathrm{BE}=\begin{cases}
+    \mathtt{0001}\ll a_1a_0, & \text{byte},\\
+    \mathtt{0011}\ll\{a_1,0\}, & \text{half},\\
+    \mathtt{1111}, & \text{word}.
+  \end{cases}
+\end{equation}
+字节存储把低 8 位复制到四个字节位置，半字存储把低 16 位复制两次，再由 BE 选择
+实际写入的字节。存储写使能只在指令有效、EX 未停顿且操作确为存储时拉高；无效或
+错误路径请求最多造成无副作用的读，不能写坏存储器。
+
+载入响应在 MEM1/MEM2 边界前格式化。字节通过地址低两位从 32 位读数据中四选一，
+半字通过地址位 1 二选一，再根据控制位进行符号扩展或零扩展；字载入直接使用完整
+32 位数据。格式化结果被寄存后同时服务于写回和 MEM2 前递，保证两条路径看到完全
+相同的体系结构值。
+
+\subsection{双端口存储结构}
+
+系统集成层的 \code{dram\_driver} 使用真双端口 BRAM。端口 A 专用于写，写地址、数据
+和字节使能先寄存；端口 B 专用于读，组合地址进入 BRAM，读数据在时钟边沿后输出。
+读写分端口后，处理器可以在一个请求写入尚未完全离开存储器接口时继续给出读地址，
+也避免读写控制共享一个端口造成的结构冲突。
+
+BRAM 容量为 \(65536\times32\) bit，共 256 KiB，具有四位逐字节写使能。仿真模型中
+端口 A 采用 write-first 行为，端口 B 采用 read-first 行为；综合实现则由块存储器 IP
+提供等价接口\cite{xilinx-bram}。
+
+\subsection{写后读前递}
+
+注册写路径改善了接口分级，但会产生新的 RAW 风险：存储指令刚把写请求送入寄存器，
+紧随其后的载入可能先从 BRAM 读到旧值。为此，\code{dram\_driver} 设置一个单项写缓冲，
+保存最近一次写地址、写数据和四位字节使能，并用两位有效移位寄存器覆盖待写请求的
+有效窗口。
+
+当读地址与缓冲地址相同时，前递判定、逐字节选择和待写数据再寄存一拍，以便与 BRAM
+端口 B 的同步读输出对齐。最终每个字节独立选择：
+\begin{equation}
+  D_{out}[8i+7:8i]=
+  \begin{cases}
+    D_{buf}[8i+7:8i], & \mathrm{fwd\_byte\_en}[i]=1,\\
+    D_{bram}[8i+7:8i], & \text{其他情况},
+  \end{cases}
+\end{equation}
+其中 \(i=0,1,2,3\)。逐字节合并同时支持 \code{SB}、\code{SH} 后的整字读取：被本次
+存储覆盖的字节来自缓冲，其余字节仍来自 BRAM。
+
+% -----------------------------------------------------------------------------
+\section{CSR 与机器模式控制设计}
+
+\subsection{CSR 文件与访问语义}
+
+\code{KLDJ\_csr} 实现表~\ref{tab:csr} 所示的五个 32 位机器模式寄存器。读端口为组合
+逻辑，写入在时钟上升沿完成，因此 CSR 读改写指令在同一周期读到旧值并将其写回 rd，
+同时把计算后的新值写入 CSR，符合交换、置位和清位操作的基本语义\cite{riscv-priv}。
+
+\begin{table}[H]
+  \centering
+  \caption{已实现的机器模式 CSR}
+  \label{tab:csr}
+  \begin{tabularx}{\textwidth}{>{\ttfamily}p{2.5cm}>{\ttfamily}p{2.2cm}X}
+    \toprule
+    \normalfont 寄存器 & \normalfont 地址 & \normalfont 作用 \\
+    \midrule
+    mstatus  & 0x300 & 保存机器模式全局使能、前态使能和前一特权级 \\
+    mtvec    & 0x305 & 保存系统控制入口基地址 \\
+    mscratch & 0x340 & 供处理程序暂存软件上下文 \\
+    mepc     & 0x341 & 保存触发系统调用的指令 PC，也是返回目标来源 \\
+    mcause   & 0x342 & 保存原因码；机器模式环境调用写入 11 \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection{ecall 进入流程}
+
+译码级识别 \code{SYSTEM} 主操作码、\code{funct3=000} 且相应字段为零的
+\code{ecall}。有效指令在 EX 被识别后，CSR 模块执行以下状态更新：
+
+\begin{enumerate}
+  \item \code{mepc} 保存当前 \code{ecall} 指令的 PC；
+  \item \code{mcause} 写为 \code{0x0000\_000B}；
+  \item \code{mstatus.MPIE} 保存原 \code{MIE}，\code{MIE} 清零，
+        \code{MPP} 置为机器模式；
+  \item EX2 控制单元把正确 PC 选为 \code{mtvec}，若此前未预测该转移则重定向前端；
+  \item IF/ID、ID/EX 与更年轻 EX 指令被冲刷，处理器从入口地址继续取指。
+\end{enumerate}
+
+本实现将 \code{mepc} 保存为 \code{ecall} 自身地址，而不是 \code{PC+4}。因此，若处理
+程序希望返回到系统调用之后，软件应在执行 \code{mret} 前把 \code{mepc} 增加 4；
+这一点也是功能仿真中需要核对的关键行为。
+
+\subsection{mret 返回流程}
+
+\code{mret} 在 EX 读取当前 \code{mepc} 作为跳转目标。CSR 模块同时执行
+\code{MIE}\(\leftarrow\)\code{MPIE}、\code{MPIE}\(\leftarrow1\) 和
+\code{MPP}\(\leftarrow00\)。其控制转移结果经 EX2 与原预测比较，必要时重定向到
+\code{mepc}。和普通分支恢复相同，重定向时错误路径的存储写入与 CSR 写入均被有效位
+屏蔽。
+
+% -----------------------------------------------------------------------------
+\section{功能仿真与验证}
+
+\subsection{验证方法}
+
+功能验证采用定向激励与内部关键信号观察相结合的方法。三组仿真分别覆盖存储器接口、
+前端预测和系统控制；不仅检查最终数据，还检查请求、状态更新和重定向的周期关系。
+表~\ref{tab:verification} 给出建议的判定要点。
+
+\begin{table}[H]
+  \centering
+  \caption{三组功能仿真的验证目标}
+  \label{tab:verification}
+  \begin{tabularx}{\textwidth}{>{\bfseries}p{3.0cm}p{5.2cm}X}
+    \toprule
+    仿真对象 & 主要观察信号 & 通过条件 \\
+    \midrule
+    双端口 BRAM & 写使能、地址、字节使能、写数据、读地址、缓冲有效、读数据 &
+    全字与局部写入正确；紧邻同址读取取得合并后的新值；异址读取不误前递 \\
+    BPU & lookup PC、PHT 索引、预测方向/目标、更新方向/目标、BTB 命中、GHR、重定向 &
+    冷启动预测确定；训练后计数器饱和变化；BTB 目标命中；方向或目标错误均触发恢复 \\
+    \code{ecall/mret} & 当前 PC、\code{mepc}、\code{mcause}、\code{mtvec}、
+    \code{mstatus}、重定向与目标 PC &
+    \code{ecall} 跳到 \code{mtvec} 并保存状态；软件调整 \code{mepc} 后，
+    \code{mret} 返回正确地址并恢复状态位 \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection{双端口 BRAM 功能仿真}
+
+\begin{figure}[H]
+  \centering
+  \insertfigureorplaceholder{figures/dual_port_bram_sim}{双端口 BRAM 功能仿真图占位}
+  \caption{双端口 BRAM 及写后读前递功能仿真}
+  \label{fig:bram-sim}
+\end{figure}
+
+图~\ref{fig:bram-sim} 应从三个层次判读。首先，写请求到来时地址、数据和 BE 被写通路
+寄存，实际 BRAM 写使能随后生效；其次，读端口保持同步输出语义，读地址与返回数据间
+存在一个寄存边界；最后，同址写后读期间前递命中，\code{fwd\_byte\_en\_r} 只替换
+本次写入的字节。若波形同时包含全字、字节、半字及异址场景，即可验证双端口访问和
+逐字节合并没有互相干扰。收到最终波形后，可在此处补充具体时间点和十六进制数据。
+
+\subsection{BPU 功能仿真}
+
+\begin{figure}[H]
+  \centering
+  \insertfigureorplaceholder{figures/bpu_sim}{BPU 功能仿真图占位}
+  \caption{gshare、PHT 与 BTB 联合预测功能仿真}
+  \label{fig:bpu-sim}
+\end{figure}
+
+图~\ref{fig:bpu-sim} 的分析应把“查找”和“训练”分开：查找侧由当前 PC 与 GHR 形成
+异或索引，并在 BTB 标签命中后输出预测目标；训练侧携带该指令取指时保存的 PHT
+索引，并把实际方向移入 GHR。连续跳转结果应使两位计数器逐步趋向 \code{11}，连续
+不跳转结果则趋向 \code{00}。若预测方向不同，或预测跳转但目标不同，重定向信号都
+应有效。最终图片到位后，可结合波形标记冷启动、第一次训练、稳定命中和错误恢复四个
+阶段。
+
+\subsection{ecall 与 mret 功能仿真}
+
+\begin{figure}[H]
+  \centering
+  \insertfigureorplaceholder{figures/ecall_mret_sim}{ecall 与 mret 功能仿真图占位}
+  \caption{\code{ecall} 进入与 \code{mret} 返回功能仿真}
+  \label{fig:ecall-mret-sim}
+\end{figure}
+
+图~\ref{fig:ecall-mret-sim} 应形成完整闭环：\code{ecall} 有效时，\code{mepc} 捕获
+调用指令 PC、\code{mcause} 变为 11，重定向目标等于 \code{mtvec}；处理程序修改
+\code{mepc} 后执行 \code{mret}，重定向目标等于更新后的 \code{mepc}，同时
+\code{mstatus} 中 MIE、MPIE 和 MPP 按返回语义更新。还应检查重定向后的第一条有效
+指令来自正确地址，且调用前后错误路径没有产生寄存器或存储器写入。收到最终波形后，
+可把状态变化的具体周期补入本段。
+
+% -----------------------------------------------------------------------------
+\section{系统集成与设计特点}
+
+\subsection{模块化组织}
+
+处理器将功能单元、流水寄存器和控制单元分目录组织。阶段模块负责体系结构功能，
+\code{pipe} 目录负责寄存边界、前递、预测和请求控制，\code{alu} 目录负责可复用运算
+单元。顶层主要完成数据连线和全局优先级组合，便于分别验证 BPU、乘除法包装器、
+存储驱动和完整处理器。
+
+\subsection{面向同步存储器的流水设计}
+
+本设计没有假定数据存储器组合读，而是显式设置 MEM1/MEM2 响应边界。载入数据先在
+寄存器前完成选字节和扩展，再以寄存值参与旁路。这种组织方式使 CPU 核心接口能够
+连接 FPGA BRAM 与带寄存响应的外设桥，同时避免把存储器实时输出直接接入 EX 多路器。
+
+取指侧的直接跳转静态预测和返回地址预测均通过参数控制。默认配置优先保持 IF 的 PC
+反馈路径简洁；关闭这些可选预测不会影响指令正确性，因为所有控制转移最终都在 EX2
+核对并恢复。
+
+\subsection{当前功能边界}
+
+从现有 RTL 可见，设计已经覆盖整数程序执行、乘除法、动态分支预测、同步存储访问和
+基本机器模式系统调用。当前异常入口主要围绕 \code{ecall} 构建，尚未形成外部中断、
+非法指令、地址未对齐和访问故障的统一异常仲裁。载入存储接口也默认软件遵守自然
+对齐约束。上述边界不影响本文三组功能验证，但在扩展为完整机器模式处理器时需要继续
+完善。
+
+% -----------------------------------------------------------------------------
+\section{总结与展望}
+
+本文依据实际 RTL 对 KLDJ 流水线 CPU 进行了系统说明。处理器使用 IF、ID、EX、MEM1、
+MEM2、WB 六级主数据通路，控制转移通过独立 EX2 边界完成方向和目标核对。译码与
+前递选择在较早阶段生成，EX 支持整数、分支、地址生成和多周期乘除法；同步载入响应
+在 MEM2 前完成格式化，使紧邻 load-use 相关只需一个停顿周期。前端的 gshare PHT、
+BTB 和返回地址栈为控制流加速提供基础，统一重定向和逐级有效位则保证预测不会改变
+程序语义。
+
+在系统侧，真双端口 BRAM 分离读写路径，单项写缓冲解决注册写路径带来的写后读问题；
+CSR 文件与 EX2 重定向共同实现 \code{ecall} 入口和 \code{mret} 返回。三组功能仿真从
+存储一致性、预测状态机和系统控制闭环三个角度验证关键设计。
+
+后续工作可从三个方向展开：一是加入统一的中断和异常仲裁，完善 \code{mtvec} 模式、
+地址未对齐及访问故障处理；二是增加提交级参考模型对比和随机指令测试，提高验证覆盖
+率；三是基于真实应用统计分支命中率、停顿来源和 IPC，为预测表规模、乘除法结构及
+存储流水深度的取舍提供量化依据。
+
+% -----------------------------------------------------------------------------
+\appendix
+\section{主要 RTL 文件结构与职责对应表}
+
+本项目采用“系统集成层--CPU 核心顶层--阶段模块/流水控制--运算与通用单元”的分层
+组织方式。目录树如清单~\ref{lst:rtl-tree} 所示，仅展开本文涉及的基础 CPU 实现和
+系统集成文件。
+
+\begin{lstlisting}[caption={项目 RTL 目录层次},label={lst:rtl-tree},numbers=none,basicstyle=\ttfamily\footnotesize]
+pipilined5/
+|-- kldj.srcs2/
+|   `-- sources_1/imports/rtl/
+|       |-- KLDJ_top.v
+|       |-- KLDJ_perf_counters.v
+|       |-- define.v
+|       |-- stage/
+|       |   |-- KLDJ_ifu.v       KLDJ_idu.v       KLDJ_exu.v
+|       |   |-- KLDJ_lsu.v       KLDJ_wbu.v
+|       |   `-- KLDJ_regfile.v   KLDJ_csr.v
+|       |-- pipe/
+|       |   |-- pipe_if_id.v     pipe_id_ex.v     pipe_ex_mem.v
+|       |   |-- pipe_mem_wb.v    pipe_wb_commit.v
+|       |   |-- ex_forward.v     ex_mem_req_ctrl.v  mem_stage_top.v
+|       |   `-- bpu.v            ex_bpu_ctrl.v
+|       |-- alu/
+|       |   |-- KLDJ_alu.v       alu_add.v         alu_and.v
+|       |   |-- alu_or.v         alu_xor.v         alu_shifter.v
+|       |   |-- alu_slt.v        mul_ip_wrapper.v  div_ip_wrapper.v
+|       |   `-- alu_mul.v        alu_div.v
+|       `-- util/
+|           |-- DataMemory.v
+|           |-- MuxKeyInternal.v
+|           `-- MuxKeyWithDefault.v
+`-- new/
+    |-- top.sv             student_top.sv      IROM_BHV.sv
+    |-- perip_bridge.sv    dram_driver.sv      DRAM_TDP.sv
+    `-- counter.sv         display_seg.sv
+\end{lstlisting}
+
+从逻辑实例关系看，板级 \code{top} 通过 \code{student\_top} 连接指令存储器、
+\code{KLDJ\_top} 和 \code{perip\_bridge}；\code{KLDJ\_top} 再统一例化各流水
+阶段、预测控制和流水寄存器。执行级 \code{KLDJ\_exu} 向下调用 ALU 与乘除法包装器，
+而数据侧经 \code{perip\_bridge}、\code{dram\_driver} 连接双端口 BRAM。表
+\ref{tab:modules} 按此层次说明各目录中的实际文件职责。
+
+\begin{longtable}{L{2.9cm}L{4.4cm}L{6.8cm}}
+  \caption{RTL 文件层次与职责对应表}\label{tab:modules}\\
+  \toprule
+  目录层级 & 实际文件/模块 & 主要职责 \\
+  \midrule
+  \endfirsthead
+  \toprule
+  目录层级 & 实际文件/模块 & 主要职责 \\
+  \midrule
+  \endhead
+  \multicolumn{3}{l}{\textbf{第 1 层：CPU 核心顶层（\code{sources\_1/imports/rtl/}）}}\\
+  \midrule
+  核心顶层 & \code{KLDJ\_top.v} &
+  连接取指、译码、执行、访存、写回、分支预测和 CSR；生成全局停顿、冲刷和 EX2 控制结果边界。\\
+  基础定义 & \code{define.v} &
+  定义数据宽度、起始 PC、指令主操作码、内部操作码和 CSR 地址等全局宏。\\
+  观察单元 & \code{KLDJ\_perf\_counters.v} &
+  定义周期、提交、停顿、重定向和访存事件的独立计数器，作为后续性能观察接口。\\
+  \addlinespace
+  \multicolumn{3}{l}{\textbf{第 2 层：流水阶段模块（\code{rtl/stage/}）}}\\
+  \midrule
+  取指阶段 & \code{KLDJ\_ifu.v} &
+  保存 PC，选择顺序地址、预测地址或重定向地址，并响应前端保持控制。\\
+  译码阶段 & \code{KLDJ\_idu.v} &
+  解析指令字段，生成立即数、寄存器读写控制、ALU/访存/CSR 控制与四路操作数。\\
+  执行阶段 & \code{KLDJ\_exu.v} &
+  完成整数运算、分支比较、跳转目标、访存地址、乘除法状态以及 CSR 写数据生成。\\
+  访存与写回 & \code{KLDJ\_lsu.v}，\code{KLDJ\_wbu.v} &
+  \code{KLDJ\_lsu} 选择载入字节/半字并扩展；\code{KLDJ\_wbu} 将最终结果送往写回端。\\
+  寄存器堆 & \code{KLDJ\_regfile.v} &
+  实现 32 个通用寄存器、双读单写接口、\code{x0} 保护和同周期 write-through 旁路。\\
+  机器模式状态 & \code{KLDJ\_csr.v} &
+  实现 \code{mstatus}、\code{mtvec}、\code{mepc}、\code{mcause}、\code{mscratch}，
+  并处理 \code{ecall/mret} 的状态更新。\\
+  \addlinespace
+  \multicolumn{3}{l}{\textbf{第 3 层：流水寄存器与控制单元（\code{rtl/pipe/}）}}\\
+  \midrule
+  阶段寄存器 & \code{pipe\_if\_id.v}，\code{pipe\_id\_ex.v}，\code{pipe\_ex\_mem.v} &
+  在 IF/ID、ID/EX、EX/MEM 边界寄存指令、PC、操作数、控制信号、有效位与前递选择。\\
+  访存/提交边界 & \code{pipe\_mem\_wb.v}，\code{pipe\_wb\_commit.v} &
+  前者同时定义 MEM1/MEM2 响应寄存器和 MEM/WB 寄存器；后者提供提交观察点。\\
+  数据相关控制 & \code{ex\_forward.v}，\code{ex\_mem\_req\_ctrl.v} &
+  预计算并选择 EX 前递来源，检测 load-use 停顿；生成数据地址、写数据、写使能和字节使能。\\
+  MEM2 数据组织 & \code{mem\_stage\_top.v} &
+  选择已寄存的载入结果或执行结果，形成与前递一致的写回数据。\\
+  分支预测单元 & \code{bpu.v} &
+  包含 \code{gshare\_btb\_core} 与 \code{return\_address\_stack}，实现 PHT、BTB、GHR
+  和返回地址栈。\\
+  控制转移核对 & \code{ex\_bpu\_ctrl.v} &
+  比较预测方向/目标与实际结果，产生重定向，并更新 BPU 与返回地址栈状态。\\
+  \addlinespace
+  \multicolumn{3}{l}{\textbf{第 4 层：运算与通用单元（\code{rtl/alu/}、\code{rtl/util/}）}}\\
+  \midrule
+  ALU 顶层 & \code{KLDJ\_alu.v} &
+  汇聚加减比较、逻辑、移位与小于比较子单元，输出运算结果和分支比较标志。\\
+  基础运算子单元 & \code{alu\_add.v}，\code{alu\_and.v}，\code{alu\_or.v}，\code{alu\_xor.v}，
+  \code{alu\_shifter.v}，\code{alu\_slt.v} &
+  分别实现加减/比较、逻辑、移位和置位功能，供 \code{KLDJ\_alu} 组合调用。\\
+  长周期运算 & \code{mul\_ip\_wrapper.v}，\code{div\_ip\_wrapper.v} &
+  包装乘法和除法 IP 的启动、忙、完成和结果接口，并处理符号与边界条件。\\
+  兼容运算文件 & \code{alu\_mul.v}，\code{alu\_div.v} &
+  保留兼容模块接口；实际乘除法数据通路由对应的 IP 包装器实现。\\
+  通用工具 & \code{DataMemory.v}，\code{MuxKeyInternal.v}，\code{MuxKeyWithDefault.v} &
+  提供基础存储器模型和可复用键值选择器，便于局部模块或测试环境复用。\\
+  \addlinespace
+  \multicolumn{3}{l}{\textbf{第 5 层：系统集成与存储器层（\code{pipilined5/new/}）}}\\
+  \midrule
+  板级封装 & \code{top.sv}，\code{student\_top.sv} &
+  连接时钟、复位、IROM、CPU 核心、外设桥和板级输入输出；\code{student\_top} 例化 \code{KLDJ\_top}。\\
+  指令存储器 & \code{IROM\_BHV.sv} &
+  提供与指令存储 IP 兼容的行为级模型，用于仿真读取指令。\\
+  地址译码与外设 & \code{perip\_bridge.sv}，\code{counter.sv}，\code{display\_seg.sv} &
+  进行 DRAM/MMIO 地址译码，连接开关、按键、LED、数码管和计数器等外设。\\
+  数据 BRAM & \code{dram\_driver.sv}，\code{DRAM\_TDP.sv} &
+  以真双端口 BRAM 提供读写通路；\code{dram\_driver} 负责注册写路径和逐字节写后读前递。\\
+  \bottomrule
+\end{longtable}
+
+\section{图片替换说明}
+
+报告会自动按 PDF、PNG、JPG、JPEG 的顺序搜索图片。将最终图片放入
+\path{report/figures}，并使用以下基本文件名即可，无需修改正文：
+
+\begin{itemize}
+  \item \code{cpu\_architecture}：CPU 总体架构图；
+  \item \code{dual\_port\_bram\_sim}：双端口 BRAM 仿真图；
+  \item \code{bpu\_sim}：BPU 仿真图；
+  \item \code{ecall\_mret\_sim}：\code{ecall/mret} 仿真图。
+\end{itemize}
+
+% -----------------------------------------------------------------------------
+\begin{thebibliography}{9}
+  \bibitem{riscv-unpriv}
+  RISC-V International.
+  \newblock \emph{The RISC-V Instruction Set Manual, Volume I: Unprivileged Architecture}.
+
+  \bibitem{riscv-priv}
+  RISC-V International.
+  \newblock \emph{The RISC-V Instruction Set Manual, Volume II: Privileged Architecture}.
+
+  \bibitem{xilinx-bram}
+  AMD Xilinx.
+  \newblock \emph{7 Series FPGAs Memory Resources User Guide (UG473)}.
+
+  \bibitem{patterson}
+  David A. Patterson, John L. Hennessy.
+  \newblock \emph{Computer Organization and Design RISC-V Edition}.
+  \newblock Morgan Kaufmann.
+\end{thebibliography}
+
+\end{document}
