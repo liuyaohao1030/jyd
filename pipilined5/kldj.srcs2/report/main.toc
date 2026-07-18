@@ -39,6 +39,6 @@
 \contentsline {subsection}{\numberline {9.1}模块化组织}{13}{subsection.9.1}%
 \contentsline {subsection}{\numberline {9.2}面向同步存储器的流水设计}{13}{subsection.9.2}%
 \contentsline {subsection}{\numberline {9.3}当前功能边界}{13}{subsection.9.3}%
-\contentsline {section}{\numberline {10}总结与展望}{13}{section.10}%
+\contentsline {section}{\numberline {10}总结与展望}{14}{section.10}%
 \contentsline {section}{\numberline {A}主要 RTL 文件结构与职责对应表}{14}{appendix.A}%
 \contentsline {section}{\numberline {B}图片替换说明}{17}{appendix.B}%
