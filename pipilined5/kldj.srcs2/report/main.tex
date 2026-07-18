@@ -89,16 +89,9 @@
 \newcommand{\code}[1]{\texttt{#1}}
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 
-% 按“PDF、PNG、JPG、JPEG”的顺序寻找图片；没有图片时显示占位框。
-\newcommand{\insertfigureorplaceholder}[2]{%
-  \IfFileExists{#1.pdf}{\includegraphics[width=0.94\textwidth]{#1.pdf}}{%
-  \IfFileExists{#1.png}{\includegraphics[width=0.94\textwidth]{#1.png}}{%
-  \IfFileExists{#1.jpg}{\includegraphics[width=0.94\textwidth]{#1.jpg}}{%
-  \IfFileExists{#1.jpeg}{\includegraphics[width=0.94\textwidth]{#1.jpeg}}{%
-  \fbox{\parbox[c][5.4cm][c]{0.90\textwidth}{\centering
-    \large #2\\[0.8em]
-    \normalsize 将图片放入 \texttt{figures/} 后重新编译
-  }}}}}}
+% 图片较正文栏宽约 17%，利用页边距提高架构图和波形图的可读性。
+\newcommand{\insertfigure}[1]{%
+  \makebox[\textwidth][c]{\includegraphics[width=1.10\textwidth]{#1}}%
 }
 
 \begin{document}
@@ -280,16 +273,23 @@ RISC-V CPU 展开实践。设计不仅需要完成指令功能，更需要构建
 
 \begin{figure}[H]
   \centering
-  \insertfigureorplaceholder{figures/cpu_architecture}{CPU 总体架构图占位}
-  \caption{RISC-V 流水线 CPU 总体架构图}
+  \insertfigure{figures/cpu_architecture.png}
+  \caption{RISC-V 流水线 CPU、存储器与外设集成架构}
   \label{fig:architecture}
 \end{figure}
 
-核心模块 \code{KLDJ\_top} 的外部接口可分为取指、数据访存和调试观察三组。指令由
+图~\ref{fig:architecture} 按时钟与 I/O 域、\code{student\_top} 集成边界和
+\code{KLDJ\_top} 核心三个层次展开。顶层处理差分时钟/PLL、UART、\code{twin\_controller}
+和计数器等板级接口；\code{student\_top} 在 CPU 与 IROM、\code{perip\_bridge}、
+\code{dram\_driver/BRAM} 和 MMIO 之间完成连接。核心内部的指令流依次经过 IFU、IF/ID、
+IDU、ID/EX 与 EXU，访存/写回流经 EX/MEM、MEM1/MEM2、MEM/WB、WB 和寄存器堆；
+IDU+CSR、BPU/RAS 与 EX2 构成独立的控制恢复通路。图中的红色 \code{ex\_redirect}
+明确给出预测错误或系统控制转移时对 PC 的重定向，以及对 IF/ID、ID/EX 的冲刷。
+
+核心模块 \code{KLDJ\_top} 的外部接口可分为取指和数据访存两组。指令由
 \code{tb\_if\_inst} 输入，当前取指 PC 通过 \code{tb\_if\_pc} 输出；数据侧输出
 \code{mem\_addr}、\code{mem\_wdata}、\code{mem\_we} 和四位
-\code{mem\_be}，同步读响应从 \code{mem\_rdata} 返回。调试端口输出重定向事件、
-目标地址和提交结果，用于测试平台观察，不参与体系结构状态更新。
+\code{mem\_be}，同步读响应从 \code{mem\_rdata} 返回。
 
 系统顶层将 PC 的 \code{[13:2]} 位连接到 4096 深度的指令存储器，因此指令空间容量
 为 16 KiB。数据请求先进入 \code{perip\_bridge}：\code{0x8010\_0000} 至
@@ -324,10 +324,11 @@ DRAM 响应和 MMIO 响应在同一时序边界返回核心。
   \end{tabularx}
 \end{table}
 
-结合图~\ref{fig:architecture}，指令沿主通路从左向右推进，寄存器堆写回和三路前递
-构成数据反馈；BPU 在 IF 阶段提供预测，在 EX/EX2 边界接收实际结果并更新状态；控制
-转移错误时，重定向信号返回 IF，同时清除更年轻的流水线状态。数据存储器请求在 EX
-阶段发出，响应经过 MEM1/MEM2 边界寄存后再参与前递和写回。
+结合图~\ref{fig:architecture}，寄存器堆的读数据沿指令流送入 IDU，写回结果则由 WB
+返回 RF；EX/MEM、MEM1/MEM2 和 MEM/WB 提供三路前递来源。BPU/RAS 在 IF 阶段给出
+预测 PC，EX2 接收实际转移结果；发生错误时，\code{flush / PC} 单元把
+\code{ex\_redirect} 返回 IF，并清除更年轻的流水线状态。数据存储器请求在 EX 阶段发出，
+响应经过 MEM1/MEM2 边界寄存后再参与前递和写回。
 
 % -----------------------------------------------------------------------------
 \section{前端预测与控制通路设计}
@@ -630,48 +631,61 @@ BRAM 容量为 \(65536\times32\) bit，共 256 KiB，具有四位逐字节写使
 
 \begin{figure}[H]
   \centering
-  \insertfigureorplaceholder{figures/dual_port_bram_sim}{双端口 BRAM 功能仿真图占位}
-  \caption{双端口 BRAM 及写后读前递功能仿真}
+  \insertfigure{figures/dual_port_bram_sim.png}
+  \caption{双端口 BRAM 全字写入、字节更新与写后读前递仿真}
   \label{fig:bram-sim}
 \end{figure}
 
-图~\ref{fig:bram-sim} 应从三个层次判读。首先，写请求到来时地址、数据和 BE 被写通路
-寄存，实际 BRAM 写使能随后生效；其次，读端口保持同步输出语义，读地址与返回数据间
-存在一个寄存边界；最后，同址写后读期间前递命中，\code{fwd\_byte\_en\_r} 只替换
-本次写入的字节。若波形同时包含全字、字节、半字及异址场景，即可验证双端口访问和
-逐字节合并没有互相干扰。收到最终波形后，可在此处补充具体时间点和十六进制数据。
+图~\ref{fig:bram-sim} 验证同一字地址 \code{0x0040} 的定向读写。全字写入阶段中，
+\code{perip\_wdata} 为 \code{0xAABBCCDD}，写使能为 \code{4'b1111}。
+经过同步读响应边界，\code{expected\_rdata}、\code{perip\_rdata} 和 \code{doutb}
+均得到 \code{0xAABBCCDD}。随后在约 \(60\,\mathrm{ns}\) 对字节地址 \code{0x00101}
+发起 \code{4'b0010} 的局部写入，写数据为 \code{0x5A5A5A5A}。
+
+前递字节使能
+\code{fwd\_byte\_en\_r} 同步变为 \code{4'b0010}，仅覆盖第二个字节；约
+\(80\,\mathrm{ns}\) 后三路读数据一致为 \code{0xAABB5ADD}。这表明注册写路径下的
+同址读能够取得逐字节合并后的新值，而非 BRAM 的旧值。
 
 \subsection{BPU 功能仿真}
 
 \begin{figure}[H]
   \centering
-  \insertfigureorplaceholder{figures/bpu_sim}{BPU 功能仿真图占位}
-  \caption{gshare、PHT 与 BTB 联合预测功能仿真}
+  \insertfigure{figures/bpu_sim.png}
+  \caption{gshare、PHT 与 BTB 的训练、稳定预测和恢复仿真}
   \label{fig:bpu-sim}
 \end{figure}
 
-图~\ref{fig:bpu-sim} 的分析应把“查找”和“训练”分开：查找侧由当前 PC 与 GHR 形成
-异或索引，并在 BTB 标签命中后输出预测目标；训练侧携带该指令取指时保存的 PHT
-索引，并把实际方向移入 GHR。连续跳转结果应使两位计数器逐步趋向 \code{11}，连续
-不跳转结果则趋向 \code{00}。若预测方向不同，或预测跳转但目标不同，重定向信号都
-应有效。最终图片到位后，可结合波形标记冷启动、第一次训练、稳定命中和错误恢复四个
-阶段。
+图~\ref{fig:bpu-sim} 以 \code{0x80000000} 处的循环分支验证预测器的状态演化。冷启动时
+PHT 计数器为弱不跳转状态 \code{01}，连续的实际跳转使 \code{ghr\_observe} 依次从
+\code{00} 演化为 \code{01}、\code{03}、\code{07}、\code{0F}、\code{1F} 和
+\code{3F}，对应的查找/更新索引也按 gshare 规则变化。BTB 建立目标
+\code{0x80000000} 后，PHT 计数器依次达到 \code{10} 和 \code{11}；约
+\(160\,\mathrm{ns}\) 起 \code{pred\_taken} 有效，后续连续跳转不再触发
+\code{ex\_redirect}。末次实际结果改为不跳转时，取指 PC 转为 \code{0x80000004}，
+GHR 更新为 \code{3E}，PHT 计数器由 \code{11} 回退为 \code{10}，并产生一次恢复。
+波形因此同时验证了冷启动训练、BTB 命中、稳态预测和方向失配恢复。
 
 \subsection{ecall 与 mret 功能仿真}
 
 \begin{figure}[H]
   \centering
-  \insertfigureorplaceholder{figures/ecall_mret_sim}{ecall 与 mret 功能仿真图占位}
-  \caption{\code{ecall} 进入与 \code{mret} 返回功能仿真}
+  \insertfigure{figures/ecall_mret_sim.png}
+  \caption{\code{ecall} 进入、CSR 状态更新与 \code{mret} 返回仿真}
   \label{fig:ecall-mret-sim}
 \end{figure}
 
-图~\ref{fig:ecall-mret-sim} 应形成完整闭环：\code{ecall} 有效时，\code{mepc} 捕获
-调用指令 PC、\code{mcause} 变为 11，重定向目标等于 \code{mtvec}；处理程序修改
-\code{mepc} 后执行 \code{mret}，重定向目标等于更新后的 \code{mepc}，同时
-\code{mstatus} 中 MIE、MPIE 和 MPP 按返回语义更新。还应检查重定向后的第一条有效
-指令来自正确地址，且调用前后错误路径没有产生寄存器或存储器写入。收到最终波形后，
-可把状态变化的具体周期补入本段。
+图~\ref{fig:ecall-mret-sim} 展示了完整的机器模式控制闭环。首先，测试程序通过
+CSR 地址 \code{0x305} 将 \code{mtvec} 配置为 \code{0x80000100}，并通过地址
+\code{0x300} 将 \code{mstatus} 置为 \code{0x00001808}。约 \(60\,\mathrm{ns}\) 时
+\code{is\_ecall} 和 \code{ecall\_valid} 有效，\code{mepc} 捕获
+\code{0x80000020}，\code{mcause} 更新为 \code{0x0000000B}，\code{mstatus} 变为
+\code{0x00001880}，且 \code{ex\_redirect} 将 PC 重定向到 \code{0x80000100}。
+处理程序随后经 CSR 地址 \code{0x341} 把 \code{mepc} 改写为 \code{0x80000024}。
+约 \(100\,\mathrm{ns}\) 时 \code{is\_mret} 和 \code{mret\_valid} 有效，
+\code{mret\_pc} 与 \code{ex\_jump\_pc} 均为 \code{0x80000024}，重定向后的取指
+PC 也稳定为该地址，同时 \code{mstatus} 恢复为 \code{0x00000088}。由此验证了
+\code{ecall} 状态保存、软件调整返回地址和 \code{mret} 恢复执行的完整时序。
 
 % -----------------------------------------------------------------------------
 \section{系统集成与设计特点}
@@ -842,18 +856,6 @@ pipilined5/
   以真双端口 BRAM 提供读写通路；\code{dram\_driver} 负责注册写路径和逐字节写后读前递。\\
   \bottomrule
 \end{longtable}
-
-\section{图片替换说明}
-
-报告会自动按 PDF、PNG、JPG、JPEG 的顺序搜索图片。将最终图片放入
-\path{report/figures}，并使用以下基本文件名即可，无需修改正文：
-
-\begin{itemize}
-  \item \code{cpu\_architecture}：CPU 总体架构图；
-  \item \code{dual\_port\_bram\_sim}：双端口 BRAM 仿真图；
-  \item \code{bpu\_sim}：BPU 仿真图；
-  \item \code{ecall\_mret\_sim}：\code{ecall/mret} 仿真图。
-\end{itemize}
 
 % -----------------------------------------------------------------------------
 \begin{thebibliography}{9}
