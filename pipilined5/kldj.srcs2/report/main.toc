@@ -9,35 +9,41 @@
 \contentsline {subsection}{\numberline {2.2}RISC-V CPU 的整体架构图}{3}{subsection.2.2}%
 \contentsline {subsection}{\numberline {2.3}数据通路各模块的设计}{4}{subsection.2.3}%
 \contentsline {subsubsection}{\numberline {2.3.1}CPU 数据通路整体说明}{4}{subsubsection.2.3.1}%
-\contentsline {section}{\numberline {3}前端预测与控制通路设计}{5}{section.3}%
-\contentsline {subsection}{\numberline {3.1}PC 更新与优先级}{5}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}gshare 方向预测器}{5}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3}BTB、返回地址栈与预测目标}{5}{subsection.3.3}%
-\contentsline {subsection}{\numberline {3.4}解析、训练与错误恢复}{6}{subsection.3.4}%
-\contentsline {section}{\numberline {4}译码、执行与长周期运算设计}{6}{section.4}%
-\contentsline {subsection}{\numberline {4.1}译码与立即数生成}{6}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}整数执行单元}{6}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}乘法与除法}{7}{subsection.4.3}%
-\contentsline {section}{\numberline {5}流水线冒险处理机制}{7}{section.5}%
-\contentsline {subsection}{\numberline {5.1}数据前递网络}{7}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}load-use 停顿}{8}{subsection.5.2}%
-\contentsline {subsection}{\numberline {5.3}停顿、冲刷与有效位}{8}{subsection.5.3}%
-\contentsline {section}{\numberline {6}访存通路与双端口 BRAM 设计}{9}{section.6}%
-\contentsline {subsection}{\numberline {6.1}载入存储请求生成}{9}{subsection.6.1}%
-\contentsline {subsection}{\numberline {6.2}双端口存储结构}{9}{subsection.6.2}%
-\contentsline {subsection}{\numberline {6.3}写后读前递}{9}{subsection.6.3}%
-\contentsline {section}{\numberline {7}CSR 与机器模式控制设计}{10}{section.7}%
-\contentsline {subsection}{\numberline {7.1}CSR 文件与访问语义}{10}{subsection.7.1}%
-\contentsline {subsection}{\numberline {7.2}ecall 进入流程}{10}{subsection.7.2}%
-\contentsline {subsection}{\numberline {7.3}mret 返回流程}{11}{subsection.7.3}%
-\contentsline {section}{\numberline {8}功能仿真与验证}{11}{section.8}%
-\contentsline {subsection}{\numberline {8.1}验证方法}{11}{subsection.8.1}%
-\contentsline {subsection}{\numberline {8.2}双端口 BRAM 功能仿真}{12}{subsection.8.2}%
-\contentsline {subsection}{\numberline {8.3}BPU 功能仿真}{13}{subsection.8.3}%
-\contentsline {subsection}{\numberline {8.4}ecall 与 mret 功能仿真}{14}{subsection.8.4}%
-\contentsline {section}{\numberline {9}系统集成与设计特点}{14}{section.9}%
-\contentsline {subsection}{\numberline {9.1}模块化组织}{14}{subsection.9.1}%
-\contentsline {subsection}{\numberline {9.2}面向同步存储器的流水设计}{15}{subsection.9.2}%
-\contentsline {subsection}{\numberline {9.3}当前功能边界}{15}{subsection.9.3}%
-\contentsline {section}{\numberline {10}总结与展望}{15}{section.10}%
-\contentsline {section}{\numberline {A}主要 RTL 文件结构与职责对应表}{16}{appendix.A}%
+\contentsline {subsubsection}{\numberline {2.3.2}取指模块与 IF/ID 寄存器}{5}{subsubsection.2.3.2}%
+\contentsline {subsubsection}{\numberline {2.3.3}译码模块与 ID/EX 寄存器}{5}{subsubsection.2.3.3}%
+\contentsline {subsubsection}{\numberline {2.3.4}执行单元、前递入口与 EX2 控制边界}{6}{subsubsection.2.3.4}%
+\contentsline {subsubsection}{\numberline {2.3.5}访存请求、MEM1/MEM2 与载入格式化}{6}{subsubsection.2.3.5}%
+\contentsline {subsubsection}{\numberline {2.3.6}MEM2、写回与通用寄存器堆}{7}{subsubsection.2.3.6}%
+\contentsline {subsubsection}{\numberline {2.3.7}级间有效位与端到端保护}{7}{subsubsection.2.3.7}%
+\contentsline {section}{\numberline {3}前端预测与控制通路设计}{8}{section.3}%
+\contentsline {subsection}{\numberline {3.1}PC 更新与优先级}{8}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}gshare 方向预测器}{8}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}BTB、返回地址栈与预测目标}{8}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}解析、训练与错误恢复}{9}{subsection.3.4}%
+\contentsline {section}{\numberline {4}译码、执行与长周期运算设计}{9}{section.4}%
+\contentsline {subsection}{\numberline {4.1}译码与立即数生成}{9}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}整数执行单元}{9}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}乘法与除法}{10}{subsection.4.3}%
+\contentsline {section}{\numberline {5}流水线冒险处理机制}{10}{section.5}%
+\contentsline {subsection}{\numberline {5.1}数据前递网络}{10}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}load-use 停顿}{11}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}停顿、冲刷与有效位}{11}{subsection.5.3}%
+\contentsline {section}{\numberline {6}访存通路与双端口 BRAM 设计}{12}{section.6}%
+\contentsline {subsection}{\numberline {6.1}载入存储请求生成}{12}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}双端口存储结构}{12}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}写后读前递}{12}{subsection.6.3}%
+\contentsline {section}{\numberline {7}CSR 与机器模式控制设计}{13}{section.7}%
+\contentsline {subsection}{\numberline {7.1}CSR 文件与访问语义}{13}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}ecall 进入流程}{13}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}mret 返回流程}{14}{subsection.7.3}%
+\contentsline {section}{\numberline {8}功能仿真与验证}{14}{section.8}%
+\contentsline {subsection}{\numberline {8.1}验证方法}{14}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}双端口 BRAM 功能仿真}{15}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3}BPU 功能仿真}{16}{subsection.8.3}%
+\contentsline {subsection}{\numberline {8.4}ecall 与 mret 功能仿真}{17}{subsection.8.4}%
+\contentsline {section}{\numberline {9}系统集成与设计特点}{17}{section.9}%
+\contentsline {subsection}{\numberline {9.1}模块化组织}{17}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}面向同步存储器的流水设计}{18}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}当前功能边界}{18}{subsection.9.3}%
+\contentsline {section}{\numberline {10}总结与展望}{18}{section.10}%
+\contentsline {section}{\numberline {A}主要 RTL 文件结构与职责对应表}{19}{appendix.A}%

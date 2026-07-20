@@ -278,31 +278,27 @@ RISC-V CPU 展开实践。设计不仅需要完成指令功能，更需要构建
   \label{fig:architecture}
 \end{figure}
 
-图~\ref{fig:architecture} 按时钟与 I/O 域、\code{student\_top} 集成边界和
-\code{KLDJ\_top} 核心三个层次展开。顶层处理差分时钟/PLL、UART、\code{twin\_controller}
-和计数器等板级接口；\code{student\_top} 在 CPU 与 IROM、\code{perip\_bridge}、
-\code{dram\_driver/BRAM} 和 MMIO 之间完成连接。核心内部的指令流依次经过 IFU、IF/ID、
-IDU、ID/EX 与 EXU，访存/写回流经 EX/MEM、MEM1/MEM2、MEM/WB、WB 和寄存器堆；
-IDU+CSR、BPU/RAS 与 EX2 构成独立的控制恢复通路。图中的红色 \code{ex\_redirect}
-明确给出预测错误或系统控制转移时对 PC 的重定向，以及对 IF/ID、ID/EX 的冲刷。
+图~\ref{fig:architecture} 按板级、系统集成和 CPU 内核三个层次展开。顶层的差分时钟
+和 PLL 为 CPU 与外设提供时钟；\code{student\_top} 连接 IROM、数据桥、BRAM、MMIO
+和 \code{KLDJ\_top}，明确了处理器核与板级资源的接口边界。
 
-核心模块 \code{KLDJ\_top} 的外部接口可分为取指和数据访存两组。指令由
-\code{tb\_if\_inst} 输入，当前取指 PC 通过 \code{tb\_if\_pc} 输出；数据侧输出
-\code{mem\_addr}、\code{mem\_wdata}、\code{mem\_we} 和四位
-\code{mem\_be}，同步读响应从 \code{mem\_rdata} 返回。
+在内核中，IFU 给出取指 PC，IROM 返回指令；指令依次经过 IF/ID、IDU、ID/EX 和 EXU。
+IDU 读取寄存器堆并生成控制信号，EXU 完成运算或形成访存地址。普通结果经 EX/MEM、
+MEM1/MEM2、MEM/WB 和 WB 写回寄存器堆；载入指令则在 MEM1 等待同步读响应，并在
+MEM2 完成数据选择和扩展。
 
-系统顶层将 PC 的 \code{[13:2]} 位连接到 4096 深度的指令存储器，因此指令空间容量
-为 16 KiB。数据请求先进入 \code{perip\_bridge}：\code{0x8010\_0000} 至
-\code{0x8013\_FFFF} 映射到 256 KiB 数据 BRAM；\code{0x8020\_0000} 区域映射到
-拨码开关、按键、数码管、LED 和计数器等外设。桥接模块把读地址类型寄存一拍，使同步
-DRAM 响应和 MMIO 响应在同一时序边界返回核心。
+数据侧通过 \code{perip\_bridge} 区分数据 BRAM 与 MMIO，\code{dram\_driver} 负责
+双端口 BRAM 的读写及写后读前递。控制侧由 BPU/RAS 在 IF 给出预测 PC，EX2 核对分支、
+跳转及 \code{ecall/mret} 的实际结果；预测错误时 \code{ex\_redirect} 重定向 PC 并冲刷
+IF/ID、ID/EX。该结构将数据通路、存储器访问和控制恢复分开，便于保证同步访存和控制
+转移条件下的执行正确性。
 
 \subsection{数据通路各模块的设计}
 
 \subsubsection{CPU 数据通路整体说明}
 
 主数据通路由六个阶段构成，阶段职责见表~\ref{tab:pipeline}。其中 EX2 只保存分支、
-跳转和系统控制指令的判定结果，和普通运算的 EX/MEM 数据通路并行，不应作为所有指令
+跳转和系统控制指令的判定结果，和普通运算的 EX/MEM 数据通路并行，不作为所有指令
 都经过的第七级。\code{pipe\_wb\_commit} 则是一个提交观察寄存器；寄存器堆的实际
 写入由 MEM/WB 状态驱动，因此该观察点也不改变体系结构写回级数。
 
@@ -327,8 +323,141 @@ DRAM 响应和 MMIO 响应在同一时序边界返回核心。
 结合图~\ref{fig:architecture}，寄存器堆的读数据沿指令流送入 IDU，写回结果则由 WB
 返回 RF；EX/MEM、MEM1/MEM2 和 MEM/WB 提供三路前递来源。BPU/RAS 在 IF 阶段给出
 预测 PC，EX2 接收实际转移结果；发生错误时，\code{flush / PC} 单元把
-\code{ex\_redirect} 返回 IF，并清除更年轻的流水线状态。数据存储器请求在 EX 阶段发出，
-响应经过 MEM1/MEM2 边界寄存后再参与前递和写回。
+\code{ex\_redirect} 返回 IF，并清除更年轻的流水线状态。以下结合各 RTL 模块说明数据
+在各级中的组织、寄存边界以及控制信号的作用。
+
+\noindent\textbf{参考文件路径约定：}以下文件名均相对于
+\code{sources\_1/imports/rtl/}；因此可直接由“阶段模块”与“流水寄存器/控制模块”两类
+源文件交叉核对本节描述。\code{KLDJ\_top.v} 是连接各级和生成全局停顿、冲刷信号的
+核心顶层。
+
+\subsubsection{取指模块与 IF/ID 寄存器}
+
+取指模块 \code{KLDJ\_ifu} 使用寄存器 \code{pc\_reg} 保存正在取指的地址，向指令
+存储器输出 \code{pc\_o}，并将返回指令直接作为 \code{inst\_o} 送入 IF/ID 边界。
+顺序地址 \code{snpc} 由 \(\mathrm{PC}+4\) 计算；预测器给出 \code{pred\_taken} 时，
+下一地址改取 \code{pred\_target}，否则取 \code{snpc}。因此，IF 阶段只负责地址选择和
+指令接收，不在组合逻辑中解释指令语义。
+
+\code{pc\_reg} 的时序更新优先级为复位、\code{redirect}、\code{hold} 和正常更新。
+其中 \code{redirect} 直接装入 EX2 核对得到的正确 PC，优先于前端停顿；\code{hold} 则
+保持 PC 不变，以便等待 load-use 相关或长周期运算结束。该优先级保证已经确认的控制
+恢复不会被停顿掩盖。\code{pipe\_if\_id} 在正常推进时锁存指令、PC、\code{snpc}、预测
+方向、预测目标和 PHT 索引；后面三项与指令同行，供 EX2 使用取指当时的预测信息进行
+核对和训练。重定向时该寄存器仅将 \code{if\_id\_valid} 清零，停顿时保持原状态；因而
+无效项即使保留了旧的数据信号，也不会被译码为有效指令。
+
+\noindent\textbf{参考 RTL 文件：}\code{stage/KLDJ\_ifu.v}、
+\code{pipe/pipe\_if\_id.v}；顶层连接见 \code{KLDJ\_top.v}。
+
+\subsubsection{译码模块与 ID/EX 寄存器}
+
+\code{KLDJ\_idu} 组合解析 \code{opcode}、\code{funct3}、\code{funct7} 与三个寄存器
+编号，并同时生成 I、S、B、U、J 五类立即数。译码结果不只是一组 ALU 操作码，还包括
+源寄存器读使能、目的寄存器号、写回使能、四路数据操作数、载入/存储控制
+\code{id\_ls\_ctl} 以及 CSR 地址和操作信息。只对实际使用 rs1、rs2 的指令拉高读使能，
+这样前递和停顿逻辑不会把立即数位或未使用字段误判为相关寄存器。
+
+四路操作数按指令类型复用。普通整数运算中，\code{data1} 取 rs1，\code{data2} 取 rs2
+或立即数；条件分支以 \code{data1}、\code{data2} 参与比较，再以 PC 和 B 型立即数计算
+目标；\code{JAL/JALR} 把 \code{snpc} 放入 \code{data3}，作为 rd 的链接值；存储指令则将
+rs2 放入 \code{data3}，作为独立的待写数据。
+这种安排使地址生成、写回值和存储数据在后续阶段有清晰、固定的来源。
+
+\code{pipe\_id\_ex} 是数据通路中信息最完整的级间寄存器。它锁存 PC、\code{snpc}、
+预测元数据、源/目的寄存器号、操作数、ALU/访存/CSR 控制和有效位，同时根据 ID 与下游
+写回目的寄存器的比较预计算两路前递选择。选择码随指令进入 EX，避免在 EX 的关键组合
+路径上重新进行多路地址比较。若检测到紧邻 load-use 相关，该寄存器写入一个无效气泡；
+若乘除法尚未完成则保持自身全部载荷，防止同一条长周期指令被重新发射。
+
+\noindent\textbf{参考 RTL 文件：}\code{stage/KLDJ\_idu.v}、
+\code{pipe/pipe\_id\_ex.v}。
+
+\subsubsection{执行单元、前递入口与 EX2 控制边界}
+
+EX 阶段由 \code{ex\_forward}、\code{KLDJ\_exu} 和 \code{ex\_mem\_req\_ctrl} 组成。
+\code{ex\_forward} 按 ID/EX 中已寄存的选择码，分别为 rs1 和 rs2 从原操作数、EX/MEM
+运算结果、MEM2 已格式化结果或 MEM/WB 写回值中选择最新值。存储数据另用
+\code{ex\_store\_wdata} 输出，故存储 rs2 的前递不会改变地址计算。对于载入和存储，
+\code{KLDJ\_exu} 使用专用 \code{ls\_imm} 计算 \(\mathrm{rs1}+\mathrm{imm}\)；该立即数
+绕开 rs2 前递多路器，消除了“前递后的存储数据被误作地址操作数”的风险。
+
+\code{KLDJ\_exu} 内的 \code{KLDJ\_alu} 完成算术、逻辑、移位和大小比较。比较标志直接
+驱动六种条件分支；\code{JALR} 目标在加法后强制最低位为零，\code{JAL/JALR} 的写回值为
+\code{snpc}。对于 RV32M 的乘法、除法和余数指令，执行单元经 IP 包装器给出
+\code{busy/done}，在结果未就绪期间产生 \code{mul\_stall} 或
+\code{div\_stall}。顶层据此保持前端和 ID/EX，并向 EX/MEM 注入无效项；完成后结果才
+随该指令向后推进。
+
+普通运算结果在同一周期进入 EX/MEM，而分支、跳转、\code{ecall} 和 \code{mret} 的实际
+方向、目标及预测信息还会写入专用 EX2 寄存器。EX2 只承载控制转移，不使每条普通指令
+额外增加一级。\code{ex\_bpu\_ctrl} 在下一拍比较预测方向、预测目标与实际结果，输出
+\code{ex\_redirect} 和 \code{ex\_correct\_pc}；顶层用 \code{ex\_current\_valid}
+屏蔽重定向当拍仍在 EX 的更年轻指令，故错误路径不能继续产生存储写或 CSR 写副作用。
+
+\noindent\textbf{参考 RTL 文件：}\code{stage/KLDJ\_exu.v}、
+\code{pipe/ex\_forward.v}、\code{pipe/ex\_mem\_req\_ctrl.v}；EX2 核对逻辑见
+\code{pipe/ex\_bpu\_ctrl.v} 和 \code{KLDJ\_top.v}。
+
+\subsubsection{访存请求、MEM1/MEM2 与载入格式化}
+
+\code{ex\_mem\_req\_ctrl} 在 EX 生成数据存储器接口。它输出有效地址 \code{mem\_addr}、
+对齐后的 \code{mem\_wdata}、写使能 \code{mem\_we} 和四位字节使能 \code{mem\_be}。
+字节写使能为 \(4'b0001\ll a[1:0]\)，半字写使能根据 \(a[1]\) 选择低半字或高半字，
+字写使能为 \(4'b1111\)；写 byte/half 时分别复制源数据的低 8/16 位，使 BRAM 可以只由
+\code{mem\_be} 决定实际更新的字节。\code{mem\_we} 必须同时满足指令有效、EX 未停顿且
+确为存储，因而冲刷项不会写入存储器。读端口允许保持地址输出，因为无效读没有体系
+结构副作用，其返回值也不会被无效流水项使用。
+
+\code{pipe\_ex\_mem} 构成 MEM1 的输入边界，锁存结果、rd、写回/载入控制、访存控制和
+地址低两位。后者与同步返回的 \code{mem\_rdata} 在 \code{pipe\_mem1\_mem2} 边界会合，
+保证响应与发起请求的指令元数据对应。对非载入指令，EX 结果直接成为后续值；对载入
+指令，\code{KLDJ\_lsu} 按地址低两位选出 byte 或 half，并依 \code{ls\_ctl} 做符号扩展
+或零扩展。当前配置在 MEM1/MEM2 寄存器之前完成该格式化，并将结果再次寄存为
+\code{mem2\_forward\_data}。因此 EX 前递到的是稳定的、完整的体系结构载入值，而不是
+BRAM 的实时输出；紧邻 load-use 只需要插入一个周期的气泡。
+
+\noindent\textbf{参考 RTL 文件：}\par
+\noindent\code{pipe/ex\_mem\_req\_ctrl.v}、\code{pipe/pipe\_ex\_mem.v}；\par
+\noindent\code{pipe/pipe\_mem\_wb.v}、\code{stage/KLDJ\_lsu.v}、
+\code{pipe/mem\_stage\_top.v}。\code{pipe\_mem1\_mem2} 定义在
+\code{pipe/pipe\_mem\_wb.v} 中。
+
+\subsubsection{MEM2、写回与通用寄存器堆}
+
+在 MEM2 中，\code{mem\_stage\_top} 负责选择写回数据。载入指令取已格式化的载入结果
+\code{mem2\_forward\_data}，其余指令取 EX 结果。该模块同时将写回控制与
+\code{mem2\_valid} 相与，随后 \code{pipe\_mem\_wb} 锁存 PC、rd、数据和写使能。
+\code{KLDJ\_wbu} 本身不再进行复杂选择，而是把 MEM2 已确定的数据直接送到 MEM/WB
+输入；这使前递、写回路径共享同一份载入格式化结果，避免两条路径的符号扩展规则不一致。
+
+\code{KLDJ\_regfile} 实现 32 个 32 位通用寄存器，具有两个组合读端口和一个时钟上升沿
+写端口。写入地址为 \code{x0} 时被抑制，复位时所有寄存器清零。读端口在同一周期检测到
+有效写回地址与读地址相同，会直接返回 \code{wdata} 而不是阵列旧值，形成 write-through
+旁路；因此 WB 到 ID 的同周期相关无需额外停顿。最后，\code{pipe\_wb\_commit} 只复制
+MEM/WB 状态作为提交观察点，用于调试和性能统计，并不位于寄存器堆实际写入路径上。
+
+\noindent\textbf{参考 RTL 文件：}\code{pipe/mem\_stage\_top.v}、
+\code{pipe/pipe\_mem\_wb.v}、\code{stage/KLDJ\_wbu.v}、
+\code{stage/KLDJ\_regfile.v}、\code{pipe/pipe\_wb\_commit.v}。
+
+\subsubsection{级间有效位与端到端保护}
+
+各级边界均以 \code{valid} 区分真实指令和气泡。IF/ID 的有效位控制译码输入，ID/EX 的
+有效位与写回、载入、存储和 CSR 控制一起向后传递，EX/MEM、MEM1/MEM2 和 MEM/WB 继续
+把有效性绑定到各自的数据。正常情况下各寄存器每拍推进；load-use 时 IF/ID 保持而 ID/EX
+注入气泡；长周期运算时 IF、IF/ID 和 ID/EX 均保持，EX/MEM 输出无效；控制恢复时 IF/ID
+和 ID/EX 清零，同时 EX 侧的 \code{ex\_current\_valid} 立即撤销。
+
+这种“数据与有效位同行、在副作用边界再次检查”的设计比只在前端改写 PC 更完整：寄存器
+堆写使能来自有效的 MEM/WB 项，存储写使能由有效的 EX 项限定，CSR 写、\code{ecall} 状态
+保存和 \code{mret} 状态恢复也都与 \code{ex\_current\_valid} 相与。因而无论气泡来自相关
+处理，还是指令来自错误预测路径，均不会对寄存器、存储器和 CSR 留下可见状态。
+
+\noindent\textbf{参考 RTL 文件：}\code{KLDJ\_top.v} 负责全局优先级和 EX 侧有效性；
+各级有效位的寄存与气泡注入分别见 \code{pipe/pipe\_if\_id.v}、
+\code{pipe/pipe\_id\_ex.v}、\code{pipe/pipe\_ex\_mem.v} 和
+\code{pipe/pipe\_mem\_wb.v}。
 
 % -----------------------------------------------------------------------------
 \section{前端预测与控制通路设计}
@@ -339,7 +468,7 @@ DRAM 响应和 MMIO 响应在同一时序边界返回核心。
 \begin{equation}
   \mathrm{snpc}=\mathrm{PC}+4.
 \end{equation}
-若前端预测转移，则下一 PC 取预测目标，否则取 \code{snpc}。时序控制的优先级为：
+若前端预测转移，则下一 PC 取预测目标，否则取 \code{snpc}。时序控制的优先级依次为：
 复位、执行级重定向、前端保持、正常预测/顺序更新。重定向高于停顿，保证即使流水线
 因数据相关或长周期运算保持，已经解析出的错误路径仍能立即触发恢复。
 
@@ -603,9 +732,10 @@ BRAM 容量为 \(65536\times32\) bit，共 256 KiB，具有四位逐字节写使
 
 \subsection{验证方法}
 
-功能验证采用定向激励与内部关键信号观察相结合的方法。三组仿真分别覆盖存储器接口、
-前端预测和系统控制；不仅检查最终数据，还检查请求、状态更新和重定向的周期关系。
-表~\ref{tab:verification} 给出建议的判定要点。
+功能验证采用定向激励与内部关键信号观察相结合的方法。三组波形分别覆盖存储器接口、
+前端预测和系统控制；判定依据不仅包括最终数据，还包括写请求、预测器训练、CSR 更新和
+重定向之间的先后关系。本节的范围限于图中所示的基础流水线、存储器、预测和 CSR 控制
+验证。表~\ref{tab:verification} 列出各图对应的观察点。
 
 \begin{table}[H]
   \centering
@@ -615,14 +745,16 @@ BRAM 容量为 \(65536\times32\) bit，共 256 KiB，具有四位逐字节写使
     \toprule
     仿真对象 & 主要观察信号 & 通过条件 \\
     \midrule
-    双端口 BRAM & 写使能、地址、字节使能、写数据、读地址、缓冲有效、读数据 &
-    全字与局部写入正确；紧邻同址读取取得合并后的新值；异址读取不误前递 \\
-    BPU & lookup PC、PHT 索引、预测方向/目标、更新方向/目标、BTB 命中、GHR、重定向 &
-    冷启动预测确定；训练后计数器饱和变化；BTB 目标命中；方向或目标错误均触发恢复 \\
+    双端口 BRAM & \code{perip\_addr/perip\_be}、端口 A/B 地址与使能、
+    \code{fwd\_r}、期望值和读数据 &
+    全字写入正确；同一字的字节更新被合并；旁路命中时三个读出值均为新字 \\
+    BPU & \code{if\_pc}、\code{btb\_hit}、\code{pred\_taken}、实际方向、
+    PHT 索引/计数、GHR、\code{ex\_redirect} &
+    冷启动时顺序取指并恢复；训练后 BTB 与方向预测共同命中；末次方向改变再次恢复 \\
     \code{ecall/mret} & 当前 PC、\code{mepc}、\code{mcause}、\code{mtvec}、
     \code{mstatus}、重定向与目标 PC &
-    \code{ecall} 跳到 \code{mtvec} 并保存状态；软件调整 \code{mepc} 后，
-    \code{mret} 返回正确地址并恢复状态位 \\
+    \code{ecall} 跳到 \code{mtvec} 并保存状态；处理程序将 \code{mepc} 写为下一条
+    指令地址后，\code{mret} 返回该地址并恢复状态位 \\
     \bottomrule
   \end{tabularx}
 \end{table}
@@ -632,60 +764,72 @@ BRAM 容量为 \(65536\times32\) bit，共 256 KiB，具有四位逐字节写使
 \begin{figure}[H]
   \centering
   \insertfigure{figures/dual_port_bram_sim.png}
-  \caption{双端口 BRAM 全字写入、字节更新与写后读前递仿真}
+  \caption{双端口 BRAM 的全字写入、同字节更新和旁路读出波形}
   \label{fig:bram-sim}
 \end{figure}
 
-图~\ref{fig:bram-sim} 验证同一字地址 \code{0x0040} 的定向读写。全字写入阶段中，
-\code{perip\_wdata} 为 \code{0xAABBCCDD}，写使能为 \code{4'b1111}。
-经过同步读响应边界，\code{expected\_rdata}、\code{perip\_rdata} 和 \code{doutb}
-均得到 \code{0xAABBCCDD}。随后在约 \(60\,\mathrm{ns}\) 对字节地址 \code{0x00101}
-发起 \code{4'b0010} 的局部写入，写数据为 \code{0x5A5A5A5A}。
+图~\ref{fig:bram-sim} 的前半段先完成全字写入。外设侧的 \code{perip\_addr} 为
+\code{0x00100}，\code{perip\_be} 为 \code{4'b1111}，写数据 \code{perip\_wdata} 为
+\code{0xAABBCCDD}；寄存后的端口 A 对应字地址为 \code{0x0040}。此后
+\code{expected\_word}、\code{perip\_rdata} 与端口 B 的 \code{doutb} 都读出
+\code{0xAABBCCDD}，说明全字写入和同步读路径一致。
 
-前递字节使能
-\code{fwd\_byte\_en\_r} 同步变为 \code{4'b0010}，仅覆盖第二个字节；约
-\(80\,\mathrm{ns}\) 后三路读数据一致为 \code{0xAABB5ADD}。这表明注册写路径下的
-同址读能够取得逐字节合并后的新值，而非 BRAM 的旧值。
+后半段把外设字节地址改为 \code{0x00101}，并以 \code{perip\_be=4'b0010} 写入
+\code{0x5A5A5A5A}。图中端口 A 的 \code{wea} 也为 \code{4'b0010}，端口 B 保持读使能，
+两端仍访问字地址 \code{0x0040}；此时 \code{fwd\_r} 拉高，
+\code{fwd\_byte\_en\_r=4'b0010}，表明写缓冲命中同址读取。旁路只用写数据覆盖第二个
+字节，故 \code{expected\_word}、\code{perip\_rdata} 和 \code{doutb} 同时变为
+\code{0xAABB5ADD}。波形验证了逐字节合并以及注册写路径下同址读取得新值的行为。
 
 \subsection{BPU 功能仿真}
 
 \begin{figure}[H]
   \centering
   \insertfigure{figures/bpu_sim.png}
-  \caption{gshare、PHT 与 BTB 的训练、稳定预测和恢复仿真}
+  \caption{gshare--PHT--BTB 从冷启动训练到方向恢复的波形}
   \label{fig:bpu-sim}
 \end{figure}
 
-图~\ref{fig:bpu-sim} 以 \code{0x80000000} 处的循环分支验证预测器的状态演化。冷启动时
-PHT 计数器为弱不跳转状态 \code{01}，连续的实际跳转使 \code{ghr\_observe} 依次从
-\code{00} 演化为 \code{01}、\code{03}、\code{07}、\code{0F}、\code{1F} 和
-\code{3F}，对应的查找/更新索引也按 gshare 规则变化。BTB 建立目标
-\code{0x80000000} 后，PHT 计数器依次达到 \code{10} 和 \code{11}；约
-\(160\,\mathrm{ns}\) 起 \code{pred\_taken} 有效，后续连续跳转不再触发
-\code{ex\_redirect}。末次实际结果改为不跳转时，取指 PC 转为 \code{0x80000004}，
-GHR 更新为 \code{3E}，PHT 计数器由 \code{11} 回退为 \code{10}，并产生一次恢复。
-波形因此同时验证了冷启动训练、BTB 命中、稳态预测和方向失配恢复。
+图~\ref{fig:bpu-sim} 使用 \code{0x80000000} 处的 \code{bne x1,x0,0x80000000}
+构成循环，\code{loop\_x1} 由测试激励逐轮递减。第一次到达该分支时，
+\code{btb\_hit=0} 且 \code{pred\_taken=0}，前端先按顺序地址
+\code{0x80000004} 取指；但 EX2 得到 \code{actual\_taken=1} 和正确目标
+\code{0x80000000}，因此 \code{ex\_redirect} 脉冲将 PC 拉回循环入口。该现象与
+\code{bpu.v} 中 ``BTB 命中且 PHT 高位为 1'' 才预测跳转的实现一致。
+
+每次已解析的分支均产生更新有效信号；更新索引随取指流水传递，更新方向取自实际执行
+结果。图中的 \code{ghr\_observe} 与 PHT 观察值随连续跳转更新，BTB 随之记录
+\code{0x80000000} 这一目标。训练完成后，
+\code{btb\_hit} 与 \code{pred\_taken} 同时有效，预测路径直接回到循环入口，不再产生
+方向失配恢复。循环最后一次使 \code{actual\_taken} 变为 0，尽管此前仍预测跳转，
+\code{ex\_correct\_pc} 转为 \code{0x80000004} 并再次触发 \code{ex\_redirect}；相应 PHT
+项按饱和计数规则减一。波形由此覆盖首次冷启动失配、训练后的稳定命中以及退出循环时的
+方向恢复。
 
 \subsection{ecall 与 mret 功能仿真}
 
 \begin{figure}[H]
   \centering
   \insertfigure{figures/ecall_mret_sim.png}
-  \caption{\code{ecall} 进入、CSR 状态更新与 \code{mret} 返回仿真}
+  \caption{\code{ecall} 保存现场、处理程序修改 \code{mepc} 与 \code{mret} 返回波形}
   \label{fig:ecall-mret-sim}
 \end{figure}
 
-图~\ref{fig:ecall-mret-sim} 展示了完整的机器模式控制闭环。首先，测试程序通过
-CSR 地址 \code{0x305} 将 \code{mtvec} 配置为 \code{0x80000100}，并通过地址
-\code{0x300} 将 \code{mstatus} 置为 \code{0x00001808}。约 \(60\,\mathrm{ns}\) 时
-\code{is\_ecall} 和 \code{ecall\_valid} 有效，\code{mepc} 捕获
-\code{0x80000020}，\code{mcause} 更新为 \code{0x0000000B}，\code{mstatus} 变为
-\code{0x00001880}，且 \code{ex\_redirect} 将 PC 重定向到 \code{0x80000100}。
-处理程序随后经 CSR 地址 \code{0x341} 把 \code{mepc} 改写为 \code{0x80000024}。
-约 \(100\,\mathrm{ns}\) 时 \code{is\_mret} 和 \code{mret\_valid} 有效，
-\code{mret\_pc} 与 \code{ex\_jump\_pc} 均为 \code{0x80000024}，重定向后的取指
-PC 也稳定为该地址，同时 \code{mstatus} 恢复为 \code{0x00000088}。由此验证了
-\code{ecall} 状态保存、软件调整返回地址和 \code{mret} 恢复执行的完整时序。
+图~\ref{fig:ecall-mret-sim} 从 CSR 初始化开始：\code{csr\_addr=0x305}、
+\code{csr\_wdata=0x80000100} 配置 \code{mtvec}，随后以地址 \code{0x300} 写入
+\code{mstatus=0x00001808}。当 PC 到达 \code{0x80000020} 时，\code{is\_ecall} 和
+\code{ecall\_valid} 有效；\code{mepc\_observe} 保存该条 \code{ecall} 的地址，
+\code{mcause\_observe} 写为 \code{0x0000000B}，\code{mstatus\_observe} 由
+\code{0x00001808} 变为 \code{0x00001880}。同时，\code{ex\_redirect} 把取指 PC
+重定向到 \code{mtvec} 所指的 \code{0x80000100}。
+
+进入处理程序后，图中 \code{csr\_addr=0x341}、\code{csr\_wdata=0x80000024} 将
+\code{mepc} 改为 \code{ecall} 的下一条指令地址。这一步是必要的：RTL 的
+\code{KLDJ\_csr} 在 \code{ecall} 时保存输入的 \code{ecall\_pc}，不会自动加 4。
+随后 \code{is\_mret} 和 \code{mret\_valid} 有效，\code{mret\_pc}、
+\code{exu\_jump\_pc} 与重定向目标均为 \code{0x80000024}；\code{mstatus} 则由
+\code{0x00001880} 恢复为 \code{0x00000088}。因此该图验证了 \code{ecall} 的状态保存、
+软件修正返回地址和 \code{mret} 恢复机器状态及执行位置的完整闭环。
 
 % -----------------------------------------------------------------------------
 \section{系统集成与设计特点}
