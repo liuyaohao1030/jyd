@@ -29,11 +29,29 @@ case "$TEST" in
         TB_FILE="$TB_DIR/KLDJ_top_tb.sv"
         PASS_PATTERN="ALL TESTS PASSED"
         ;;
+    rv32i-full|rv32i_full|KLDJ_rv32i_tb)
+        TEST="rv32i-full"
+        TOP="KLDJ_rv32i_tb"
+        TB_FILE="$TB_DIR/KLDJ_rv32i_tb.sv"
+        PASS_PATTERN="RV32I TEST PASSED"
+        ;;
     rv32m|m|m-ext|m_ext|m_ext_ip_wrapper_tb)
         TEST="rv32m"
         TOP="m_ext_ip_wrapper_tb"
         TB_FILE="$TB_DIR/m_ext_ip_wrapper_tb.sv"
         PASS_PATTERN="m_ext_ip_wrapper_tb passed"
+        ;;
+    rv32m-full|rv32m_full|KLDJ_rv32m_tb)
+        TEST="rv32m-full"
+        TOP="KLDJ_rv32m_tb"
+        TB_FILE="$TB_DIR/KLDJ_rv32m_tb.sv"
+        PASS_PATTERN="RV32M TEST PASSED"
+        ;;
+    csr|csr-full|KLDJ_csr_tb)
+        TEST="csr"
+        TOP="KLDJ_csr_tb"
+        TB_FILE="$TB_DIR/KLDJ_csr_tb.sv"
+        PASS_PATTERN="CSR TEST PASSED"
         ;;
     irom-v2|iromv2|perf)
         TEST="irom-v2"
@@ -208,9 +226,12 @@ case "$TEST" in
         exit 0
         ;;
     -h|--help|help)
-        echo "Usage: $0 [rv32i|rv32m|irom-v2|load-dep|ex2-ctrl|bpu|bpu-integration|ex-bpu-ctrl|ras|ras-integration|dram-driver|zba|zbb|zbc|zbs|zbkb|zbkx|rtl-zb|zb-all|zb-one-all] [timeout_seconds]"
+        echo "Usage: $0 [rv32i|rv32i-full|rv32m|rv32m-full|csr|irom-v2|load-dep|ex2-ctrl|bpu|bpu-integration|ex-bpu-ctrl|ras|ras-integration|dram-driver|zba|zbb|zbc|zbs|zbkb|zbkx|rtl-zb|zb-all|zb-one-all] [timeout_seconds]"
         echo "Examples:"
         echo "  $0 rv32i"
+        echo "  $0 rv32i-full    # comprehensive RV32I test"
+        echo "  $0 rv32m-full    # comprehensive RV32M test"
+        echo "  $0 csr           # CSR + ecall/mret test"
         echo "  $0 rv32m 120"
         echo "  $0 rtl-zb 60  # read the source-only selector in rtl/zb/zb_cfg.vh"
         echo "  $0 zb-one-all 60  # test all 46 RV32 Zb instructions one at a time"
@@ -218,7 +239,7 @@ case "$TEST" in
         ;;
     *)
         echo "Unknown test: $TEST"
-        echo "Usage: $0 [rv32i|rv32m|irom-v2|load-dep|ex2-ctrl|bpu|bpu-integration|ex-bpu-ctrl|ras|ras-integration|dram-driver|zba|zbb|zbc|zbs|zbkb|zbkx|rtl-zb|zb-all|zb-one-all] [timeout_seconds]"
+        echo "Usage: $0 [rv32i|rv32i-full|rv32m|rv32m-full|csr|irom-v2|load-dep|ex2-ctrl|bpu|bpu-integration|ex-bpu-ctrl|ras|ras-integration|dram-driver|zba|zbb|zbc|zbs|zbkb|zbkx|rtl-zb|zb-all|zb-one-all] [timeout_seconds]"
         exit 2
         ;;
 esac
